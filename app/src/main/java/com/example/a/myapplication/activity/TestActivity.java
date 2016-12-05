@@ -28,7 +28,7 @@ public class TestActivity extends BaseActivity {
                 return performLoadingData();
             }
         };
-        setContentView(mLoadingPager);*/
+        setContentView(mLoadingPager);*///测试分支
     }
 
     @Override
