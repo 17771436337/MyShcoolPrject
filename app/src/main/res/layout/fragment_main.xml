@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
 
-    <RelativeLayout
-        android:id="@+id/title_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="@dimen/bottom_tab_height"/>
-
-    <Button
-        android:id="@+id/message_test"
+    <!-- Recents View -->
+    <com.wirelesspienetwork.overview.views.Overview
+        android:id="@+id/recents_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="我 是第一个页面"/>
+        android:layout_height="match_parent"
+        android:focusable="true" />
 
 
 
