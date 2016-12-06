@@ -40,12 +40,11 @@ public abstract class BaseActivity extends FragmentActivity {
     protected static List<Activity> mActivities = new LinkedList<Activity>();
     private static Activity mCurrentActivity;
     protected TitleView mTitleView;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
-        // LocalDisplay.init(this);
+       // LocalDisplay.init(this);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
@@ -70,11 +69,14 @@ public abstract class BaseActivity extends FragmentActivity {
         }
     }
 
+
+
+
     @Override
     protected void onResume() {
         super.onResume();
         BaseApplication.mCurrentActivity = this;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && !(this instanceof MainActivity)) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT&& !(this instanceof MainActivity)) {
             setTranslucentStatus(true);
             SystemBarTintManager tintManager = new SystemBarTintManager(this);
             tintManager.setStatusBarTintEnabled(true);
@@ -85,15 +87,17 @@ public abstract class BaseActivity extends FragmentActivity {
 
     protected abstract int getLayoutID();
 
-    protected void addTitle() {
-        mTitleView = new TitleView(this);
+    protected void addTitle(){
+        mTitleView=  new TitleView(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
                 FrameLayout.LayoutParams.WRAP_CONTENT);
+        // 设置广告出现的位置(悬浮于顶部)
         params.topMargin = 0;
-        params.gravity = Gravity.TOP;
-        mView.addView(mTitleView.getView(), params);
+        params.gravity = Gravity.TOP ;
+        mView.addView(mTitleView.getView(),params);
         setContentView(mView);
+       // addContentView(mTitleView.getView(), params);
     }
 
     @Override
@@ -140,6 +144,22 @@ public abstract class BaseActivity extends FragmentActivity {
 
     protected abstract void initData();
 
+    protected LoadingPagerActivity.LoadedResult checkData(Object data) {
+        if (data == null) {
+            return LoadingPagerActivity.LoadedResult.EMPTY;
+        }
+        if (data instanceof List) {
+            if (((List) data).size() == 0) {
+                return LoadingPagerActivity.LoadedResult.EMPTY;
+            }
+        }
+        if (data instanceof Map) {
+            if (((Map) data).size() == 0) {
+                return LoadingPagerActivity.LoadedResult.EMPTY;
+            }
+        }
+        return LoadingPagerActivity.LoadedResult.SUCCESS;
+    }
 
     public static Activity getmCurrentActivity() {
         return mCurrentActivity;

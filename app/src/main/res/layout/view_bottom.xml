@@ -36,22 +36,11 @@
                 android:layout_below="@+id/icon1"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="3dp"
-                android:text="消息"
+                android:text="专属"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
 
-            <TextView
-                android:id="@+id/count"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="12dp"
-                android:background="@drawable/num_mes"
-                android:layout_marginTop="3dp"
-                android:gravity="center"
-                android:text="2"
-                android:textColor="@color/white"
-                android:textSize="10sp" />
+
         </RelativeLayout>
 
         <RelativeLayout
@@ -75,7 +64,7 @@
                 android:layout_below="@+id/icon2"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="3dp"
-                android:text="俱乐部"
+                android:text="衣橱"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
             <TextView
@@ -93,6 +82,7 @@
                 android:textSize="10sp" />
         </RelativeLayout>
 
+
         <RelativeLayout
             android:id="@+id/b3_layout"
             android:layout_width="0dp"
@@ -105,8 +95,7 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="5dp"
-                android:visibility="invisible" />
+                android:layout_marginTop="5dp" />
 
             <TextView
                 android:id="@+id/text3"
@@ -114,8 +103,8 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/icon3"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="5dp"
-                android:text=""
+                android:layout_marginTop="3dp"
+                android:text="设计师"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
         </RelativeLayout>
@@ -139,32 +128,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/icon4"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="3dp"
-                android:text="发现"
-                android:textColor="@color/white"
-                android:textSize="12sp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/b5_layout"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_weight="1" >
-
-            <ImageView
-                android:id="@+id/icon5"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="5dp" />
-
-            <TextView
-                android:id="@+id/text5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/icon5"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="3dp"
                 android:text="我"

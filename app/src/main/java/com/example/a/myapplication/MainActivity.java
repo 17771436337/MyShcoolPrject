@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -18,10 +17,9 @@ import com.example.a.myapplication.fragment.MessageFragment;
 import com.example.a.myapplication.fragment.MineFragment;
 import com.example.a.myapplication.util.ScreenUtils;
 import com.example.a.myapplication.view.BottomView;
-import com.example.a.myapplication.view.PostView;
 
 
-public class MainActivity extends BaseActivity implements  View.OnClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener {
     private FragmentTransaction mFragmentTransaction;// 碎片的事物
     private FragmentManager mFragmentManager;// 碎片管理器
 
@@ -41,9 +39,9 @@ public class MainActivity extends BaseActivity implements  View.OnClickListener 
     private RelativeLayout mBottomLayout;
     private BottomView mBottomView;
 
-    private RelativeLayout post_layout;
-    private PostView mPostView;
+
     public static MainActivity mainActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +54,7 @@ public class MainActivity extends BaseActivity implements  View.OnClickListener 
 
     @Override
     public void initView() {
-       // setContentView(R.layout.activity_mainactivty);
+        // setContentView(R.layout.activity_mainactivty);
         mBottomLayout = (RelativeLayout) findViewById(R.id.bottom_layout);
         mBottomView = new BottomView(this);
         mBottomLayout.addView(mBottomView.getView());
@@ -69,18 +67,8 @@ public class MainActivity extends BaseActivity implements  View.OnClickListener 
             }
         });
 
-        post_layout = (RelativeLayout) findViewById(R.id.post_layout);
-        mPostView = new PostView(this);
-        post_layout.addView(mPostView.getView());
-        ImageView post_image = (ImageView) findViewById(R.id.post_image);
-        post_image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                currentPostion = 2;
-                mBottomView.onSelect(2);
-                showContent();
-            }
-        });
+
+
 
     }
 
@@ -101,7 +89,6 @@ public class MainActivity extends BaseActivity implements  View.OnClickListener 
     }
 
     private void showContent() {
-        post_layout.setVisibility(View.GONE);
 
 
         if (currentPostion == 1 || currentPostion == 2 || currentPostion == 3
@@ -136,7 +123,6 @@ public class MainActivity extends BaseActivity implements  View.OnClickListener 
         this.findCatchFragment = (ClubFragment) getCacheFragment("tab2");
         this.tradeCatchFragment = (FindFragment) getCacheFragment("tab4");
         this.mineCatchFragment = (MineFragment) getCacheFragment("tab5");
-
 
 
         this.hideFragment(mainCatchFragment);
