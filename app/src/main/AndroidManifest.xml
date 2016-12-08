@@ -18,6 +18,20 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.TestActivity"></activity>
+        <!--我的订单-->
+        <activity android:name=".activity.MyOrderActivity"></activity>
+
+        <!--我的粉丝-->
+        <activity android:name=".activity.MyFansActivity"></activity>
+
+        <!--我的收藏-->
+        <activity android:name=".activity.MyCollectActivity"></activity>
+
+        <!--设置-->
+        <activity android:name=".activity.SettingActivity"></activity>
+
+        <!--积分记录-->
+        <activity android:name=".activity.IntegralActivity"></activity>
     </application>
 
 </manifest>
