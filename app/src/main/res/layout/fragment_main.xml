@@ -4,13 +4,47 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+      >
+
+
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/title_text_color"
+            android:text="标题"
+            android:layout_centerInParent="true"/>
+        <TextView
+            android:id="@+id/message_test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="2"
+            android:layout_marginRight="10dp"
+            android:textColor="@color/top_bg_color"
+            android:textSize="14sp"/>
+        <ImageView
+            android:id="@+id/message_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/message_test"
+            android:layout_marginLeft="30dp"
+            android:src="@drawable/icon_message"/>
+    </RelativeLayout>
+
     <!-- Recents View -->
     <com.wirelesspienetwork.overview.views.Overview
         android:id="@+id/recents_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:focusable="true" />
-
+        android:focusable="true"/>
 
 
 </LinearLayout>

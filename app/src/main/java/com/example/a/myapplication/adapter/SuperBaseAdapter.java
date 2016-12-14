@@ -2,7 +2,6 @@ package com.example.a.myapplication.adapter;
 
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 
 import com.example.a.myapplication.holder.BaseHolder;
@@ -20,6 +19,11 @@ public abstract class SuperBaseAdapter<T> extends BaseAdapter{ //implements Adap
         this.mDatas = datas;
         this.mListView = listView;
        // mListView.setOnRereshListListenr(this);
+    }
+
+    public SuperBaseAdapter( List<T> datas) {
+        this.mDatas = datas;
+
     }
 
     @Override
@@ -57,7 +61,7 @@ public abstract class SuperBaseAdapter<T> extends BaseAdapter{ //implements Adap
         return convertView;
     }
 
-    protected abstract BaseHolder<T> getItemHolder(int position);
+    protected abstract BaseHolder getItemHolder(int position);
   /*  @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 

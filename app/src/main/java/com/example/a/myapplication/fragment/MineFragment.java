@@ -6,87 +6,113 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.a.myapplication.R;
-import com.example.a.myapplication.adapter.TestAdapter;
-import com.example.a.myapplication.bean.TestModel;
-import com.handmark.pulltorefresh.library.PullToRefreshBase;
-import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.example.a.myapplication.activity.IntegralActivity;
+import com.example.a.myapplication.activity.MessageActvity;
+import com.example.a.myapplication.activity.MyCollectActivity;
+import com.example.a.myapplication.activity.MyFansActivity;
+import com.example.a.myapplication.activity.MyOrderActivity;
+import com.example.a.myapplication.activity.MyProFileActivity;
+import com.example.a.myapplication.activity.ShopActivity;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.example.a.myapplication.activity.app.SettingActivity;
+import com.example.a.myapplication.util.CommonUtils;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
+
+import static android.widget.Toast.makeText;
 
 
 public class MineFragment extends Fragment {
 
-	TestAdapter mTestAdapter;
-    @InjectView(R.id.pull_layout)
-	PullToRefreshListView pull_layout;
-	TestModel mTestModel;
-	View view;
-	@Override
-	public View onCreateView(LayoutInflater inflater,
-							 @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-		super.onCreateView(inflater, container, savedInstanceState);
-		view=inflater.inflate(R.layout.fragment_mine, container, false);
-		return view;
-	}
-	@Override
-	public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		ButterKnife.inject(this, getView());
-		getData();
-		initView();
-
-	}
+    View view;
 
 
-	private void initView() {
-		pull_layout.setMode(PullToRefreshBase.Mode.BOTH);
-		mTestAdapter = new TestAdapter(pull_layout, mTestModel.getPeos());
-		pull_layout.getRefreshableView().setAdapter(mTestAdapter);
+    @InjectView(R.id.title_text)
+    protected TextView titleText;//标题
 
-		/*mTestAdapter.setOnRereshListListenr(this);
-		mListView.getRefreshableView().setAdapter(adapter);
-		mListView.setMode(Mode.BOTH);
-		mListView
-				.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+    @InjectView(R.id.right)
+    protected ImageView setImg;//设置图标
 
-					@Override
-					public void onPullDownToRefresh(
-							PullToRefreshBase<ListView> refreshView) {
-						page = 1;
-						initData();
-					}
+    @InjectView(R.id.head)
+    protected ImageView head;//头像
 
-					@Override
-					public void onPullUpToRefresh(
-							PullToRefreshBase<ListView> refreshView) {
-						page++;
-						initData();
-					}
-				});*/
-	}
-	/**
-	 * 添加数据
-	 * @param
+    @InjectView(R.id.name)
+    protected TextView name;//名字
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
+        view = inflater.inflate(R.layout.fragment_mine, container, false);
+        return view;
+    }
+
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        ButterKnife.inject(this, view);
+        initTtitle();
+    }
+
+
+    /**
+     * 设置标题
      */
-	public void getData(){
-		mTestModel=new TestModel();
-		List<TestModel.Peo> list = new ArrayList<TestModel.Peo>();
-		for (int i=0;i<10;i++){
-			TestModel.Peo pep=new TestModel.Peo();
-			pep.setAge(i+"");
-			pep.setName("名字"+i);
-			pep.setSex(i+"");
-			list.add(pep);
-			mTestModel.setPeos(list);
-		}
-	}
+    private void initTtitle() {
+        titleText.setText(" ");
+        setImg.setImageResource(R.drawable.icon_setting);
+    }
 
+
+    /**
+     * 监听事件
+     */
+    @OnClick({R.id.order_text, R.id.shopping_text, R.id.integral_text,
+            R.id.replacement_text, R.id.collect_text, R.id.fans_layout,
+            R.id.attention_layout, R.id.right, R.id.file_text,R.id.message_icon})
+    public void OnClic(View v) {
+        switch (v.getId()) {
+            case R.id.order_text://我的订单
+                CommonUtils.startIntent(getActivity(), MyOrderActivity.class);
+                break;
+            case R.id.shopping_text://购物车
+                CommonUtils.startIntent(getActivity(), ShopActivity.class);
+                break;
+            case R.id.integral_text://我的积分
+                CommonUtils.startIntent(getActivity(), IntegralActivity.class);
+                break;
+            case R.id.replacement_text://好物置换
+                makeText(getActivity(), "研发中，敬请期待", 1000).show();
+                break;
+            case R.id.collect_text://我的收藏
+                CommonUtils.startIntent(getActivity(), MyCollectActivity.class);
+                break;
+            case R.id.fans_layout: //我的粉丝
+                CommonUtils.startIntent(getActivity(), MyFansActivity.class);
+                break;
+            case R.id.attention_layout: //我的关注
+                makeText(getActivity(), "我的关注", 1000).show();
+                break;
+            case R.id.right://设置
+
+                CommonUtils.startIntent(getActivity(), SettingActivity.class);
+                break;
+            case R.id.file_text://更换资料
+                CommonUtils.startIntent(getActivity(), MyProFileActivity.class);
+                break;
+            case R.id.message_icon://消息
+                CommonUtils.startIntent(getActivity(),MessageActvity.class);
+                break;
+
+
+        }
+    }
 
 
 }

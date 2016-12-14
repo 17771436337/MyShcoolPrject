@@ -68,9 +68,7 @@ public class BottomView extends BaseView {
                     if (mItemClickListener != null) {
                         mItemClickListener.onItemClick(null, null, p, 0);
                     }
-                    if (p == 1 || p == 2 || p == 3 || p == 4) {
 
-                    }
                     onSelect(p);
                 }
             });
@@ -82,10 +80,10 @@ public class BottomView extends BaseView {
 
         for (int i = 0; i < 4; i++) {
             text[i].setTextColor(mContext.getResources()
-                    .getColor(R.color.white));
+                    .getColor(R.color.black_text));
         }
         text[position].setTextColor(mContext.getResources().getColor(
-                R.color.colorAccent));
+                R.color.black_transparency_text));
 
         icon[0].setBackgroundResource(R.drawable.icon_tab1_unselect);
         icon[1].setBackgroundResource(R.drawable.icon_tab2_unselect);

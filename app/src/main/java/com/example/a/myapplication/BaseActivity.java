@@ -9,7 +9,6 @@ import android.support.v4.app.FragmentActivity;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
@@ -30,6 +29,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+
+import butterknife.ButterKnife;
 
 
 public abstract class BaseActivity extends FragmentActivity {
@@ -53,6 +54,7 @@ public abstract class BaseActivity extends FragmentActivity {
         }
         mView = (ViewGroup) LayoutInflater.from(this).inflate(getLayoutID(), null);
         addTitle();
+        ButterKnife.inject(this);
         // 初始化view
         initView();
 
@@ -95,7 +97,7 @@ public abstract class BaseActivity extends FragmentActivity {
         // 设置广告出现的位置(悬浮于顶部)
         params.topMargin = 0;
         params.gravity = Gravity.TOP ;
-        mView.addView(mTitleView.getView(),params);
+      //  mView.addView(mTitleView.getView(),params);
         setContentView(mView);
        // addContentView(mTitleView.getView(), params);
     }

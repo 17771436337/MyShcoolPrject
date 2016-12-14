@@ -11,9 +11,9 @@ import android.widget.AdapterView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.example.a.myapplication.fragment.ClubFragment;
+import com.example.a.myapplication.fragment.WardrobeFragment;
 import com.example.a.myapplication.fragment.FindFragment;
-import com.example.a.myapplication.fragment.MessageFragment;
+import com.example.a.myapplication.fragment.MainFragment;
 import com.example.a.myapplication.fragment.MineFragment;
 import com.example.a.myapplication.util.ScreenUtils;
 import com.example.a.myapplication.view.BottomView;
@@ -25,13 +25,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     private int currentPostion;
 
-    private MessageFragment messageFragment;
-    private ClubFragment findFragment;
+    private MainFragment mainFragment;
+    private WardrobeFragment findFragment;
     private FindFragment tradeFragment;
     private MineFragment mineFragment;
 
-    private MessageFragment mainCatchFragment;
-    private ClubFragment findCatchFragment;
+    private MainFragment mainCatchFragment;
+    private WardrobeFragment findCatchFragment;
     private FindFragment tradeCatchFragment;
     private MineFragment mineCatchFragment;
 
@@ -45,6 +45,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
 
         ScreenUtils.initScreen(this);
         initFragment();
@@ -78,10 +79,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void initFragment() {
-        this.messageFragment = (MessageFragment) Fragment.instantiate(this,
-                MessageFragment.class.getName(), null);
-        this.findFragment = (ClubFragment) Fragment.instantiate(this,
-                ClubFragment.class.getName(), null);
+        this.mainFragment = (MainFragment) Fragment.instantiate(this,
+                MainFragment.class.getName(), null);
+        this.findFragment = (WardrobeFragment) Fragment.instantiate(this,
+                WardrobeFragment.class.getName(), null);
         this.tradeFragment = (FindFragment) Fragment.instantiate(this,
                 FindFragment.class.getName(), null);
         this.mineFragment = (MineFragment) Fragment.instantiate(this,
@@ -91,9 +92,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private void showContent() {
 
 
-        if (currentPostion == 1 || currentPostion == 2 || currentPostion == 3
-                || currentPostion == 4) {
-        }
 
         if (this.mFragmentManager == null) {
             this.mFragmentManager = this.getSupportFragmentManager();
@@ -101,15 +99,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         this.mFragmentTransaction = this.mFragmentManager.beginTransaction();
         this.getCacheFragement();
         if (currentPostion == 0) {
-            this.setCurrentFragment(mainCatchFragment, messageFragment, "tab1");
+            this.setCurrentFragment(mainCatchFragment, mainFragment, "tab1");
 
         } else if (currentPostion == 1) {
             this.setCurrentFragment(findCatchFragment, findFragment, "tab2");
 
-        } else if (currentPostion == 3) {
+        } else if (currentPostion == 2) {
             this.setCurrentFragment(tradeCatchFragment, tradeFragment, "tab4");
 
-        } else if (currentPostion == 4) {
+        } else if (currentPostion == 3) {
 
             this.setCurrentFragment(mineCatchFragment, mineFragment, "tab5");
         }
@@ -119,8 +117,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void getCacheFragement() {
-        this.mainCatchFragment = (MessageFragment) getCacheFragment("tab1");
-        this.findCatchFragment = (ClubFragment) getCacheFragment("tab2");
+        this.mainCatchFragment = (MainFragment) getCacheFragment("tab1");
+        this.findCatchFragment = (WardrobeFragment) getCacheFragment("tab2");
         this.tradeCatchFragment = (FindFragment) getCacheFragment("tab4");
         this.mineCatchFragment = (MineFragment) getCacheFragment("tab5");
 
@@ -151,8 +149,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (messageFragment != null)
-            messageFragment.onActivityResult(requestCode, resultCode, data);
+        if (mainFragment != null)
+            mainFragment.onActivityResult(requestCode, resultCode, data);
         if (findCatchFragment != null)
             findCatchFragment.onActivityResult(requestCode, resultCode, data);
         if (tradeCatchFragment != null)

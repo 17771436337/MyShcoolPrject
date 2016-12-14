@@ -5,12 +5,15 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.os.Environment;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 
 
 import com.example.a.myapplication.BaseApplication;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -170,5 +173,17 @@ public class UIUtils {
         } else {
             return null;
         }
+    }
+
+
+             /**设置默认圆形图片*/
+    public static DisplayImageOptions getRoundedDisplayOptions(int resId) {
+        return new DisplayImageOptions.Builder().delayBeforeLoading(0)
+                .cacheInMemory(true).showImageOnLoading(resId)
+                .resetViewBeforeLoading(false).cacheOnDisc(false)
+                .bitmapConfig(Bitmap.Config.RGB_565).showStubImage(resId)
+                .showImageOnFail(resId)
+                .displayer(new RoundedBitmapDisplayer(360))
+                .showImageForEmptyUri(resId).build();
     }
 }

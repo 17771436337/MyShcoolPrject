@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="40dp">
+
+        <ImageView
+            android:id="@+id/message_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_message"/>
+
+        <TextView
+            android:id="@+id/message_test"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/message_icon"
+            android:text="2"
+            android:layout_marginLeft="5dp"
+            android:textColor="@color/top_bg_color"
+            android:textSize="14sp"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="@color/title_text_color"
+        android:text="标题"
+        android:layout_centerInParent="true"/>
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/android"
+        android:id="@+id/right"/>
+</RelativeLayout>

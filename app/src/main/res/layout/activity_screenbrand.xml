@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/bg_transparency">
+
+        <EditText
+            android:id="@+id/srarch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/screen_brand_shape"
+            android:contentDescription="@null"
+            android:drawableLeft="@drawable/icon_search_2"
+            android:drawablePadding="5dp"
+            android:inputType="text"
+            android:maxLines="1"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="5dp"
+            android:paddingTop="10dp"
+            android:textColor="@color/black_text"
+            android:textColorHint="@color/black_transparency_text"
+            />
+
+        <ImageView
+            android:id="@+id/delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:src="@drawable/icon_delete_2"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/pull_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/bg_transparency"
+        android:dividerPadding="1dp"
+        android:scrollbars="none"
+        ptr:ptrHeaderTextColor="@color/color_refresh"
+        />
+
+</LinearLayout>

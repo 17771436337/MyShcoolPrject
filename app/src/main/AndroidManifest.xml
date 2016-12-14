@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.a.myapplication">
+          package="com.example.a.myapplication">
 
     <application
         android:name=".BaseApplication"
@@ -12,11 +12,35 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <!--登录-->
+        <activity android:name=".activity.app.LoginActivity">
+
+        </activity>
+
+        <!--完善资料-->
+        <activity android:name=".activity.PerfectInformationActivity">
+
+        </activity>
+
+        <!--注册-->
+        <activity android:name=".activity.app.RegisterActivity"></activity>
+
+        <!--忘记密码-->
+        <activity android:name=".activity.app.ForgetPassWordActivity"></activity>
+
+        <!--绑定手机号-->
+        <activity android:name=".activity.app.BingDingPhoneActivty"></activity>
+
+        <!--修改密码-->
+        <activity android:name=".activity.app.ChangPassWordActivty"></activity>
+
+        <!--测试-->
         <activity android:name=".activity.TestActivity"></activity>
         <!--我的订单-->
         <activity android:name=".activity.MyOrderActivity"></activity>
@@ -28,10 +52,49 @@
         <activity android:name=".activity.MyCollectActivity"></activity>
 
         <!--设置-->
-        <activity android:name=".activity.SettingActivity"></activity>
+        <activity android:name=".activity.app.SettingActivity"></activity>
 
         <!--积分记录-->
         <activity android:name=".activity.IntegralActivity"></activity>
+
+        <!--购物车-->
+        <activity android:name=".activity.ShopActivity"></activity>
+
+        <!---更换资料-->
+        <activity android:name=".activity.MyProFileActivity"></activity>
+
+        <!--消息-->
+        <activity android:name=".activity.MessageActvity"></activity>
+
+        <!--推荐列表-->
+        <activity android:name=".activity.RecommendListActivity"></activity>
+
+        <!--筛选-->
+        <activity android:name=".activity.screen.ScreenActivity"></activity>
+
+        <!--品牌筛选-->
+        <activity android:name=".activity.screen.ScreenBrandActivity"></activity>
+
+        <!--流行筛选-->
+        <activity android:name=".activity.screen.ScreenFashionActivity"></activity>
+
+        <!--品类的一级筛选-->
+        <activity android:name=".activity.screen.ScreenCategoryActivity"></activity>
+
+        <!--品类的二级筛选-->
+        <activity android:name=".activity.screen.ScreenCategoryTowActivity"></activity>
+
+        <!--颜色的筛选-->
+        <activity android:name=".activity.screen.ScreenColorActivity"></activity>
+
+        <!--求单品详情-->
+        <activity android:name=".activity.ProductDetailsActivity"></activity>
+
+        <!--单品详情-->
+        <activity android:name=".activity.ProductDetailsTwoActivity"></activity>
+
+        <!--图片查看-->
+        <activity android:name=".activity.lib.ShowBigPictrue"></activity>
     </application>
 
 </manifest>

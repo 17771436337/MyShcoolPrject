@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@color/bg_transparency"
+        android:dividerPadding="1dp"
+        android:orientation="vertical"
+        android:showDividers="middle|beginning">
+
+        <RelativeLayout
+            android:id="@+id/brand_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="品牌"
+                android:textColor="@color/black_text"
+                android:textSize="14sp"/>
+
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_screen_add"
+                    android:visibility="gone"/>
+
+
+                <TextView
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:maxLines="1"
+                    android:scrollHorizontally="true"
+                    android:text="dahsdashdhaskdhascmda,sd,asdasasduiaosudanas.,dasd "
+                    android:textColor="@color/black_transparency_text"
+                    android:textSize="14sp"
+
+                    />
+            </FrameLayout>
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/category_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="品类"
+                android:textColor="@color/black_text"
+                android:textSize="14sp"/>
+
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_screen_add"
+                    android:visibility="gone"/>
+
+
+                <TextView
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:maxLines="1"
+                    android:scrollHorizontally="true"
+                    android:text="dahsdashdhaskdhascmda,sd,asdasasduiaosudanas.,dasd "
+                    android:textColor="@color/black_transparency_text"
+                    android:textSize="14sp"
+
+                    />
+            </FrameLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/fashion_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="流行"
+                android:textColor="@color/black_text"
+                android:textSize="14sp"/>
+
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_screen_add"
+                    android:visibility="gone"/>
+
+
+                <TextView
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:maxLines="1"
+                    android:scrollHorizontally="true"
+                    android:text="dahsdashdhaskdhascmda,sd,asdasasduiaosudanas.,dasd "
+                    android:textColor="@color/black_transparency_text"
+                    android:textSize="14sp"
+
+                    />
+            </FrameLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/color_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="颜色"
+                android:textColor="@color/black_text"
+                android:textSize="14sp"/>
+
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_screen_add"
+                    android:visibility="gone"/>
+
+
+                <TextView
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:maxLines="1"
+                    android:scrollHorizontally="true"
+                    android:text="dahsdashdhaskdhascmda,sd,asdasasduiaosudanas.,dasd "
+                    android:textColor="@color/black_transparency_text"
+                    android:textSize="14sp"
+
+                    />
+            </FrameLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/style_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
+                android:text="风格偶像"
+                android:textColor="@color/black_text"
+                android:textSize="14sp"/>
+
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/icon_screen_add"
+                    />
+
+
+                <TextView
+                    android:layout_width="120dp"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="marquee"
+                    android:focusable="true"
+                    android:visibility="gone"
+                    android:focusableInTouchMode="true"
+                    android:marqueeRepeatLimit="marquee_forever"
+                    android:maxLines="1"
+                    android:scrollHorizontally="true"
+                    android:text="dahsdashdhaskdhascmda,sd,asdasasduiaosudanas.,dasd "
+                    android:textColor="@color/black_transparency_text"
+                    android:textSize="14sp"
+
+                    />
+            </FrameLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

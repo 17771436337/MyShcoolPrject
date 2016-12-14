@@ -9,8 +9,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
-import android.widget.Toast;
-
 
 import java.io.File;
 import java.util.ArrayList;
@@ -114,6 +112,7 @@ public class CommonUtils {
 
 
 
+
     /**
      * intent跳转
      */
@@ -122,6 +121,16 @@ public class CommonUtils {
         intent.setClass(context, clazz);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
+    }
+
+    /**
+     * intent跳转
+     */
+    public static void startIntent(Activity context, Class clazz, int requestCode) {
+        Intent intent = new Intent();
+        intent.setClass(context, clazz);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivityForResult(intent,requestCode);
     }
 
     /**

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="35dp"
+        android:text="选择个人资料照片"
+        android:textColor="@color/black_text"
+        android:textSize="18sp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="14dp"
+        android:text="对一张自拍特别满意？立即上传"
+        android:textColor="@color/black_text"
+        android:textSize="16sp"/>
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="33dp"
+        android:src="@drawable/icon_updata_photo"/>
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="65dp"
+        android:background="@null"
+        android:contentDescription="@null"
+        android:drawableLeft="@drawable/android"
+        android:hint="请输入昵称"
+        android:maxLength="20"
+        android:maxLines="1"
+        android:textColor="@color/black_text"
+        android:textColorHint="@color/black_transparency_text"
+
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="60dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="5dp"
+        android:background="@color/bg_transparency"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="bottom"
+
+        android:divider="@color/bg_transparency"
+        android:dividerPadding="1dp"
+        android:orientation="horizontal"
+        android:showDividers="beginning"
+        >
+        >
+
+        <TextView
+            android:id="@+id/next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="right"
+            android:layout_marginBottom="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/login_button_shape"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="5dp"
+            android:text="下一步"
+            android:textColor="@color/white"
+            android:textSize="14sp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_above="@id/next"
+            android:layout_marginTop="5dp"
+            android:background="@color/bg_transparency"/>
+    </RelativeLayout>
+</LinearLayout>
