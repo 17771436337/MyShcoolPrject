@@ -8,9 +8,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.example.a.myapplication.R;
+import com.example.a.myapplication.activity.MessageActvity;
+import com.example.a.myapplication.activity.RecommendListActivity;
+import com.example.a.myapplication.util.CommonUtils;
 import com.wirelesspienetwork.overview.model.OverviewAdapter;
 import com.wirelesspienetwork.overview.model.ViewHolder;
 import com.wirelesspienetwork.overview.views.Overview;
@@ -21,6 +24,7 @@ import java.util.Random;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 import static android.app.SearchManager.INTENT_GLOBAL_SEARCH_ACTIVITY_CHANGED;
 import static android.content.Intent.ACTION_SCREEN_OFF;
@@ -29,18 +33,18 @@ import static android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
 import static android.view.View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION;
 import static android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
 import static android.view.View.inflate;
-import static android.widget.Toast.*;
+import static android.widget.Toast.makeText;
 import static com.wirelesspienetwork.overview.misc.Utilities.setShadowProperty;
 import static java.lang.String.valueOf;
 
 
-public class MessageFragment extends Fragment implements Overview.RecentsViewCallbacks {
+public class MainFragment extends Fragment implements Overview.RecentsViewCallbacks {
 
 
     View view;
     boolean mVisible;
-//    @InjectView(R.id.title_text)
-//    private TextView titleText;
+    @InjectView(R.id.title_text)
+    protected TextView titleText;
 
     @InjectView(R.id.recents_view)
     protected Overview mRecentsView;
@@ -51,7 +55,7 @@ public class MessageFragment extends Fragment implements Overview.RecentsViewCal
         super.onCreateView(inflater, container, savedInstanceState);
         view = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.inject(this, view);
-//        initTitleView();
+        initTitleView();
         initContent();
         return view;
     }
@@ -99,7 +103,13 @@ public class MessageFragment extends Fragment implements Overview.RecentsViewCal
 
             @Override
             public void onBindViewHolder(ViewHolder<View, Integer> viewHolder) {
-//                viewHolder.itemView.setBackgroundColor(viewHolder.model);
+                viewHolder.itemView.setBackgroundColor(viewHolder.model);
+                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        CommonUtils.startIntent(getActivity(),RecommendListActivity.class);
+                    }
+                });
             }
         };
 
@@ -113,10 +123,26 @@ public class MessageFragment extends Fragment implements Overview.RecentsViewCal
 //        },2000);
     }
 
-//    private void initTitleView() {
-//        titleText.setText("首页");
-//
-//    }
+    /**
+     * 设置标题
+     */
+    private void initTitleView() {
+        titleText.setText("首页");
+
+
+    }
+
+
+    @OnClick({R.id.message_icon})
+    public void OnClic(View v) {
+        switch (v.getId()) {
+
+            case R.id.message_icon://消息
+
+                CommonUtils.startIntent(getActivity(),MessageActvity.class);
+                break;
+        }
+    }
 
 
     @Override
@@ -129,21 +155,19 @@ public class MessageFragment extends Fragment implements Overview.RecentsViewCal
     public void onResume() {
         super.onResume();
 
-        // Mark Recents as visible
-
-
-
     }
 
-      /**侧滑删除监听*/
+    /**
+     * 侧滑删除监听
+     */
     @Override
     public void onCardDismissed(int position) {
-        makeText(getActivity(),position+"",1000).show();
+        makeText(getActivity(), position + "", 1000).show();
 
     }
 
     @Override
     public void onAllCardsDismissed() {
-        makeText(getActivity(),"这是一个什么",1000).show();
+        makeText(getActivity(), "这是一个什么", 1000).show();
     }
 }
