@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -20,6 +21,7 @@ import com.example.a.myapplication.bean.RecommendModel;
 import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.ScreenUtils;
 import com.example.a.myapplication.view.MyLoadMoreRecyclerView;
+import com.example.a.myapplication.view.TitleView1;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
 import java.util.ArrayList;
@@ -47,6 +49,8 @@ public class RecommendListActivity extends BaseActivity implements SwipeRefreshL
 
     private int screenWidth;
 
+    @InjectView(R.id.title_layout)
+    protected RelativeLayout titleView;
 
     @Override
     protected int getLayoutID() {
@@ -59,8 +63,19 @@ public class RecommendListActivity extends BaseActivity implements SwipeRefreshL
 
     }
 
+    /**
+     * 标题初始化
+     */
+    private void initTitle() {
+        TitleView1 view = new TitleView1(this);
+        titleView.addView(view.getView());
+        view.setTitleText("推荐列表", "");
+    }
+
     @Override
     protected void initView() {
+
+        initTitle();
         ArrayList<RecommendModel.GankEntity> entities = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             entities.add(new RecommendModel.GankEntity());
@@ -154,7 +169,7 @@ public class RecommendListActivity extends BaseActivity implements SwipeRefreshL
                 holder.getView(R.id.card_view).setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        CommonUtils.startIntent(RecommendListActivity.this,ProductDetailsActivity.class);
+                        CommonUtils.startIntent(RecommendListActivity.this, ProductDetailsActivity.class);
 //                              HttpResult result1 = new HttpResult();
 //                              result1.setResults(entity);
 //                                Intent intent = new Intent(getActivity(), ImageShowActivity.class);
@@ -165,23 +180,23 @@ public class RecommendListActivity extends BaseActivity implements SwipeRefreshL
                                 R.anim.alpha_out);
                     }
                 });
-                        holder.getView(R.id.card_view).setOnTouchListener(new View.OnTouchListener() {
-                            @Override
-                            public boolean onTouch(View view, MotionEvent motionEvent) {
-                                switch (motionEvent.getAction()) {
-                                    case MotionEvent.ACTION_DOWN:
-                                        view.setScaleX(1.1f);
-                                        view.setScaleY(1.1f);
-                                        break;
-                                    case MotionEvent.ACTION_UP:
-                                    case MotionEvent.ACTION_CANCEL:
-                                        view.setScaleX(1f);
-                                        view.setScaleY(1f);
-                                        break;
-                                }
-                                return false;
-                            }
-                        });
+                holder.getView(R.id.card_view).setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View view, MotionEvent motionEvent) {
+                        switch (motionEvent.getAction()) {
+                            case MotionEvent.ACTION_DOWN:
+                                view.setScaleX(1.1f);
+                                view.setScaleY(1.1f);
+                                break;
+                            case MotionEvent.ACTION_UP:
+                            case MotionEvent.ACTION_CANCEL:
+                                view.setScaleX(1f);
+                                view.setScaleY(1f);
+                                break;
+                        }
+                        return false;
+                    }
+                });
             }
         };
         if (swipeLayout.isRefreshing()) {

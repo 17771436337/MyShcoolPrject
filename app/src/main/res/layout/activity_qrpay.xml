@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></RelativeLayout>
+
+    <TextView
+        android:id="@+id/title_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_layout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:text="通过截图或者长按屏幕保存二维码"
+        android:textColor="@color/black_text"
+        android:textSize="14sp"/>
+
+    <ImageView
+        android:id="@+id/qr_img"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/android"/>
+
+
+    <TextView
+        android:id="@+id/order_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/qr_img"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/order_edit_bg_shape"
+        android:gravity="center"
+        android:hint="请输入订单后四位"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"
+        android:text=""
+        android:textColor="@color/black_text"
+        android:textColorHint="@color/black_transparency_text"
+        android:textSize="14sp"/>
+
+    <EditText
+        android:id="@+id/api_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/order_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/order_edit_bg_shape"
+        android:gravity="center"
+        android:hint="请输入支付宝账号"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"
+        android:text=""
+        android:textColor="@color/black_text"
+        android:textColorHint="@color/black_transparency_text"
+        android:textSize="14sp"/>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/api_text"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/icon_long_button"
+        android:gravity="center"
+        android:text="确定"
+
+        android:textColor="@color/white"
+        android:textSize="16sp"/>
+
+</RelativeLayout>

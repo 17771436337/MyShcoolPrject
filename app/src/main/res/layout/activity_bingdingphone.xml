@@ -2,27 +2,34 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:background="@color/white"
               android:orientation="vertical">
 
+    <RelativeLayout
+        android:id="@+id/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="50dp"
         android:layout_marginRight="20dp"
+        android:layout_marginTop="50dp"
         android:orientation="horizontal">
+
         <TextView
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="+86"
-            android:textSize="14sp"
-            android:textColor="@color/black_transparency_text"
+            android:layout_weight="1"
             android:background="@drawable/left_radian_shop"
-            android:paddingTop="10dp"
+            android:gravity="center"
             android:paddingBottom="10dp"
-            android:gravity="center"/>
+            android:paddingTop="10dp"
+            android:text="+86"
+            android:textColor="@color/black_transparency_text"
+            android:textSize="14sp"/>
+
         <EditText
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -30,9 +37,9 @@
             android:background="@drawable/right_radian_shape"
             android:gravity="center"
             android:hint="请填写手机号"
-            android:maxLines="1"
-            android:maxLength="11"
             android:inputType="phone"
+            android:maxLength="11"
+            android:maxLines="1"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
             android:textColor="@color/black_text"
@@ -47,8 +54,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
         android:orientation="horizontal">
 
         <EditText
@@ -58,10 +65,10 @@
             android:background="@drawable/bingphone_white_shape"
             android:gravity="center"
             android:hint="请输入验证码"
-            android:paddingBottom="10dp"
-            android:maxLines="1"
-            android:maxLength="6"
             android:inputType="number"
+            android:maxLength="6"
+            android:maxLines="1"
+            android:paddingBottom="10dp"
             android:paddingTop="10dp"
             android:textColor="@color/black_text"
             android:textColorLink="@color/black_transparency_text"
@@ -87,14 +94,14 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
         android:layout_gravity="center_horizontal"
-        android:paddingBottom="10dp"
-        android:paddingTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_marginTop="25dp"
         android:background="@drawable/login_button_shape"
         android:gravity="center"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
         android:text="完成"
         android:textColor="@color/white"
         android:textSize="16sp"/>
@@ -104,9 +111,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/icon_bingding"
-        android:layout_marginTop="15dp"/>
-
+        android:layout_marginTop="15dp"
+        android:src="@drawable/icon_bingding"/>
 
 
     <TextView
@@ -116,6 +122,7 @@
         android:layout_marginRight="30dp"
         android:layout_marginTop="20dp"
         android:text="1.求购商品时，造型师推荐搭配的通知"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -123,6 +130,7 @@
         android:layout_marginRight="30dp"
         android:layout_marginTop="10dp"
         android:text="2.优惠券发放消息"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -130,6 +138,7 @@
         android:layout_marginRight="30dp"
         android:layout_marginTop="10dp"
         android:text="3.物流详情会及时通知"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.a.myapplication.R;
+import com.example.a.myapplication.dialog.LookShopDialog;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -39,19 +40,28 @@ public class ProductTitileMessageFragment extends Fragment {
     }
 
 
-    @OnClick(R.id.check_layout)
+    @OnClick({R.id.check_layout, R.id.answer})
     protected void onClick(View v) {
         switch (v.getId()) {
             case R.id.check_layout:
                 cacheOnClick.cacheOnClick();
 //                makeText(getActivity(),"点击有效",1000).show();
                 break;
+            case R.id.answer:
+//                CommonUtils.startIntent(getActivity(),AddShopActivity.class);
+
+                LookShopDialog dialog = new LookShopDialog(getActivity());
+                dialog.showAsDropDown(v);
+                break;
+
         }
     }
 
 
     //---------------------------------------
-    /**查看解答*/
+    /**
+     * 查看解答
+     */
     private SetOnClick cacheOnClick;
 
     public void cacheOnClick(SetOnClick cacheOnClick) {

@@ -65,9 +65,9 @@ public class MainFragment extends Fragment implements Overview.RecentsViewCallba
      */
     private void initContent() {
         mRecentsView.setCallbacks(this);
-        mRecentsView.setSystemUiVisibility(SYSTEM_UI_FLAG_LAYOUT_STABLE |
-                SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
-                SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+//        mRecentsView.setSystemUiVisibility(SYSTEM_UI_FLAG_LAYOUT_STABLE |
+//                SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+//                SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
 
         // Register the broadcast receiver to handle messages when the screen is turned off
         IntentFilter filter = new IntentFilter();

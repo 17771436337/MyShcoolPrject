@@ -1,12 +1,14 @@
 package com.example.a.myapplication.activity.screen;
 
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
 import com.example.a.myapplication.adapter.ScreenCategoryOneAdapter;
 import com.example.a.myapplication.bean.ScreenCategoryOneModel;
 import com.example.a.myapplication.util.CommonUtils;
+import com.example.a.myapplication.view.TitleView1;
 
 import java.util.ArrayList;
 
@@ -26,6 +28,8 @@ public class ScreenCategoryActivity extends BaseActivity{
 
     ScreenCategoryOneAdapter adapter;
 
+    @InjectView(R.id.title_layout)
+    protected RelativeLayout titleView;
     @Override
     protected int getLayoutID() {
         return R.layout.activity_category;
@@ -33,6 +37,7 @@ public class ScreenCategoryActivity extends BaseActivity{
 
     @Override
     protected void initView() {
+        initTitle();
         getData();
         adapter = new ScreenCategoryOneAdapter(model.getList());
         listView.setAdapter(adapter);
@@ -45,7 +50,14 @@ public class ScreenCategoryActivity extends BaseActivity{
     protected void initData() {
 
     }
-
+    /**
+     * 标题初始化
+     */
+    private void initTitle() {
+        TitleView1 view = new TitleView1(this);
+        titleView.addView(view.getView());
+        view.setTitleText("选择种类", "");
+    }
 
     private  void getData(){
 

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+          android:id="@+id/button"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:background="@drawable/collect_radiobutton_background_shape_yes"
+
+          android:gravity="center"
+          android:orientation="vertical"
+          android:text="黑色"
+          android:textColor="@color/black_text"
+          android:textSize="14sp">
+
+</TextView>

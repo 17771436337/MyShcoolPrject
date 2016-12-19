@@ -43,6 +43,8 @@ public abstract class MyRecyclerCommonAdapter<T> extends MultiItemTypeAdapter<T>
         });
     }
 
+
+
     public void setDatas(List<T> datas) {
         super.mDatas = datas;
         mDatas = datas;

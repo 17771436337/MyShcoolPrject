@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@drawable/order_radiobutton_no" android:state_checked="false"></item>
-    <item android:drawable="@drawable/order_radiobutton_yes" android:state_checked="true"></item>
+    <item android:drawable="@drawable/icon_line" android:state_checked="true"></item>
+    <item android:drawable="@drawable/order_radiobutton_no" android:state_checked="true" android:state_window_focused="false"></item>
+    <item android:drawable="@drawable/icon_line" android:state_checked="false" android:state_window_focused="true"></item>
+
+     
+    <item android:drawable="@drawable/icon_line"></item>
 </selector>

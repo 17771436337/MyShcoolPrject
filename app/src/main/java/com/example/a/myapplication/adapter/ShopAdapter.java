@@ -10,9 +10,13 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/12/8.
  */
-public class ShopAdapter extends SuperBaseAdapter<ShopModel.Shop>{
+public class ShopAdapter extends SuperBaseAdapter<ShopModel.Shop> {
     public ShopAdapter(PullToRefreshBase listView, List<ShopModel.Shop> datas) {
         super(listView, datas);
+    }
+
+    public ShopAdapter(List<ShopModel.Shop> datas) {
+        super(datas);
     }
 
     @Override

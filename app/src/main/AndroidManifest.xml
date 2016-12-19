@@ -11,16 +11,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
+
+        </activity>
+
+        <!--登录-->
+        <activity android:name=".activity.app.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-        </activity>
-
-        <!--登录-->
-        <activity android:name=".activity.app.LoginActivity">
-
         </activity>
 
         <!--完善资料-->
@@ -40,8 +40,12 @@
         <!--修改密码-->
         <activity android:name=".activity.app.ChangPassWordActivty"></activity>
 
+        <!--意见反馈-->
+        <activity android:name=".activity.app.FeedBackActivty"></activity>
+
         <!--测试-->
         <activity android:name=".activity.TestActivity"></activity>
+
         <!--我的订单-->
         <activity android:name=".activity.MyOrderActivity"></activity>
 
@@ -87,6 +91,9 @@
         <!--颜色的筛选-->
         <activity android:name=".activity.screen.ScreenColorActivity"></activity>
 
+        <!--风格筛选-->
+        <activity android:name=".activity.screen.ScreenStyleActivity"></activity>
+
         <!--求单品详情-->
         <activity android:name=".activity.ProductDetailsActivity"></activity>
 
@@ -95,6 +102,27 @@
 
         <!--图片查看-->
         <activity android:name=".activity.lib.ShowBigPictrue"></activity>
+
+        <!--确认支付-->
+        <activity android:name=".activity.ConfirmAnOrderActivity"></activity>
+
+        <!--地址列表-->
+        <activity android:name=".activity.LocationActivity"></activity>
+
+        <!--编辑地址-->
+        <activity android:name=".activity.EditAddressActivity"></activity>
+
+        <!--添加商品-->
+        <activity android:name=".activity.AddShopActivity"></activity>
+
+        <!--全部评论-->
+        <activity android:name=".activity.AllcommentActivity"></activity>
+
+        <!--订单详情-->
+        <activity android:name=".activity.OrederDetailsActivity"></activity>
+
+        <!--二维码-->
+        <activity android:name=".activity.QRPayActivity"></activity>
     </application>
 
 </manifest>

@@ -2,7 +2,10 @@ package com.example.a.myapplication.activity;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
@@ -11,21 +14,28 @@ import com.example.a.myapplication.fragment.ImgShopFragemnt;
 import com.example.a.myapplication.fragment.ProductTitileMessageFragment;
 
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 /**
  * Created by Administrator on 2016/12/12.
- * 单品详情
+ * 求单品详情
  */
 public class ProductDetailsActivity extends BaseActivity {
 
     FragmentManager fragmentManager;
     private FragmentTransaction mFragmentTransaction;// 碎片的事物
 
+    @InjectView(R.id.title)
+    protected TextView titleText;
+
+    @InjectView(R.id.title_right)
+    protected ImageView titleRight;
+
     @InjectView(R.id.img_f)
     protected FrameLayout img_f;
     ImgShopFragemnt imgFragement;
 
-    @InjectView(R.id.title)
+    @InjectView(R.id.content)
     protected FrameLayout title;
 
     ProductTitileMessageFragment productTitileMessageFragment;
@@ -39,6 +49,7 @@ public class ProductDetailsActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        initTitle();
         initImgView();
         initTitleOne();
         initOnClick();
@@ -52,6 +63,15 @@ public class ProductDetailsActivity extends BaseActivity {
 
     }
 
+    /**
+     * 标题初始化
+     */
+    private void initTitle() {
+
+        titleText.setText("求单品详情");
+//        titleRight.setImageResource(R.drawable.share);
+//        titleRight.setVisibility(View.GONE);
+    }
 
     /**
      * 商品图片碎片初始化
@@ -73,7 +93,7 @@ public class ProductDetailsActivity extends BaseActivity {
         productTitileMessageFragment = new ProductTitileMessageFragment();
         fragmentManager = getSupportFragmentManager();
         mFragmentTransaction = fragmentManager.beginTransaction();
-        mFragmentTransaction.add(R.id.title, productTitileMessageFragment);
+        mFragmentTransaction.add(R.id.content, productTitileMessageFragment);
         mFragmentTransaction.commit();
     }
 
@@ -84,7 +104,7 @@ public class ProductDetailsActivity extends BaseActivity {
         checkProductFragment = new CheckProductFragment();
         fragmentManager = getSupportFragmentManager();
         mFragmentTransaction = fragmentManager.beginTransaction();
-        mFragmentTransaction.add(R.id.title, checkProductFragment);
+        mFragmentTransaction.add(R.id.content, checkProductFragment);
         mFragmentTransaction.commit();
     }
 
@@ -103,11 +123,23 @@ public class ProductDetailsActivity extends BaseActivity {
                     fragmentManager = getSupportFragmentManager();
                     mFragmentTransaction = fragmentManager.beginTransaction();
                     mFragmentTransaction.remove(productTitileMessageFragment);
-                    mFragmentTransaction.add(R.id.title, checkProductFragment);
+                    mFragmentTransaction.add(R.id.content, checkProductFragment);
                     mFragmentTransaction.commit();
                 }
             });
         }
     }
 
+
+    @OnClick({R.id.back, R.id.title_right})
+    protected void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.back: //返回
+                finish();
+                break;
+            case R.id.title_right:
+
+                break;
+        }
+    }
 }

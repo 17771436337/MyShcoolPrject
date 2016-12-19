@@ -5,11 +5,17 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
+    <RelativeLayout
+        android:id="@+id/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></RelativeLayout>
+
     <RadioGroup
         android:id="@+id/seleor_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
         <RadioButton

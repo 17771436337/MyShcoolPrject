@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/card_margin"
+    android:clickable="true"
+    android:foreground="?attr/selectableItemBackground"
+    app:cardBackgroundColor="#424242"
+    app:cardCornerRadius="2dp"
+    app:cardElevation="4dp">
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:id="@+id/rl_root"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fafafa"
+            android:paddingRight="6dp"
+            android:paddingTop="6dp">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                android:src="@drawable/android"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#0000"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:layout_alignParentBottom="true"
+
+                android:background="#a3181818">
+
+                <!--<com.like.LikeButton-->
+                <!--android:id="@+id/btn_collect"-->
+                <!--android:layout_width="24dp"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--app:anim_scale_factor="1"-->
+                <!--app:circle_end_color="?icon_like_color"-->
+                <!--app:circle_start_color="?icon_like_color"-->
+                <!--app:dots_primary_color="?icon_like_color"-->
+                <!--app:dots_secondary_color="?icon_like_color"-->
+                <!--app:icon_size="28dp"-->
+                <!--app:like_drawable="?icon_like_yes"-->
+                <!--app:unlike_drawable="?icon_like_no" />-->
+
+                <!--<TextView-->
+                <!--android:id="@+id/tvShowTime"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="36dp"-->
+                <!--android:layout_marginLeft="10dp"-->
+                <!--android:gravity="center"-->
+                <!--android:text="时间"-->
+                <!--android:textColor="#FFFFFF"-->
+                <!--android:textSize="14sp" />-->
+
+                <ImageView
+                    android:id="@+id/head"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/android"/>
+
+
+                <TextView
+                    android:id="@+id/shop_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center_vertical"
+                    android:text="200"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"/>
+
+                <ImageView
+                    android:id="@+id/icon"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@id/shop_num"
+                    android:src="@drawable/icon_collect"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toLeftOf="@id/icon"
+                    android:layout_toRightOf="@id/head"
+                    android:gravity="center_vertical"
+                    android:inputType="textImeMultiLine"
+                    android:text="这是一个名字"
+
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    />
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/upimg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_up_img"
+            android:visibility="gone"/>
+
+    </FrameLayout>
+</android.support.v7.widget.CardView>

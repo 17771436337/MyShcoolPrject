@@ -3,7 +3,6 @@ package com.example.a.myapplication;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Gravity;
@@ -17,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.a.myapplication.util.SystemBarTintManager;
 import com.example.a.myapplication.view.LoadingPagerActivity;
 import com.example.a.myapplication.view.TitleView;
 
@@ -41,14 +39,15 @@ public abstract class BaseActivity extends FragmentActivity {
     protected static List<Activity> mActivities = new LinkedList<Activity>();
     private static Activity mCurrentActivity;
     protected TitleView mTitleView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
-       // LocalDisplay.init(this);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        }
+        // LocalDisplay.init(this);
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+//        }
         synchronized (mActivities) {
             mActivities.add(this);
         }
@@ -72,34 +71,32 @@ public abstract class BaseActivity extends FragmentActivity {
     }
 
 
-
-
     @Override
     protected void onResume() {
         super.onResume();
         BaseApplication.mCurrentActivity = this;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT&& !(this instanceof MainActivity)) {
-            setTranslucentStatus(true);
-            SystemBarTintManager tintManager = new SystemBarTintManager(this);
-            tintManager.setStatusBarTintEnabled(true);
-            tintManager.setStatusBarTintResource(R.color.top_bg_color);
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT&& !(this instanceof MainActivity)) {
+//            setTranslucentStatus(true);
+//            SystemBarTintManager tintManager = new SystemBarTintManager(this);
+//            tintManager.setStatusBarTintEnabled(true);
+//            tintManager.setStatusBarTintResource(R.color.top_bg_color);
+//        }
 
     }
 
     protected abstract int getLayoutID();
 
-    protected void addTitle(){
-        mTitleView=  new TitleView(this);
+    protected void addTitle() {
+        mTitleView = new TitleView(this);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
                 FrameLayout.LayoutParams.WRAP_CONTENT);
         // 设置广告出现的位置(悬浮于顶部)
         params.topMargin = 0;
-        params.gravity = Gravity.TOP ;
-      //  mView.addView(mTitleView.getView(),params);
+        params.gravity = Gravity.TOP;
+        //  mView.addView(mTitleView.getView(),params);
         setContentView(mView);
-       // addContentView(mTitleView.getView(), params);
+        // addContentView(mTitleView.getView(), params);
     }
 
     @Override
@@ -174,7 +171,7 @@ public abstract class BaseActivity extends FragmentActivity {
         if (isTaskRoot()) {
             if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
                 if ((System.currentTimeMillis() - exitTime) > 2000) {
-                    Toast.makeText(getApplicationContext(), "再按一次退出亿财道", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "再按一次退出", Toast.LENGTH_SHORT).show();
                     exitTime = System.currentTimeMillis();
                 } else {
                     finish();

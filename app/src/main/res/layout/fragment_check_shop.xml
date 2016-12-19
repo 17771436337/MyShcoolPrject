@@ -20,14 +20,16 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/android"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_left_1"
             />
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:src="@drawable/android"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_right_1"
             />
 
         <LinearLayout
@@ -171,7 +173,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:src="@drawable/android"/>
+            android:src="@drawable/icon_comment"/>
 
         <TextView
             android:id="@+id/message_num"

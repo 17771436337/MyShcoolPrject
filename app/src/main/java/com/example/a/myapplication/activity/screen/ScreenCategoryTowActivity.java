@@ -1,9 +1,12 @@
 package com.example.a.myapplication.activity.screen;
 
+import android.widget.RelativeLayout;
+
 import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
 import com.example.a.myapplication.adapter.ScreenCategoryTowAdapter;
 import com.example.a.myapplication.bean.ScreenCategoryTowModel;
+import com.example.a.myapplication.view.TitleView1;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
@@ -24,6 +27,9 @@ public class ScreenCategoryTowActivity extends BaseActivity {
 
     ScreenCategoryTowAdapter adapter;
 
+    @InjectView(R.id.title_layout)
+    protected RelativeLayout titleView;
+
     @Override
     protected int getLayoutID() {
         return R.layout.activity_categorytow;
@@ -31,17 +37,27 @@ public class ScreenCategoryTowActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        initTitle();
         getData();
         adapter = new ScreenCategoryTowAdapter(pullListView, model.getList());
         pullListView.setMode(PullToRefreshBase.Mode.BOTH);
         pullListView.getRefreshableView().setAdapter(adapter);
 
 
-}
+    }
 
     @Override
     protected void initData() {
 
+    }
+
+    /**
+     * 标题初始化
+     */
+    private void initTitle() {
+        TitleView1 view = new TitleView1(this);
+        titleView.addView(view.getView());
+        view.setTitleText("上衣", "完成");
     }
 
 

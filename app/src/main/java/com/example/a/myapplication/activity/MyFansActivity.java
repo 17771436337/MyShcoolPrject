@@ -1,9 +1,12 @@
 package com.example.a.myapplication.activity;
 
+import android.widget.RelativeLayout;
+
 import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
 import com.example.a.myapplication.adapter.MyFansAdapter;
 import com.example.a.myapplication.bean.FansModel;
+import com.example.a.myapplication.view.TitleView1;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
@@ -23,6 +26,9 @@ public class MyFansActivity extends BaseActivity {
     FansModel data = new FansModel();
     MyFansAdapter adapter;
 
+    @InjectView(R.id.title_layout)
+    protected RelativeLayout titleView;
+
     @Override
     protected int getLayoutID() {
         return R.layout.activity_myfans;
@@ -30,8 +36,9 @@ public class MyFansActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        initTitle();
         getData();
-        adapter = new MyFansAdapter(pullListView,data.getFans());
+        adapter = new MyFansAdapter(pullListView, data.getFans());
         pullListView.setMode(PullToRefreshBase.Mode.BOTH);
         pullListView.getRefreshableView().setAdapter(adapter);
 
@@ -43,17 +50,26 @@ public class MyFansActivity extends BaseActivity {
         adapter.notifyDataSetChanged();
     }
 
+    /**
+     * 标题初始化
+     */
+    private void initTitle() {
+        TitleView1 view = new TitleView1(this);
+        titleView.addView(view.getView());
+        view.setTitleText("粉丝", "");
+    }
 
-    public void  getData() {
+
+    public void getData() {
         List<FansModel.MyFans> list = new ArrayList<FansModel.MyFans>();
-        for (int i = 0 ; i < 10 ;i++){
-            FansModel.MyFans  fans = new FansModel.MyFans();
+        for (int i = 0; i < 10; i++) {
+            FansModel.MyFans fans = new FansModel.MyFans();
             fans.setImg("");
             fans.setName("武汉");
 
             if (i % 2 == 0) {
                 fans.setType(0);
-            }else{
+            } else {
                 fans.setType(1);
             }
 

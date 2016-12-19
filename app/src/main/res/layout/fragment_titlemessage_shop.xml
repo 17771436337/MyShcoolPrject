@@ -10,7 +10,9 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="60dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         >
 
         <ImageView
@@ -36,11 +38,11 @@
             android:id="@+id/shop_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:drawableLeft="@drawable/android"
+            android:layout_marginLeft="10dp"
+            android:drawableLeft="@drawable/icon_message_com"
             android:drawablePadding="5dp"
             android:gravity="center_vertical"
             android:text="200"
@@ -51,11 +53,10 @@
             android:id="@+id/message_num"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:layout_toLeftOf="@id/shop_num"
-            android:drawableLeft="@drawable/android"
+            android:layout_alignTop="@+id/shop_num"
+            android:layout_toLeftOf="@+id/shop_num"
+            android:layout_toStartOf="@+id/shop_num"
+            android:drawableLeft="@drawable/icon_collect_ch"
             android:drawablePadding="5dp"
             android:gravity="center_vertical"
             android:text="200"
@@ -80,17 +81,20 @@
             android:layout_weight="1">
 
             <TextView
+                android:id="@+id/check_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
 
+                android:layout_gravity="center"
                 android:layout_weight="1"
-                android:drawableLeft="@drawable/android"
+                android:drawableLeft="@drawable/icon_message_look"
+                android:drawablePadding="5dp"
                 android:gravity="center_vertical"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
                 android:text="查看解答"
                 android:textColor="@color/black_text"
-                android:textSize="14sp"
-                android:id="@+id/check_text"/>
+                android:textSize="14sp"/>
         </FrameLayout>
 
         <FrameLayout
@@ -99,13 +103,17 @@
             android:layout_weight="1">
 
             <TextView
+                android:id="@+id/answer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
 
                 android:layout_weight="1"
-                android:drawableLeft="@drawable/android"
+                android:drawableLeft="@drawable/icon_we_ch"
+                android:drawablePadding="5dp"
                 android:gravity="center_vertical"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
                 android:text="我来解答"
                 android:textColor="@color/black_text"
                 android:textSize="14sp"/>

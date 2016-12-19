@@ -4,28 +4,31 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import butterknife.ButterKnife;
+
 public abstract class BaseView {
-	protected Context mContext;
-	protected View mView;
-	protected Object mTag;
+    protected Context mContext;
+    protected View mView;
+    protected Object mTag;
 
-	public BaseView(Context context) {
-		mContext = context;
-		mView = LayoutInflater.from(mContext).inflate(getLayoutID(), null);
-		initView();
-	}
+    public BaseView(Context context) {
+        mContext = context;
+        mView = LayoutInflater.from(mContext).inflate(getLayoutID(), null);
+        ButterKnife.inject(this, mView);
+        initView();
+    }
 
-	public View getView() {
-		return mView;
-	}
+    public View getView() {
+        return mView;
+    }
 
-	public void setTag(Object tag) {
-		mTag = tag;
-	}
+    public void setTag(Object tag) {
+        mTag = tag;
+    }
 
-	protected abstract int getLayoutID();
+    protected abstract int getLayoutID();
 
-	protected abstract void initView();
+    protected abstract void initView();
 
 
 }

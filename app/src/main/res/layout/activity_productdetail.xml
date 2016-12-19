@@ -4,6 +4,8 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
+    <include layout="@layout/view_title2"/>
+
     <FrameLayout
         android:id="@+id/img_f"
         android:layout_width="match_parent"
@@ -12,7 +14,7 @@
 
 
     <FrameLayout
-        android:id="@+id/title"
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 

@@ -4,11 +4,13 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
 import com.example.a.myapplication.adapter.ScreenBrandAdapter;
 import com.example.a.myapplication.bean.ScreenBrandModel;
+import com.example.a.myapplication.view.TitleView1;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
@@ -37,6 +39,11 @@ public class ScreenBrandActivity extends BaseActivity {
 
     ScreenBrandAdapter adapter;
 
+
+    @InjectView(R.id.title_layout)
+    protected RelativeLayout titleView;
+
+
     @Override
     protected int getLayoutID() {
         return R.layout.activity_screenbrand;
@@ -44,9 +51,9 @@ public class ScreenBrandActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
+        initTitle();
         getData();
-        adapter = new ScreenBrandAdapter(pullListView ,model.getList());
+        adapter = new ScreenBrandAdapter(pullListView, model.getList());
         pullListView.setMode(PullToRefreshBase.Mode.BOTH);
         pullListView.getRefreshableView().setAdapter(adapter);
     }
@@ -57,9 +64,19 @@ public class ScreenBrandActivity extends BaseActivity {
     }
 
 
-    private  void getData(){
+    /**
+     * 标题初始化
+     */
+    private void initTitle() {
+        TitleView1 view = new TitleView1(this);
+        titleView.addView(view.getView());
+        view.setTitleText("品牌 brand", "完成");
+    }
+
+
+    private void getData() {
         ArrayList<ScreenBrandModel.Brand> list = new ArrayList<ScreenBrandModel.Brand>();
-        for (int i = 0 ;i < 10 ; i ++){
+        for (int i = 0; i < 10; i++) {
             ScreenBrandModel.Brand brand = new ScreenBrandModel.Brand();
             list.add(brand);
         }
@@ -68,24 +85,25 @@ public class ScreenBrandActivity extends BaseActivity {
 
 
     @OnClick({R.id.delete})
-    public void onClick(View v){
-        switch (v.getId()){
-            case  R.id.delete:  //删除
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.delete:  //删除
                 srarch.setText("");
                 break;
         }
     }
 
-    /**输入框监听*/
+    /**
+     * 输入框监听
+     */
     @OnTextChanged(R.id.srarch)
-    public void onTextChanged(CharSequence text){
+    public void onTextChanged(CharSequence text) {
         if (TextUtils.isEmpty(text)) {
             delete.setVisibility(View.GONE);
         } else {
             delete.setVisibility(View.VISIBLE);
         }
     }
-
 
 
 }

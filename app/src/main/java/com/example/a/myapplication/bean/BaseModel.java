@@ -5,4 +5,22 @@ package com.example.a.myapplication.bean;
  */
 
 public class BaseModel  {
+    public String m;
+    public int c;
+
+    public String getM() {
+        return m;
+    }
+
+    public void setM(String m) {
+        this.m = m;
+    }
+
+    public int getC() {
+        return c;
+    }
+
+    public void setC(int c) {
+        this.c = c;
+    }
 }
