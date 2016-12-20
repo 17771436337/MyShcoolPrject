@@ -122,7 +122,7 @@ public class ChangPassWordActivty extends BaseActivity {
 
             if (data.getC() == 1) {
                 Toast.makeText(this, "密码修改成功", Toast.LENGTH_SHORT).show();
-                Preference.clearFlag(Config.PASSWORD);
+                Preference.clearAllFlag();
                 CommonUtils.startIntent(ChangPassWordActivty.this, LoginActivity.class);
                 finish();
             } else {

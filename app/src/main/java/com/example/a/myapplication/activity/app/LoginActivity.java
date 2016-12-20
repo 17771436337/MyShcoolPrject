@@ -1,6 +1,7 @@
 package com.example.a.myapplication.activity.app;
 
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -35,6 +36,8 @@ public class LoginActivity extends BaseActivity {
     @InjectView(R.id.password_edit)
     protected EditText passEditText;
 
+    private long exitTime = 0;
+
     @Override
     protected int getLayoutID() {
         return R.layout.activity_login;
@@ -42,10 +45,7 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        if (!TextUtils.isEmpty(Preference.get(Config.ID, ""))) {
-            CommonUtils.startIntent(LoginActivity.this, MainActivity.class);
-            finish();
-        }
+        isLogin();
     }
 
     @Override
@@ -112,7 +112,7 @@ public class LoginActivity extends BaseActivity {
 
             if (loginModel.getC() == 1) {
                 Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-                Preference.put(Config.ID, loginModel.getO().getId());
+                Preference.put(Config.ID, loginModel.getO().getId() + "");
                 Preference.put(Config.HEAD, loginModel.getO().getHead());
                 Preference.put(Config.NAME, loginModel.getO().getName());
                 Preference.put(Config.PASSWORD, loginModel.getO().getPassword());
@@ -120,10 +120,39 @@ public class LoginActivity extends BaseActivity {
                 CommonUtils.startIntent(LoginActivity.this, MainActivity.class);
                 finish();
             } else {
-                Toast.makeText(LoginActivity.this, loginModel.getM(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, loginModel.getM() + "", Toast.LENGTH_SHORT).show();
             }
         } else if (obj instanceof String) {
             Toast.makeText(LoginActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
         }
+    }
+
+
+    /**
+     * 是否登录
+     */
+    private void isLogin() {
+        if (!TextUtils.isEmpty(Preference.get(Config.ID, ""))) {
+            CommonUtils.startIntent(this, MainActivity.class);
+            finish();
+        }
+    }
+
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK
+                && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                Toast.makeText(getApplicationContext(), "再按一次退出程序",
+                        Toast.LENGTH_SHORT).show();
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
+                exitApp();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }

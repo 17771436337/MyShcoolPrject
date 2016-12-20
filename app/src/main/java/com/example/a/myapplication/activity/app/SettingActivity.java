@@ -7,9 +7,15 @@ import android.widget.Toast;
 
 import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
+import com.example.a.myapplication.bean.BaseModel;
+import com.example.a.myapplication.http.OkHttpUtil;
 import com.example.a.myapplication.util.CommonUtils;
+import com.example.a.myapplication.util.Config;
 import com.example.a.myapplication.util.DataCleanManager;
+import com.example.a.myapplication.util.Preference;
 import com.example.a.myapplication.view.TitleView1;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -48,7 +54,7 @@ public class SettingActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.cache_layout, R.id.binding_phone_text, R.id.chang_password_text, R.id.feed_back_text})
+    @OnClick({R.id.cache_layout, R.id.binding_phone_text, R.id.chang_password_text, R.id.feed_back_text, R.id.out})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.cache_layout://清理缓存
@@ -71,6 +77,20 @@ public class SettingActivity extends BaseActivity {
             case R.id.feed_back_text:
                 CommonUtils.startIntent(this, FeedBackActivty.class);
                 break;
+            case R.id.out://退出登录
+                OkHttpUtil.getInstance().addRequestGet(Config.hostString + "App/User/logout", new OkHttpUtil.HttpCallBack<BaseModel>() {
+
+                    @Override
+                    public void onSuccss(BaseModel baseModel) {
+                        EventBus.getDefault().post(baseModel);
+                    }
+
+                    @Override
+                    public void onFailure(String error) {
+
+                    }
+                });
+                break;
         }
 
     }
@@ -84,4 +104,20 @@ public class SettingActivity extends BaseActivity {
         view.setTitleText("个人设置", "");
     }
 
+    @Override
+    public void onEventMainThread(Object obj) {
+        super.onEventMainThread(obj);
+        if (obj instanceof BaseModel) {
+            BaseModel data = (BaseModel) obj;
+
+            if (data.getC() == 1) {
+                Toast.makeText(this, "退出成功", Toast.LENGTH_SHORT).show();
+                Preference.clearAllFlag();
+                CommonUtils.startIntent(this, LoginActivity.class);
+                finish();
+            } else {
+                Toast.makeText(this, data.getM() + "", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 }
