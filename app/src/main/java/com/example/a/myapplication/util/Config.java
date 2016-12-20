@@ -5,9 +5,14 @@ package com.example.a.myapplication.util;
  */
 public class Config {
     /**
-     * 服务器
+     * 链接请求服务器
      */
     public final static String hostString = "http://115.28.94.239/wardrobe/code/wardrode/index.php?s=/";
+
+    /**
+     * 推片头链接
+     */
+    public final static String hostImgString = "http://115.28.94.239/";
 
     /**
      * 发送验证码
@@ -48,6 +53,11 @@ public class Config {
      * 意见反馈
      */
     public static final String addfeedback = Config.hostString + "App/Feedback/addfeedback";
+
+    /**
+     * 获取用户个人信息
+     */
+    public static final String getProfile = Config.hostString + "App/User/getProfile";
 
     //---------------------------------------------------------------------
 
