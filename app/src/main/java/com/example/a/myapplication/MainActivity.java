@@ -11,10 +11,10 @@ import android.widget.AdapterView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.example.a.myapplication.fragment.WardrobeFragment;
 import com.example.a.myapplication.fragment.FindFragment;
 import com.example.a.myapplication.fragment.MainFragment;
 import com.example.a.myapplication.fragment.MineFragment;
+import com.example.a.myapplication.fragment.WardrobeFragment;
 import com.example.a.myapplication.util.ScreenUtils;
 import com.example.a.myapplication.view.BottomView;
 
@@ -69,8 +69,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         });
 
 
-
-
     }
 
     @Override
@@ -90,7 +88,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void showContent() {
-
 
 
         if (this.mFragmentManager == null) {
@@ -193,4 +190,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     public void onClick(View view) {
 
     }
+
+
 }

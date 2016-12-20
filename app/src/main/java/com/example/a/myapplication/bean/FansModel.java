@@ -7,42 +7,85 @@ import java.util.List;
  */
 public class FansModel extends BaseModel {
     private List<MyFans> fans;
+    /**
+     * o : [{"id":"1","nid":"3","fid":"2","time":"1481251087","state":"1"}]
+     * e :
+     */
 
-    public List<MyFans> getFans() {
-        return fans;
+    private String e;
+    private List<MyFans> o;
+
+
+    public String getE() {
+        return e;
     }
 
-    public void setFans(List<MyFans> fans) {
-        this.fans = fans;
+    public void setE(String e) {
+        this.e = e;
     }
+
+    public List<MyFans> getO() {
+        return o;
+    }
+
+    public void setO(List<MyFans> o) {
+        this.o = o;
+    }
+
 
     public static class MyFans {
-        private String img;
-        private String name;
-        private int type;
+        /**
+         * id : 1
+         * nid : 3
+         * fid : 2
+         * time : 1481251087
+         * state : 1
+         */
 
-        public String getImg() {
-            return img;
+        private String id;
+        private String nid;
+        private String fid;
+        private String time;
+        private String state;
+
+        public String getId() {
+            return id;
         }
 
-        public void setImg(String img) {
-            this.img = img;
+        public void setId(String id) {
+            this.id = id;
         }
 
-        public String getName() {
-            return name;
+        public String getNid() {
+            return nid;
         }
 
-        public void setName(String name) {
-            this.name = name;
+        public void setNid(String nid) {
+            this.nid = nid;
         }
 
-        public int getType() {
-            return type;
+        public String getFid() {
+            return fid;
         }
 
-        public void setType(int type) {
-            this.type = type;
+        public void setFid(String fid) {
+            this.fid = fid;
+        }
+
+        public String getTime() {
+            return time;
+        }
+
+        public void setTime(String time) {
+            this.time = time;
+        }
+
+        public String getState() {
+            return state;
+        }
+
+        public void setState(String state) {
+            this.state = state;
         }
     }
 }

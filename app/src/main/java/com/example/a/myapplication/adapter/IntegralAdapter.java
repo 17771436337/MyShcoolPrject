@@ -10,15 +10,15 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/12/8.
  */
-public class IntegralAdapter extends SuperBaseAdapter<IntegralModel.Integral>{
+public class IntegralAdapter extends SuperBaseAdapter<IntegralModel.OBean>{
 
-    public IntegralAdapter(PullToRefreshBase listView, List<IntegralModel.Integral> datas) {
+    public IntegralAdapter(PullToRefreshBase listView, List<IntegralModel.OBean> datas) {
         super(listView, datas);
     }
 
 
     @Override
-    protected BaseHolder<IntegralModel.Integral> getItemHolder(int position) {
+    protected BaseHolder<IntegralModel.OBean> getItemHolder(int position) {
         return new IntegralHplder();
     }
 }

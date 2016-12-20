@@ -32,10 +32,11 @@ import java.util.concurrent.TimeUnit;
  * Created by yutianran on 16/2/24.
  */
 public class OkHttpUtil {
-    Request.Builder  builder;
+    Request.Builder builder;
     private OkHttpClient okHttpClient;
     private Callback callback;
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
     //??????????????
     public static OkHttpUtil getInstance() {
         return SingletonHolder.mInstance;
@@ -59,6 +60,7 @@ public class OkHttpUtil {
 
         builder = new Request.Builder();
     }
+
     /*???????????Put*/
     public <T> void addRequestPut(String url, Map<String, String> params, final HttpCallBack<T> callBack) {
         Log.e("???????", params.toString());
@@ -91,16 +93,20 @@ public class OkHttpUtil {
         });
 
     }
+
     /*???????????Post*/
     public <T> void addRequestPost(String url, Map<String, String> params, final HttpCallBack<T> callBack) {
         if (params == null || params.size() == 0) {
             return;
         }
-        RequestBody requestBody= buildParamsJosn(params);
+        RequestBody requestBody = buildParams(params);
+        Log.e("url", url);
         Log.e("???????", params.toString());
         Request request = builder
+                .header("Content-Type", "application/x-www-form-urlencoded")
                 .url(url)
                 .post(requestBody)
+
                 .build();
         final Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {
@@ -115,7 +121,8 @@ public class OkHttpUtil {
                     callBack.onSuccss((T) JsonUtil.getInstance().stringToObj(body, actualTypeArguments));
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.e("json???????", body);
+
+                    Log.e("JSONaaaaaaaaaaaaaaaaaaa", body);
                 }
             }
 
@@ -126,9 +133,10 @@ public class OkHttpUtil {
         });
 
     }
+
     /*???????????detele*/
     public <T> void addRequestDetele(String url, final HttpCallBack<T> callBack) {
-        Request request =  builder
+        Request request = builder
 
                 .url(url)
                 .delete()
@@ -160,7 +168,7 @@ public class OkHttpUtil {
 
     /*???????????Get*/
     public <T> void addRequestGet(String url, final HttpCallBack<T> callBack) {
-        Request request =  builder
+        Request request = builder
 
                 .url(url)
                 .get()
@@ -176,10 +184,10 @@ public class OkHttpUtil {
                     ParameterizedType parameterizedType = (ParameterizedType) types[0];
                     final Type actualTypeArguments = parameterizedType.getActualTypeArguments()[0];
                     //// TODO: 2016/3/10 ???????????????
-                    callBack.onSuccss((T)JsonUtil.getInstance().stringToObj(body, actualTypeArguments));
+                    callBack.onSuccss((T) JsonUtil.getInstance().stringToObj(body, actualTypeArguments));
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.e("json???????", body);
+                    Log.e("jsonText", body);
                 }
             }
 
@@ -195,16 +203,16 @@ public class OkHttpUtil {
      * ???????????????get
      */
     public String addRequestNoCallGet(String url) {
-        Request request =  builder
+        Request request = builder
                 .url(url)
                 .get()
                 .build();
         final Call callnocallget = okHttpClient.newCall(request);
-        String body="";
+        String body = "";
         try {
             Response response = callnocallget.execute();
             body = response.body().string();
-            Log.e("?????json", body);
+            Log.e("jsonText", body);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -215,13 +223,13 @@ public class OkHttpUtil {
      * ???????????????post
      */
     public String addRequest(String url, Map<String, String> params) {
-        Request request =  builder
+        Request request = builder
                 .url(url)
-                .post(buildParamsJosn(params))
-
+                .post(buildParams(params))
+                .header("Content-Type", "application/x-www-form-urlencoded")
                 .build();
         Log.e("???????", params.toString());
-        String body="";
+        String body = "";
         final Call call = okHttpClient.newCall(request);
         try {
             Response response = call.execute();
@@ -319,7 +327,7 @@ public class OkHttpUtil {
                     ParameterizedType parameterizedType = (ParameterizedType) types[0];
                     final Type actualTypeArguments = parameterizedType.getActualTypeArguments()[0];
                     //// TODO: 2016/3/10 ???????????????
-                    callBack.onSuccss((T)JsonUtil.getInstance().stringToObj(body, actualTypeArguments));
+                    callBack.onSuccss((T) JsonUtil.getInstance().stringToObj(body, actualTypeArguments));
 
                 } catch (Exception e) {
                     Log.e("???????????6", e.getMessage());

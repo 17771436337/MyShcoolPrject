@@ -14,6 +14,9 @@ public class Config {
      */
     public final static String hostImgString = "http://115.28.94.239/";
 
+
+    public final static String listCount = "10";
+
     /**
      * 发送验证码
      * phone:手机号
@@ -59,6 +62,27 @@ public class Config {
      */
     public static final String getProfile = Config.hostString + "App/User/getProfile";
 
+    /**
+     * 消息提醒开关
+     */
+    public static final String messageremind = Config.hostString + "App/Message/messageremind";
+
+    /**
+     * 我的积分
+     */
+    public static final String my_Integral = Config.hostString + "App/User/my_Integral";
+
+    /**
+     * 我的粉丝列表
+     */
+    public static final String getfans = Config.hostString + "App/Focuson/getfans";
+
+
+    /**
+     * 订单列表
+     */
+    public static final String orderList = Config.hostString + "App/Order/orderList";
+
     //---------------------------------------------------------------------
 
 
@@ -83,4 +107,9 @@ public class Config {
      * 用户密码
      */
     public final static String PASSWORD = "password";
+
+    /**
+     * 消息提醒开关
+     */
+    public final static String REMIND = "remind";
 }

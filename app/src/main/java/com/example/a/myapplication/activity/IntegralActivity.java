@@ -6,12 +6,17 @@ import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
 import com.example.a.myapplication.adapter.IntegralAdapter;
 import com.example.a.myapplication.bean.IntegralModel;
+import com.example.a.myapplication.http.OkHttpUtil;
+import com.example.a.myapplication.util.Config;
 import com.example.a.myapplication.view.IntegralHeadView;
 import com.example.a.myapplication.view.TitleView2;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
-import java.util.ArrayList;
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.InjectView;
 
@@ -27,6 +32,8 @@ public class IntegralActivity extends BaseActivity {
     IntegralAdapter adapter;
     IntegralHeadView headView;
 
+    private int page = 1;
+
 
     @InjectView(R.id.title_layout)
     protected RelativeLayout titleView;
@@ -38,14 +45,13 @@ public class IntegralActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
         initTitle();
-        getData();
-        adapter = new IntegralAdapter(pullListView, model.getIntegral());
-        pullListView.setMode(PullToRefreshBase.Mode.BOTH);
+
         headView = new IntegralHeadView(this);
+
+        getData();
         pullListView.getRefreshableView().addHeaderView(headView.getView());
-        pullListView.getRefreshableView().setAdapter(adapter);
+        pullListView.setMode(PullToRefreshBase.Mode.BOTH);
 
 
     }
@@ -67,11 +73,48 @@ public class IntegralActivity extends BaseActivity {
 
 
     private void getData() {
-        ArrayList<IntegralModel.Integral> list = new ArrayList<IntegralModel.Integral>();
-        for (int i = 0; i < 30; i++) {
-            IntegralModel.Integral data = new IntegralModel.Integral();
-            list.add(data);
+
+        Map<String, String> par = new HashMap<String, String>();
+        par.put("uid", "2");
+        par.put("pagination", page + "");
+        par.put("pagelen", Config.listCount);
+
+        OkHttpUtil.getInstance().addRequestPost(Config.my_Integral, par, new OkHttpUtil.HttpCallBack<IntegralModel>() {
+
+            @Override
+            public void onSuccss(IntegralModel integralModel) {
+
+                EventBus.getDefault().post(integralModel);
+
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+
+
+    }
+
+
+    @Override
+    public void onEventMainThread(Object obj) {
+        super.onEventMainThread(obj);
+        if (obj instanceof IntegralModel) {
+            IntegralModel integralModel = (IntegralModel) obj;
+            if (integralModel.getC() == 1) {
+                model = integralModel;
+                if (headView != null) {
+                    headView.setTextView(model.getE());
+                }
+                adapter = new IntegralAdapter(pullListView, model.getO());
+                pullListView.getRefreshableView().setAdapter(adapter);
+            } else {
+
+            }
         }
-        model.setIntegral(list);
     }
 }
+
+

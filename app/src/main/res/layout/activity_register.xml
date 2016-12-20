@@ -69,6 +69,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         >
 
@@ -80,6 +81,7 @@
             android:textSize="14sp"/>
 
         <EditText
+            android:id="@+id/code_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
@@ -107,7 +109,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         >
 
@@ -120,6 +122,7 @@
             />
 
         <EditText
+            android:id="@+id/password_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
@@ -143,6 +146,7 @@
         android:background="@color/bg_transparency"/>
 
     <TextView
+        android:id="@+id/register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

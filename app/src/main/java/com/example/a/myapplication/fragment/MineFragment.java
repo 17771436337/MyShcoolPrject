@@ -1,6 +1,8 @@
 package com.example.a.myapplication.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -23,6 +25,7 @@ import com.example.a.myapplication.http.OkHttpUtil;
 import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
 import com.example.a.myapplication.util.Preference;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -53,6 +56,12 @@ public class MineFragment extends Fragment {
     @InjectView(R.id.name)
     protected TextView name;//名字
 
+    @InjectView(R.id.fans_text)
+    protected TextView fansTextView; //粉丝数
+
+    @InjectView(R.id.attention_text)
+    protected TextView attentionTextView;//关注数
+
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
@@ -71,7 +80,6 @@ public class MineFragment extends Fragment {
     }
 
     private void initData() {
-        getProfile();
     }
 
 
@@ -136,10 +144,14 @@ public class MineFragment extends Fragment {
 
         Map<String, String> pam = new HashMap<String, String>();
         pam.put("userid", Preference.get(Config.ID, ""));
-        OkHttpUtil.getInstance().addRequestPost(Config.hostString + "App/User/getProfile", pam, new OkHttpUtil.HttpCallBack<MianProfineModel>() {
+        OkHttpUtil.getInstance().addRequestPost(Config.getProfile, pam, new OkHttpUtil.HttpCallBack<MianProfineModel>() {
 
             @Override
             public void onSuccss(MianProfineModel mianProfineModel) {
+                Message message = new Message();
+                message.obj = mianProfineModel;
+                message.what = 0x0001;
+                handler.sendMessage(message);
 
 
             }
@@ -152,4 +164,33 @@ public class MineFragment extends Fragment {
     }
 
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getProfile();
+    }
+
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+
+            if (msg.what == 0x0001) {
+                MianProfineModel mianProfineModel = (MianProfineModel) msg.obj;
+                if (mianProfineModel.getC() == 1) {
+
+                    ImageLoader.getInstance().displayImage(Config.hostImgString + mianProfineModel.getO().getHead(), head);
+
+                    name.setText(mianProfineModel.getO().getName());
+                    fansTextView.setText(mianProfineModel.getO().getFans());
+                    attentionTextView.setText(mianProfineModel.getO().getFocus());
+                    Preference.put(Config.REMIND, mianProfineModel.getO().getRemind());
+
+
+                } else {
+
+                }
+            }
+        }
+    };
 }
