@@ -4,9 +4,9 @@ package com.example.a.myapplication.bean;
  * Created by a on 2016/12/1.
  */
 
-public class BaseModel  {
-    public String m;
-    public int c;
+public class BaseModel {
+    private String m;
+    private int c;
 
     public String getM() {
         return m;
@@ -23,4 +23,6 @@ public class BaseModel  {
     public void setC(int c) {
         this.c = c;
     }
+
+
 }
