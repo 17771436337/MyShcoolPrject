@@ -78,7 +78,7 @@ public class SettingActivity extends BaseActivity {
                 CommonUtils.startIntent(this, FeedBackActivty.class);
                 break;
             case R.id.out://退出登录
-                OkHttpUtil.getInstance().addRequestGet(Config.hostString + "App/User/logout", new OkHttpUtil.HttpCallBack<BaseModel>() {
+                OkHttpUtil.getInstance().addRequestGet(Config.logout, new OkHttpUtil.HttpCallBack<BaseModel>() {
 
                     @Override
                     public void onSuccss(BaseModel baseModel) {

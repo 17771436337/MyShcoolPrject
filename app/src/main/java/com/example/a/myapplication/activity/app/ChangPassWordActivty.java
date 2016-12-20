@@ -95,7 +95,7 @@ public class ChangPassWordActivty extends BaseActivity {
                 param.put("password", MD5Util.MD5(repassword));
                 param.put("id", Preference.get(Config.ID, ""));
 
-                OkHttpUtil.getInstance().addRequestPost(Config.hostString + "App/User/editPwd", param, new OkHttpUtil.HttpCallBack<BaseModel>() {
+                OkHttpUtil.getInstance().addRequestPost(Config.editPwd, param, new OkHttpUtil.HttpCallBack<BaseModel>() {
 
                     @Override
                     public void onSuccss(BaseModel baseModel) {

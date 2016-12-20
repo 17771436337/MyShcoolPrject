@@ -83,7 +83,7 @@ public class RegisterActivity extends BaseActivity {
                     return;
                 }
 
-                OkHttpUtil.getInstance().addRequestGet(Config.hostString + "App/User/sendPhoneCode/phone/" + phone + "/type/1", new OkHttpUtil.HttpCallBack<BaseModel>() {
+                OkHttpUtil.getInstance().addRequestGet(Config.sendCode(phone, 1), new OkHttpUtil.HttpCallBack<BaseModel>() {
 
                     @Override
                     public void onSuccss(BaseModel baseModel) {
@@ -127,7 +127,7 @@ public class RegisterActivity extends BaseActivity {
                 param.put("verify", code);
                 param.put("teltype", 1 + "");
 
-                OkHttpUtil.getInstance().addRequestPost(Config.hostString + "App/User/register", param, new OkHttpUtil.HttpCallBack<BaseModel>() {
+                OkHttpUtil.getInstance().addRequestPost(Config.register, param, new OkHttpUtil.HttpCallBack<BaseModel>() {
 
                     @Override
                     public void onSuccss(BaseModel baseModel) {

@@ -82,7 +82,7 @@ public class LoginActivity extends BaseActivity {
                 param.put("password", MD5Util.MD5(password));
                 param.put("device", CommonUtils.getSzimei(this));
 
-                OkHttpUtil.getInstance().addRequestPost(Config.hostString + "App/User/login", param, new OkHttpUtil.HttpCallBack<LoginModel>() {
+                OkHttpUtil.getInstance().addRequestPost(Config.login, param, new OkHttpUtil.HttpCallBack<LoginModel>() {
 
                     @Override
                     public void onSuccss(LoginModel loginModel) {

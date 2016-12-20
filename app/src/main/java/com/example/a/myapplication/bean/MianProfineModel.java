@@ -7,7 +7,7 @@ public class MianProfineModel extends BaseModel{
 
 
     /**
-     * o : {"id":"4","name":"","head":"","fans":"0","focus":"0"}
+     * o : {"id":"4","name":"","head":"","fans":"0","focus":"0","remind":"0"}
      * e :
      */
 
@@ -37,6 +37,7 @@ public class MianProfineModel extends BaseModel{
          * head :
          * fans : 0
          * focus : 0
+         *remind 消息提醒（0开启，1不开启）
          */
 
         private String id;
@@ -44,6 +45,7 @@ public class MianProfineModel extends BaseModel{
         private String head;
         private String fans;
         private String focus;
+        private String remind;
 
         public String getId() {
             return id;
@@ -83,6 +85,14 @@ public class MianProfineModel extends BaseModel{
 
         public void setFocus(String focus) {
             this.focus = focus;
+        }
+
+        public String getRemind() {
+            return remind;
+        }
+
+        public void setRemind(String remind) {
+            this.remind = remind;
         }
     }
 }

@@ -141,6 +141,7 @@ public class MineFragment extends Fragment {
             @Override
             public void onSuccss(MianProfineModel mianProfineModel) {
 
+
             }
 
             @Override

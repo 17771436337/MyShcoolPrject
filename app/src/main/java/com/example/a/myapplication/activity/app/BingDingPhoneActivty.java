@@ -76,7 +76,7 @@ public class BingDingPhoneActivty extends BaseActivity {
                 }
 
 
-                OkHttpUtil.getInstance().addRequestGet(Config.hostString + "App/User/sendPhoneCode/phone/" + phone + "/type/3", new OkHttpUtil.HttpCallBack<BaseModel>() {
+                OkHttpUtil.getInstance().addRequestGet(Config.sendCode(phone, 3), new OkHttpUtil.HttpCallBack<BaseModel>() {
 
 
                     @Override

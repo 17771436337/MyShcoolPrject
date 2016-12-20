@@ -84,7 +84,7 @@ public class ForgetPassWordActivity extends BaseActivity {
                 }
 
 
-                OkHttpUtil.getInstance().addRequestGet(Config.hostString + "App/User/sendPhoneCode/phone/" + phone + "/type/2", new OkHttpUtil.HttpCallBack<BaseModel>() {
+                OkHttpUtil.getInstance().addRequestGet(Config.sendCode(phone, 2), new OkHttpUtil.HttpCallBack<BaseModel>() {
 
 
                     @Override
@@ -129,7 +129,7 @@ public class ForgetPassWordActivity extends BaseActivity {
                 param.put("password", MD5Util.MD5(password));
                 param.put("verify", code);
 
-                OkHttpUtil.getInstance().addRequestPost(Config.hostString + "App/User/lostPwd", param, new OkHttpUtil.HttpCallBack<BaseModel>() {
+                OkHttpUtil.getInstance().addRequestPost(Config.lostPwd, param, new OkHttpUtil.HttpCallBack<BaseModel>() {
 
                     @Override
                     public void onSuccss(BaseModel baseModel) {
