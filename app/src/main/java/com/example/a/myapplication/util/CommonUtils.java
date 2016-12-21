@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.List;
 
 public class CommonUtils {
-    static double M_PI = Math.PI;
+    public static double M_PI = Math.PI;
 
     /**
      * 判断包是否安装
