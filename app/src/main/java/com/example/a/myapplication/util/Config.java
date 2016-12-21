@@ -5,6 +5,7 @@ package com.example.a.myapplication.util;
  */
 public class Config {
     public final static String hostString = "http://115.28.94.239/";
+    public final static String NATIVE ="wardrobe/code/wardrode/Public/Uploads/images/icon_up_img.png";//固定图片地址
 
     /**
      * 造型师列表
