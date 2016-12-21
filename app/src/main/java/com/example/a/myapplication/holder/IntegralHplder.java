@@ -11,7 +11,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Administrator on 2016/12/8.
  */
-public class IntegralHplder extends BaseHolder<IntegralModel.Integral>{
+public class IntegralHplder extends BaseHolder<IntegralModel.OBean>{
     @Override
     protected View initView() {
         View view = View.inflate(UIUtils.getContext(), R.layout.item_integral_list,null);
@@ -20,7 +20,7 @@ public class IntegralHplder extends BaseHolder<IntegralModel.Integral>{
     }
 
     @Override
-    protected void refreshUI(IntegralModel.Integral data) {
+    protected void refreshUI(IntegralModel.OBean data) {
 
     }
 }

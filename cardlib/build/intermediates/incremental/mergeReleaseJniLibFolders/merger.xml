@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="F:\work\MyApplication(1)\My\cardlib\src\main\jniLibs"/></dataSet><dataSet config="release"><source path="F:\work\MyApplication(1)\My\cardlib\src\release\jniLibs"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="D:\ProgramFiles\Android\MyApplication2\cardlib\src\main\jniLibs"/></dataSet><dataSet config="release"><source path="D:\ProgramFiles\Android\MyApplication2\cardlib\src\release\jniLibs"/></dataSet></merger>

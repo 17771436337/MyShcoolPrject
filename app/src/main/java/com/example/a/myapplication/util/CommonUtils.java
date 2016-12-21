@@ -13,9 +13,7 @@ import android.text.TextUtils;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class CommonUtils {
     static double M_PI = Math.PI;
@@ -108,13 +106,9 @@ public class CommonUtils {
         }
     }*/
 
-    /**
-     * 创建一个请求参数map对象
-     */
-    public static Map<String,String>  getMapParm(){
-        Map<String,String>     parm = new HashMap<String,String>();
-        return parm ;
-    }
+
+
+
 
 
 

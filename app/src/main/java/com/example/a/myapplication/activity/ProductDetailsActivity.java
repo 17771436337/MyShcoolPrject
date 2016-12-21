@@ -2,6 +2,7 @@ package com.example.a.myapplication.activity;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -49,12 +50,11 @@ public class ProductDetailsActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        Log.e("id",getIntent().getExtras().getString("id"));
         initTitle();
         initImgView();
         initTitleOne();
         initOnClick();
-
-
     }
 
 
@@ -67,10 +67,7 @@ public class ProductDetailsActivity extends BaseActivity {
      * 标题初始化
      */
     private void initTitle() {
-
         titleText.setText("求单品详情");
-//        titleRight.setImageResource(R.drawable.share);
-//        titleRight.setVisibility(View.GONE);
     }
 
     /**
