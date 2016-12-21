@@ -17,9 +17,17 @@ import com.example.a.myapplication.activity.MyFansActivity;
 import com.example.a.myapplication.activity.MyOrderActivity;
 import com.example.a.myapplication.activity.MyProFileActivity;
 import com.example.a.myapplication.activity.ShopActivity;
-
 import com.example.a.myapplication.activity.app.SettingActivity;
+import com.example.a.myapplication.bean.MianProfineModel;
+import com.example.a.myapplication.http.OkHttpUtil;
 import com.example.a.myapplication.util.CommonUtils;
+import com.example.a.myapplication.util.Config;
+import com.example.a.myapplication.util.Preference;
+
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -56,8 +64,14 @@ public class MineFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         ButterKnife.inject(this, view);
         initTtitle();
+        initData();
+    }
+
+    private void initData() {
+        getProfile();
     }
 
 
@@ -75,7 +89,7 @@ public class MineFragment extends Fragment {
      */
     @OnClick({R.id.order_text, R.id.shopping_text, R.id.integral_text,
             R.id.replacement_text, R.id.collect_text, R.id.fans_layout,
-            R.id.attention_layout, R.id.right, R.id.file_text,R.id.message_icon})
+            R.id.attention_layout, R.id.right, R.id.file_text, R.id.message_icon})
     public void OnClic(View v) {
         switch (v.getId()) {
             case R.id.order_text://我的订单
@@ -107,11 +121,34 @@ public class MineFragment extends Fragment {
                 CommonUtils.startIntent(getActivity(), MyProFileActivity.class);
                 break;
             case R.id.message_icon://消息
-                CommonUtils.startIntent(getActivity(),MessageActvity.class);
+                CommonUtils.startIntent(getActivity(), MessageActvity.class);
                 break;
 
 
         }
+    }
+
+
+    /**
+     * 获取用户信息
+     */
+    private void getProfile() {
+
+        Map<String, String> pam = new HashMap<String, String>();
+        pam.put("userid", Preference.get(Config.ID, ""));
+        OkHttpUtil.getInstance().addRequestPost(Config.hostString + "App/User/getProfile", pam, new OkHttpUtil.HttpCallBack<MianProfineModel>() {
+
+            @Override
+            public void onSuccss(MianProfineModel mianProfineModel) {
+
+
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
     }
 
 
