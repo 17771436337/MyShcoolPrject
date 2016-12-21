@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
@@ -17,7 +18,11 @@ import com.example.a.myapplication.view.TitleView1;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import butterknife.InjectView;
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
 /**
@@ -32,6 +37,9 @@ public class SettingActivity extends BaseActivity {
     @InjectView(R.id.cache)
     protected TextView cacheText;
 
+    @InjectView(R.id.remind)
+    protected ToggleButton remind;
+
     @Override
     protected int getLayoutID() {
         return R.layout.activity_setting;
@@ -40,17 +48,54 @@ public class SettingActivity extends BaseActivity {
     @Override
     protected void initView() {
         initTitle();
+
+        if (Preference.get(Config.REMIND, "1").equals("0")) {
+            remind.setChecked(true);
+        } else {
+            remind.setChecked(false);
+        }
+
+
         try {
             cacheText.setText(DataCleanManager.getTotalCacheSize(this));
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+
     }
 
     @Override
     protected void initData() {
 
+    }
+
+    @OnCheckedChanged(R.id.remind)
+    protected void onCheckeChanged(boolean is) {
+        final String remind;
+        if (is) {
+            remind = "0";
+        } else {
+            remind = "1";
+        }
+
+
+        Map<String, String> par = new HashMap<String, String>();
+        par.put("id", Preference.get(Config.ID, ""));
+        par.put("remind", remind);
+        final String str = remind;
+        OkHttpUtil.getInstance().addRequestPost(Config.messageremind, par, new OkHttpUtil.HttpCallBack<BaseModel>() {
+
+            @Override
+            public void onSuccss(BaseModel baseModel) {
+                Preference.put(Config.REMIND, str);
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
     }
 
 
@@ -94,6 +139,7 @@ public class SettingActivity extends BaseActivity {
         }
 
     }
+
 
     /**
      * 标题初始化

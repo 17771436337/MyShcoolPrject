@@ -54,17 +54,22 @@ public class TitleView1 extends BaseView {
         titleRight.setBackgroundResource(id);
     }
 
-    @OnClick({R.id.back, R.id.title_right})
+    @OnClick({R.id.back})
     protected void onClick(View v) {
         switch (v.getId()) {
             case R.id.back: //返回
                 BaseApplication.getInstance().mCurrentActivity.finish();
                 break;
-            case R.id.title_right:
 
-                break;
         }
     }
 
+
+    /**
+     * 右边的点击事件
+     */
+    public void setTitleOnClickListeneRight(View.OnClickListener l) {
+        titleRight.setOnClickListener(l);
+    }
 
 }

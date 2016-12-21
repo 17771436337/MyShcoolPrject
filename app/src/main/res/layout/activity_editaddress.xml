@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"></RelativeLayout>
 
     <EditText
+        android:id="@+id/name_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
@@ -32,6 +33,7 @@
 
 
     <EditText
+        android:id="@+id/phone_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
@@ -48,7 +50,7 @@
         android:textSize="14sp"/>
 
     <EditText
-
+        android:id="@+id/code_edit"
         android:layout_width="match_parent"
 
         android:layout_height="wrap_content"
@@ -66,6 +68,7 @@
 
 
     <TextView
+        android:id="@+id/city"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="省，市，区"
@@ -76,14 +79,13 @@
         android:textSize="14sp"/>
 
     <EditText
+        android:id="@+id/address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-
         android:hint="详细地址"
         android:inputType="textMultiLine"
         android:maxLength="300"
-
         android:maxLines="5"
         android:paddingBottom="10dp"
         android:paddingTop="10dp"

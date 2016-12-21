@@ -42,13 +42,13 @@ public class MyFansHolder extends BaseHolder<FansModel.MyFans> {
     @Override
     protected void refreshUI(FansModel.MyFans data) {
 //        ImageLoader.getInstance().displayImage(data.getImg(), head,options);
-        nameText.setText(data.getName());
-        if (data.getType() == 1) {
-            no.setVisibility(View.VISIBLE);
-            yes.setVisibility(View.GONE);
-        } else {
-            yes.setVisibility(View.VISIBLE);
-            no.setVisibility(View.GONE);
-        }
+//        nameText.setText(data.getName());
+//        if (data.getType() == 1) {
+//            no.setVisibility(View.VISIBLE);
+//            yes.setVisibility(View.GONE);
+//        } else {
+//            yes.setVisibility(View.VISIBLE);
+//            no.setVisibility(View.GONE);
+//        }
     }
 }

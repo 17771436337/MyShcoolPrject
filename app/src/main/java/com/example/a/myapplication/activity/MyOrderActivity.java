@@ -17,7 +17,6 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +44,7 @@ public class MyOrderActivity extends BaseActivity {
      */
     private int type;
 
-    private int page;
+    private int page = 1;
 
     @InjectViews({R.id.text1, R.id.text2, R.id.text3, R.id.text4})
     protected List<TextView> textView;
@@ -66,9 +65,9 @@ public class MyOrderActivity extends BaseActivity {
     protected void initView() {
         initTitle();
         getData();
-        adapter = new MyOrderAdapter(pullListView, moder.getData());
+
         pullListView.setMode(PullToRefreshBase.Mode.BOTH);
-        pullListView.getRefreshableView().setAdapter(adapter);
+
     }
 
     @Override
@@ -113,6 +112,7 @@ public class MyOrderActivity extends BaseActivity {
     private void setSeleoct(int i) {
 
         type = i;
+        getData();
         for (int j = 0; j < textView.size(); j++) {
             if (i == j) {
                 textView.get(j).setTextColor(this.getResources().getColor(R.color.black_text));
@@ -130,7 +130,7 @@ public class MyOrderActivity extends BaseActivity {
     public void getData() {
 
         Map<String, String> par = new HashMap<String, String>();
-        par.put("uid", "3");
+        par.put("uid", "2");
         par.put("type", type + "");
         par.put("pagination", page + "");
         par.put("pagelen", Config.listCount);
@@ -147,14 +147,7 @@ public class MyOrderActivity extends BaseActivity {
             }
         });
 
-        List<MyOrderModer.Order> list = new ArrayList<MyOrderModer.Order>();
-        for (int i = 0; i < 10; i++) {
-            MyOrderModer.Order Order = new MyOrderModer.Order();
 
-
-            list.add(Order);
-        }
-        moder.setData(list);
     }
 
 
@@ -164,7 +157,9 @@ public class MyOrderActivity extends BaseActivity {
         if (obj instanceof MyOrderModer) {
             MyOrderModer myOrderModer = (MyOrderModer) obj;
             if (myOrderModer.getC() == 1) {
-
+                moder = myOrderModer;
+                adapter = new MyOrderAdapter(pullListView, moder.getO());
+                pullListView.getRefreshableView().setAdapter(adapter);
             } else {
 
             }
