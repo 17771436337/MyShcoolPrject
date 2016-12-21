@@ -31,6 +31,7 @@
             android:textSize="14sp"/>
 
         <EditText
+            android:id="@+id/phone_edit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="4"
@@ -59,6 +60,7 @@
         android:orientation="horizontal">
 
         <EditText
+            android:id="@+id/code_edit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
@@ -76,6 +78,7 @@
             />
 
         <TextView
+            android:id="@+id/code"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -92,6 +95,7 @@
 
 
     <TextView
+        android:id="@+id/ok"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

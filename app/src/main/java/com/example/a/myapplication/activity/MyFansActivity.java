@@ -6,12 +6,16 @@ import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
 import com.example.a.myapplication.adapter.MyFansAdapter;
 import com.example.a.myapplication.bean.FansModel;
+import com.example.a.myapplication.http.OkHttpUtil;
+import com.example.a.myapplication.util.Config;
 import com.example.a.myapplication.view.TitleView1;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.InjectView;
 
@@ -38,9 +42,9 @@ public class MyFansActivity extends BaseActivity {
     protected void initView() {
         initTitle();
         getData();
-        adapter = new MyFansAdapter(pullListView, data.getFans());
+
         pullListView.setMode(PullToRefreshBase.Mode.BOTH);
-        pullListView.getRefreshableView().setAdapter(adapter);
+
 
     }
 
@@ -61,20 +65,34 @@ public class MyFansActivity extends BaseActivity {
 
 
     public void getData() {
-        List<FansModel.MyFans> list = new ArrayList<FansModel.MyFans>();
-        for (int i = 0; i < 10; i++) {
-            FansModel.MyFans fans = new FansModel.MyFans();
-            fans.setImg("");
-            fans.setName("武汉");
 
-            if (i % 2 == 0) {
-                fans.setType(0);
-            } else {
-                fans.setType(1);
+
+        Map<String, String> par = new HashMap<String, String>();
+        par.put("fid", "2");
+        OkHttpUtil.getInstance().addRequestPost(Config.getfans, par, new OkHttpUtil.HttpCallBack<FansModel>() {
+
+            @Override
+            public void onSuccss(FansModel fansModel) {
+                EventBus.getDefault().post(fansModel);
             }
 
-            list.add(fans);
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+
+
+    }
+
+    @Override
+    public void onEventMainThread(Object obj) {
+        super.onEventMainThread(obj);
+        if (obj instanceof FansModel) {
+            FansModel fansModel = (FansModel) obj;
+            data = fansModel;
+            adapter = new MyFansAdapter(pullListView, data.getO());
+            pullListView.getRefreshableView().setAdapter(adapter);
         }
-        data.setFans(list);
     }
 }

@@ -68,6 +68,7 @@
             android:textSize="14sp"/>
 
         <ToggleButton
+            android:id="@+id/remind"
             style="@style/MyToggleButton"
             android:layout_width="50dp"
             android:layout_height="25dp"

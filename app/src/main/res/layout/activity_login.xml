@@ -34,12 +34,13 @@
             android:textSize="14sp"/>
 
         <EditText
+            android:id="@+id/phone_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"
             android:contentDescription="@null"
             android:gravity="center_vertical"
-            android:inputType="phone"
+            android:inputType="number"
             android:maxLength="11"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
@@ -75,6 +76,7 @@
             />
 
         <EditText
+            android:id="@+id/password_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@null"

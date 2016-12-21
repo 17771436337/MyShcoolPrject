@@ -5,6 +5,9 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +16,7 @@ import android.widget.TextView;
 import com.example.a.myapplication.R;
 import com.example.a.myapplication.activity.MessageActvity;
 import com.example.a.myapplication.activity.RecommendListActivity;
+import com.example.a.myapplication.adapter.MainFragmentAdapter;
 import com.example.a.myapplication.util.CommonUtils;
 import com.wirelesspienetwork.overview.model.OverviewAdapter;
 import com.wirelesspienetwork.overview.model.ViewHolder;
@@ -20,6 +24,7 @@ import com.wirelesspienetwork.overview.views.Overview;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import butterknife.ButterKnife;
@@ -29,9 +34,6 @@ import butterknife.OnClick;
 import static android.app.SearchManager.INTENT_GLOBAL_SEARCH_ACTIVITY_CHANGED;
 import static android.content.Intent.ACTION_SCREEN_OFF;
 import static android.graphics.Color.argb;
-import static android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
-import static android.view.View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION;
-import static android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE;
 import static android.view.View.inflate;
 import static android.widget.Toast.makeText;
 import static com.wirelesspienetwork.overview.misc.Utilities.setShadowProperty;
@@ -46,8 +48,11 @@ public class MainFragment extends Fragment implements Overview.RecentsViewCallba
     @InjectView(R.id.title_text)
     protected TextView titleText;
 
-    @InjectView(R.id.recents_view)
-    protected Overview mRecentsView;
+
+    @InjectView(R.id.listView)
+    protected RecyclerView listView;
+    private MainFragmentAdapter mListAdapter;
+    private List<String> mDatas = new ArrayList<String>();
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -56,71 +61,40 @@ public class MainFragment extends Fragment implements Overview.RecentsViewCallba
         view = inflater.inflate(R.layout.fragment_main, container, false);
         ButterKnife.inject(this, view);
         initTitleView();
-        initContent();
+//        initContent();
+
+        initList();
         return view;
     }
 
     /**
-     * 卡片内容
+     * 添加内容
      */
-    private void initContent() {
-        mRecentsView.setCallbacks(this);
-//        mRecentsView.setSystemUiVisibility(SYSTEM_UI_FLAG_LAYOUT_STABLE |
-//                SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
-//                SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+    private void initList() {
+        listView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mDatas.add("wusdasda");
+        mDatas.add(new String("嘻哈"));
+        mDatas.add(new String("嘻哈"));
+        mDatas.add(new String("嘻哈"));
+        mDatas.add(new String("嘻哈"));
 
-        // Register the broadcast receiver to handle messages when the screen is turned off
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(ACTION_SCREEN_OFF);
-        filter.addAction(INTENT_GLOBAL_SEARCH_ACTIVITY_CHANGED);
-
-        // Private API calls to make the shadows look better
-        try {
-            setShadowProperty("ambientRatio", valueOf(1.5f));
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
+        mListAdapter = new MainFragmentAdapter(getActivity(), mDatas);
+        // 设置item动画
+        listView.setItemAnimator(new DefaultItemAnimator());
+        listView.setAdapter(mListAdapter);
 
 
-        mVisible = true;
-
-        ArrayList<Integer> models = new ArrayList<>();
-        for (int i = 0; i < 10; ++i) {
-            Random random = new Random();
-            random.setSeed(i);
-            int color = argb(225, random.nextInt(255), random.nextInt(255), random.nextInt(255));
-            models.add(color);
-        }
-
-        final OverviewAdapter stack = new OverviewAdapter<ViewHolder<View, Integer>, Integer>(models) {
+        mListAdapter.setOnItemClickListener(new MainFragmentAdapter.OnItemClickListener() {
             @Override
-            public ViewHolder onCreateViewHolder(Context context, ViewGroup parent) {
-                View v = inflate(context, R.layout.recents_dummy, null);
-                return new ViewHolder<View, Integer>(v);
+            public void onItemClick(View view, int position) {
+                CommonUtils.startIntent(getActivity(), RecommendListActivity.class);
             }
 
             @Override
-            public void onBindViewHolder(ViewHolder<View, Integer> viewHolder) {
-                viewHolder.itemView.setBackgroundColor(viewHolder.model);
-                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        CommonUtils.startIntent(getActivity(),RecommendListActivity.class);
-                    }
-                });
+            public void onItemLongClick(View view, int position) {
+
             }
-        };
-
-        mRecentsView.setTaskStack(stack);
-
-//        new Handler().postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                stack.notifyDataSetInserted(new Integer(1), 2);
-//            }
-//        },2000);
+        });
     }
 
     /**
@@ -139,7 +113,7 @@ public class MainFragment extends Fragment implements Overview.RecentsViewCallba
 
             case R.id.message_icon://消息
 
-                CommonUtils.startIntent(getActivity(),MessageActvity.class);
+                CommonUtils.startIntent(getActivity(), MessageActvity.class);
                 break;
         }
     }
