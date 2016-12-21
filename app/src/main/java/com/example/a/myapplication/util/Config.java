@@ -83,6 +83,39 @@ public class Config {
      */
     public static final String orderList = Config.hostString + "App/Order/orderList";
 
+
+    /**
+     * 我的收藏
+     */
+    public static final String myCollect = Config.hostString + "App/User/myCollect";
+
+    /**
+     * 购物车列表
+     */
+    public static final String cartList = Config.hostString + "App/Order/cartList";
+
+
+    /**
+     * 地址管理列表
+     */
+    public static final String getaddress = Config.hostString + "App/Address/getaddress";
+
+
+    /**
+     * 编辑地址
+     */
+    public static final String saveaddress = Config.hostString + "App/Address/saveaddress";
+
+    /**
+     * 新增地址
+     */
+    public static final String addaddress = Config.hostString + "App/Address/addaddress";
+
+    /**
+     * 个人支付宝
+     */
+    public static final String addPayLog = Config.hostString + "App/Pay/addPayLog";
+
     //---------------------------------------------------------------------
 
 
