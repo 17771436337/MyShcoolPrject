@@ -18,7 +18,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CommonUtils {
     public static double M_PI = Math.PI;
@@ -94,6 +96,13 @@ public class CommonUtils {
         }
 
         return szimei;
+    }
+    /**
+     * 创建一个请求参数map对象
+     */
+    public static Map<String,String> getMapParm(){
+        Map<String,String>     parm = new HashMap<String,String>();
+        return parm ;
     }
 /*
     *//**
