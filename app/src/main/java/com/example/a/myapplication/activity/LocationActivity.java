@@ -1,5 +1,6 @@
 package com.example.a.myapplication.activity;
 
+import android.view.View;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
@@ -7,9 +8,17 @@ import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
 import com.example.a.myapplication.adapter.LocationAdapter;
 import com.example.a.myapplication.bean.LocationMoldel;
+import com.example.a.myapplication.http.OkHttpUtil;
+import com.example.a.myapplication.util.CommonUtils;
+import com.example.a.myapplication.util.Config;
+import com.example.a.myapplication.util.Preference;
+import com.example.a.myapplication.util.UIUtils;
 import com.example.a.myapplication.view.TitleView1;
 
-import java.util.ArrayList;
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.InjectView;
 
@@ -33,14 +42,18 @@ public class LocationActivity extends BaseActivity {
     @Override
     protected void initView() {
         initTitle();
-        getData();
-        adapter = new LocationAdapter(model.getList());
-        listView.setAdapter(adapter);
+
     }
 
     @Override
     protected void initData() {
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getData();
     }
 
     /**
@@ -50,17 +63,46 @@ public class LocationActivity extends BaseActivity {
         TitleView1 view = new TitleView1(this);
         titleView.addView(view.getView());
         view.setTitleText("地址列表", "新增");
+        view.setTitleOnClickListeneRight(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CommonUtils.startIntent(UIUtils.getContext(), EditAddressActivity.class);
+            }
+        });
     }
 
     private void getData() {
 
-        ArrayList<LocationMoldel.Location> list = new ArrayList<LocationMoldel.Location>();
-        for (int i = 0; i < 10; i++) {
+        Map<String, String> par = new HashMap<String, String>();
+        par.put("uid", Preference.get(Config.ID, ""));
+        OkHttpUtil.getInstance().addRequestPost(Config.getaddress, par, new OkHttpUtil.HttpCallBack<LocationMoldel>() {
 
-            LocationMoldel.Location location = new LocationMoldel.Location();
-            list.add(location);
+            @Override
+            public void onSuccss(LocationMoldel locationMoldel) {
+                EventBus.getDefault().post(locationMoldel);
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+
+
+    }
+
+
+    @Override
+    public void onEventMainThread(Object obj) {
+        super.onEventMainThread(obj);
+        if (obj instanceof LocationMoldel) {
+            LocationMoldel locationMoldel = (LocationMoldel) obj;
+            if (locationMoldel.getC() == 1) {
+                adapter = new LocationAdapter(locationMoldel.getO());
+                listView.setAdapter(adapter);
+            } else {
+
+            }
         }
-
-        model.setList(list);
     }
 }

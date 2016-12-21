@@ -8,13 +8,19 @@ import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
 import com.example.a.myapplication.adapter.ShopAdapter;
 import com.example.a.myapplication.bean.ShopModel;
+import com.example.a.myapplication.http.OkHttpUtil;
 import com.example.a.myapplication.util.CommonUtils;
+import com.example.a.myapplication.util.Config;
 import com.example.a.myapplication.view.TitleView1;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -68,7 +74,32 @@ public class ShopActivity extends BaseActivity {
     }
 
 
+    @OnClick({R.id.account})
+    protected void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.account://结算
+                CommonUtils.startIntent(this, ConfirmAnOrderActivity.class);
+                break;
+        }
+    }
+
+
     private void getData() {
+
+        Map<String, String> par = new HashMap<>();
+        par.put("uid", "2");
+        OkHttpUtil.getInstance().addRequestPost(Config.cartList, par, new OkHttpUtil.HttpCallBack<ShopModel>() {
+
+            @Override
+            public void onSuccss(ShopModel shopModel) {
+                EventBus.getDefault().post(shopModel);
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
         List<ShopModel.Shop> list = new ArrayList<ShopModel.Shop>();
         for (int i = 0; i < 10; i++) {
             ShopModel.Shop shop = new ShopModel.Shop();
@@ -85,13 +116,17 @@ public class ShopActivity extends BaseActivity {
         model.setList(list);
     }
 
+    @Override
+    public void onEventMainThread(Object obj) {
+        super.onEventMainThread(obj);
+        if (obj instanceof ShopModel) {
+            ShopModel shopMode = (ShopModel) obj;
+            if (shopMode.getC() == 1) {
 
-    @OnClick({R.id.account})
-    protected void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.account://结算
-                CommonUtils.startIntent(this,ConfirmAnOrderActivity.class);
-                break;
+            } else {
+
+            }
+
         }
     }
 }

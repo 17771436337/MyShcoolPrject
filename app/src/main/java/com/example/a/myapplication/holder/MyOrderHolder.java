@@ -1,17 +1,56 @@
 package com.example.a.myapplication.holder;
 
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.a.myapplication.R;
 import com.example.a.myapplication.bean.MyOrderModer;
+import com.example.a.myapplication.util.Config;
+import com.example.a.myapplication.util.TimeUtils;
 import com.example.a.myapplication.util.UIUtils;
 
 import butterknife.ButterKnife;
+import butterknife.InjectView;
 
 /**
  * Created by Administrator on 2016/12/8.
  */
-public class MyOrderHolder extends  BaseHolder<MyOrderModer.Order>{
+public class MyOrderHolder extends BaseHolder<MyOrderModer.Order> {
+
+    @InjectView(R.id.title_img)
+    protected ImageView logo;
+
+    @InjectView(R.id.name)
+    protected TextView name;
+
+    @InjectView(R.id.title_text)
+    protected TextView brand;
+
+    @InjectView(R.id.order)
+    protected TextView order;
+
+    @InjectView(R.id.img)
+    protected ImageView img;
+
+    @InjectView(R.id.price)
+    protected TextView price;
+
+    @InjectView(R.id.sum)
+    protected TextView sum;
+
+    @InjectView(R.id.time)
+    protected TextView time;
+
+    @InjectView(R.id.audit)
+    protected TextView audit;
+
+    @InjectView(R.id.order_monny)
+    protected TextView totalprice;
+
+
     @Override
     protected View initView() {
 
@@ -22,6 +61,45 @@ public class MyOrderHolder extends  BaseHolder<MyOrderModer.Order>{
 
     @Override
     protected void refreshUI(MyOrderModer.Order data) {
+        Glide.with(UIUtils.getContext()).load(Config.hostImgString + data.getImg())
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .centerCrop()
+                .crossFade().into(img);
+
+        Glide.with(UIUtils.getContext()).load(Config.hostImgString + data.getLogo())
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .centerCrop()
+                .crossFade().into(logo);
+
+        name.setText(data.getName());
+
+        brand.setText(data.getBrand());
+
+        order.setText("订单编号：" + data.getOrder());
+
+        price.setText("￥" + data.getPrice());
+
+        sum.setText("x" + data.getSum());
+
+        totalprice.setText("￥" + data.getTotalprice());
+
+        time.setText(TimeUtils.getTime(data.getTime()));
+
+        switch (data.getAudit()) {
+            case "0"://0待支付
+                audit.setText("待支付");
+                break;
+            case "1"://1已支付-待发货/
+                audit.setText("待发货");
+                break;
+            case "2"://2待收货，/
+                audit.setText("待收货");
+                break;
+            case "3"://3已完成/
+                audit.setText("已完成");
+                break;
+        }
+
 
     }
 }
