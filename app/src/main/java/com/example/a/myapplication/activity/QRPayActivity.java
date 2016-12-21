@@ -15,7 +15,6 @@ import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
 import com.example.a.myapplication.bean.BaseModel;
 import com.example.a.myapplication.http.OkHttpUtil;
-import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
 import com.example.a.myapplication.util.Preference;
 import com.example.a.myapplication.view.TitleView1;
@@ -23,7 +22,6 @@ import com.example.a.myapplication.view.TitleView1;
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -89,15 +87,15 @@ public class QRPayActivity extends BaseActivity {
                         + File.separator + "ysb/img/";
                 Bitmap bitmap = img.getDrawingCache();
 
-                if (bitmap == null){
+                if (bitmap == null) {
                     Toast.makeText(this, "保存成功asdasnull" + path, Toast.LENGTH_SHORT).show();
                 }
-                try {
-                    CommonUtils.saveMyBitmap(path, "qr"+System.currentTimeMillis(), bitmap);
-                    Toast.makeText(this, "保存成功" + path, Toast.LENGTH_SHORT).show();
-                } catch (IOException e) {
-                e.printStackTrace();
-            }
+//                try {
+////                    CommonUtils.saveMyBitmap(path, "qr"+System.currentTimeMillis(), bitmap);
+//                    Toast.makeText(this, "保存成功" + path, Toast.LENGTH_SHORT).show();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
 
 
                 break;

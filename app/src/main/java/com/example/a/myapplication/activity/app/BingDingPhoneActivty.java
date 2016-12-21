@@ -75,10 +75,7 @@ public class BingDingPhoneActivty extends BaseActivity {
                     return;
                 }
 
-
                 OkHttpUtil.getInstance().addRequestGet(Config.sendCode(phone, 3), new OkHttpUtil.HttpCallBack<BaseModel>() {
-
-
                     @Override
                     public void onSuccss(BaseModel baseModel) {
                         timer.start();

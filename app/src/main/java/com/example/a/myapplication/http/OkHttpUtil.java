@@ -32,12 +32,10 @@ import java.util.concurrent.TimeUnit;
  * Created by yutianran on 16/2/24.
  */
 public class OkHttpUtil {
-    Request.Builder builder;
+    Request.Builder  builder;
     private OkHttpClient okHttpClient;
     private Callback callback;
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-
-    //??????????????
     public static OkHttpUtil getInstance() {
         return SingletonHolder.mInstance;
     }
@@ -47,23 +45,17 @@ public class OkHttpUtil {
     }
 
 
-    /*OkHttp?????????*/
     private OkHttpUtil() {
         okHttpClient = new OkHttpClient();
-        okHttpClient.setConnectTimeout(30000, TimeUnit.SECONDS);
-        okHttpClient.setReadTimeout(30000, TimeUnit.SECONDS);
-        okHttpClient.setWriteTimeout(30000, TimeUnit.SECONDS);
+        okHttpClient.setConnectTimeout(3, TimeUnit.SECONDS);
+        okHttpClient.setReadTimeout(3, TimeUnit.SECONDS);
+        okHttpClient.setWriteTimeout(3, TimeUnit.SECONDS);
         okHttpClient.setCookieHandler(new CookieManager(null, CookiePolicy.ACCEPT_ORIGINAL_SERVER));
         //okHttpClient.setCache(new Cache(CarConstant.HTTP_CACHE_DIR, CarConstant.CACHE_SIZE));
         okHttpClient.setRetryOnConnectionFailure(true);
-
-
         builder = new Request.Builder();
     }
-
-    /*???????????Put*/
     public <T> void addRequestPut(String url, Map<String, String> params, final HttpCallBack<T> callBack) {
-        Log.e("???????", params.toString());
         Request request = builder
                 .url(url)
                 .put(buildParamsJosn(params))
@@ -73,7 +65,7 @@ public class OkHttpUtil {
             @Override
             public void onResponse(Response response) throws IOException {
                 final String body = response.body().string();
-                Log.e("????????????", body);
+                isDebug(body);
                 try {
                     Type[] types = callBack.getClass().getGenericInterfaces();
                     ParameterizedType parameterizedType = (ParameterizedType) types[0];
@@ -82,7 +74,6 @@ public class OkHttpUtil {
                     callBack.onSuccss((T) JsonUtil.getInstance().stringToObj(body, actualTypeArguments));
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.e("json???????", body);
                 }
             }
 
@@ -93,27 +84,21 @@ public class OkHttpUtil {
         });
 
     }
-
-    /*???????????Post*/
     public <T> void addRequestPost(String url, Map<String, String> params, final HttpCallBack<T> callBack) {
         if (params == null || params.size() == 0) {
             return;
         }
-        RequestBody requestBody = buildParams(params);
-        Log.e("url", url);
-        Log.e("???????", params.toString());
+        RequestBody requestBody= buildParamsJosn(params);
         Request request = builder
-                .header("Content-Type", "application/x-www-form-urlencoded")
                 .url(url)
                 .post(requestBody)
-
                 .build();
         final Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {
             @Override
             public void onResponse(Response response) throws IOException {
                 final String body = response.body().string();
-                Log.e("????????????", body);
+                isDebug(body);
                 try {
                     Type[] types = callBack.getClass().getGenericInterfaces();
                     ParameterizedType parameterizedType = (ParameterizedType) types[0];
@@ -121,8 +106,6 @@ public class OkHttpUtil {
                     callBack.onSuccss((T) JsonUtil.getInstance().stringToObj(body, actualTypeArguments));
                 } catch (Exception e) {
                     e.printStackTrace();
-
-                    Log.e("JSONaaaaaaaaaaaaaaaaaaa", body);
                 }
             }
 
@@ -133,10 +116,8 @@ public class OkHttpUtil {
         });
 
     }
-
-    /*???????????detele*/
     public <T> void addRequestDetele(String url, final HttpCallBack<T> callBack) {
-        Request request = builder
+        Request request =  builder
 
                 .url(url)
                 .delete()
@@ -146,7 +127,6 @@ public class OkHttpUtil {
             @Override
             public void onResponse(Response response) throws IOException {
                 final String body = response.body().string();
-                Log.e("????????????", body);
                 try {
                     Type[] types = callBack.getClass().getGenericInterfaces();
                     ParameterizedType parameterizedType = (ParameterizedType) types[0];
@@ -155,7 +135,6 @@ public class OkHttpUtil {
                     callBack.onSuccss((T) JsonUtil.getInstance().stringToObj(body, actualTypeArguments));
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.e("json???????", body);
                 }
             }
 
@@ -166,10 +145,8 @@ public class OkHttpUtil {
         });
     }
 
-    /*???????????Get*/
     public <T> void addRequestGet(String url, final HttpCallBack<T> callBack) {
-        Request request = builder
-
+        Request request =  builder
                 .url(url)
                 .get()
                 .build();
@@ -178,71 +155,63 @@ public class OkHttpUtil {
             @Override
             public void onResponse(Response response) throws IOException {
                 final String body = response.body().string();
-                Log.e("parm", body);
+                isDebug(body);
                 try {
                     Type[] types = callBack.getClass().getGenericInterfaces();
                     ParameterizedType parameterizedType = (ParameterizedType) types[0];
                     final Type actualTypeArguments = parameterizedType.getActualTypeArguments()[0];
                     //// TODO: 2016/3/10 ???????????????
-                    callBack.onSuccss((T) JsonUtil.getInstance().stringToObj(body, actualTypeArguments));
+                    callBack.onSuccss((T)JsonUtil.getInstance().stringToObj(body, actualTypeArguments));
                 } catch (Exception e) {
                     e.printStackTrace();
-                    Log.e("jsonText", body);
                 }
             }
 
             @Override
             public void onFailure(Request arg0, IOException arg1) {
                 final String res = arg1.getMessage();
+                isDebug(res);
             }
         });
 
     }
 
-    /**
-     * ???????????????get
-     */
     public String addRequestNoCallGet(String url) {
-        Request request = builder
+        Request request =  builder
                 .url(url)
                 .get()
                 .build();
         final Call callnocallget = okHttpClient.newCall(request);
-        String body = "";
+        String body="";
         try {
             Response response = callnocallget.execute();
             body = response.body().string();
-            Log.e("jsonText", body);
+            isDebug(body);
         } catch (Exception e) {
             e.printStackTrace();
         }
         return body;
     }
 
-    /**
-     * ???????????????post
-     */
-    public String addRequest(String url, Map<String, String> params) {
-        Request request = builder
+    public String addRequestNoCallPost(String url, Map<String, String> params) {
+        Request request =  builder
                 .url(url)
-                .post(buildParams(params))
-                .header("Content-Type", "application/x-www-form-urlencoded")
+                .post(buildParamsJosn(params))
                 .build();
-        Log.e("???????", params.toString());
-        String body = "";
+        String body="";
         final Call call = okHttpClient.newCall(request);
         try {
             Response response = call.execute();
             body = response.body().string();
-            Log.e("?????json", body);
+            isDebug(body);
         } catch (Exception e) {
             e.printStackTrace();
+            isDebug(e.getMessage());
         }
         return body;
     }
 
 
-    /*???????????*/
     public <T> void addRequest(String url, int tag, Bundle params, final HttpCallBack<T> callBack) {
         if (params == null || params.size() == 0) {
             return;
@@ -253,7 +222,7 @@ public class OkHttpUtil {
             @Override
             public void onResponse(Response response) throws IOException {
                 final String body = response.body().string();
-                Log.e("???????????", body);
+                isDebug(body);
                 try {
                     Type[] types = callBack.getClass().getGenericInterfaces();
                     ParameterizedType parameterizedType = (ParameterizedType) types[0];
@@ -261,22 +230,19 @@ public class OkHttpUtil {
                     //// TODO: 2016/3/10 ???????????????
                     callBack.onSuccss((T) JsonUtil.getInstance().stringToObj(body, actualTypeArguments));
                 } catch (Exception e) {
-                    Log.e("???????2", body);
+                    isDebug(e.getMessage());
                 }
             }
 
             @Override
             public void onFailure(Request arg0, IOException arg1) {
                 final String res = arg1.getMessage();
-                Log.e("???????3", res);
-
                 callBack.onFailure(res);
             }
         });
 
     }
 
-    /*???????????*/
     public <T> void addRequest(String url, int tag, final HttpCallBack<T> callBack) {
         final Request request = new Request.Builder().url(url).tag(tag).build();
         Call call = okHttpClient.newCall(request);
@@ -284,10 +250,8 @@ public class OkHttpUtil {
             @Override
             public void onResponse(Response response) throws IOException {
                 final String body = response.body().string();
-                Log.e("???????????", body);
                 try {
                 } catch (Exception e) {
-                    Log.e("???????????4", e.getMessage());
 
                 }
             }
@@ -295,20 +259,16 @@ public class OkHttpUtil {
             @Override
             public void onFailure(Request arg0, IOException arg1) {
                 final String res = arg1.getMessage();
-                Log.e("???????????5", res);
             }
         });
     }
 
-    /**
-     * ??????
-     */
     public <T> void uploadRequest(String url, String type, File file, final HttpCallBack<T> callBack) {
         final MediaType MEDIA_TYPE_MARKDOWN = MediaType.parse("text/x-markdown; charset=utf-8");
         RequestBody requestBody = new MultipartBuilder().type(MultipartBuilder.FORM)
                 .addFormDataPart("key", "JZmSPfcWJ3U1mRFN32mTEi")
                 .addFormDataPart("secret", "f6e4636d155441209470a906aac892a1")
-                .addFormDataPart("typeId ", type)//2????3????
+                .addFormDataPart("typeId ", type)
                 .addFormDataPart("format", "json")
                 .addFormDataPart("file", file.getName(), RequestBody.create(MEDIA_TYPE_MARKDOWN, file))
                 .addPart(Headers.of("Content-Disposition", "form-data; name=\"another\";filename=\"another.dex\""), RequestBody.create(MediaType.parse("application/octet-stream"), file))
@@ -321,16 +281,14 @@ public class OkHttpUtil {
             @Override
             public void onResponse(Response response) throws IOException {
                 final String body = response.body().string();
-                Log.e("???????????", body);
                 try {
                     Type[] types = callBack.getClass().getGenericInterfaces();
                     ParameterizedType parameterizedType = (ParameterizedType) types[0];
                     final Type actualTypeArguments = parameterizedType.getActualTypeArguments()[0];
                     //// TODO: 2016/3/10 ???????????????
-                    callBack.onSuccss((T) JsonUtil.getInstance().stringToObj(body, actualTypeArguments));
+                    callBack.onSuccss((T)JsonUtil.getInstance().stringToObj(body, actualTypeArguments));
 
                 } catch (Exception e) {
-                    Log.e("???????????6", e.getMessage());
 
                 }
             }
@@ -339,14 +297,10 @@ public class OkHttpUtil {
             public void onFailure(Request arg0, IOException arg1) {
                 final String res = arg1.getMessage();
                 callBack.onFailure(arg1.getMessage());
-                Log.e("???????????7", res);
             }
         });
     }
 
-    /**
-     * ????????
-     */
     public <T> void uploadPic(String url, File file, final HttpCallBack<T> callBack) {
         final MediaType MEDIA_TYPE_MARKDOWN = MediaType.parse("text/x-markdown; charset=utf-8");
         RequestBody requestBody = new MultipartBuilder().type(MultipartBuilder.FORM)
@@ -360,7 +314,7 @@ public class OkHttpUtil {
             @Override
             public void onResponse(Response response) throws IOException {
                 final String body = response.body().string();
-                Log.e("???????????", body);
+                isDebug(body);
                 try {
                     Type[] types = callBack.getClass().getGenericInterfaces();
                     ParameterizedType parameterizedType = (ParameterizedType) types[0];
@@ -370,31 +324,27 @@ public class OkHttpUtil {
 
                 } catch (Exception e) {
                     callBack.onFailure(e.getMessage());
-                    Log.e("???????????8", e.getMessage());
+                    isDebug(e.getMessage());
                 }
             }
 
             @Override
             public void onFailure(Request arg0, IOException arg1) {
                 final String res = arg1.getMessage();
-                Log.e("???????????9", res);
             }
         });
     }
 
 
-    /*???????????*/
     public void removeRequest(int tag) {
         okHttpClient.cancel(tag);
     }
 
-    /*??????????????*/
     private RequestBody buildParamsJosn(Map<String, String> params) {
         RequestBody requestBody = RequestBody.create(JSON, new Gson().toJson(params));
         return requestBody;
     }
 
-    /*??????????????*/
     private RequestBody buildParams(Map<String, String> params) {
         FormEncodingBuilder builder = new FormEncodingBuilder();
         Set<Map.Entry<String, String>> entries = params.entrySet();
@@ -406,7 +356,6 @@ public class OkHttpUtil {
         return requestBody;
     }
 
-    /*??????????????*/
     private RequestBody buildParamsBundle(Bundle bundle) {
         FormEncodingBuilder builder = new FormEncodingBuilder();
         Set<String> entries = bundle.keySet();
@@ -418,12 +367,13 @@ public class OkHttpUtil {
         return requestBody;
     }
 
-    /*??????*/
     public interface HttpCallBack<T> {
         void onSuccss(T t);
 
         void onFailure(String error);
     }
 
-
+    public void isDebug(String json){
+        Log.e("网络请求返回的json",json);
+    }
 }

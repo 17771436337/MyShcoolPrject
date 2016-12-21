@@ -88,7 +88,11 @@
     <color name="system_warning_color">#fff4511e</color>
     <item name="transparent" type="color">@android:color/transparent</item>
     <declare-styleable name="BatteryMeterView"><attr format="color" name="frameColor"/></declare-styleable>
-    <declare-styleable name="Clock"><attr format="enum" name="amPmStyle"><enum name="normal" value="0"/><enum name="small" value="1"/><enum name="gone" value="2"/></attr></declare-styleable>
+    <declare-styleable name="Clock"><attr format="enum" name="amPmStyle">
+            <enum name="normal" value="0"/>
+            <enum name="small" value="1"/>
+            <enum name="gone" value="2"/>
+        </attr></declare-styleable>
     <declare-styleable name="DateView"><attr format="string" name="datePattern"/></declare-styleable>
     <declare-styleable name="DeadZone"><attr format="dimension" name="minSize"/><attr format="dimension" name="maxSize"/><attr format="integer" name="holdTime"/><attr format="integer" name="decayTime"/><attr name="orientation"/></declare-styleable>
     <declare-styleable name="KeyButtonView"><attr format="integer" name="keyCode"/><attr format="boolean" name="keyRepeat"/></declare-styleable>
