@@ -32,14 +32,12 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.android.support:cardview-v7:23.1.1'
     compile 'com.squareup.okhttp:okhttp:2.7.5'
-<<<<<<< HEAD
+
     compile 'com.squareup.okhttp3:okhttp:3.3.1'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
 
-    //Gson
-=======
->>>>>>> 21727943196c6f0683ea0d7c14fda5858d2c8dd1
+
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'com.android.support:design:23.1.1'
     compile 'com.github.Aspsine:SwipeToLoadLayout:v1.0.2'

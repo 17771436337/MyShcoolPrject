@@ -14,7 +14,7 @@ import butterknife.InjectView;
 /**
  * Created by Administrator on 2016/12/8.
  */
-<<<<<<< HEAD
+
 public class IntegralHplder extends BaseHolder<IntegralModel.OBean> {
 
     @InjectView(R.id.text)
@@ -29,9 +29,7 @@ public class IntegralHplder extends BaseHolder<IntegralModel.OBean> {
     @InjectView(R.id.icon)
     protected ImageView icon;
 
-=======
-public class IntegralHplder extends BaseHolder<IntegralModel.OBean>{
->>>>>>> 21727943196c6f0683ea0d7c14fda5858d2c8dd1
+
     @Override
     protected View initView() {
         View view = View.inflate(UIUtils.getContext(), R.layout.item_integral_list, null);
@@ -41,7 +39,7 @@ public class IntegralHplder extends BaseHolder<IntegralModel.OBean>{
 
     @Override
     protected void refreshUI(IntegralModel.OBean data) {
-<<<<<<< HEAD
+
 
         describe.setText(data.getDescribe());
         time.setText(data.getTime());
@@ -65,8 +63,7 @@ public class IntegralHplder extends BaseHolder<IntegralModel.OBean>{
                 break;
         }
 
-=======
->>>>>>> 21727943196c6f0683ea0d7c14fda5858d2c8dd1
 
     }
+
 }
