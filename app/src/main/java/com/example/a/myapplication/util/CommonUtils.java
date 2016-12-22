@@ -5,17 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
-import android.util.Log;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -178,9 +173,11 @@ public class CommonUtils {
         if (y > 85.05112) {
             y = 85.05112;
         }
+
         if (y < -85.05112) {
             y = -85.05112;
         }
+
         y = (Math.PI / 180.0) * y;
         double tmp = Math.PI / 4.0 + y / 2.0;
         double yy = 20037508.34 * Math.log(Math.tan(tmp)) / Math.PI;
@@ -229,28 +226,9 @@ public class CommonUtils {
     /**
      *创建一个主键
      */
-    public static Long getPK() {
-        long time = new Date().getTime();
+    public static Long getPK(){
+        long time=new Date().getTime();
         long l = (long) ((Math.random() * 9 + 1) * 100000);
         return time+l;
-    }
-
-
-    public static void saveMyBitmap(String path, String bitName, Bitmap mBitmap) throws IOException {
-        File f = new File(path);
-        if (!f.exists())
-            f.mkdirs();// 如果没有这个文件夹的话，会报file not found错误
-
-        f = new File(path + bitName + ".png");
-        f.createNewFile();
-        try {
-            FileOutputStream out = new FileOutputStream(f);
-            mBitmap.compress(Bitmap.CompressFormat.PNG, 100, out);
-            out.flush();
-            out.close();
-        } catch (FileNotFoundException e) {
-            Log.e("text", e.getMessage());
-        }
-
     }
 }
