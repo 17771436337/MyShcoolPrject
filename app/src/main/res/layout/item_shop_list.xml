@@ -20,11 +20,12 @@
             android:focusable="false"/>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/android"
             android:id="@+id/title_img"
-            android:layout_marginLeft="10dp"/>
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"
+            android:scaleType="center"
+            android:src="@drawable/android"/>
 
         <TextView
             android:id="@+id/tv_content"
@@ -58,41 +59,43 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp">
+
         <TextView
             android:id="@+id/text1"
-            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="共"
             android:textColor="@color/black_text"
-            android:textSize="14sp"
-            android:text="共"/>
+            android:textSize="14sp"/>
+
         <TextView
             android:id="@+id/shop_num"
-            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/green_text"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/text1"
             android:text="0"
-            android:textSize="14sp"
-            android:layout_toRightOf="@id/text1"/>
+            android:textColor="@color/green_text"
+            android:textSize="14sp"/>
+
         <TextView
-            android:layout_toRightOf="@id/shop_num"
-            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/black_text"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/shop_num"
             android:text="件商品"
+            android:textColor="@color/black_text"
             android:textSize="14sp"/>
 
 
         <TextView
-
-            android:layout_centerVertical="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:textColor="@color/black_text"
+            android:layout_centerVertical="true"
             android:text="总价：￥150.00"
+            android:textColor="@color/black_text"
             android:textSize="14sp"/>
     </RelativeLayout>
 </LinearLayout>

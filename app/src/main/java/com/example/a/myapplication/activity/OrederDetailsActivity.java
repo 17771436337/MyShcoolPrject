@@ -49,7 +49,7 @@ public class OrederDetailsActivity extends BaseActivity {
         initTitle();
         setShow(isShow);
         getData();
-        adapter = new ShopAdapter(model.getList());
+        adapter = new ShopAdapter(model.getO());
         listView.setAdapter(adapter);
     }
 
@@ -77,11 +77,11 @@ public class OrederDetailsActivity extends BaseActivity {
                 list2.add(content);
             }
 
-            shop.setList(list2);
+            shop.setShops(list2);
             list.add(shop);
         }
 
-        model.setList(list);
+        model.setO(list);
     }
 
 

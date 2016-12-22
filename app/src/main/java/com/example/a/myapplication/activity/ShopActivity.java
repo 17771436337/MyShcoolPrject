@@ -17,9 +17,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.InjectView;
@@ -53,7 +51,7 @@ public class ShopActivity extends BaseActivity {
     protected void initView() {
         initTitle();
         getData();
-        adapter = new ShopAdapter(pullListView, model.getList());
+        adapter = new ShopAdapter(pullListView, model.getO());
         pullListView.setMode(PullToRefreshBase.Mode.BOTH);
         pullListView.getRefreshableView().setAdapter(adapter);
 
@@ -100,20 +98,7 @@ public class ShopActivity extends BaseActivity {
 
             }
         });
-        List<ShopModel.Shop> list = new ArrayList<ShopModel.Shop>();
-        for (int i = 0; i < 10; i++) {
-            ShopModel.Shop shop = new ShopModel.Shop();
-            List<ShopModel.Shop.Content> list2 = new ArrayList<ShopModel.Shop.Content>();
-            for (int j = 0; j < 2; j++) {
-                ShopModel.Shop.Content content = new ShopModel.Shop.Content();
-                list2.add(content);
-            }
 
-            shop.setList(list2);
-            list.add(shop);
-        }
-
-        model.setList(list);
     }
 
     @Override
@@ -122,6 +107,8 @@ public class ShopActivity extends BaseActivity {
         if (obj instanceof ShopModel) {
             ShopModel shopMode = (ShopModel) obj;
             if (shopMode.getC() == 1) {
+                adapter.addData(shopMode.getO());
+                adapter.notifyDataSetChanged();
 
             } else {
 

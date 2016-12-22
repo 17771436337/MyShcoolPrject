@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:ptr="http://schemas.android.com/apk/res-auto"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -10,129 +11,31 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></RelativeLayout>
 
-    <LinearLayout
-        android:id="@+id/order_rg"
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/fragment_find_tal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/title_layout"
-        android:orientation="horizontal">
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:background="@color/white"
+        app:tabIndicatorColor="#343434"
+        app:tabMode="fixed"
+        app:tabSelectedTextColor="#343434"
+        app:tabTextAppearance="@style/MyTabLayoutTextAppearance"
+        app:tabTextColor="#919191"/>
 
-        <LinearLayout
-            android:id="@+id/l1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="15dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#E7E7E7"/>
 
-            <TextView
-                android:id="@+id/text1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="全部"
-                android:textColor="@color/order_radiobutton_textcolor"
-                android:textSize="14sp"
-                />
-
-            <View
-                android:id="@+id/line1"
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:background="@color/black"/>
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/l2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/text2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="待付款"
-                android:textColor="@color/order_radiobutton_textcolor"
-                android:textSize="14sp"
-                />
-
-            <View
-                android:id="@+id/line2"
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:background="@color/black"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/l3"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/text3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="待发货"
-                android:textColor="@color/order_radiobutton_textcolor"
-                android:textSize="14sp"
-                />
-
-            <View
-                android:id="@+id/line3"
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:background="@color/black"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/l4"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/text4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:text="待收货"
-                android:textColor="@color/order_radiobutton_textcolor"
-                android:textSize="14sp"
-                />
-
-            <View
-                android:id="@+id/line4"
-                android:layout_width="match_parent"
-                android:layout_height="3dp"
-                android:background="@color/black"/>
-        </LinearLayout>
-    </LinearLayout>
-
-    <com.handmark.pulltorefresh.library.PullToRefreshListView
-        android:id="@+id/pull_layout"
+    <android.support.v4.view.ViewPager
+        android:id="@+id/fragment_find_vp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/order_rg"
-        android:divider="@color/black"
-
-        android:scrollbars="none"
-        ptr:ptrHeaderTextColor="@color/color_refresh"
-
-        ></com.handmark.pulltorefresh.library.PullToRefreshListView>
-
+        android:layout_below="@id/fragment_find_tal"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"/>
 </RelativeLayout>

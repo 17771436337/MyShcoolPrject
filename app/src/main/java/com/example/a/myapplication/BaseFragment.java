@@ -32,7 +32,7 @@ public abstract class BaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         this.inflater = inflater;
-        EventBus.getDefault().register(this);
+
         if (mLoadingPager == null) {
             mLoadingPager = new LoadingPager(getActivity()) {
                 @Override
@@ -53,6 +53,12 @@ public abstract class BaseFragment extends Fragment {
         }
 
         return mLoadingPager;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -84,6 +90,14 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (EventBus.getDefault().isRegistered(this)) {
+                              EventBus.getDefault().unregister(this);
+        }
+
+    }
 
     @Override
     public void onDestroy() {

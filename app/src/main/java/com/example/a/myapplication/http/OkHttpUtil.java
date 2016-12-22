@@ -385,7 +385,7 @@ public class OkHttpUtil {
     }
 
     public void isDebug(String json) {
-        Log.e("网络请求返回的json", json);
+        Log.e("网络请求返回的json", json + "");
     }
 
     public void isDebugUrl(String url) {

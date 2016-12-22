@@ -12,14 +12,14 @@ public class Config {
     /**
      * 推片头链接
      */
-    public final static String hostImgString = "http://115.28.94.239/";
+    public final static String hostImgString = "http://115.28.94.239/wardrobe/code/wardrode";
 
-    public final static String NATIVE = hostString+"wardrobe/code/wardrode/Public/Uploads/images/icon_up_img.png";//固定图片地址
+    public final static String NATIVE = hostString + "wardrobe/code/wardrode/Public/Uploads/images/icon_up_img.png";//固定图片地址
 
     /**
      * 造型师列表
      */
-    public final static String QITTMELIST = hostString+"wardrobe/code/wardrode/index.php?s=/App/Item/qItemList";
+    public final static String QITTMELIST = hostString + "wardrobe/code/wardrode/index.php?s=/App/Item/qItemList";
 
     public final static String listCount = "10";
 
@@ -121,6 +121,12 @@ public class Config {
      * 个人支付宝
      */
     public static final String addPayLog = Config.hostString + "App/Pay/addPayLog";
+
+
+    /**
+     * 我的关注接口
+     */
+    public static final String getfocuson = Config.hostString + "App/Focuson/getfocuson";
 
     //---------------------------------------------------------------------
 

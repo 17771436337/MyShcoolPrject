@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.a.myapplication.R;
-import com.example.a.myapplication.bean.FansModel;
+import com.example.a.myapplication.bean.WatchlistModel;
 import com.example.a.myapplication.util.Config;
 import com.example.a.myapplication.util.UIUtils;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -19,9 +19,9 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 /**
- * Created by Administrator on 2016/12/7.
+ * Created by Administrator on 2016/12/22.
  */
-public class MyFansHolder extends BaseHolder<FansModel.MyFans> {
+public class WatchlistHolder extends BaseHolder<WatchlistModel.OBean> {
 
     @InjectView(R.id.head)
     protected ImageView head;
@@ -30,7 +30,7 @@ public class MyFansHolder extends BaseHolder<FansModel.MyFans> {
     protected TextView nameText;
     //
     @InjectView(R.id.no)
-    protected TextView no;//加关注
+    protected TextView no;//取消
 
     @InjectView(R.id.yes)
     protected TextView yes;//已关注
@@ -46,7 +46,9 @@ public class MyFansHolder extends BaseHolder<FansModel.MyFans> {
     }
 
     @Override
-    protected void refreshUI(FansModel.MyFans data) {
+    protected void refreshUI(WatchlistModel.OBean data) {
+        no.setText("取消");
+
         Glide.with(UIUtils.getContext()).load(Config.hostImgString + data.getFhead()).asBitmap().centerCrop().into(new BitmapImageViewTarget(head) {
             @Override
             protected void setResource(Bitmap resource) {
@@ -58,14 +60,16 @@ public class MyFansHolder extends BaseHolder<FansModel.MyFans> {
         });
 
         nameText.setText(data.getFname());
-        if (data.getIs_focus().equals("0")) {//未关注   /
-            yes.setVisibility(View.GONE);
-            no.setVisibility(View.VISIBLE);
-        } else {
-            yes.setVisibility(View.VISIBLE);
-            no.setVisibility(View.GONE);
-        }
-
+        yes.setVisibility(View.VISIBLE);
+        no.setVisibility(View.GONE);
+//        if (data.().equals("0")) {//未关注   /
+//            yes.setVisibility(View.GONE);
+//            no.setVisibility(View.VISIBLE);
+//        } else {
+//            yes.setVisibility(View.VISIBLE);
+//            no.setVisibility(View.GONE);
+//        }
 
     }
+
 }

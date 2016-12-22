@@ -36,7 +36,7 @@ public class ScreenStyleActivity extends BaseActivity {
 
     ScreenBrandModel model = new ScreenBrandModel();
 
-    ScreenBrandAdapter adapter;
+    ScreenBrandAdapter<ScreenBrandModel.Brand> adapter;
 
 
     @InjectView(R.id.title_layout)
@@ -52,7 +52,7 @@ public class ScreenStyleActivity extends BaseActivity {
     protected void initView() {
         initTitle();
         getData();
-        adapter = new ScreenBrandAdapter(pullListView, model.getList());
+        adapter = new ScreenBrandAdapter<ScreenBrandModel.Brand>(pullListView, model.getList());
         pullListView.setMode(PullToRefreshBase.Mode.BOTH);
         pullListView.getRefreshableView().setAdapter(adapter);
     }
