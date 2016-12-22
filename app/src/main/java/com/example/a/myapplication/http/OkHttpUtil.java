@@ -246,6 +246,7 @@ public class OkHttpUtil {
     public <T> void addRequest(String url, int tag, final HttpCallBack<T> callBack) {
         final Request request = new Request.Builder().url(url).tag(tag).build();
         Call call = okHttpClient.newCall(request);
+
         call.enqueue(new Callback() {
             @Override
             public void onResponse(Response response) throws IOException {
