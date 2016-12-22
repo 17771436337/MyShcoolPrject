@@ -120,10 +120,10 @@ public class LoginActivity extends BaseActivity {
                 CommonUtils.startIntent(LoginActivity.this, MainActivity.class);
                 finish();
             } else {
-                Toast.makeText(LoginActivity.this, loginModel.getM() + "", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, loginModel.getM() + "", Toast.LENGTH_SHORT).show();
             }
         } else if (obj instanceof String) {
-            Toast.makeText(LoginActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "登录失败", Toast.LENGTH_SHORT).show();
         }
     }
 
