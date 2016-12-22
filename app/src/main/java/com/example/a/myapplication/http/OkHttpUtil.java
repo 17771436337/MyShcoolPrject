@@ -58,7 +58,7 @@ public class OkHttpUtil {
     public <T> void addRequestPut(String url, Map<String, String> params, final HttpCallBack<T> callBack) {
         Request request = builder
                 .url(url)
-                .put(buildParamsJosn(params))
+                .put(buildParams(params))
                 .build();
         final Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {
@@ -88,7 +88,7 @@ public class OkHttpUtil {
         if (params == null || params.size() == 0) {
             return;
         }
-        RequestBody requestBody= buildParamsJosn(params);
+        RequestBody requestBody= buildParams(params);
         Request request = builder
                 .url(url)
                 .post(requestBody)
@@ -196,7 +196,7 @@ public class OkHttpUtil {
     public String addRequestNoCallPost(String url, Map<String, String> params) {
         Request request =  builder
                 .url(url)
-                .post(buildParamsJosn(params))
+                .post(buildParams(params))
                 .build();
         String body="";
         final Call call = okHttpClient.newCall(request);
