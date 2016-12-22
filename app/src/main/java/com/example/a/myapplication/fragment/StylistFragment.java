@@ -92,7 +92,7 @@ public class StylistFragment  extends BaseFragment  {
     }
     public LoadingPager.LoadedResult initData() {
         try{
-             initDate();
+            initDate();
             if(null==styListModel.getO()||styListModel.getO().size()==0){
                 return LoadingPager.LoadedResult.EMPTY;
             }
@@ -126,11 +126,11 @@ public class StylistFragment  extends BaseFragment  {
     public void onEventMainThread(Object obj) {
         super.onEventMainThread(obj);
         if("onRefresh".equals(obj.toString())){
-           // initDate();
+            // initDate();
             notifyData();
         }
         if("onLoadMore".equals(obj.toString())){
-          //  initDate();
+            //  initDate();
             page++;
             //notifyData();
             fragment_stylist_sl.setLoadingMore(false);

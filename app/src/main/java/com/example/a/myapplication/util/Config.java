@@ -14,6 +14,12 @@ public class Config {
      */
     public final static String hostImgString = "http://115.28.94.239/";
 
+    public final static String NATIVE = hostString+"wardrobe/code/wardrode/Public/Uploads/images/icon_up_img.png";//固定图片地址
+
+    /**
+     * 造型师列表
+     */
+    public final static String QITTMELIST = hostString+"wardrobe/code/wardrode/index.php?s=/App/Item/qItemList";
 
     public final static String listCount = "10";
 
