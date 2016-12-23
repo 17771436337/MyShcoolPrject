@@ -1,13 +1,19 @@
 package com.example.a.myapplication.activity;
 
+import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
 import com.example.a.myapplication.adapter.ShopAdapter;
 import com.example.a.myapplication.bean.ShopModel;
+import com.example.a.myapplication.holder.ContentHolder;
+import com.example.a.myapplication.holder.ShopHolder;
 import com.example.a.myapplication.http.OkHttpUtil;
 import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
@@ -27,7 +33,7 @@ import butterknife.OnClick;
  * Created by Administrator on 2016/12/8.
  * 购物车
  */
-public class ShopActivity extends BaseActivity {
+public class ShopActivity extends BaseActivity implements ContentHolder.IsChecked, ShopHolder.IsCheckedGroup {
 
 
     @InjectView(R.id.pull_layout)
@@ -37,10 +43,18 @@ public class ShopActivity extends BaseActivity {
 
     @InjectView(R.id.account)
     protected TextView account;
-
-
+    public static ShopActivity shopActivity;
     @InjectView(R.id.title_layout)
     protected RelativeLayout titleView;
+
+    @InjectView(R.id.price_text)
+    protected TextView priceTextView;
+    private double pricer;
+
+    @InjectView(R.id.check_layout)
+    protected CheckBox checkBox;
+
+    String id;
 
     @Override
     protected int getLayoutID() {
@@ -49,6 +63,7 @@ public class ShopActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        shopActivity = this;
         initTitle();
         getData();
         adapter = new ShopAdapter(pullListView, model.getO());
@@ -72,11 +87,31 @@ public class ShopActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.account})
+    @OnClick({R.id.account, R.id.check_layout})
     protected void onClick(View v) {
         switch (v.getId()) {
             case R.id.account://结算
-                CommonUtils.startIntent(this, ConfirmAnOrderActivity.class);
+                if (TextUtils.isEmpty(id)) {
+                    Toast.makeText(this, "请选择商品", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                Bundle bundle = new Bundle();
+                bundle.putString("id", id);
+                CommonUtils.startIntent(this, OrederDetailsActivity.class, bundle);
+
+                break;
+            case R.id.check_layout:
+                id = null;
+                for (int i = 0; i < model.getO().size(); i++) {
+                    for (int j = 0; j < model.getO().get(i).getShops().size(); j++) {
+                        model.getO().get(i).getShops().get(j).setIs(checkBox.isChecked());
+                        if (checkBox.isChecked()) {
+                            id += model.getO().get(i).getShops().get(j).getId() + ",";
+                        }
+                    }
+                }
+                adapter.notifyDataSetChanged();
                 break;
         }
     }
@@ -107,6 +142,7 @@ public class ShopActivity extends BaseActivity {
         if (obj instanceof ShopModel) {
             ShopModel shopMode = (ShopModel) obj;
             if (shopMode.getC() == 1) {
+                model = shopMode;
                 adapter.addData(shopMode.getO());
                 adapter.notifyDataSetChanged();
 
@@ -116,4 +152,46 @@ public class ShopActivity extends BaseActivity {
 
         }
     }
+
+    @Override
+    public void isChecked(ShopModel.Shop.Content data) {
+        pricer = 0;
+        double num = 0;
+        id = null;
+        for (int i = 0; i < model.getO().size(); i++) {
+            for (int j = 0; j < model.getO().get(i).getShops().size(); j++) {
+                if (model.getO().get(i).getShops().get(j).is()) {
+                    num = Double.parseDouble(model.getO().get(i).getShops().get(j).getPrice());
+                    pricer += num;
+                    id += model.getO().get(i).getShops().get(j).getId() + ",";
+                } else {
+                    checkBox.setChecked(false);
+                }
+            }
+        }
+        priceTextView.setText(pricer + "");
+    }
+
+
+    @Override
+    public void isChecked(ShopModel.Shop data) {
+        pricer = 0;
+        double num = 0;
+        id = null;
+        for (int i = 0; i < model.getO().size(); i++) {
+            for (int j = 0; j < model.getO().get(i).getShops().size(); j++) {
+                if (model.getO().get(i).getShops().get(j).is()) {
+                    num = Double.parseDouble(model.getO().get(i).getShops().get(j).getPrice());
+                    pricer += num;
+                    id += model.getO().get(i).getShops().get(j).getId() + ",";
+                } else {
+                    checkBox.setChecked(false);
+                }
+            }
+        }
+
+        priceTextView.setText(pricer + "");
+    }
+
+
 }

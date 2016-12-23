@@ -1,5 +1,6 @@
 package com.example.a.myapplication.activity;
 
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.example.a.myapplication.BaseActivity;
@@ -8,6 +9,7 @@ import com.example.a.myapplication.adapter.MyFansAdapter;
 import com.example.a.myapplication.bean.FansModel;
 import com.example.a.myapplication.http.OkHttpUtil;
 import com.example.a.myapplication.util.Config;
+import com.example.a.myapplication.util.Preference;
 import com.example.a.myapplication.view.TitleView1;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -49,6 +51,20 @@ public class MyFansActivity extends BaseActivity {
         adapter = new MyFansAdapter(pullListView, data.getO());
         pullListView.getRefreshableView().setAdapter(adapter);
 
+        pullListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                page++;
+                getData();
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                page = 1;
+                getData();
+            }
+        });
+
 
     }
 
@@ -72,7 +88,7 @@ public class MyFansActivity extends BaseActivity {
 
 
         Map<String, String> par = new HashMap<String, String>();
-        par.put("fid", "2");
+        par.put("fid", Preference.get(Config.ID, ""));
         par.put("pagination", page + "");
         par.put("pagelen", Config.listCount);
         OkHttpUtil.getInstance().addRequestPost(Config.getfans, par, new OkHttpUtil.HttpCallBack<FansModel>() {
@@ -97,6 +113,10 @@ public class MyFansActivity extends BaseActivity {
         if (obj instanceof FansModel) {
             FansModel fansModel = (FansModel) obj;
             data = fansModel;
+            pullListView.onRefreshComplete();
+            if (page == 1) {
+                adapter.getmDatas().clear();
+            }
             adapter.addData(data.getO());
             adapter.notifyDataSetChanged();
 

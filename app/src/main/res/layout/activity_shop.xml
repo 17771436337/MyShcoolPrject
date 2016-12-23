@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-       >
+        >
 
         <View
             android:layout_width="match_parent"
@@ -21,9 +21,11 @@
             android:background="@color/bg_transparency"/>
 
         <CheckBox
+            android:id="@+id/check_layout"
             style="@style/MyCheck"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:gravity="center"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"/>
 
@@ -47,6 +49,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/price_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="总价：￥156.00"
@@ -69,8 +72,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/buttom"
-        android:divider="@color/bg_transparency"
         android:layout_below="@id/title_layout"
+        android:divider="@color/bg_transparency"
         android:dividerHeight="1dp"
         android:scrollbars="none"
         ptr:ptrHeaderTextColor="@color/color_refresh"/>

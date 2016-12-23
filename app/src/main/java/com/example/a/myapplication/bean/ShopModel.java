@@ -43,7 +43,17 @@ public class ShopModel extends BaseModel {
         private String bid;
         private String bname;
         private String logo;
+        private boolean is;  //判断是否选中
+
         private List<Content> shops;
+
+        public boolean is() {
+            return is;
+        }
+
+        public void setIs(boolean is) {
+            this.is = is;
+        }
 
         public String getBid() {
             return bid;
@@ -88,6 +98,7 @@ public class ShopModel extends BaseModel {
              * "sum": "1"
              */
 
+            private String id;
             private String name;
             private String img;
             private String price;
@@ -95,6 +106,23 @@ public class ShopModel extends BaseModel {
             private String size;
             private String color;
             private String sum;
+            private boolean is;  //判断是否选中
+
+            public String getId() {
+                return id;
+            }
+
+            public void setId(String id) {
+                this.id = id;
+            }
+
+            public boolean is() {
+                return is;
+            }
+
+            public void setIs(boolean is) {
+                this.is = is;
+            }
 
             public String getSum() {
                 return sum;

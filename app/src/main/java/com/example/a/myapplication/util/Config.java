@@ -128,6 +128,27 @@ public class Config {
      */
     public static final String getfocuson = Config.hostString + "App/Focuson/getfocuson";
 
+
+    /**
+     * 取消关注
+     */
+    public static final String savefocuson = Config.hostString + "App/Focuson/savefocuson";
+
+    /**
+     * 加关注
+     */
+    public static final String addfocuson = Config.hostString + "App/Focuson/addfocuson";
+
+    /**
+     * 完善资料/编辑资料
+     */
+    public static final String saveProfile = Config.hostString + "App/User/saveProfile";
+
+    /**
+     * 结算
+     */
+    public static final String submit = Config.hostString + "App/Order/submit";
+
     //---------------------------------------------------------------------
 
 
@@ -152,6 +173,17 @@ public class Config {
      * 用户密码
      */
     public final static String PASSWORD = "password";
+
+    /**
+     * 用户性别
+     */
+    public final static String SEX = "sex";
+
+
+    /**
+     * 用户生日
+     */
+    public final static String AGE = "age";
 
     /**
      * 消息提醒开关

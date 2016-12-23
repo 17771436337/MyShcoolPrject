@@ -117,6 +117,8 @@ public class LoginActivity extends BaseActivity {
                 Preference.put(Config.NAME, loginModel.getO().getName());
                 Preference.put(Config.PASSWORD, loginModel.getO().getPassword());
                 Preference.put(Config.PHONE, loginModel.getO().getPhone());
+                Preference.put(Config.SEX, loginModel.getO().getSex());
+                Preference.put(Config.AGE, loginModel.getO().getAge());
                 CommonUtils.startIntent(LoginActivity.this, MainActivity.class);
                 finish();
             } else {

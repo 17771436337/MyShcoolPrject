@@ -9,11 +9,14 @@ import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
 import com.example.a.myapplication.adapter.ShopAdapter;
 import com.example.a.myapplication.bean.ShopModel;
+import com.example.a.myapplication.http.OkHttpUtil;
+import com.example.a.myapplication.util.CommonUtils;
+import com.example.a.myapplication.util.Config;
+import com.example.a.myapplication.util.Preference;
 import com.example.a.myapplication.view.CustomListView;
 import com.example.a.myapplication.view.TitleView1;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -39,6 +42,8 @@ public class OrederDetailsActivity extends BaseActivity {
     @InjectView(R.id.title_layout)
     protected RelativeLayout titleView;
 
+    String id;
+
     @Override
     protected int getLayoutID() {
         return R.layout.activity_orderdetails;
@@ -55,6 +60,8 @@ public class OrederDetailsActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        id = getIntent().getExtras().getString("id");
+
 
     }
 
@@ -68,20 +75,39 @@ public class OrederDetailsActivity extends BaseActivity {
     }
 
     private void getData() {
-        List<ShopModel.Shop> list = new ArrayList<ShopModel.Shop>();
-        for (int i = 0; i < 1; i++) {
-            ShopModel.Shop shop = new ShopModel.Shop();
-            List<ShopModel.Shop.Content> list2 = new ArrayList<ShopModel.Shop.Content>();
-            for (int j = 0; j < 2; j++) {
-                ShopModel.Shop.Content content = new ShopModel.Shop.Content();
-                list2.add(content);
+
+        Map<String, String> par = CommonUtils.getMapParm();
+        par.put("uid", Preference.get(Config.ID, ""));
+        par.put("cart_ids", id);
+
+        OkHttpUtil.getInstance().addRequestPost(Config.submit, par, new OkHttpUtil.HttpCallBack<ShopModel>() {
+
+            @Override
+            public void onSuccss(ShopModel shopModel) {
+
             }
 
-            shop.setShops(list2);
-            list.add(shop);
-        }
+            @Override
+            public void onFailure(String error) {
 
-        model.setO(list);
+            }
+        });
+
+
+//        List<ShopModel.Shop> list = new ArrayList<ShopModel.Shop>();
+//        for (int i = 0; i < 1; i++) {
+//            ShopModel.Shop shop = new ShopModel.Shop();
+//            List<ShopModel.Shop.Content> list2 = new ArrayList<ShopModel.Shop.Content>();
+//            for (int j = 0; j < 2; j++) {
+//                ShopModel.Shop.Content content = new ShopModel.Shop.Content();
+//                list2.add(content);
+//            }
+//
+//            shop.setShops(list2);
+//            list.add(shop);
+//        }
+//
+//        model.setO(list);
     }
 
 

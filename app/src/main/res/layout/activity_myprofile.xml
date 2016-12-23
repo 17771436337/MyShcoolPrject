@@ -13,12 +13,15 @@
         android:layout_height="wrap_content"></RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/head_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="5dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -37,12 +40,15 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/name_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="5dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -53,6 +59,7 @@
             android:textSize="16sp"/>
 
         <TextView
+            android:id="@+id/name_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
@@ -63,12 +70,15 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/sex_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="5dp">
+        android:layout_marginTop="5dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -79,10 +89,12 @@
             android:textSize="16sp"/>
 
         <TextView
+            android:id="@+id/sex_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:drawablePadding="5dp"
             android:drawableRight="@drawable/icon_my_gay"
             android:text="女"
             android:textColor="@color/black_transparency_text"
@@ -90,6 +102,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/date_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dp"
@@ -101,11 +114,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
             android:text="生日"
             android:textColor="@color/black_transparency_text"
             android:textSize="16sp"/>
 
         <TextView
+            android:id="@+id/date_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"

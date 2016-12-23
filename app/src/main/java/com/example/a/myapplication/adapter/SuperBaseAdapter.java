@@ -16,6 +16,14 @@ public abstract class SuperBaseAdapter<T> extends BaseAdapter { //implements Ada
     private List<T> mDatas;
     private PullToRefreshBase mListView;
 
+    public List<T> getmDatas() {
+        return mDatas;
+    }
+
+    public void setmDatas(List<T> mDatas) {
+        this.mDatas = mDatas;
+    }
+
     public SuperBaseAdapter(PullToRefreshBase listView, List<T> datas) {
 
         this.mDatas = datas;

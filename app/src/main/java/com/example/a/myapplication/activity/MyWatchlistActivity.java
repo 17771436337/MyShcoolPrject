@@ -1,5 +1,6 @@
 package com.example.a.myapplication.activity;
 
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.example.a.myapplication.BaseActivity;
@@ -9,6 +10,7 @@ import com.example.a.myapplication.bean.WatchlistModel;
 import com.example.a.myapplication.http.OkHttpUtil;
 import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
+import com.example.a.myapplication.util.Preference;
 import com.example.a.myapplication.view.TitleView1;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -44,6 +46,21 @@ public class MyWatchlistActivity extends BaseActivity {
         adapter = new MyWatchlistAdapter(pullListView, data.getO());
         pullListView.getRefreshableView().setAdapter(adapter);
 
+        pullListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                page++;
+                getData();
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+
+                page = 1;
+                getData();
+            }
+        });
+
     }
 
     @Override
@@ -63,7 +80,7 @@ public class MyWatchlistActivity extends BaseActivity {
 
     private void getData() {
         Map<String, String> par = CommonUtils.getMapParm();
-        par.put("nid", "2");
+        par.put("nid", Preference.get(Config.ID, ""));
         par.put("pagination", page + "");
         par.put("pagelen", Config.listCount);
         OkHttpUtil.getInstance().addRequestPost(Config.getfocuson, par, new OkHttpUtil.HttpCallBack<WatchlistModel>() {
@@ -88,6 +105,10 @@ public class MyWatchlistActivity extends BaseActivity {
         if (obj instanceof WatchlistModel) {
             WatchlistModel watchlistModel = (WatchlistModel) obj;
             data = watchlistModel;
+            pullListView.onRefreshComplete();
+            if (page == 1) {
+                adapter.getmDatas().clear();
+            }
             adapter.addData(data.getO());
             adapter.notifyDataSetChanged();
         }
