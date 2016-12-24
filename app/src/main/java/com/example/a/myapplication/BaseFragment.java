@@ -99,7 +99,13 @@ public abstract class BaseFragment extends Fragment {
         Typeface iconfont = Typeface.createFromAsset(UIUtils.getContext().getAssets(), "iconfont.ttf");
         mTextView.setTypeface(iconfont);
     }
-
+    /**
+     * 初始化icon字体
+     */
+    public void initIconFont(TextView mTextView) {
+        Typeface iconfont = Typeface.createFromAsset(getActivity().getAssets(), "iconfont.ttf");
+        mTextView.setTypeface(iconfont);
+    }
     /*以下为：事件分发*/
     @Subscribe(threadMode = ThreadMode.POSTING)
     public void onEvent(Object obj) {

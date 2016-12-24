@@ -34,12 +34,12 @@ import butterknife.ButterKnife;
 public abstract class BaseActivity extends FragmentActivity {
     Intent mIntent;
     public int resultCcode;
-    ViewGroup mView;
+   public ViewGroup mView;
     // 对所有的activity进行管理
     protected static List<Activity> mActivities = new LinkedList<Activity>();
     private static Activity mCurrentActivity;
     protected TitleView mTitleView;
-
+    public LoadingPagerActivity mLoadingPagerActivity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +53,7 @@ public abstract class BaseActivity extends FragmentActivity {
         }
         mView = (ViewGroup) LayoutInflater.from(this).inflate(getLayoutID(), null);
         addTitle();
-        ButterKnife.inject(this);
+        ButterKnife.inject(this,mView);
         // 初始化view
         initView();
 
@@ -65,6 +65,7 @@ public abstract class BaseActivity extends FragmentActivity {
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
+
         synchronized (mActivities) {
             mActivities.remove(this);
         }
@@ -189,6 +190,13 @@ public abstract class BaseActivity extends FragmentActivity {
             EventBus.getDefault().register(this);
         }
         super.onStart();
+    }
+    /**
+     * 初始化icon字体
+     */
+    public void initIconFont(TextView mTextView) {
+        Typeface iconfont = Typeface.createFromAsset(getAssets(), "iconfont.ttf");
+        mTextView.setTypeface(iconfont);
     }
 
 

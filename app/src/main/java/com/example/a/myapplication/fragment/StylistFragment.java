@@ -89,6 +89,7 @@ public class StylistFragment  extends BaseFragment  {
                 EventBus.getDefault().post("onLoadMore");
             }
         });
+
     }
     public LoadingPager.LoadedResult initData() {
         try{
@@ -102,7 +103,7 @@ public class StylistFragment  extends BaseFragment  {
         }
     }
 
-    public StyListModel initDate(){
+    public StyListModel initDate() throws Exception{
         Map<String, String> parm = CommonUtils.getMapParm();
         parm.put("pagination", String.valueOf(page));
         String result=OkHttpUtil.getInstance().addRequestNoCallPost(Config.QITTMELIST, parm);

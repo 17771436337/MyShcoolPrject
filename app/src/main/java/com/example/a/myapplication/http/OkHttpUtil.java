@@ -43,8 +43,6 @@ public class OkHttpUtil {
     private static class SingletonHolder {
         private static final OkHttpUtil mInstance = new OkHttpUtil();
     }
-
-
     private OkHttpUtil() {
         okHttpClient = new OkHttpClient();
         okHttpClient.setConnectTimeout(3, TimeUnit.SECONDS);
@@ -166,14 +164,12 @@ public class OkHttpUtil {
                     e.printStackTrace();
                 }
             }
-
             @Override
             public void onFailure(Request arg0, IOException arg1) {
                 final String res = arg1.getMessage();
                 isDebug(res);
             }
         });
-
     }
 
     public String addRequestNoCallGet(String url) {
@@ -210,8 +206,6 @@ public class OkHttpUtil {
         }
         return body;
     }
-
-
     public <T> void addRequest(String url, int tag, Bundle params, final HttpCallBack<T> callBack) {
         if (params == null || params.size() == 0) {
             return;

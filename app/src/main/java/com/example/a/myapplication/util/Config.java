@@ -10,16 +10,16 @@ public class Config {
     public final static String hostString = "http://115.28.94.239/wardrobe/code/wardrode/index.php?s=/";
 
     /**
-     * 推片头链接
+     * 推片头链接/wardrobe/code/wardrode/Public/Uploads/20161217/5854db3aa9577.png
      */
-    public final static String hostImgString = "http://115.28.94.239/";
+    public final static String hostImgString = "http://115.28.94.239/wardrobe/code/wardrode/";//图片地址前缀
 
-    public final static String NATIVE = hostString+"wardrobe/code/wardrode/Public/Uploads/images/icon_up_img.png";//固定图片地址
+    public final static String NATIVE = hostImgString+"/Public/Uploads/images/icon_up_img.png";//固定图片地址http://115.28.94.239/wardrobe/code/wardrode/Public/Uploads/images/icon_up_img.png
 
     /**
      * 造型师列表
      */
-    public final static String QITTMELIST = hostString+"wardrobe/code/wardrode/index.php?s=/App/Item/qItemList";
+    public final static String QITTMELIST = hostString+"App/Item/qItemList";
 
     public final static String listCount = "10";
 
@@ -151,4 +151,17 @@ public class Config {
      * 消息提醒开关
      */
     public final static String REMIND = "remind";
+    /**
+     * 求单品详情	http://115.28.94.239/wardrobe/code/wardrode/index.php?s=/App/Item/itemDetails
+     */
+    public final static String StylistDe = hostString+"App/Item/itemDetails";
+    /**
+     * 求单品详情-查看解答	http://115.28.94.239/wardrobe/code/wardrode/index.php?s=/App/Item/answerList
+     */
+    public final static String ANSWERLIST = hostString+"App/Item/answerList";
+    /**
+     * 评论列表	http://115.28.94.239/wardrobe/code/wardrode/index.php?s=/App/Item/commentList
+     */
+    public final static String COMMENTLIST = hostString+"App/Item/commentList";
 }
+
