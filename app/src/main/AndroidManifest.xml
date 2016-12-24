@@ -134,7 +134,8 @@
         <!-- 二维码 -->
         <activity android:name=".activity.QRPayActivity" />
         <activity android:name=".activity.stylist.ProductTitleMessageActivity" />
-        <activity android:name=".activity.CommentListActivity"></activity>
+        <activity android:name=".activity.CommentListActivity" />
+        <activity android:name=".activity.stylist.SingleProductDetailsActivity"></activity>
     </application>
 
 </manifest>

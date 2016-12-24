@@ -51,12 +51,10 @@ public class CommentListActivity extends BaseActivity {
         setContentView(mLoadingPagerActivity);
 
     }
-
     @Override
     protected void initData() {
 
     }
-
     public View initSuccessViewAc() {
         view = View.inflate(this, R.layout.activity_comment_list, null);
         ButterKnife.reset(this);
@@ -65,7 +63,6 @@ public class CommentListActivity extends BaseActivity {
         activityCommentListPullLayout.setMode(PullToRefreshBase.Mode.DISABLED);
         activityCommentListPullLayout.getRefreshableView().setAdapter(adapter);
         return view;
-
     }
 
     public LoadingPagerActivity.LoadedResult onLoadDataAc() {

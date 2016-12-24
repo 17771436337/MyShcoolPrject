@@ -6,21 +6,20 @@ import java.util.List;
  * Created by Administrator on 2016/12/7.
  */
 public class FansModel extends BaseModel {
-    private List<MyFans> fans;
+
     /**
-     * o : [{"id":"1","nid":"3","fid":"2","time":"1481251087","state":"1"}]
-     * e :
+     * o : [{"id":"1","nid":"3","fid":"2","time":"1481251087","state":"1","fhead":"/Public/Uploads/20161222/585ba1d0105f3.jpg","fname":"小学长","is_focus":"1"},{"id":"5","nid":"4","fid":"2","time":"1482399375","state":"1","fhead":"/Public/Uploads/20161222/585ba1d0105f3.jpg","fname":"小学长","is_focus":"0"},{"id":"6","nid":"5","fid":"2","time":"1482399379","state":"1","fhead":"/Public/Uploads/20161222/585ba1d0105f3.jpg","fname":"小学长","is_focus":"0"},{"id":"7","nid":"6","fid":"2","time":"1482399384","state":"1","fhead":"/Public/Uploads/20161222/585ba1d0105f3.jpg","fname":"小学长","is_focus":"0"},{"id":"8","nid":"7","fid":"2","time":"1482399387","state":"1","fhead":"/Public/Uploads/20161222/585ba1d0105f3.jpg","fname":"小学长","is_focus":"0"}]
+     * e : null
      */
 
-    private String e;
+    private Object e;
     private List<MyFans> o;
 
-
-    public String getE() {
+    public Object getE() {
         return e;
     }
 
-    public void setE(String e) {
+    public void setE(Object e) {
         this.e = e;
     }
 
@@ -32,7 +31,6 @@ public class FansModel extends BaseModel {
         this.o = o;
     }
 
-
     public static class MyFans {
         /**
          * id : 1
@@ -40,6 +38,9 @@ public class FansModel extends BaseModel {
          * fid : 2
          * time : 1481251087
          * state : 1
+         * fhead : /Public/Uploads/20161222/585ba1d0105f3.jpg
+         * fname : 小学长
+         * is_focus : 1
          */
 
         private String id;
@@ -47,6 +48,9 @@ public class FansModel extends BaseModel {
         private String fid;
         private String time;
         private String state;
+        private String fhead;
+        private String fname;
+        private String is_focus;
 
         public String getId() {
             return id;
@@ -86,6 +90,30 @@ public class FansModel extends BaseModel {
 
         public void setState(String state) {
             this.state = state;
+        }
+
+        public String getFhead() {
+            return fhead;
+        }
+
+        public void setFhead(String fhead) {
+            this.fhead = fhead;
+        }
+
+        public String getFname() {
+            return fname;
+        }
+
+        public void setFname(String fname) {
+            this.fname = fname;
+        }
+
+        public String getIs_focus() {
+            return is_focus;
+        }
+
+        public void setIs_focus(String is_focus) {
+            this.is_focus = is_focus;
         }
     }
 }

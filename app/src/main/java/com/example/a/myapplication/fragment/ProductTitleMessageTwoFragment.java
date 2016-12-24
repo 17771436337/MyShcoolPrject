@@ -1,13 +1,17 @@
 package com.example.a.myapplication.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.TextView;
 
 import com.example.a.myapplication.BaseFragment;
 import com.example.a.myapplication.R;
+import com.example.a.myapplication.activity.stylist.SingleProductDetailsActivity;
 import com.example.a.myapplication.adapter.ProductTitleMessageTwoAdapter;
 import com.example.a.myapplication.bean.ProductTitleMessageModel;
+import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.view.LoadingPager;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -52,6 +56,12 @@ public class ProductTitleMessageTwoFragment extends BaseFragment {
         adapter = new ProductTitleMessageTwoAdapter(fragmentProductTitleMessageTwoPullLayout, oBean.getDetails());
         fragmentProductTitleMessageTwoPullLayout.setMode(PullToRefreshBase.Mode.DISABLED);
         fragmentProductTitleMessageTwoPullLayout.getRefreshableView().setAdapter(adapter);
+        fragmentProductTitleMessageTwoPullLayout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                CommonUtils.startIntent(getActivity(), SingleProductDetailsActivity.class);
+            }
+        });
         return view;
     }
     @Override

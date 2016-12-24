@@ -102,22 +102,6 @@ public class Config {
 
 
     /**
-     * 地址管理列表
-     */
-    public static final String getaddress = Config.hostString + "App/Address/getaddress";
-
-
-    /**
-     * 编辑地址
-     */
-    public static final String saveaddress = Config.hostString + "App/Address/saveaddress";
-
-    /**
-     * 新增地址
-     */
-    public static final String addaddress = Config.hostString + "App/Address/addaddress";
-
-    /**
      * 个人支付宝
      */
     public static final String addPayLog = Config.hostString + "App/Pay/addPayLog";
@@ -152,6 +136,31 @@ public class Config {
      */
     public final static String REMIND = "remind";
     /**
+     * 用户性别
+     */
+    public final static String SEX = "sex";
+
+    /**
+     * 编辑地址
+     */
+    public static final String saveaddress = Config.hostString + "App/Address/saveaddress";
+
+    /**
+     * 地址管理列表
+     */
+    public static final String getaddress = Config.hostString + "App/Address/getaddress";
+
+    /**
+     * 新增地址
+     */
+    public static final String addaddress = Config.hostString + "App/Address/addaddress";
+
+
+    /**
+     * 用户生日
+     */
+    public final static String AGE = "age";
+    /**
      * 求单品详情	http://115.28.94.239/wardrobe/code/wardrode/index.php?s=/App/Item/itemDetails
      */
     public final static String StylistDe = hostString+"App/Item/itemDetails";
@@ -163,5 +172,35 @@ public class Config {
      * 评论列表	http://115.28.94.239/wardrobe/code/wardrode/index.php?s=/App/Item/commentList
      */
     public final static String COMMENTLIST = hostString+"App/Item/commentList";
+
+
+    /**
+     * 我的关注接口
+     */
+    public static final String getfocuson = Config.hostString + "App/Focuson/getfocuson";
+
+
+    /**
+     * 取消关注
+     */
+    public static final String savefocuson = Config.hostString + "App/Focuson/savefocuson";
+
+    /**
+     * 加关注
+     */
+    public static final String addfocuson = Config.hostString + "App/Focuson/addfocuson";
+
+    /**
+     * 完善资料/编辑资料
+     */
+    public static final String saveProfile = Config.hostString + "App/User/saveProfile";
+
+    /**
+     * 结算
+     */
+    public static final String submit = Config.hostString + "App/Order/submit";
+
+
+
 }
 

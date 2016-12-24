@@ -18,6 +18,7 @@ import com.example.a.myapplication.activity.MyCollectActivity;
 import com.example.a.myapplication.activity.MyFansActivity;
 import com.example.a.myapplication.activity.MyOrderActivity;
 import com.example.a.myapplication.activity.MyProFileActivity;
+import com.example.a.myapplication.activity.MyWatchlistActivity;
 import com.example.a.myapplication.activity.ShopActivity;
 import com.example.a.myapplication.activity.app.SettingActivity;
 import com.example.a.myapplication.bean.MianProfineModel;
@@ -119,7 +120,7 @@ public class MineFragment extends Fragment {
                 CommonUtils.startIntent(getActivity(), MyFansActivity.class);
                 break;
             case R.id.attention_layout: //我的关注
-                makeText(getActivity(), "我的关注", 1000).show();
+                CommonUtils.startIntent(getActivity(), MyWatchlistActivity.class);
                 break;
             case R.id.right://设置
 

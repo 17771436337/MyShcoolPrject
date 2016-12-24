@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/12/9.
  */
-public class ScreenBrandAdapter extends SuperBaseAdapter<ScreenBrandModel.Brand> {
+public class ScreenBrandAdapter<O> extends SuperBaseAdapter<ScreenBrandModel.Brand> {
     public ScreenBrandAdapter(PullToRefreshBase listView, List<ScreenBrandModel.Brand> datas) {
         super(listView, datas);
     }
