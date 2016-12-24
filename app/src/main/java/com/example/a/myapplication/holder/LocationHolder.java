@@ -1,11 +1,13 @@
 package com.example.a.myapplication.holder;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.a.myapplication.R;
 import com.example.a.myapplication.activity.EditAddressActivity;
+import com.example.a.myapplication.activity.LocationActivity;
 import com.example.a.myapplication.bean.LocationMoldel;
 import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.UIUtils;
@@ -46,13 +48,20 @@ public class LocationHolder extends BaseHolder<LocationMoldel.Location> {
     }
 
 
-    @OnClick({R.id.compile_text})
+    @OnClick({R.id.compile_text, R.id.chexk})
     protected void onClick(View v) {
         switch (v.getId()) {
             case R.id.compile_text:  //编辑
                 Bundle b = new Bundle();
                 b.putSerializable("data", data);
                 CommonUtils.startIntent(UIUtils.getContext(), EditAddressActivity.class, b);
+                break;
+            case R.id.chexk://选中框
+
+                Intent intent = new Intent();
+                intent.putExtra("data", data);
+                LocationActivity.locationActivity.setResult(LocationActivity.locationActivity.resultCcode, intent);
+                LocationActivity.locationActivity.finish();
                 break;
         }
     }

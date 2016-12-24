@@ -34,6 +34,8 @@ public class LocationActivity extends BaseActivity {
     @InjectView(R.id.title_layout)
     protected RelativeLayout titleView;
 
+    public static LocationActivity locationActivity;
+
     @Override
     protected int getLayoutID() {
         return R.layout.activity_location;
@@ -41,6 +43,7 @@ public class LocationActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        locationActivity = this;
         initTitle();
 
     }

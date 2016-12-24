@@ -11,6 +11,7 @@
         android:orientation="horizontal">
 
         <CheckBox
+            android:id="@+id/chexk"
             style="@style/MyCheck"
             android:layout_width="30dp"
             android:layout_height="30dp"

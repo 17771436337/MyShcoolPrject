@@ -149,6 +149,12 @@ public class Config {
      */
     public static final String submit = Config.hostString + "App/Order/submit";
 
+
+    /**
+     * 支付订单
+     */
+    public static final String pay = Config.hostString + "App/Order/pay";
+
     //---------------------------------------------------------------------
 
 

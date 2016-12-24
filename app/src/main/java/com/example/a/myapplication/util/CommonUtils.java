@@ -138,7 +138,7 @@ public class CommonUtils {
     public static void startIntent(Activity context, Class clazz, int requestCode) {
         Intent intent = new Intent();
         intent.setClass(context, clazz);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivityForResult(intent,requestCode);
     }
 

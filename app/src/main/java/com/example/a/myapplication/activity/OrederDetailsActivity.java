@@ -1,5 +1,6 @@
 package com.example.a.myapplication.activity;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -48,6 +49,7 @@ public class OrederDetailsActivity extends BaseActivity {
     FavorableView favorableView;
 
     String id;
+    private int orderId;
 
     @Override
     protected int getLayoutID() {
@@ -114,7 +116,7 @@ public class OrederDetailsActivity extends BaseActivity {
                 model = shopModel;
                 adapter = new OrederAdapter(shopModel.getO());
                 listView.setAdapter(adapter);
-
+                orderId = shopModel.getE().get(0).getOrderid();
                 Log.e("test", shopModel.getO().toString());
             } else {
 
@@ -131,7 +133,13 @@ public class OrederDetailsActivity extends BaseActivity {
                 break;
             case R.id.yes:
 
-                CommonUtils.startIntent(this, ConfirmAnOrderActivity.class);
+                if (orderId != 0) {
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("oid", orderId);
+                    CommonUtils.startIntent(this, ConfirmAnOrderActivity.class, bundle);
+                }
+
+
                 break;
         }
     }
