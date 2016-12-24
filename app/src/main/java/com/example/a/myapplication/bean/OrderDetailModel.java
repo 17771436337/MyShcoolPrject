@@ -3,27 +3,13 @@ package com.example.a.myapplication.bean;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016/12/8.
+ * Created by Administrator on 2016/12/24.
  */
-public class ShopModel extends BaseModel {
+public class OrderDetailModel extends BaseModel {
 
 
-    /**
-     * o : [{"bid":"3","bname":"Jack Johns","logo":"/wardrobe/code/wardrode/wardrobe/code/wardrode/Public/Uploads/20161216/585389752e992.jpg","shops":[{"name":"韩版羽绒夹克","img":"/wardrobe/code/wardrode/wardrobe/code/wardrode","price":"500.00","orprice":"750.00","size":"L","color":"红色"},{"name":"韩版羽绒夹克","img":"","price":"500.00","orprice":"750.00","size":"XL","color":"黄色"}]},{"bid":"1","bname":"zara","logo":"/wardrobe/code/wardrode/wardrobe/code/wardrode/Public/Uploads/20161216/585363441250f.jpg","shops":[{"name":"时尚羽绒","img":"","price":"100.00","orprice":"150.00","size":"M","color":"蓝色"},{"name":"时尚羽绒","img":"/wardrobe/code/wardrode/wardrobe/code/wardrode","price":"100.00","orprice":"150.00","size":"XL","color":"绿色"}]}]
-     * e : null
-     */
-
-    private List<EBean> e;
     private List<Shop> o;
-
-
-    public List<EBean> getE() {
-        return e;
-    }
-
-    public void setE(List<EBean> e) {
-        this.e = e;
-    }
+    private List<EBean> e;
 
     public List<Shop> getO() {
         return o;
@@ -33,28 +19,26 @@ public class ShopModel extends BaseModel {
         this.o = o;
     }
 
+    public List<EBean> getE() {
+        return e;
+    }
+
+    public void setE(List<EBean> e) {
+        this.e = e;
+    }
+
     public static class Shop {
         /**
-         * bid : 3
-         * bname : Jack Johns
-         * logo : /wardrobe/code/wardrode/wardrobe/code/wardrode/Public/Uploads/20161216/585389752e992.jpg
-         * shops : [{"name":"韩版羽绒夹克","img":"/wardrobe/code/wardrode/wardrobe/code/wardrode","price":"500.00","orprice":"750.00","size":"L","color":"红色"},{"name":"韩版羽绒夹克","img":"","price":"500.00","orprice":"750.00","size":"XL","color":"黄色"}]
+         * bid : 1
+         * bname : zara
+         * logo : /Public/Uploads/20161222/585ba1de428bf.jpg
+         * shops : [{"id":"5","name":"时尚羽绒","img":"","price":"100.00","orprice":"150.00","size":"1","color":"2","sum":"500"}]
          */
 
         private String bid;
         private String bname;
         private String logo;
-        private boolean is;  //判断是否选中
-
-        private List<Content> shops;
-
-        public boolean is() {
-            return is;
-        }
-
-        public void setIs(boolean is) {
-            this.is = is;
-        }
+        private List<ShopsBean> shops;
 
         public String getBid() {
             return bid;
@@ -80,23 +64,24 @@ public class ShopModel extends BaseModel {
             this.logo = logo;
         }
 
-        public List<Content> getShops() {
+        public List<ShopsBean> getShops() {
             return shops;
         }
 
-        public void setShops(List<Content> shops) {
+        public void setShops(List<ShopsBean> shops) {
             this.shops = shops;
         }
 
-        public static class Content {
+        public static class ShopsBean {
             /**
-             * name : 韩版羽绒夹克
-             * img : /wardrobe/code/wardrode/wardrobe/code/wardrode
-             * price : 500.00
-             * orprice : 750.00
-             * size : L
-             * color : 红色
-             * "sum": "1"
+             * id : 5
+             * name : 时尚羽绒
+             * img :
+             * price : 100.00
+             * orprice : 150.00
+             * size : 1
+             * color : 2
+             * sum : 500
              */
 
             private String id;
@@ -107,7 +92,6 @@ public class ShopModel extends BaseModel {
             private String size;
             private String color;
             private String sum;
-            private boolean is;  //判断是否选中
 
             public String getId() {
                 return id;
@@ -115,22 +99,6 @@ public class ShopModel extends BaseModel {
 
             public void setId(String id) {
                 this.id = id;
-            }
-
-            public boolean is() {
-                return is;
-            }
-
-            public void setIs(boolean is) {
-                this.is = is;
-            }
-
-            public String getSum() {
-                return sum;
-            }
-
-            public void setSum(String sum) {
-                this.sum = sum;
             }
 
             public String getName() {
@@ -180,9 +148,16 @@ public class ShopModel extends BaseModel {
             public void setColor(String color) {
                 this.color = color;
             }
+
+            public String getSum() {
+                return sum;
+            }
+
+            public void setSum(String sum) {
+                this.sum = sum;
+            }
         }
     }
-
 
     public static class EBean {
         /**

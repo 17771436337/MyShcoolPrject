@@ -1,20 +1,23 @@
 package com.example.a.myapplication.activity;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
-import com.example.a.myapplication.adapter.ShopAdapter;
-import com.example.a.myapplication.bean.ShopModel;
+import com.example.a.myapplication.adapter.OrederAdapter;
+import com.example.a.myapplication.bean.OrderDetailModel;
 import com.example.a.myapplication.http.OkHttpUtil;
 import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
-import com.example.a.myapplication.util.Preference;
 import com.example.a.myapplication.view.CustomListView;
+import com.example.a.myapplication.view.FavorableNotView;
+import com.example.a.myapplication.view.FavorableView;
 import com.example.a.myapplication.view.TitleView1;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
 
@@ -28,19 +31,21 @@ public class OrederDetailsActivity extends BaseActivity {
 
     @InjectView(R.id.listView)
     protected CustomListView listView;
-    ShopModel model = new ShopModel();
-    ShopAdapter adapter;
+    OrderDetailModel model = new OrderDetailModel();
+    OrederAdapter adapter;
 
     private boolean isShow = true;
 
-    @InjectView(R.id.favorable_r1)
-    protected LinearLayout favorable;
+    @InjectView(R.id.rl1)
+    protected RelativeLayout linearLayout;
 
     @InjectView(R.id.arrow)
     protected ImageView arrow;
 
     @InjectView(R.id.title_layout)
     protected RelativeLayout titleView;
+    FavorableNotView favorableNotView;
+    FavorableView favorableView;
 
     String id;
 
@@ -52,16 +57,16 @@ public class OrederDetailsActivity extends BaseActivity {
     @Override
     protected void initView() {
         initTitle();
-        setShow(isShow);
-        getData();
-        adapter = new ShopAdapter(model.getO());
-        listView.setAdapter(adapter);
+//        linearLayout.setVisibility(View.GONE);
+//        setShow(isShow);
+
+
     }
 
     @Override
     protected void initData() {
-        id = getIntent().getExtras().getString("id");
-
+//        id = getIntent().getExtras().getString("id");
+//        getData();
 
     }
 
@@ -77,15 +82,17 @@ public class OrederDetailsActivity extends BaseActivity {
     private void getData() {
 
         Map<String, String> par = CommonUtils.getMapParm();
-        par.put("uid", Preference.get(Config.ID, ""));
+        par.put("uid", 2 + "");
+
         par.put("cart_ids", id);
 
-        OkHttpUtil.getInstance().addRequestPost(Config.submit, par, new OkHttpUtil.HttpCallBack<ShopModel>() {
+        OkHttpUtil.getInstance().addRequestPost(Config.submit, par, new OkHttpUtil.HttpCallBack<OrderDetailModel>() {
 
             @Override
-            public void onSuccss(ShopModel shopModel) {
-
+            public void onSuccss(OrderDetailModel shopModel) {
+                EventBus.getDefault().post(shopModel);
             }
+
 
             @Override
             public void onFailure(String error) {
@@ -93,31 +100,38 @@ public class OrederDetailsActivity extends BaseActivity {
             }
         });
 
-
-//        List<ShopModel.Shop> list = new ArrayList<ShopModel.Shop>();
-//        for (int i = 0; i < 1; i++) {
-//            ShopModel.Shop shop = new ShopModel.Shop();
-//            List<ShopModel.Shop.Content> list2 = new ArrayList<ShopModel.Shop.Content>();
-//            for (int j = 0; j < 2; j++) {
-//                ShopModel.Shop.Content content = new ShopModel.Shop.Content();
-//                list2.add(content);
-//            }
-//
-//            shop.setShops(list2);
-//            list.add(shop);
-//        }
-//
-//        model.setO(list);
     }
 
 
-    @OnClick({R.id.favorable_layout})
+    @Override
+    public void onEventMainThread(Object obj) {
+        super.onEventMainThread(obj);
+
+        if (obj instanceof OrderDetailModel) {
+            OrderDetailModel shopModel = (OrderDetailModel) obj;
+
+            if (shopModel.getC() == 1) {
+                model = shopModel;
+                adapter = new OrederAdapter(shopModel.getO());
+                listView.setAdapter(adapter);
+
+                Log.e("test", shopModel.getO().toString());
+            } else {
+
+            }
+
+        }
+    }
+
+    @OnClick({R.id.favorable_layout, R.id.yes})
     protected void onClick(View v) {
         switch (v.getId()) {
             case R.id.favorable_layout://
-
                 setShow(isShow);
+                break;
+            case R.id.yes:
 
+                CommonUtils.startIntent(this, ConfirmAnOrderActivity.class);
                 break;
         }
     }
@@ -129,11 +143,11 @@ public class OrederDetailsActivity extends BaseActivity {
     private void setShow(boolean isShow) {
         if (isShow) {
             arrow.setImageResource(R.drawable.icon_up_arrow);
-            favorable.setVisibility(View.VISIBLE);
+            linearLayout.setVisibility(View.VISIBLE);
             this.isShow = !isShow;
         } else {
             arrow.setImageResource(R.drawable.icon_down_arrow);
-            favorable.setVisibility(View.GONE);
+            linearLayout.setVisibility(View.GONE);
             this.isShow = !isShow;
         }
     }

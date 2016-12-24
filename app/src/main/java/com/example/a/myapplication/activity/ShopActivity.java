@@ -1,12 +1,11 @@
 package com.example.a.myapplication.activity;
 
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
@@ -54,7 +53,7 @@ public class ShopActivity extends BaseActivity implements ContentHolder.IsChecke
     @InjectView(R.id.check_layout)
     protected CheckBox checkBox;
 
-    String id;
+    String id = null;
 
     @Override
     protected int getLayoutID() {
@@ -91,18 +90,19 @@ public class ShopActivity extends BaseActivity implements ContentHolder.IsChecke
     protected void onClick(View v) {
         switch (v.getId()) {
             case R.id.account://结算
-                if (TextUtils.isEmpty(id)) {
-                    Toast.makeText(this, "请选择商品", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+//                if (TextUtils.isEmpty(id)) {
+//                    Toast.makeText(this, "请选择商品", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
 
                 Bundle bundle = new Bundle();
                 bundle.putString("id", id);
+                Log.e("id", "id" + id);
                 CommonUtils.startIntent(this, OrederDetailsActivity.class, bundle);
 
                 break;
             case R.id.check_layout:
-                id = null;
+                id = new String();
                 for (int i = 0; i < model.getO().size(); i++) {
                     for (int j = 0; j < model.getO().get(i).getShops().size(); j++) {
                         model.getO().get(i).getShops().get(j).setIs(checkBox.isChecked());
@@ -157,7 +157,7 @@ public class ShopActivity extends BaseActivity implements ContentHolder.IsChecke
     public void isChecked(ShopModel.Shop.Content data) {
         pricer = 0;
         double num = 0;
-        id = null;
+        id = new String();
         for (int i = 0; i < model.getO().size(); i++) {
             for (int j = 0; j < model.getO().get(i).getShops().size(); j++) {
                 if (model.getO().get(i).getShops().get(j).is()) {
@@ -177,7 +177,7 @@ public class ShopActivity extends BaseActivity implements ContentHolder.IsChecke
     public void isChecked(ShopModel.Shop data) {
         pricer = 0;
         double num = 0;
-        id = null;
+        id = new String();
         for (int i = 0; i < model.getO().size(); i++) {
             for (int j = 0; j < model.getO().get(i).getShops().size(); j++) {
                 if (model.getO().get(i).getShops().get(j).is()) {
