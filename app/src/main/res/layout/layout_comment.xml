@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+
+        android:layout_height="wrap_content">
+        <FrameLayout
+            android:layout_marginLeft="15dp"
+            android:id="@+id/layout_comment_to_pl"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_marginTop="6dp"
+                android:id="@+id/layout_comment_tv"
+                android:layout_width="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_height="wrap_content"
+                android:textSize="25dp"  />
+
+            <TextView
+                android:layout_toRightOf="@+id/layout_comment_msg"
+                android:id="@+id/layout_comment_count"
+                android:layout_width="wrap_content"
+                android:layout_gravity="right"
+                android:layout_height="wrap_content"
+                android:background="@drawable/num_mes"
+                android:layout_marginTop="3dp"
+                android:gravity="center"
+                android:text="2"
+                android:textColor="@color/white"
+                android:textSize="10sp" />
+        </FrameLayout>
+
+        <EditText
+            android:layout_marginLeft="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginRight="70dp"
+            android:layout_centerVertical="true"
+            android:hint="  添加评论..."
+            android:background="@drawable/btn_input_gray_one"
+            android:layout_centerHorizontal="true"/>
+    <Button
+        android:id="@+id/layout_comment_but"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="@null"
+        android:layout_marginRight="10dp"
+        android:textColor="#E88507"
+        android:text="发送"/>
+    </RelativeLayout>
+</LinearLayout>
