@@ -7,7 +7,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/top_tab_height"
-        android:background="@color/black" >
+        android:background="@color/top_bg_color" >
 
         <TextView
             android:id="@+id/back_image"

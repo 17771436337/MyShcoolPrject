@@ -14,4 +14,28 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+
+    <string name="icon_ht">&#xe628;</string>
+    <string name="icon_pz">&#xe644;</string>
+    <string name="icon_xp">&#xe67b;</string>
+    <string name="icon_gwc">&#xe60c;</string>
+    <string name="icon_sc">&#xe605;</string>
+    <string name="icon_jefh">&#xe664;</string>
+    <string name="icon_dz">&#xe60d;</string>
+    <string name="icon_xz">&#xe627;</string>
+    <string name="icon_fx">&#xe696;</string>
+    <string name="icon_ysc">&#xe692;</string>
+    <string name="icon_gb">&#xe6a1;</string>
+    <string name="icon_yc">&#xe616;</string>
+    <string name="icon_wxz">&#xe63f;</string>
+    <string name="icon_pl">&#xe621;</string>
+    <string name="icon_mm">&#xe602;</string>
+    <string name="icon_gd">&#xe601;</string>
+    <string name="icon_wd">&#xe600;</string>
+    <string name="icon_lc">&#xe60a;</string>
+    <string name="icon_sy">&#xe608;</string>
+
+    <string name="icon_syy">&#xe630;</string>
+    <string name="icon_xyy">&#xe603;</string>
+
 </resources>

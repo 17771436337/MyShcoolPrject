@@ -23,4 +23,5 @@
     <color name="orange_text">#E8942D</color>
 
     <color name="bg_gay">#8E8E8E</color>
+    <color name="listview_divider">#EEEEEE</color>
 </resources>

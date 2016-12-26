@@ -33,7 +33,7 @@ import butterknife.ButterKnife;
 
 public abstract class BaseActivity extends FragmentActivity {
     Intent mIntent;
-    public int resultCcode = 0x0001;
+    public int resultCcode;
     ViewGroup mView;
     // 对所有的activity进行管理
     protected static List<Activity> mActivities = new LinkedList<Activity>();

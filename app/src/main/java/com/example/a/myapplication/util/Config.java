@@ -12,7 +12,7 @@ public class Config {
     /**
      * 推片头链接
      */
-    public final static String hostImgString = "http://115.28.94.239/wardrobe/code/wardrode";
+    public final static String hostImgString = "http://115.28.94.239/";
 
     public final static String NATIVE = hostString + "wardrobe/code/wardrode/Public/Uploads/images/icon_up_img.png";//固定图片地址
 
@@ -121,39 +121,11 @@ public class Config {
      * 个人支付宝
      */
     public static final String addPayLog = Config.hostString + "App/Pay/addPayLog";
-
-
     /**
-     * 我的关注接口
+     * 评论列表	http://115.28.94.239/wardrobe/code/wardrode/index.php?s=/App/Item/commentList
      */
-    public static final String getfocuson = Config.hostString + "App/Focuson/getfocuson";
+    public final static String COMMENTLIST = hostString + "App/Item/commentList";
 
-
-    /**
-     * 取消关注
-     */
-    public static final String savefocuson = Config.hostString + "App/Focuson/savefocuson";
-
-    /**
-     * 加关注
-     */
-    public static final String addfocuson = Config.hostString + "App/Focuson/addfocuson";
-
-    /**
-     * 完善资料/编辑资料
-     */
-    public static final String saveProfile = Config.hostString + "App/User/saveProfile";
-
-    /**
-     * 结算
-     */
-    public static final String submit = Config.hostString + "App/Order/submit";
-
-
-    /**
-     * 支付订单
-     */
-    public static final String pay = Config.hostString + "App/Order/pay";
 
     //---------------------------------------------------------------------
 
@@ -179,17 +151,6 @@ public class Config {
      * 用户密码
      */
     public final static String PASSWORD = "password";
-
-    /**
-     * 用户性别
-     */
-    public final static String SEX = "sex";
-
-
-    /**
-     * 用户生日
-     */
-    public final static String AGE = "age";
 
     /**
      * 消息提醒开关

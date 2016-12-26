@@ -29,28 +29,46 @@ public class StylistAdapter extends RecyclerView.Adapter<StylistAdapter.PeoView>
     }
 
     @Override
+    public long getItemId(int position) {
+        return super.getItemId(position);
+    }
+
+    @Override
     public PeoView onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view= LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.fragment_stylist_itme, viewGroup,false);
         return new PeoView(view,i);
     }
 
     @Override
-    public void onBindViewHolder(PeoView masonryView, int position) {
-        // 随机高度, 模拟瀑布效果.
-        ImageLoader.getInstance().displayImage(Config.hostString+products.get(position).getImg(),  masonryView.fragment_stylist_itme_img);
+    public void onBindViewHolder(PeoView masonryView,final int position) {
+        String url="";
+        if(0==position){
+            url=products.get(position).getImg();
+        }else{
+            url=Config.hostImgString+products.get(position).getImg();
+        }
+        ImageLoader.getInstance().displayImage(url,  masonryView.fragment_stylist_itme_img);
   /*      Glide.with(BaseApplication.mCurrentActivity)
                 .load(Config.hostString+products.get(position).getImg())
                 .asBitmap()
                 .fitCenter()
                 .placeholder(R.drawable.pic_gray_bg)
                 .diskCacheStrategy(DiskCacheStrategy.ALL).into(  masonryView.fragment_stylist_itme_img);*/
+        masonryView.fragment_stylist_itme_fl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle=new Bundle();
+                bundle.putString("id",products.get(position).getId());
+                CommonUtils.startIntent(BaseApplication.mCurrentActivity, ProductDetailsActivity.class,bundle);
+            }
+        });
     }
     @Override
     public int getItemCount() {
         return products.size();
     }
 
-    public static class PeoView extends  RecyclerView.ViewHolder implements View.OnClickListener{
+    public static class PeoView extends  RecyclerView.ViewHolder{
         ImageView fragment_stylist_itme_img;
         FrameLayout fragment_stylist_itme_fl;
         public int postion;
@@ -60,17 +78,13 @@ public class StylistAdapter extends RecyclerView.Adapter<StylistAdapter.PeoView>
             this.postion=postion;
             fragment_stylist_itme_img= (ImageView) itemView.findViewById(R.id.fragment_stylist_itme_img );
             fragment_stylist_itme_fl= (FrameLayout) itemView.findViewById(R.id.fragment_stylist_itme_fl );
-            itemView.setOnClickListener(this);
         }
 
-        @Override
-        public void onClick(View view) {
-            Bundle bundle=new Bundle();
-            bundle.putString("id",String.valueOf(postion));
-            CommonUtils.startIntent(BaseApplication.mCurrentActivity, ProductDetailsActivity.class,bundle);
-        }
+
     }
     public  List<StyListModel.OBean> getDateList(){
         return products;
     }
+
+
 }
