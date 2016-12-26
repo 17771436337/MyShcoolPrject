@@ -121,6 +121,38 @@ public class Config {
      * 个人支付宝
      */
     public static final String addPayLog = Config.hostString + "App/Pay/addPayLog";
+
+    /**
+     * 支付订单
+     */
+    public final static String pay = Config.hostString + "App/Order/pay";
+
+    /**
+     * 结算
+     */
+    public final static String submit = Config.hostString + "App/Order/submit";
+
+    /**
+     * 完善资料/编辑资料
+     */
+    public final static String saveProfile = Config.hostString + "App/User/saveProfile";
+
+    /**
+     * 查询我的关注列表
+     */
+    public final static String getfocuson = Config.hostString + "App/Focuson/getfocuson";
+
+    /**
+     * 取消关注
+     */
+    public static final String savefocuson = Config.hostString + "App/Focuson/savefocuson";
+
+    /**
+     * 加关注
+     */
+    public static final String addfocuson = Config.hostString + "App/Focuson/addfocuson";
+
+
     /**
      * 评论列表	http://115.28.94.239/wardrobe/code/wardrode/index.php?s=/App/Item/commentList
      */
@@ -151,6 +183,16 @@ public class Config {
      * 用户密码
      */
     public final static String PASSWORD = "password";
+
+    /**
+     * 用户性别
+     */
+    public final static String SEX = "sex";
+
+    /**
+     * 用户生日
+     */
+    public final static String AGE = "age";
 
     /**
      * 消息提醒开关

@@ -1,6 +1,5 @@
 package com.example.a.myapplication.fragment;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,12 +10,9 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.example.a.myapplication.R;
-import com.example.a.myapplication.activity.stylist.ProductTitleMessageActivity;
 import com.example.a.myapplication.bean.ProductDetailsModel;
 import com.example.a.myapplication.dialog.LookShopDialog;
-import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
-import com.example.a.myapplication.util.UIUtils;
 import com.example.a.myapplication.view.RoundImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
