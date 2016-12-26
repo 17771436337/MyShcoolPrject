@@ -12,9 +12,14 @@ public class Config {
     /**
      * 推片头链接
      */
-    public final static String hostImgString = "http://115.28.94.239/";
+    public final static String hostImgString = "http://115.28.94.239/wardrobe/code/wardrode";
 
     public final static String NATIVE = hostString + "wardrobe/code/wardrode/Public/Uploads/images/icon_up_img.png";//固定图片地址
+
+    /**
+     * 支付宝二维码图片地址
+     */
+    public final static String QR_IMG = "http://115.28.94.239/wardrobe/code/wardrode/Public/Uploads/images/paycode.png";
 
     /**
      * 造型师列表
@@ -152,6 +157,15 @@ public class Config {
      */
     public static final String addfocuson = Config.hostString + "App/Focuson/addfocuson";
 
+    /**
+     * 提交订单--使用优惠券
+     */
+    public static final String useCoupon = Config.hostString + "App/Order/useCoupon";
+
+    /**
+     * 点击二维码个人支付时，获取订单后四位
+     */
+    public static final String getOrderLastFour = Config.hostString + "App/Order/getOrderLastFour";
 
     /**
      * 评论列表	http://115.28.94.239/wardrobe/code/wardrode/index.php?s=/App/Item/commentList

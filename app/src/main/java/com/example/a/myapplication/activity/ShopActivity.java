@@ -1,11 +1,13 @@
 package com.example.a.myapplication.activity;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
@@ -90,10 +92,10 @@ public class ShopActivity extends BaseActivity implements ContentHolder.IsChecke
     protected void onClick(View v) {
         switch (v.getId()) {
             case R.id.account://结算
-//                if (TextUtils.isEmpty(id)) {
-//                    Toast.makeText(this, "请选择商品", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
+                if (TextUtils.isEmpty(id)) {
+                    Toast.makeText(this, "请选择商品", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 Bundle bundle = new Bundle();
                 bundle.putString("id", id);

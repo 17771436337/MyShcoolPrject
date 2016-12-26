@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.a.myapplication">
+          package="com.example.a.myapplication">
 
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
 
 
     <!-- 网络权限 -->
@@ -24,7 +24,9 @@
         android:name=".BaseApplication"
         android:allowBackup="true"
         android:hardwareAccelerated="false"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:logo="@mipmap/ic_launcher"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
@@ -33,9 +35,9 @@
         <!-- 登录 -->
         <activity android:name=".activity.app.LoginActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
@@ -43,100 +45,103 @@
         <activity android:name=".activity.PerfectInformationActivity"></activity>
 
         <!-- 注册 -->
-        <activity android:name=".activity.app.RegisterActivity" />
+        <activity android:name=".activity.app.RegisterActivity"/>
 
         <!-- 忘记密码 -->
-        <activity android:name=".activity.app.ForgetPassWordActivity" />
+        <activity android:name=".activity.app.ForgetPassWordActivity"/>
 
         <!-- 绑定手机号 -->
-        <activity android:name=".activity.app.BingDingPhoneActivty" />
+        <activity android:name=".activity.app.BingDingPhoneActivty"/>
 
         <!-- 修改密码 -->
-        <activity android:name=".activity.app.ChangPassWordActivty" />
+        <activity android:name=".activity.app.ChangPassWordActivty"/>
 
         <!-- 意见反馈 -->
-        <activity android:name=".activity.app.FeedBackActivty" />
+        <activity android:name=".activity.app.FeedBackActivty"/>
 
         <!-- 测试 -->
-        <activity android:name=".activity.TestActivity" />
+        <activity android:name=".activity.TestActivity"/>
 
         <!-- 我的订单 -->
-        <activity android:name=".activity.MyOrderActivity" />
+        <activity android:name=".activity.MyOrderActivity"/>
 
         <!-- 我的粉丝 -->
-        <activity android:name=".activity.MyFansActivity" />
+        <activity android:name=".activity.MyFansActivity"/>
 
         <!-- 我的收藏 -->
-        <activity android:name=".activity.MyCollectActivity" />
+        <activity android:name=".activity.MyCollectActivity"/>
 
         <!-- 设置 -->
-        <activity android:name=".activity.app.SettingActivity" />
+        <activity android:name=".activity.app.SettingActivity"/>
 
         <!-- 积分记录 -->
-        <activity android:name=".activity.IntegralActivity" />
+        <activity android:name=".activity.IntegralActivity"/>
 
         <!-- 购物车 -->
-        <activity android:name=".activity.ShopActivity" />
+        <activity android:name=".activity.ShopActivity"/>
 
         <!-- -更换资料 -->
-        <activity android:name=".activity.MyProFileActivity" />
+        <activity android:name=".activity.MyProFileActivity"/>
 
         <!-- 消息 -->
-        <activity android:name=".activity.MessageActvity" />
+        <activity android:name=".activity.MessageActvity"/>
 
         <!-- 推荐列表 -->
-        <activity android:name=".activity.RecommendListActivity" />
+        <activity android:name=".activity.RecommendListActivity"/>
 
         <!-- 筛选 -->
-        <activity android:name=".activity.screen.ScreenActivity" />
+        <activity android:name=".activity.screen.ScreenActivity"/>
 
         <!-- 品牌筛选 -->
-        <activity android:name=".activity.screen.ScreenBrandActivity" />
+        <activity android:name=".activity.screen.ScreenBrandActivity"/>
 
         <!-- 流行筛选 -->
-        <activity android:name=".activity.screen.ScreenFashionActivity" />
+        <activity android:name=".activity.screen.ScreenFashionActivity"/>
 
         <!-- 品类的一级筛选 -->
-        <activity android:name=".activity.screen.ScreenCategoryActivity" />
+        <activity android:name=".activity.screen.ScreenCategoryActivity"/>
 
         <!-- 品类的二级筛选 -->
-        <activity android:name=".activity.screen.ScreenCategoryTowActivity" />
+        <activity android:name=".activity.screen.ScreenCategoryTowActivity"/>
 
         <!-- 颜色的筛选 -->
-        <activity android:name=".activity.screen.ScreenColorActivity" />
+        <activity android:name=".activity.screen.ScreenColorActivity"/>
 
         <!-- 风格筛选 -->
-        <activity android:name=".activity.screen.ScreenStyleActivity" />
+        <activity android:name=".activity.screen.ScreenStyleActivity"/>
 
         <!-- 求单品详情 -->
-        <activity android:name=".activity.ProductDetailsActivity" />
+        <activity android:name=".activity.ProductDetailsActivity"/>
 
         <!-- 单品详情 -->
-        <activity android:name=".activity.ProductDetailsTwoActivity" />
+        <activity android:name=".activity.ProductDetailsTwoActivity"/>
 
         <!-- 图片查看 -->
-        <activity android:name=".activity.lib.ShowBigPictrue" />
+        <activity android:name=".activity.lib.ShowBigPictrue"/>
 
         <!-- 确认支付 -->
-        <activity android:name=".activity.ConfirmAnOrderActivity" />
+        <activity android:name=".activity.ConfirmAnOrderActivity"/>
 
         <!-- 地址列表 -->
-        <activity android:name=".activity.LocationActivity" />
+        <activity android:name=".activity.LocationActivity"/>
 
         <!-- 编辑地址 -->
-        <activity android:name=".activity.EditAddressActivity" />
+        <activity android:name=".activity.EditAddressActivity"/>
 
         <!-- 添加商品 -->
-        <activity android:name=".activity.AddShopActivity" />
+        <activity android:name=".activity.AddShopActivity"/>
 
         <!-- 全部评论 -->
-        <activity android:name=".activity.AllcommentActivity" />
+        <activity android:name=".activity.AllcommentActivity"/>
 
         <!-- 订单详情 -->
-        <activity android:name=".activity.OrederDetailsActivity" />
+        <activity android:name=".activity.OrederDetailsActivity"/>
 
         <!-- 二维码 -->
-        <activity android:name=".activity.QRPayActivity" />
+        <activity android:name=".activity.QRPayActivity"/>
+
+        <!--我的关注-->
+        <activity android:name=".activity.MyWatchlistActivity"></activity>
     </application>
 
 </manifest>

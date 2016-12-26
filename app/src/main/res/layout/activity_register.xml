@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:background="@color/white"
               android:orientation="vertical">
 
     <RelativeLayout
@@ -32,6 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/phone_text"
             android:background="@null"
             android:contentDescription="@null"
@@ -84,6 +86,7 @@
             android:id="@+id/code_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:background="@null"
             android:contentDescription="@null"
             android:gravity="center_vertical"
@@ -125,6 +128,7 @@
             android:id="@+id/password_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:background="@null"
             android:contentDescription="@null"
             android:gravity="center_vertical"

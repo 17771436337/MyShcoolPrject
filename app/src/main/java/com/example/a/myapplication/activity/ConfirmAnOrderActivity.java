@@ -1,8 +1,8 @@
 package com.example.a.myapplication.activity;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.LinearLayout;
@@ -12,8 +12,8 @@ import android.widget.Toast;
 
 import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
-import com.example.a.myapplication.bean.BaseModel;
 import com.example.a.myapplication.bean.LocationMoldel;
+import com.example.a.myapplication.bean.PayModel;
 import com.example.a.myapplication.http.OkHttpUtil;
 import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
@@ -75,10 +75,15 @@ public class ConfirmAnOrderActivity extends BaseActivity {
     @InjectView(R.id.address)
     protected TextView address;
 
+    @InjectView(R.id.order_price)
+    protected TextView orderPriceTextView;
+
 
     private String aid; //支付地址
 
     private String oid;//订单id
+
+    private String orderPrice;//订单金额
 
     private final int REQUESTCODE = 1;
 
@@ -96,12 +101,16 @@ public class ConfirmAnOrderActivity extends BaseActivity {
             textView.setVisibility(View.VISIBLE);
             location_layout.setVisibility(View.GONE);
         }
+
+
     }
 
     @Override
     protected void initData() {
-//        int oid = getIntent().getExtras().getInt("oid");
-//        this.oid = oid + "";
+        orderPrice = getIntent().getExtras().getString("orderPrice");
+        int oid = getIntent().getExtras().getInt("oid");
+        this.oid = oid + "";
+        orderPriceTextView.setText(orderPrice);
     }
 
     /**
@@ -114,18 +123,21 @@ public class ConfirmAnOrderActivity extends BaseActivity {
     }
 
     @OnClick({R.id.location_layout, R.id.pay_text, R.id.pai_layout, R.id.wx_layout,
-            R.id.qr_layout, R.id.unlimited_layout, R.id.workday_layout, R.id.holiday_layout})
+            R.id.qr_layout, R.id.unlimited_layout, R.id.workday_layout, R.id.holiday_layout,
+            R.id.pai_chexkbox, R.id.wx_chexkbox, R.id.qr_chexkbox,
+            R.id.unlimited, R.id.workday, R.id.holiday})
     protected void onClick(View v) {
         switch (v.getId()) {
             case R.id.location_layout://地址/
                 CommonUtils.startIntent(this, LocationActivity.class, REQUESTCODE);
                 break;
             case R.id.pay_text://支付
-//                order();
+                order();
 
                 break;
 
             case R.id.pai_layout: //支付宝支付
+            case R.id.pai_chexkbox:
                 qrChexkBox.setChecked(false);
                 wxChexkBox.setChecked(false);
                 paiChexkBox.setChecked(true);
@@ -133,6 +145,7 @@ public class ConfirmAnOrderActivity extends BaseActivity {
                 break;
 
             case R.id.wx_layout://微信支付
+            case R.id.wx_chexkbox:
                 qrChexkBox.setChecked(false);
                 wxChexkBox.setChecked(true);
                 paiChexkBox.setChecked(false);
@@ -140,7 +153,7 @@ public class ConfirmAnOrderActivity extends BaseActivity {
                 break;
 
             case R.id.qr_layout:  //二维码支付
-//
+            case R.id.qr_chexkbox:
 
                 qrChexkBox.setChecked(true);
                 wxChexkBox.setChecked(false);
@@ -148,21 +161,24 @@ public class ConfirmAnOrderActivity extends BaseActivity {
                 break;
 
             case R.id.unlimited_layout://收货世间不限
-
+            case R.id.unlimited:
                 unlimited.setChecked(true);
                 workday.setChecked(false);
                 holiday.setChecked(false);
                 break;
             case R.id.workday_layout:  //工作日收货
+            case R.id.workday:
                 unlimited.setChecked(false);
                 workday.setChecked(true);
                 holiday.setChecked(false);
                 break;
             case R.id.holiday_layout: //节假日
+            case R.id.holiday:
                 unlimited.setChecked(false);
                 workday.setChecked(false);
                 holiday.setChecked(true);
                 break;
+
         }
     }
 
@@ -175,7 +191,7 @@ public class ConfirmAnOrderActivity extends BaseActivity {
 
         if (qrChexkBox.isChecked()) {//二维码支付
             pay = 4 + "";
-            CommonUtils.startIntent(this, QRPayActivity.class);
+
         }
 
 
@@ -194,6 +210,7 @@ public class ConfirmAnOrderActivity extends BaseActivity {
         if (unlimited.isChecked()) {//不限
             ttype = 1 + "";
         }
+
 
         if (workday.isChecked()) {//工作日
             ttype = 2 + "";
@@ -219,6 +236,16 @@ public class ConfirmAnOrderActivity extends BaseActivity {
         }
 
 
+        if (pay.equals("4")) {
+            Bundle bundle = new Bundle();
+            bundle.putString("oid", oid);
+            bundle.putString("pay", pay);
+            bundle.putString("aid", aid);
+            bundle.putString("ttype", ttype);
+            CommonUtils.startIntent(this, QRPayActivity.class, bundle);
+            return;
+        }
+
         Map<String, String> par = CommonUtils.getMapParm();
         par.put("uid", Preference.get(Config.ID, ""));
         par.put("oid", oid);
@@ -227,10 +254,10 @@ public class ConfirmAnOrderActivity extends BaseActivity {
         par.put("ttype", ttype);
 
 
-        OkHttpUtil.getInstance().addRequestPost(Config.pay, par, new OkHttpUtil.HttpCallBack<BaseModel>() {
+        OkHttpUtil.getInstance().addRequestPost(Config.pay, par, new OkHttpUtil.HttpCallBack<PayModel>() {
 
             @Override
-            public void onSuccss(BaseModel baseModel) {
+            public void onSuccss(PayModel baseModel) {
                 EventBus.getDefault().post(baseModel);
             }
 
@@ -245,8 +272,8 @@ public class ConfirmAnOrderActivity extends BaseActivity {
     @Override
     public void onEventMainThread(Object obj) {
         super.onEventMainThread(obj);
-        if (obj instanceof BaseModel) {
-            BaseModel baseModel = (BaseModel) obj;
+        if (obj instanceof PayModel) {
+            PayModel baseModel = (PayModel) obj;
             if (baseModel.getC() == 1) {
                 Toast.makeText(this, baseModel.getM() + "", Toast.LENGTH_SHORT).show();
                 finish();
@@ -263,7 +290,7 @@ public class ConfirmAnOrderActivity extends BaseActivity {
 
         if (requestCode == REQUESTCODE && resultCode == resultCcode) {
             LocationMoldel.Location location = (LocationMoldel.Location) data.getSerializableExtra("data");
-            Log.e("我回来了", "我154554455454454545455555回来了");
+
             if (location != null) {
                 textView.setVisibility(View.GONE);
                 location_layout.setVisibility(View.VISIBLE);
@@ -278,10 +305,6 @@ public class ConfirmAnOrderActivity extends BaseActivity {
                 location_layout.setVisibility(View.GONE);
             }
         }
-
-
-        Log.e("我回来了", requestCode + "我i回来了" + resultCode);
-
 
     }
 }

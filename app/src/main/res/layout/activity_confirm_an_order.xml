@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:background="@color/white"
               android:orientation="vertical">
 
     <RelativeLayout
@@ -266,6 +267,12 @@
             android:layout_centerVertical="true"/>
     </RelativeLayout>
 
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:background="@color/bg_fans"/>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -373,7 +380,7 @@
 
 
         <TextView
-            android:id="@+id/time_workday"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -405,8 +412,13 @@
             android:layout_height="wrap_content"
             android:background="@color/white">
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/bg_transparency"/>
+
             <TextView
-                android:id="@+id/text"
+                android:id="@+id/text_pr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -418,10 +430,11 @@
                 android:textSize="14sp"/>
 
             <TextView
+                android:id="@+id/order_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/text"
+                android:layout_toRightOf="@id/text_pr"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
                 android:text="￥156.00"

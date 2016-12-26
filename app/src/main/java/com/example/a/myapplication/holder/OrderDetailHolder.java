@@ -1,5 +1,7 @@
 package com.example.a.myapplication.holder;
 
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
@@ -65,7 +67,12 @@ public class OrderDetailHolder extends BaseHolder<OrderDetailModel.Shop> {
         for (int i = 0; i < data.getShops().size(); i++) {
             price += Double.parseDouble(data.getShops().get(i).getPrice());
         }
-        priceTextView.setText("总价：" + price);
+
+        String text = "总价：" + price;
+        SpannableStringBuilder style = new SpannableStringBuilder(text);
+
+        style.setSpan(UIUtils.getContext().getResources().getColor(R.color.black_transparency_text), 0, 2, Spannable.SPAN_EXCLUSIVE_INCLUSIVE); //设置指定位置文字的颜色
+        priceTextView.setText(style);
         shopNum.setText(data.getShops().size() + "");
     }
 }

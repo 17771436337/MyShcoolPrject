@@ -63,7 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="@color/bg_transparency"
+        android:background="@color/bg_fans"
         android:divider="@color/black"
         android:dividerPadding="1dp"
         android:gravity="center"
@@ -124,95 +124,114 @@
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        android:divider="@color/bg_transparency"
-        android:dividerPadding="1dp"
-        android:orientation="vertical"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:showDividers="middle">
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
 
-        <TextView
-            android:id="@+id/order_text"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:drawableLeft="@drawable/icon_myorder"
-            android:drawablePadding="10dp"
-            android:drawableRight="@drawable/icon_my_gay"
-            android:gravity="center_vertical"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:text="我的订单"
-            android:textColor="@color/black_text"
-            android:textSize="14sp"/>
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:divider="@color/bg_transparency"
+            android:dividerPadding="1dp"
+            android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:showDividers="middle">
 
-        <TextView
-            android:id="@+id/shopping_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:drawableLeft="@drawable/icon_myshop"
-            android:drawablePadding="10dp"
-            android:drawableRight="@drawable/icon_my_gay"
-            android:gravity="center_vertical"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:text="购物车"
-            android:textColor="@color/black_text"
-            android:textSize="14sp"/>
+            <TextView
+                android:id="@+id/order_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:drawableLeft="@drawable/icon_myorder"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/icon_my_gay"
+                android:gravity="center_vertical"
+                android:paddingBottom="10dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="10dp"
+                android:text="我的订单"
+                android:textColor="@color/black_text"
+                android:textSize="14sp"/>
 
-        <TextView
-            android:id="@+id/integral_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:drawableLeft="@drawable/icon_myintegral"
-            android:drawablePadding="10dp"
-            android:drawableRight="@drawable/icon_my_gay"
-            android:gravity="center_vertical"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:text="我的积分"
-            android:textColor="@color/black_text"
-            android:textSize="14sp"/>
+            <TextView
+                android:id="@+id/shopping_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:drawableLeft="@drawable/icon_myshop"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/icon_my_gay"
+                android:gravity="center_vertical"
+                android:paddingBottom="10dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="10dp"
+                android:text="购物车"
+                android:textColor="@color/black_text"
+                android:textSize="14sp"/>
 
-        <TextView
-            android:id="@+id/replacement_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:drawableLeft="@drawable/icon_replacemen"
-            android:drawablePadding="10dp"
-            android:drawableRight="@drawable/icon_my_gay"
-            android:gravity="center_vertical"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:text="好物置换"
-            android:textColor="@color/black_text"
-            android:textSize="14sp"/>
+            <TextView
+                android:id="@+id/integral_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:drawableLeft="@drawable/icon_myintegral"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/icon_my_gay"
+                android:gravity="center_vertical"
+                android:paddingBottom="10dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="10dp"
+                android:text="我的积分"
+                android:textColor="@color/black_text"
+                android:textSize="14sp"/>
 
-        <TextView
-            android:id="@+id/collect_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:drawableLeft="@drawable/icon_mycollect"
-            android:drawablePadding="10dp"
-            android:drawableRight="@drawable/icon_my_gay"
-            android:gravity="center_vertical"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:text="我的收藏"
-            android:textColor="@color/black_text"
-            android:textSize="14sp"/>
-    </LinearLayout>
+            <TextView
+                android:id="@+id/collect_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:drawableLeft="@drawable/icon_mycollect"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/icon_my_gay"
+                android:gravity="center_vertical"
+                android:paddingBottom="10dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="10dp"
+                android:text="我的收藏"
+                android:textColor="@color/black_text"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:id="@+id/replacement_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:drawableLeft="@drawable/icon_replacemen"
+                android:drawablePadding="10dp"
+                android:drawableRight="@drawable/icon_my_gay"
+                android:gravity="center_vertical"
+                android:paddingBottom="10dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="10dp"
+                android:text="好物置换"
+                android:textColor="@color/black_text"
+                android:textSize="14sp"/>
+
+
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

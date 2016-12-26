@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:background="@color/white"
               android:divider="@color/bg_transparency"
               android:dividerPadding="1dp"
               android:orientation="vertical"
@@ -24,8 +25,10 @@
         android:drawableLeft="@drawable/icon_setbingding"
         android:drawablePadding="10dp"
         android:gravity="center_vertical"
+        android:paddingBottom="10dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
+        android:paddingTop="10dp"
         android:text="绑定手机"
         android:textColor="@color/black_text"
         android:textSize="14sp"/>
@@ -40,15 +43,19 @@
         android:drawableLeft="@drawable/icon_setchange_password"
         android:drawablePadding="10dp"
         android:gravity="center_vertical"
+        android:paddingBottom="10dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
+        android:paddingTop="10dp"
         android:text="修改密码"
         android:textColor="@color/black_text"
         android:textSize="14sp"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
 
         <TextView
             android:id="@+id/toast_text"
@@ -84,7 +91,9 @@
     <RelativeLayout
         android:id="@+id/cache_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp">
 
         <TextView
             android:id="@+id/cache_text"
@@ -127,8 +136,10 @@
         android:drawableLeft="@drawable/icon_setfeed"
         android:drawablePadding="10dp"
         android:gravity="center_vertical"
+        android:paddingBottom="10dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
+        android:paddingTop="10dp"
         android:text="意见反馈"
         android:textColor="@color/black_text"
         android:textSize="14sp"/>
@@ -143,8 +154,10 @@
         android:drawableLeft="@drawable/icon_setupdata"
         android:drawablePadding="10dp"
         android:gravity="center_vertical"
+        android:paddingBottom="10dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
+        android:paddingTop="10dp"
         android:text="检查更新"
         android:textColor="@color/black_text"
         android:textSize="14sp"/>
@@ -159,8 +172,10 @@
         android:drawableLeft="@drawable/icon_setabout"
         android:drawablePadding="10dp"
         android:gravity="center_vertical"
+        android:paddingBottom="10dp"
         android:paddingLeft="5dp"
         android:paddingRight="5dp"
+        android:paddingTop="10dp"
         android:text="关于我们"
         android:textColor="@color/black_text"
         android:textSize="14sp"/>

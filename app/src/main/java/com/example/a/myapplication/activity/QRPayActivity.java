@@ -2,6 +2,7 @@ package com.example.a.myapplication.activity;
 
 import android.graphics.Bitmap;
 import android.os.Environment;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -14,8 +15,12 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
 import com.example.a.myapplication.bean.BaseModel;
+import com.example.a.myapplication.bean.OrderLastFour;
+import com.example.a.myapplication.bean.PayModel;
 import com.example.a.myapplication.http.OkHttpUtil;
+import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
+import com.example.a.myapplication.util.Download;
 import com.example.a.myapplication.util.Preference;
 import com.example.a.myapplication.view.TitleView1;
 
@@ -26,6 +31,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.InjectView;
+import butterknife.OnClick;
 import butterknife.OnLongClick;
 
 /**
@@ -44,6 +50,11 @@ public class QRPayActivity extends BaseActivity {
 
     @InjectView(R.id.qr_img)
     protected ImageView img;
+    private String oid;
+    private String pay;
+    private String aid;
+    private String ttype;
+
 
     @Override
     protected int getLayoutID() {
@@ -54,7 +65,7 @@ public class QRPayActivity extends BaseActivity {
     protected void initView() {
         initTitle();
         Glide.with(this)
-                .load("http://115.28.94.239/wardrobe/code/wardrode/Public/Uploads/images/paycode.png")
+                .load(Config.QR_IMG)
                 .asBitmap()
                 .placeholder(R.drawable.pic_gray_bg)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -66,6 +77,11 @@ public class QRPayActivity extends BaseActivity {
     @Override
     protected void initData() {
 
+        oid = getIntent().getExtras().getString("oid");
+        pay = getIntent().getExtras().getString("pay");
+        aid = getIntent().getExtras().getString("aid");
+        ttype = getIntent().getExtras().getString("ttype");
+        getOrderLastFour();
     }
 
     /**
@@ -83,20 +99,24 @@ public class QRPayActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.qr_img:
 
-                String path = Environment.getExternalStorageDirectory()
+                final String path = Environment.getExternalStorageDirectory()
                         + File.separator + "ysb/img/";
                 Bitmap bitmap = img.getDrawingCache();
 
-                if (bitmap == null) {
-                    Toast.makeText(this, "保存成功asdasnull" + path, Toast.LENGTH_SHORT).show();
-                }
-//                try {
-////                    CommonUtils.saveMyBitmap(path, "qr"+System.currentTimeMillis(), bitmap);
-//                    Toast.makeText(this, "保存成功" + path, Toast.LENGTH_SHORT).show();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
 
+                new Download(Config.QR_IMG, path, "pai.jpg").doDownLoad(new Download.BaseCallListener() {
+                    @Override
+                    public void onSuccess(String pResponse) {
+                        EventBus.getDefault().post(path);
+//
+                    }
+
+                    @Override
+                    public void onFail(String pResponse) {
+//
+                        EventBus.getDefault().post("onFail");
+                    }
+                });
 
                 break;
         }
@@ -106,11 +126,102 @@ public class QRPayActivity extends BaseActivity {
 
     }
 
+    @OnClick(R.id.yes)
+    protected void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.yes: //确定
 
+                getData();
+                break;
+        }
+    }
+
+
+    @Override
+    public void onEventMainThread(Object obj) {
+        super.onEventMainThread(obj);
+
+
+        if (obj instanceof String) {//图片下载
+
+            String str = (String) obj;
+            if (str.equals("onFail")) {//图片下载成功/
+                Toast.makeText(QRPayActivity.this, "保存失败", Toast.LENGTH_SHORT).show();
+
+            } else {//图片下载失败
+                Toast.makeText(QRPayActivity.this, "保存成功:" + str + "pai.jpg", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+
+
+        if (obj instanceof BaseModel) {//确定按钮
+            BaseModel baseModel = (BaseModel) obj;
+            if (baseModel.getC() == 1) {
+                pay();
+            } else {
+                Toast.makeText(this, baseModel.getM() + "", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        if (obj instanceof OrderLastFour) { //获取订单后四位
+            OrderLastFour orderLastFour = (OrderLastFour) obj;
+            if (orderLastFour.getC() == 1) {
+                orderTextView.setText(orderLastFour.getO().getOrder());
+            } else {
+                Toast.makeText(this, orderLastFour.getM() + "", Toast.LENGTH_SHORT).show();
+            }
+
+        }
+
+        if (obj instanceof PayModel) {//支付
+            PayModel payModel = (PayModel) obj;
+            if (payModel.getC() == 1) {
+
+            } else {
+
+            }
+
+        }
+
+
+    }
+
+
+    /**
+     * 获取订单后四位
+     */
+    public void getOrderLastFour() {
+        Map<String, String> par = CommonUtils.getMapParm();
+        par.put("uid", "2");
+        par.put("oid", oid);
+        OkHttpUtil.getInstance().addRequestPost(Config.getOrderLastFour, par, new OkHttpUtil.HttpCallBack<OrderLastFour>() {
+
+            @Override
+            public void onSuccss(OrderLastFour orderLastFour) {
+                EventBus.getDefault().post(orderLastFour);
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+
+    /**
+     * 单击确定按钮
+     */
     private void getData() {
         String order = orderTextView.getText().toString().trim();
 
         String paynum = paynumEditText.getText().toString().trim();
+
+
+        if (TextUtils.isEmpty(paynum) || paynum.length() < 11) {
+            Toast.makeText(this, "请输入支付宝账号", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         Map<String, String> par = new HashMap<String, String>();
         par.put("uid", Preference.get(Config.ID, ""));
@@ -130,11 +241,32 @@ public class QRPayActivity extends BaseActivity {
         });
     }
 
-    @Override
-    public void onEventMainThread(Object obj) {
-        super.onEventMainThread(obj);
-        if (obj instanceof BaseModel) {
 
-        }
+    /**
+     * 支付接口
+     */
+    private void pay() {
+        Map<String, String> par = CommonUtils.getMapParm();
+        par.put("uid", Preference.get(Config.ID, ""));
+        par.put("oid", oid);
+        par.put("pay", pay);
+        par.put("aid", aid);
+        par.put("ttype", ttype);
+
+
+        OkHttpUtil.getInstance().addRequestPost(Config.pay, par, new OkHttpUtil.HttpCallBack<PayModel>() {
+
+            @Override
+            public void onSuccss(PayModel baseModel) {
+
+                EventBus.getDefault().post(baseModel);
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+
     }
 }

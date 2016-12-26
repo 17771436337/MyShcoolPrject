@@ -1,5 +1,8 @@
 package com.example.a.myapplication.holder;
 
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
@@ -91,7 +94,11 @@ public class ShopHolder extends BaseHolder<ShopModel.Shop> {
             select.setChecked(false);
         }
 
-        priceTextView.setText("总价：" + price);
+        String text = "总价：" + price;
+        SpannableStringBuilder style = new SpannableStringBuilder(text);
+        style.setSpan(new ForegroundColorSpan(UIUtils.getContext().getResources().getColor(R.color.green_text)), 3, text.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE); //设置指定位置文字的颜色
+        style.setSpan(new ForegroundColorSpan(UIUtils.getContext().getResources().getColor(R.color.black_transparency_text)), 0, 3, Spannable.SPAN_EXCLUSIVE_INCLUSIVE); //设置指定位置文字的颜色
+        priceTextView.setText(style);
         shopNum.setText(booleen.size() + "");
 
 

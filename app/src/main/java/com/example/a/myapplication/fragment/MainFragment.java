@@ -1,7 +1,5 @@
 package com.example.a.myapplication.fragment;
 
-import android.content.Context;
-import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,29 +16,16 @@ import com.example.a.myapplication.activity.MessageActvity;
 import com.example.a.myapplication.activity.RecommendListActivity;
 import com.example.a.myapplication.adapter.MainFragmentAdapter;
 import com.example.a.myapplication.util.CommonUtils;
-import com.wirelesspienetwork.overview.model.OverviewAdapter;
-import com.wirelesspienetwork.overview.model.ViewHolder;
-import com.wirelesspienetwork.overview.views.Overview;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-import static android.app.SearchManager.INTENT_GLOBAL_SEARCH_ACTIVITY_CHANGED;
-import static android.content.Intent.ACTION_SCREEN_OFF;
-import static android.graphics.Color.argb;
-import static android.view.View.inflate;
-import static android.widget.Toast.makeText;
-import static com.wirelesspienetwork.overview.misc.Utilities.setShadowProperty;
-import static java.lang.String.valueOf;
 
-
-public class MainFragment extends Fragment implements Overview.RecentsViewCallbacks {
+public class MainFragment extends Fragment {
 
 
     View view;
@@ -131,17 +116,5 @@ public class MainFragment extends Fragment implements Overview.RecentsViewCallba
 
     }
 
-    /**
-     * 侧滑删除监听
-     */
-    @Override
-    public void onCardDismissed(int position) {
-        makeText(getActivity(), position + "", 1000).show();
 
-    }
-
-    @Override
-    public void onAllCardsDismissed() {
-        makeText(getActivity(), "这是一个什么", 1000).show();
-    }
 }

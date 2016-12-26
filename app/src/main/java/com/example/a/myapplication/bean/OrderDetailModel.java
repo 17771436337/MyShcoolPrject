@@ -169,6 +169,15 @@ public class OrderDetailModel extends BaseModel {
         private String shopSum;
         private String priceSum;
         private int orderid;
+        private String freight;
+
+        public String getFreight() {
+            return freight;
+        }
+
+        public void setFreight(String freight) {
+            this.freight = freight;
+        }
 
         public String getShopSum() {
             return shopSum;

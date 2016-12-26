@@ -1,25 +1,27 @@
 package com.example.a.myapplication.activity;
 
 import android.os.Bundle;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.ExpandableListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
+import com.example.a.myapplication.adapter.ExpandableListViewAdapter;
 import com.example.a.myapplication.adapter.OrederAdapter;
 import com.example.a.myapplication.bean.OrderDetailModel;
 import com.example.a.myapplication.http.OkHttpUtil;
+import com.example.a.myapplication.lib.CustomExpandableListView;
 import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
 import com.example.a.myapplication.view.CustomListView;
-import com.example.a.myapplication.view.FavorableNotView;
-import com.example.a.myapplication.view.FavorableView;
 import com.example.a.myapplication.view.TitleView1;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import butterknife.InjectView;
@@ -35,21 +37,30 @@ public class OrederDetailsActivity extends BaseActivity {
     OrderDetailModel model = new OrderDetailModel();
     OrederAdapter adapter;
 
-    private boolean isShow = true;
-
-    @InjectView(R.id.rl1)
-    protected RelativeLayout linearLayout;
-
-    @InjectView(R.id.arrow)
-    protected ImageView arrow;
+    public static boolean isShow = true;
 
     @InjectView(R.id.title_layout)
     protected RelativeLayout titleView;
-    FavorableNotView favorableNotView;
-    FavorableView favorableView;
+
+
+    @InjectView(R.id.ExpandableListView)
+    protected CustomExpandableListView expandableListView;
+    ExpandableListViewAdapter adapterExpandableListView;
+    ArrayList<ArrayList<String>> list = new ArrayList<ArrayList<String>>();
+
+    @InjectView(R.id.price_text)
+    protected TextView price;
+
+    @InjectView(R.id.favorable)
+    protected TextView favorable;
+
+    @InjectView(R.id.freight)
+    protected TextView freight;
 
     String id;
-    private int orderId;
+    public static int orderId;
+
+    private double priceSum;
 
     @Override
     protected int getLayoutID() {
@@ -59,16 +70,33 @@ public class OrederDetailsActivity extends BaseActivity {
     @Override
     protected void initView() {
         initTitle();
-//        linearLayout.setVisibility(View.GONE);
-//        setShow(isShow);
 
+        list.add(new ArrayList<String>());
+        list.get(0).add("aaa");
+        expandableListView.setGroupIndicator(null);//去箭头
+        adapterExpandableListView = new ExpandableListViewAdapter(this, list);
+        expandableListView.setAdapter(adapterExpandableListView);
+        expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
 
+                if (expandableListView.isGroupExpanded(groupPosition)) {
+                    parent.collapseGroup(groupPosition);
+                    isShow = true;
+                } else {
+                    parent.expandGroup(groupPosition);
+                    isShow = false;
+                }
+                return true;
+            }
+        });
+//
     }
 
     @Override
     protected void initData() {
-//        id = getIntent().getExtras().getString("id");
-//        getData();
+        id = getIntent().getExtras().getString("id");
+        getData();
 
     }
 
@@ -116,8 +144,16 @@ public class OrederDetailsActivity extends BaseActivity {
                 model = shopModel;
                 adapter = new OrederAdapter(shopModel.getO());
                 listView.setAdapter(adapter);
+
+                if (TextUtils.isEmpty(shopModel.getE().get(0).getFreight())) {
+                    freight.setText("￥0.0");
+                } else {
+                    freight.setText("￥" + shopModel.getE().get(0).getFreight());
+                }
+
                 orderId = shopModel.getE().get(0).getOrderid();
-                Log.e("test", shopModel.getO().toString());
+                priceSum = Double.parseDouble(shopModel.getE().get(0).getPriceSum());
+                setTextPrice(0);
             } else {
 
             }
@@ -125,17 +161,15 @@ public class OrederDetailsActivity extends BaseActivity {
         }
     }
 
-    @OnClick({R.id.favorable_layout, R.id.yes})
+    @OnClick({R.id.yes})
     protected void onClick(View v) {
         switch (v.getId()) {
-            case R.id.favorable_layout://
-                setShow(isShow);
-                break;
             case R.id.yes:
 
                 if (orderId != 0) {
                     Bundle bundle = new Bundle();
                     bundle.putInt("oid", orderId);
+                    bundle.putString("orderPrice", priceSum + "");
                     CommonUtils.startIntent(this, ConfirmAnOrderActivity.class, bundle);
                 }
 
@@ -145,18 +179,10 @@ public class OrederDetailsActivity extends BaseActivity {
     }
 
 
-    /**
-     * 显示优惠
-     */
-    private void setShow(boolean isShow) {
-        if (isShow) {
-            arrow.setImageResource(R.drawable.icon_up_arrow);
-            linearLayout.setVisibility(View.VISIBLE);
-            this.isShow = !isShow;
-        } else {
-            arrow.setImageResource(R.drawable.icon_down_arrow);
-            linearLayout.setVisibility(View.GONE);
-            this.isShow = !isShow;
-        }
+    public void setTextPrice(double price) {
+        priceSum = priceSum - price;
+        this.price.setText("￥" + priceSum);
+        favorable.setText("￥" + price);
     }
+
 }

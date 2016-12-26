@@ -82,6 +82,7 @@ public class ContentHolder extends BaseHolder<ShopModel.Shop.Content> {
         size.setText("尺寸：" + data.getSize());
         sum.setText("x" + data.getSum());
         orprice.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);    // 设置中划线并加清晰 
+
     }
 
     @OnCheckedChanged(R.id.cb_select)
