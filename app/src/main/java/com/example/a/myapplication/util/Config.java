@@ -199,6 +199,10 @@ public class Config {
      * 结算
      */
     public static final String submit = Config.hostString + "App/Order/submit";
+    /**
+     * 商品详情(点击加入购物车前)
+     */
+    public static final String shopDetails = Config.hostString + "App/Shop/shopDetails";
 
 
 

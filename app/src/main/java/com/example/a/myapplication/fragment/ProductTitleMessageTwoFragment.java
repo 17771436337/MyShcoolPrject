@@ -6,12 +6,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
+import com.example.a.myapplication.BaseApplication;
 import com.example.a.myapplication.BaseFragment;
 import com.example.a.myapplication.R;
 import com.example.a.myapplication.activity.stylist.SingleProductDetailsActivity;
 import com.example.a.myapplication.adapter.ProductTitleMessageTwoAdapter;
 import com.example.a.myapplication.bean.ProductTitleMessageModel;
 import com.example.a.myapplication.util.CommonUtils;
+import com.example.a.myapplication.util.UIUtils;
 import com.example.a.myapplication.view.LoadingPager;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -37,7 +39,7 @@ public class ProductTitleMessageTwoFragment extends BaseFragment {
     public static ProductTitleMessageTwoFragment newInstance(ProductTitleMessageModel.OBean oBean) {
         Bundle args = new Bundle();
         ProductTitleMessageTwoFragment fragment = new ProductTitleMessageTwoFragment();
-        args.putSerializable("OBean", oBean);
+        args.putParcelable("OBean", oBean);
         fragment.setArguments(args);
         return fragment;
     }
@@ -45,7 +47,7 @@ public class ProductTitleMessageTwoFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        oBean = (ProductTitleMessageModel.OBean) getArguments().getSerializable("OBean");
+        oBean = getArguments().getParcelable("OBean");
     }
 
     @Override
@@ -59,7 +61,9 @@ public class ProductTitleMessageTwoFragment extends BaseFragment {
         fragmentProductTitleMessageTwoPullLayout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                CommonUtils.startIntent(getActivity(), SingleProductDetailsActivity.class);
+                Bundle bundle=   new Bundle();
+                bundle.putString("sid",oBean.getDetails().get(i-1).getId());
+                CommonUtils.startIntent(BaseApplication.mCurrentActivity, SingleProductDetailsActivity.class,bundle);
             }
         });
         return view;

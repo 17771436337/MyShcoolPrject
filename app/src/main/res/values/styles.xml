@@ -58,4 +58,9 @@
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@android:color/holo_red_light</item>
     </style>
+
+    <style name="Animation.Popup" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
 </resources>
