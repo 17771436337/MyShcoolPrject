@@ -80,10 +80,10 @@ public class BottomView extends BaseView {
 
         for (int i = 0; i < 4; i++) {
             text[i].setTextColor(mContext.getResources()
-                    .getColor(R.color.black_text));
+                    .getColor(R.color.black_transparency_text));
         }
         text[position].setTextColor(mContext.getResources().getColor(
-                R.color.black_transparency_text));
+                R.color.black_text));
 
         icon[0].setBackgroundResource(R.drawable.icon_tab1_unselect);
         icon[1].setBackgroundResource(R.drawable.icon_tab2_unselect);

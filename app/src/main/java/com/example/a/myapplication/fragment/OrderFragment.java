@@ -51,7 +51,7 @@ public class OrderFragment extends BaseFragment {
     public static OrderFragment newInstance(int position) {
         Bundle args = new Bundle();
 
-        args.putInt(ARGS_PAGE, page);
+
         args.putInt(ARGS_TYPE, position);
         OrderFragment fragment = new OrderFragment();
         fragment.setArguments(args);
@@ -82,11 +82,16 @@ public class OrderFragment extends BaseFragment {
             @Override
             public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
                 EventBus.getDefault().post("onPullDownToRefresh");
+//                pullListView.onRefreshComplete();
+//                adapter.notifyDataSetChanged();
+
             }
 
             @Override
             public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
                 EventBus.getDefault().post("onPullUpToRefresh");
+//                pullListView.onRefreshComplete();
+//                adapter.notifyDataSetChanged();
             }
         });
 
@@ -99,6 +104,7 @@ public class OrderFragment extends BaseFragment {
             if (null == orderModer.getO() || orderModer.getO().size() == 0) {
                 return LoadingPager.LoadedResult.EMPTY;
             }
+
             return LoadingPager.LoadedResult.SUCCESS;
         } catch (Exception e) {
             return LoadingPager.LoadedResult.ERROR;
@@ -115,6 +121,8 @@ public class OrderFragment extends BaseFragment {
         String result = OkHttpUtil.getInstance().addRequestNoCallPost(Config.orderList, par);
         Log.e("json", result + "");
         orderModer = new Gson().fromJson(result, MyOrderModer.class);
+
+
         return orderModer;
 
     }
@@ -129,15 +137,43 @@ public class OrderFragment extends BaseFragment {
     public void onEventMainThread(Object obj) {
         super.onEventMainThread(obj);
         if ("onPullUpToRefresh".equals(obj.toString())) {
-            initDate();
+
             page = 1;
+            initData();
             notifyData();
         }
         if ("onPullDownToRefresh".equals(obj.toString())) {
-            initDate();
+
             page++;
+            initData();
             notifyData();
         }
+    }
+
+
+    public void getData() {
+        Map<String, String> par = CommonUtils.getMapParm();
+        par.put("uid", "2");
+        par.put("type", position + "");
+        par.put("pagination", String.valueOf(page));
+        par.put("pagelen", Config.listCount);
+        OkHttpUtil.getInstance().addRequestPost(Config.orderList, par, new OkHttpUtil.HttpCallBack<MyOrderModer>() {
+
+            @Override
+            public void onSuccss(MyOrderModer myOrderModer) {
+                if (null != myOrderModer.getO() && myOrderModer.getO().size() > 0) {
+
+                    adapter.addData(myOrderModer.getO());
+                    notifyData();
+                }
+
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
     }
 
     /**
@@ -145,13 +181,14 @@ public class OrderFragment extends BaseFragment {
      */
     public void notifyData() {
 
-
         pullListView.onRefreshComplete();
-        if (orderModer.getO() != null) {
-            adapter.getDatas().addAll(orderModer.getO());
-        }
-        adapter.notifyDataSetChanged();
 
+        if (orderModer != null) {
+            if (orderModer.getO() != null) {
+                adapter.getDatas().addAll(orderModer.getO());
+            }
+            adapter.notifyDataSetChanged();
+        }
 
     }
 

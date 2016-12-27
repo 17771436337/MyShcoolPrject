@@ -1,24 +1,28 @@
 package com.example.a.myapplication.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.a.myapplication.R;
 import com.example.a.myapplication.activity.MessageActvity;
-import com.example.a.myapplication.activity.RecommendListActivity;
 import com.example.a.myapplication.adapter.MainFragmentAdapter;
+import com.example.a.myapplication.adapter.MainFragmentListAdapter;
+import com.example.a.myapplication.bean.MainFragmentModel;
+import com.example.a.myapplication.http.OkHttpUtil;
 import com.example.a.myapplication.util.CommonUtils;
+import com.example.a.myapplication.util.Config;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -35,15 +39,19 @@ public class MainFragment extends Fragment {
 
 
     @InjectView(R.id.listView)
-    protected RecyclerView listView;
+    protected PullToRefreshListView listView;
     private MainFragmentAdapter mListAdapter;
-    private List<String> mDatas = new ArrayList<String>();
+    private MainFragmentListAdapter adapter;
+    private MainFragmentModel model = new MainFragmentModel();
 
+
+    private int page = 1;
+
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater,
-                             @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        super.onCreateView(inflater, container, savedInstanceState);
-        view = inflater.inflate(R.layout.fragment_main, container, false);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
+        view = inflater.inflate(R.layout.fragment_main, null);
         ButterKnife.inject(this, view);
         initTitleView();
 //        initContent();
@@ -56,37 +64,32 @@ public class MainFragment extends Fragment {
      * 添加内容
      */
     private void initList() {
-        listView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mDatas.add("wusdasda");
-        mDatas.add(new String("嘻哈"));
-        mDatas.add(new String("嘻哈"));
-        mDatas.add(new String("嘻哈"));
-        mDatas.add(new String("嘻哈"));
-
-        mListAdapter = new MainFragmentAdapter(getActivity(), mDatas);
-        // 设置item动画
-        listView.setItemAnimator(new DefaultItemAnimator());
-        listView.setAdapter(mListAdapter);
-
-
-        mListAdapter.setOnItemClickListener(new MainFragmentAdapter.OnItemClickListener() {
+        getData();
+        listView.setMode(PullToRefreshBase.Mode.BOTH);
+        adapter = new MainFragmentListAdapter(listView, model.getO());
+        listView.setAdapter(adapter);
+        listView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
-            public void onItemClick(View view, int position) {
-                CommonUtils.startIntent(getActivity(), RecommendListActivity.class);
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                page = 1;
+                getData();
             }
 
             @Override
-            public void onItemLongClick(View view, int position) {
-
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                page++;
+                getData();
             }
         });
+
     }
+
 
     /**
      * 设置标题
      */
     private void initTitleView() {
-        titleText.setText("首页");
+        titleText.setText("NO没");
 
 
     }
@@ -110,11 +113,58 @@ public class MainFragment extends Fragment {
     }
 
 
+    private void getData() {
+        Map<String, String> parm = CommonUtils.getMapParm();
+        parm.put("pagination", String.valueOf(page));
+        parm.put("pagelen", Config.listCount);
+        OkHttpUtil.getInstance().addRequestPost(Config.getExclusives, parm, new OkHttpUtil.HttpCallBack<MainFragmentModel>() {
+            @Override
+            public void onSuccss(MainFragmentModel mainFragmentModel) {
+
+                Message message = new Message();
+                message.obj = mainFragmentModel;
+                message.what = 0x0001;
+                handler.sendMessage(message);
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
+
+
     @Override
     public void onResume() {
         super.onResume();
 
     }
+
+    Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 0x0001:
+                    listView.onRefreshComplete();
+                    MainFragmentModel mainFragmentModel = (MainFragmentModel) msg.obj;
+                    if (page == 1) {
+                        adapter.getmDatas().clear();
+                    }
+
+                    model = mainFragmentModel;
+
+
+                    if (model.getO() != null) {
+                        adapter.addData(mainFragmentModel.getO());
+                        adapter.notifyDataSetChanged();
+                    }
+
+                    break;
+            }
+        }
+    };
 
 
 }

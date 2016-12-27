@@ -1,12 +1,19 @@
 package com.example.a.myapplication.activity;
 
+import android.graphics.Bitmap;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
 import com.example.a.myapplication.bean.BaseModel;
@@ -16,6 +23,7 @@ import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
 import com.example.a.myapplication.util.PopupUtil;
 import com.example.a.myapplication.util.Preference;
+import com.example.a.myapplication.util.UIUtils;
 import com.example.a.myapplication.view.TitleView1;
 
 import org.greenrobot.eventbus.EventBus;
@@ -44,6 +52,9 @@ public class MyProFileActivity extends BaseActivity {
     @InjectView(R.id.date_text)
     protected TextView date;
 
+    @InjectView(R.id.head)
+    protected ImageView head;
+
     @Override
     protected int getLayoutID() {
         return R.layout.activity_myprofile;
@@ -55,6 +66,16 @@ public class MyProFileActivity extends BaseActivity {
         name.setText(Preference.get(Config.NAME, ""));
         sex.setText(Preference.get(Config.SEX, ""));
         date.setText(Preference.get(Config.AGE, ""));
+
+        Glide.with(UIUtils.getContext()).load(Config.hostImgString + Preference.get(Config.HEAD, "")).asBitmap().centerCrop().into(new BitmapImageViewTarget(head) {
+            @Override
+            protected void setResource(Bitmap resource) {
+                RoundedBitmapDrawable circularBitmapDrawable =
+                        RoundedBitmapDrawableFactory.create(UIUtils.getContext().getResources(), resource);
+                circularBitmapDrawable.setCircular(true);
+                head.setImageDrawable(circularBitmapDrawable);
+            }
+        });
     }
 
 
@@ -186,6 +207,10 @@ public class MyProFileActivity extends BaseActivity {
                 yes.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        if (TextUtils.isEmpty(nameView.getText().toString())) {
+                            Toast.makeText(MyProFileActivity.this, "请输入姓名", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         name.setText(nameView.getText().toString());
                         popupWindow.dismiss();
                     }

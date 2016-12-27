@@ -21,7 +21,6 @@ import com.example.a.myapplication.http.OkHttpUtil;
 import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
 import com.example.a.myapplication.util.Download;
-import com.example.a.myapplication.util.Preference;
 import com.example.a.myapplication.view.TitleView1;
 
 import org.greenrobot.eventbus.EventBus;
@@ -148,6 +147,8 @@ public class QRPayActivity extends BaseActivity {
             if (str.equals("onFail")) {//图片下载成功/
                 Toast.makeText(QRPayActivity.this, "保存失败", Toast.LENGTH_SHORT).show();
 
+            } else if (str.equals("onSuccss")) {
+                pay();
             } else {//图片下载失败
                 Toast.makeText(QRPayActivity.this, "保存成功:" + str + "pai.jpg", Toast.LENGTH_SHORT).show();
             }
@@ -155,14 +156,14 @@ public class QRPayActivity extends BaseActivity {
         }
 
 
-        if (obj instanceof BaseModel) {//确定按钮
-            BaseModel baseModel = (BaseModel) obj;
-            if (baseModel.getC() == 1) {
-                pay();
-            } else {
-                Toast.makeText(this, baseModel.getM() + "", Toast.LENGTH_SHORT).show();
-            }
-        }
+//        if (obj instanceof BaseModel) {//确定按钮
+//            BaseModel baseModel = (BaseModel) obj;
+//            if (baseModel.getC() == 1) {
+//
+//            } else {
+//                Toast.makeText(this, baseModel.getM() + "", Toast.LENGTH_SHORT).show();
+//            }
+//        }
 
         if (obj instanceof OrderLastFour) { //获取订单后四位
             OrderLastFour orderLastFour = (OrderLastFour) obj;
@@ -176,8 +177,10 @@ public class QRPayActivity extends BaseActivity {
 
         if (obj instanceof PayModel) {//支付
             PayModel payModel = (PayModel) obj;
+            Toast.makeText(this, payModel.getM() + "", Toast.LENGTH_SHORT).show();
             if (payModel.getC() == 1) {
-
+                CommonUtils.startIntent(this, MyOrderActivity.class);
+                finish();
             } else {
 
             }
@@ -224,14 +227,17 @@ public class QRPayActivity extends BaseActivity {
         }
 
         Map<String, String> par = new HashMap<String, String>();
-        par.put("uid", Preference.get(Config.ID, ""));
+        par.put("uid", "2");
         par.put("order", order);
         par.put("paynum", paynum);
         OkHttpUtil.getInstance().addRequestPost(Config.addPayLog, par, new OkHttpUtil.HttpCallBack<BaseModel>() {
 
             @Override
             public void onSuccss(BaseModel baseModel) {
-                EventBus.getDefault().post(baseModel);
+                if (baseModel.getC() == 1) {
+                    EventBus.getDefault().post("onSuccss");
+                }
+
             }
 
             @Override
@@ -247,7 +253,7 @@ public class QRPayActivity extends BaseActivity {
      */
     private void pay() {
         Map<String, String> par = CommonUtils.getMapParm();
-        par.put("uid", Preference.get(Config.ID, ""));
+        par.put("uid", "2");
         par.put("oid", oid);
         par.put("pay", pay);
         par.put("aid", aid);

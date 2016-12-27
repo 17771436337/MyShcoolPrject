@@ -28,6 +28,12 @@ public class Config {
 
     public final static String listCount = "10";
 
+
+    /**
+     * 首页专属分类
+     */
+    public final static String getExclusives = Config.hostString + "App/Exclusive/getExclusives";
+
     /**
      * 发送验证码
      * phone:手机号

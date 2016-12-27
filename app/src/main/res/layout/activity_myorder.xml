@@ -23,7 +23,6 @@
         app:tabIndicatorColor="#343434"
         app:tabMode="fixed"
         app:tabSelectedTextColor="#343434"
-        app:tabTextAppearance="@style/MyTabLayoutTextAppearance"
         app:tabTextColor="#919191"/>
 
     <View

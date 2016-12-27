@@ -186,6 +186,7 @@ public class MineFragment extends Fragment {
                     fansTextView.setText(mianProfineModel.getO().getFans());
                     attentionTextView.setText(mianProfineModel.getO().getFocus());
                     Preference.put(Config.REMIND, mianProfineModel.getO().getRemind());
+                    Preference.put(Config.HEAD, mianProfineModel.getO().getHead());
 
 
                 } else {

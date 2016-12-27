@@ -43,7 +43,7 @@ public class MyCollectHolder extends BaseHolder<MyCollecModer.Colledt> {
         View view = View.inflate(UIUtils.getContext(), R.layout.item_mycollect_list, null);
 
         layoutParams = new RelativeLayout.LayoutParams((ScreenUtils.getScreenW() - ScreenUtils.dip2px(UIUtils.getContext(), 15)) / 3,
-                (ScreenUtils.getScreenW() - ScreenUtils.dip2px(UIUtils.getContext(), 15)) / 3 + ScreenUtils.px2dip(UIUtils.getContext(), 40));
+                (ScreenUtils.getScreenW() - ScreenUtils.dip2px(UIUtils.getContext(), 15)) / 3 + ScreenUtils.px2dip(UIUtils.getContext(), 70));
         ButterKnife.inject(this, view);
         return view;
     }
@@ -53,17 +53,17 @@ public class MyCollectHolder extends BaseHolder<MyCollecModer.Colledt> {
 
         layout.setLayoutParams(layoutParams);
 
-        Glide.with(UIUtils.getContext()).load(Config.hostImgString + data.getHead())
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .centerCrop()
-                .crossFade().into(head);
+//        Glide.with(UIUtils.getContext()).load(Config.hostImgString + data.getHead())
+//                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+//                .centerCrop()
+//                .crossFade().into(head);
         //-------
         Glide.with(UIUtils.getContext()).load(Config.hostImgString + data.getImg())
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .centerCrop()
                 .crossFade().into(img);
 
-        name.setText(data.getName());
+//        name.setText(data.getName());
         shop_num.setText(data.getCollection());
 
     }

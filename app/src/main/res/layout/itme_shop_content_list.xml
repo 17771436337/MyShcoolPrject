@@ -25,9 +25,8 @@
 
         <ImageView
             android:id="@+id/img"
-            android:layout_width="30dp"
-            android:layout_height="80dp"
-            android:layout_weight="1"
+            android:layout_width="124dp"
+            android:layout_height="124dp"
             android:scaleType="fitXY"
             android:src="@drawable/android"
             />
@@ -35,6 +34,7 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_weight="2"
             android:orientation="vertical">
 
@@ -93,6 +93,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
+
+                    android:layout_marginLeft="10dp"
                     android:text="￥150.00"
                     android:textColor="@color/black_transparency_text"
                     android:textSize="14sp"/>

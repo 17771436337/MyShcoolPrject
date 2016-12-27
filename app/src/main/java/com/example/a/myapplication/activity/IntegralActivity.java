@@ -1,5 +1,6 @@
 package com.example.a.myapplication.activity;
 
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.example.a.myapplication.BaseActivity;
@@ -50,9 +51,24 @@ public class IntegralActivity extends BaseActivity {
         headView = new IntegralHeadView(this);
 
         getData();
+        adapter = new IntegralAdapter(pullListView, model.getO());
         pullListView.getRefreshableView().addHeaderView(headView.getView());
         pullListView.setMode(PullToRefreshBase.Mode.BOTH);
+        pullListView.setAdapter(adapter);
+        pullListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
 
+                EventBus.getDefault().post("onPullDownToRefresh");
+
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                EventBus.getDefault().post("onPullUpToRefresh");
+
+            }
+        });
 
     }
 
@@ -105,14 +121,36 @@ public class IntegralActivity extends BaseActivity {
             IntegralModel integralModel = (IntegralModel) obj;
             if (integralModel.getC() == 1) {
                 model = integralModel;
+                pullListView.onRefreshComplete();
                 if (headView != null) {
                     headView.setTextView(model.getE());
                 }
-                adapter = new IntegralAdapter(pullListView, model.getO());
-                pullListView.getRefreshableView().setAdapter(adapter);
-            } else {
 
+                if (page == 1) {
+                    if (adapter.getmDatas() != null)
+                        adapter.getmDatas().clear();
+                }
+
+
+                adapter.addData(integralModel.getO());
+                adapter.notifyDataSetChanged();
+
+            } else {
+                pullListView.onRefreshComplete();
             }
+        }
+
+        if (obj instanceof String) {
+            String str = (String) obj;
+            if (str.equals("onPullDownToRefresh")) {
+                page = 1;
+                getData();
+            } else if (str.equals("onPullUpToRefresh")) {
+                page++;
+                getData();
+            }
+
+
         }
     }
 }

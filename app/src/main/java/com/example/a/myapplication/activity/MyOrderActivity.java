@@ -18,13 +18,12 @@ import butterknife.InjectView;
 public class MyOrderActivity extends BaseActivity {
 
 
-
-
     @InjectView(R.id.title_layout)
     protected RelativeLayout titleView;
 
     @InjectView(R.id.fragment_find_tal)
     protected TabLayout fragment_find_tal;
+
     @InjectView(R.id.fragment_find_vp)
     protected ViewPager fragment_find_vp;
 
@@ -41,7 +40,6 @@ public class MyOrderActivity extends BaseActivity {
         OrderFragmentPagerAdapter adapter = new OrderFragmentPagerAdapter(this.getSupportFragmentManager(), this);
         fragment_find_vp.setAdapter(adapter);
         fragment_find_tal.setupWithViewPager(fragment_find_vp);
-
     }
 
     @Override
@@ -58,7 +56,6 @@ public class MyOrderActivity extends BaseActivity {
         titleView.addView(view.getView());
         view.setTitleText("我的订单", "");
     }
-
 
 
 }

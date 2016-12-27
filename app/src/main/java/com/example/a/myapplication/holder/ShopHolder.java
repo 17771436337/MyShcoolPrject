@@ -1,5 +1,8 @@
 package com.example.a.myapplication.holder;
 
+import android.graphics.Bitmap;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
@@ -10,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.a.myapplication.R;
 import com.example.a.myapplication.activity.ShopActivity;
 import com.example.a.myapplication.adapter.ContentAdapter;
@@ -73,11 +76,15 @@ public class ShopHolder extends BaseHolder<ShopModel.Shop> {
         adaper = new ContentAdapter(data.getShops(), shopAdapter);
         listView.setAdapter(adaper);
 
-        Glide.with(UIUtils.getContext()).load(Config.hostImgString + data.getLogo())
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .centerCrop()
-                .crossFade().into(img);
-
+        Glide.with(UIUtils.getContext()).load(Config.hostImgString + data.getLogo()).asBitmap().centerCrop().into(new BitmapImageViewTarget(img) {
+            @Override
+            protected void setResource(Bitmap resource) {
+                RoundedBitmapDrawable circularBitmapDrawable =
+                        RoundedBitmapDrawableFactory.create(UIUtils.getContext().getResources(), resource);
+                circularBitmapDrawable.setCircular(true);
+                img.setImageDrawable(circularBitmapDrawable);
+            }
+        });
         text.setText(data.getBname());
 
         ArrayList<Boolean> booleen = new ArrayList<>();

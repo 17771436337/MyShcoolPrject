@@ -7,7 +7,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="45dp">
         >
 
 
@@ -18,7 +18,7 @@
             android:layout_centerInParent="true"
             android:text="标题"
             android:textColor="@color/title_text_color"
-            android:textSize="14sp"/>
+            android:textSize="16sp"/>
 
         <TextView
             android:id="@+id/message_test"
@@ -41,13 +41,25 @@
     </RelativeLayout>
 
 
-
-    <android.support.v7.widget.RecyclerView
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        xmlns:ptr="http://schemas.android.com/apk/res-auto"
         android:id="@+id/listView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:divider="@color/bg_transparency"
+        android:dividerHeight="0dp"
+        android:scrollbars="none"
+        ptr:ptrHeaderTextColor="@color/color_refresh"
 
-        ></android.support.v7.widget.RecyclerView>
+        />
+
+
+    <!--<android.support.v7.widget.RecyclerView-->
+    <!--android:id="@+id/listView"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+
+    <!--&gt;</android.support.v7.widget.RecyclerView>-->
 
 
 </LinearLayout>

@@ -1,14 +1,18 @@
 package com.example.a.myapplication.holder;
 
+import android.graphics.Bitmap;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.a.myapplication.R;
 import com.example.a.myapplication.adapter.OrederDeatilsContentAdapter;
 import com.example.a.myapplication.bean.OrderDetailModel;
@@ -57,10 +61,15 @@ public class OrderDetailHolder extends BaseHolder<OrderDetailModel.Shop> {
         adaper = new OrederDeatilsContentAdapter(data.getShops());
         listView.setAdapter(adaper);
         select.setVisibility(View.GONE);
-        Glide.with(UIUtils.getContext()).load(Config.hostImgString + data.getLogo())
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .centerCrop()
-                .crossFade().into(img);
+        Glide.with(UIUtils.getContext()).load(Config.hostImgString + data.getLogo()).asBitmap().centerCrop().into(new BitmapImageViewTarget(img) {
+            @Override
+            protected void setResource(Bitmap resource) {
+                RoundedBitmapDrawable circularBitmapDrawable =
+                        RoundedBitmapDrawableFactory.create(UIUtils.getContext().getResources(), resource);
+                circularBitmapDrawable.setCircular(true);
+                img.setImageDrawable(circularBitmapDrawable);
+            }
+        });
 
         text.setText(data.getBname());
 
@@ -70,8 +79,8 @@ public class OrderDetailHolder extends BaseHolder<OrderDetailModel.Shop> {
 
         String text = "总价：" + price;
         SpannableStringBuilder style = new SpannableStringBuilder(text);
-
-        style.setSpan(UIUtils.getContext().getResources().getColor(R.color.black_transparency_text), 0, 2, Spannable.SPAN_EXCLUSIVE_INCLUSIVE); //设置指定位置文字的颜色
+        style.setSpan(new ForegroundColorSpan(UIUtils.getContext().getResources().getColor(R.color.green_text)), 3, text.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE); //设置指定位置文字的颜色
+        style.setSpan(new ForegroundColorSpan(UIUtils.getContext().getResources().getColor(R.color.black_transparency_text)), 0, 3, Spannable.SPAN_EXCLUSIVE_INCLUSIVE); //设置指定位置文字的颜色
         priceTextView.setText(style);
         shopNum.setText(data.getShops().size() + "");
     }

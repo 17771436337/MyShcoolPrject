@@ -105,15 +105,20 @@ public class ShopActivity extends BaseActivity implements ContentHolder.IsChecke
                 break;
             case R.id.check_layout:
                 id = new String();
+                pricer = 0;
+                double num = 0;
                 for (int i = 0; i < model.getO().size(); i++) {
                     for (int j = 0; j < model.getO().get(i).getShops().size(); j++) {
                         model.getO().get(i).getShops().get(j).setIs(checkBox.isChecked());
                         if (checkBox.isChecked()) {
+                            num = Double.parseDouble(model.getO().get(i).getShops().get(j).getPrice());
+                            pricer += num;
                             id += model.getO().get(i).getShops().get(j).getId() + ",";
                         }
                     }
                 }
                 adapter.notifyDataSetChanged();
+                priceTextView.setText(pricer + "");
                 break;
         }
     }

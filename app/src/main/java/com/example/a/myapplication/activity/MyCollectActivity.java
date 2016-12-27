@@ -8,6 +8,7 @@ import com.example.a.myapplication.R;
 import com.example.a.myapplication.adapter.MyCollecAdapter;
 import com.example.a.myapplication.bean.MyCollecModer;
 import com.example.a.myapplication.http.OkHttpUtil;
+import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
 import com.example.a.myapplication.util.ScreenUtils;
 import com.example.a.myapplication.view.TitleView1;
@@ -15,7 +16,6 @@ import com.handmark.pulltorefresh.library.PullToRefreshGridView;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.InjectView;
@@ -43,7 +43,7 @@ public class MyCollectActivity extends BaseActivity {
     /**
      * 1风格 2商品
      */
-    private int type = 2;
+    private int type = 1;
 
     @Override
     protected int getLayoutID() {
@@ -55,10 +55,11 @@ public class MyCollectActivity extends BaseActivity {
         ScreenUtils.initScreen(this);
         initTitle();
         pullGridView.setMode(BOTH);
+
         adapter = new MyCollecAdapter(pullGridView, moder.getO());
+
         pullGridView.getRefreshableView().setAdapter(adapter);
         getData();
-
 
     }
 
@@ -85,6 +86,7 @@ public class MyCollectActivity extends BaseActivity {
                 if (checked) {
                     // code
                     type = 1;
+
                     getData();
                 }
                 break;
@@ -92,6 +94,7 @@ public class MyCollectActivity extends BaseActivity {
                 if (checked) {
                     // code
                     type = 2;
+
                     getData();
                 }
                 break;
@@ -101,7 +104,7 @@ public class MyCollectActivity extends BaseActivity {
 
     private void getData() {
 
-        Map<String, String> par = new HashMap<String, String>();
+        Map<String, String> par = CommonUtils.getMapParm();
         par.put("uid", "2");
         par.put("type", type + "");
         par.put("brands", "");
@@ -133,12 +136,14 @@ public class MyCollectActivity extends BaseActivity {
             MyCollecModer myCollecModer = (MyCollecModer) obj;
             if (myCollecModer.getC() == 1) {
                 moder = myCollecModer;
-
-                adapter.addData(moder.getO());
+                adapter.getmDatas().clear();
+                adapter.addData(myCollecModer.getO());
                 adapter.notifyDataSetChanged();
             } else {
 
             }
         }
+
+
     }
 }

@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:background="@color/white"
               android:divider="@color/bg_transparency"
               android:dividerPadding="1dp"
               android:orientation="vertical"
@@ -32,8 +33,9 @@
             android:textSize="16sp"/>
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/head"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:src="@drawable/android"/>
@@ -94,7 +96,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:drawablePadding="5dp"
+            android:drawablePadding="10dp"
             android:drawableRight="@drawable/icon_my_gay"
             android:text="女"
             android:textColor="@color/black_transparency_text"

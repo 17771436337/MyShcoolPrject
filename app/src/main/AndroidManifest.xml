@@ -56,7 +56,7 @@
         <!-- 修改密码 -->
         <activity android:name=".activity.app.ChangPassWordActivty"/>
 
-        <!-- 意见反馈 -->
+             <!-- 意见反馈 -->
         <activity android:name=".activity.app.FeedBackActivty"/>
 
         <!-- 测试 -->
