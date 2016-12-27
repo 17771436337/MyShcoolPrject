@@ -9,8 +9,10 @@
         android:id="@+id/pop_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -73,7 +75,8 @@
 
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:background="@drawable/black_border_shape"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right|center_vertical"
                     android:gravity="right"
@@ -84,7 +87,7 @@
                         android:id="@+id/pop_reduce"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/black_border_shape"
+
                         android:paddingBottom="10dp"
                         android:paddingLeft="12dp"
                         android:paddingRight="12dp"
@@ -97,7 +100,6 @@
                         android:id="@+id/pop_num"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/black_border_shape"
                         android:gravity="center"
                         android:padding="10dp"
                         android:text="1"
@@ -145,15 +147,6 @@
                 android:textColor="@color/black_transparency_text"
                 android:textSize="14sp"/>
 
-            <GridView
-                android:id="@+id/color_grid"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="80dp"
-                android:layout_marginTop="10dp"
-                android:numColumns="3"/>
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -162,16 +155,6 @@
                 android:text="尺码："
                 android:textColor="@color/black_transparency_text"
                 android:textSize="14sp"/>
-
-            <GridView
-                android:id="@+id/size_grid"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="80dp"
-                android:layout_marginTop="10dp"
-                android:numColumns="3"/>
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -183,6 +166,9 @@
                 android:text="确定"
                 android:textColor="@color/white"
                 android:textSize="16sp"/>
+
+
         </LinearLayout>
     </LinearLayout>
+
 </RelativeLayout>
