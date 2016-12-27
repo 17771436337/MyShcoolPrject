@@ -39,6 +39,7 @@ public abstract class BaseActivity extends FragmentActivity {
     protected static List<Activity> mActivities = new LinkedList<Activity>();
     private static Activity mCurrentActivity;
     protected TitleView mTitleView;
+    public LoadingPagerActivity mLoadingPagerActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,7 @@ public abstract class BaseActivity extends FragmentActivity {
         }
         mView = (ViewGroup) LayoutInflater.from(this).inflate(getLayoutID(), null);
         addTitle();
-        ButterKnife.inject(this);
+        ButterKnife.inject(this,mView);
         // 初始化view
         initView();
 
@@ -191,6 +192,13 @@ public abstract class BaseActivity extends FragmentActivity {
         super.onStart();
     }
 
+    /**
+     * 初始化icon字体
+     */
+    public void initIconFont(TextView mTextView) {
+        Typeface iconfont = Typeface.createFromAsset(getAssets(), "iconfont.ttf");
+        mTextView.setTypeface(iconfont);
+    }
 
     /*以下为：事件分发*/
     @Subscribe(threadMode = ThreadMode.POSTING)

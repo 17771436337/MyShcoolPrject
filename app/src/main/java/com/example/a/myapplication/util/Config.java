@@ -24,7 +24,7 @@ public class Config {
     /**
      * 造型师列表
      */
-    public final static String QITTMELIST = hostString + "wardrobe/code/wardrode/index.php?s=/App/Item/qItemList";
+    public final static String QITTMELIST = hostString + "App/Item/qItemList";
 
     public final static String listCount = "10";
 
@@ -177,6 +177,19 @@ public class Config {
      * 评论列表	http://115.28.94.239/wardrobe/code/wardrode/index.php?s=/App/Item/commentList
      */
     public final static String COMMENTLIST = hostString + "App/Item/commentList";
+
+    /**
+     * 商品详情(点击加入购物车前)
+     */
+    public static final String shopDetails = Config.hostString + "App/Shop/shopDetails";
+    /**
+     * 求单品详情	http://115.28.94.239/wardrobe/code/wardrode/index.php?s=/App/Item/itemDetails
+     */
+    public final static String StylistDe = hostString+"App/Item/itemDetails";
+    /**
+     * 求单品详情-查看解答	http://115.28.94.239/wardrobe/code/wardrode/index.php?s=/App/Item/answerList
+     */
+    public final static String ANSWERLIST = hostString+"App/Item/answerList";
 
 
     //---------------------------------------------------------------------

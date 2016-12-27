@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 /**
  * Created by Administrator on 2016/12/15.
@@ -179,6 +180,15 @@ public class EditAddressActivity extends BaseActivity {
             } else {
                 Toast.makeText(BaseApplication.getInstance(), baseModel.getM() + "", Toast.LENGTH_SHORT).show();
             }
+        }
+    }
+
+    @OnClick(R.id.city)
+    protected void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.city:
+//                new AddressInitTask(this).execute("贵州", "毕节", "纳雍");
+                break;
         }
     }
 }

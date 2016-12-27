@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
+import com.example.a.myapplication.activity.WheelPicker.DatePicker;
 import com.example.a.myapplication.bean.BaseModel;
 import com.example.a.myapplication.http.OkHttpUtil;
 import com.example.a.myapplication.lib.view.LoopView;
@@ -152,9 +153,29 @@ public class MyProFileActivity extends BaseActivity {
                 dialogSex();
                 break;
             case R.id.date_layout://生日
-
+                dialogAge();
                 break;
         }
+    }
+
+    /**
+     * 弹出生日
+     */
+    private void dialogAge() {
+        final DatePicker datePicker = new DatePicker(this);
+        datePicker.setRange(1900, 2100);
+        datePicker.setSelectedItem(2017, 1, 1);
+
+        datePicker.setOnDatePickListener(
+                new DatePicker.OnYearMonthDayPickListener() {
+
+                    @Override
+                    public void onDatePicked(String year, String month, String day) {
+                        date.setText(year + "-" + month + "-" + day);
+                    }
+                });
+        datePicker.show();
+
     }
 
     /**
