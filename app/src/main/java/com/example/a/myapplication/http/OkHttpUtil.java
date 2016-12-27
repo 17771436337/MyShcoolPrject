@@ -3,7 +3,9 @@ package com.example.a.myapplication.http;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.example.a.myapplication.BaseApplication;
 import com.example.a.myapplication.util.JsonUtil;
 import com.google.gson.Gson;
 import com.squareup.okhttp.Call;
@@ -16,6 +18,9 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -107,6 +112,8 @@ public class OkHttpUtil {
                 final String body = response.body().string();
                 isDebug(body);
                 try {
+
+
                     Type[] types = callBack.getClass().getGenericInterfaces();
                     ParameterizedType parameterizedType = (ParameterizedType) types[0];
                     final Type actualTypeArguments = parameterizedType.getActualTypeArguments()[0];
@@ -212,8 +219,12 @@ public class OkHttpUtil {
         String body = "";
         final Call call = okHttpClient.newCall(request);
         try {
+
+
             Response response = call.execute();
             body = response.body().string();
+
+
             isDebug(body);
         } catch (Exception e) {
             e.printStackTrace();
@@ -293,6 +304,15 @@ public class OkHttpUtil {
             public void onResponse(Response response) throws IOException {
                 final String body = response.body().string();
                 try {
+
+
+                    int status = new JSONObject(body).getInt("c");
+                    String msg = new JSONObject(body).getString("m");
+                    if(0==status) {
+                        Toast.makeText(BaseApplication.mCurrentActivity, msg, Toast.LENGTH_SHORT);
+                        return;
+                    }
+
                     Type[] types = callBack.getClass().getGenericInterfaces();
                     ParameterizedType parameterizedType = (ParameterizedType) types[0];
                     final Type actualTypeArguments = parameterizedType.getActualTypeArguments()[0];
@@ -326,7 +346,17 @@ public class OkHttpUtil {
             public void onResponse(Response response) throws IOException {
                 final String body = response.body().string();
                 isDebug(body);
+
                 try {
+
+
+//                    int status = new JSONObject(body).getInt("c");
+//                    String msg = new JSONObject(body).getString("m");
+//                    if(0==status) {
+//                        Toast.makeText(BaseApplication.mCurrentActivity, msg, Toast.LENGTH_SHORT);
+//                        return;
+//                    }
+
                     Type[] types = callBack.getClass().getGenericInterfaces();
                     ParameterizedType parameterizedType = (ParameterizedType) types[0];
                     final Type actualTypeArguments = parameterizedType.getActualTypeArguments()[0];
@@ -384,8 +414,19 @@ public class OkHttpUtil {
         void onFailure(String error);
     }
 
-    public void isDebug(String json) {
+    public void isDebug(String json)  {
         Log.e("网络请求返回的json", json + "");
+    }
+    public boolean isOk(String json) throws JSONException {
+
+        int status = new JSONObject(json).getInt("c");
+        String msg = new JSONObject(json).getString("m");
+        if(0==status){
+            Toast.makeText(BaseApplication.mCurrentActivity,msg,Toast.LENGTH_SHORT);
+            return false;
+        }else{
+            return true;
+        }
     }
 
     public void isDebugUrl(String url) {
@@ -393,7 +434,6 @@ public class OkHttpUtil {
     }
 
     public void isDebug(Map<String, String> params) {
-
         Log.e("params：", "params：" + new Gson().toJson(params));
     }
 }

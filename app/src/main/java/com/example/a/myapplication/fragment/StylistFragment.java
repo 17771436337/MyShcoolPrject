@@ -90,6 +90,7 @@ public class StylistFragment  extends BaseFragment  {
             }
         });
 
+
     }
     public LoadingPager.LoadedResult initData() {
         try{

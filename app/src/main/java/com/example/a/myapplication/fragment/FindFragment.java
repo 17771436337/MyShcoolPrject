@@ -78,6 +78,7 @@ public class FindFragment extends Fragment {
         MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getActivity().getSupportFragmentManager(),  getActivity());
         fragment_find_vp.setAdapter(adapter);
         fragment_find_tal.setupWithViewPager(fragment_find_vp);
+
     }
 
 }

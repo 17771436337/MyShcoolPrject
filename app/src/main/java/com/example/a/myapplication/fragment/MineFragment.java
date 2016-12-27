@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.a.myapplication.R;
 import com.example.a.myapplication.activity.IntegralActivity;
@@ -27,8 +28,6 @@ import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
 import com.example.a.myapplication.util.Preference;
 import com.nostra13.universalimageloader.core.ImageLoader;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -111,7 +110,7 @@ public class MineFragment extends Fragment {
                 CommonUtils.startIntent(getActivity(), IntegralActivity.class);
                 break;
             case R.id.replacement_text://好物置换
-                makeText(getActivity(), "研发中，敬请期待", 1000).show();
+                makeText(getActivity(), "研发中，敬请期待", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.collect_text://我的收藏
                 CommonUtils.startIntent(getActivity(), MyCollectActivity.class);
