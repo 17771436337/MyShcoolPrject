@@ -149,6 +149,21 @@ public class Config {
      */
     public final static String getPopulars = hostString + "App/Exclusive/getPopulars";
 
+    /**
+     * 获取颜色列表
+     */
+    public final static String getColors = hostString + "App/Exclusive/getColors";
+
+    /**
+     * 获取品牌列表
+     */
+    public final static String getBrands = hostString + "App/Brand/getBrands";
+
+    /**
+     * 获取风格头像列表
+     */
+    public final static String getIdol = hostString + "App/Exclusive/getIdol";
+
     //---------------------------------------------------------------------
 
 

@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016/12/9.
+ * Created by Administrator on 2016/12/28.
  */
-public class ScreenBrandModel extends BaseModel implements Serializable {
+public class ScreenStyleModel extends BaseModel implements Serializable {
 
 
     /**
@@ -42,8 +42,7 @@ public class ScreenBrandModel extends BaseModel implements Serializable {
 
         private String id;
         private String name;
-        private String logo;
-
+        private String img;
         private boolean is;
 
         public boolean is() {
@@ -70,12 +69,12 @@ public class ScreenBrandModel extends BaseModel implements Serializable {
             this.name = name;
         }
 
-        public String getLogo() {
-            return logo;
+        public String getImg() {
+            return img;
         }
 
-        public void setLogo(String logo) {
-            this.logo = logo;
+        public void setImg(String logo) {
+            this.img = logo;
         }
     }
 }
