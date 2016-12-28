@@ -110,11 +110,11 @@ public class StylistFragment  extends BaseFragment  implements OnDataChangeListe
         parm.put("pagination", String.valueOf(page));
         String result=OkHttpUtil.getInstance().addRequestNoCallPost(Config.QITTMELIST, parm);
         styListModel= new Gson().fromJson(result, StyListModel.class);
-        if(page==1){
+       /* if(page==1){
             StyListModel.OBean oBean=   new StyListModel.OBean();
             oBean.setImg(Config.NATIVE);
             styListModel.getO().add(0,oBean);
-        }
+        }*/
         return  styListModel;
 
     }
