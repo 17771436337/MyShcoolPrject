@@ -8,6 +8,7 @@ import android.widget.RelativeLayout;
 
 import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
+import com.example.a.myapplication.dialog.ShopDialog;
 import com.example.a.myapplication.fragment.ImgShopFragemnt;
 import com.example.a.myapplication.view.TitleView1;
 
@@ -67,16 +68,7 @@ public class ProductDetailsTwoActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.shop_text})
-    protected void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.shop_text://加入购物车
-//                Toast.makeText(this, "点击效果", 1000).show();
 
-
-                break;
-        }
-    }
 
 
 }

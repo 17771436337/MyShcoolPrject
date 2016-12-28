@@ -11,17 +11,11 @@ import android.widget.TextView;
 
 import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
-import com.example.a.myapplication.activity.stylist.ProductTitleMessageActivity;
 import com.example.a.myapplication.bean.ProductDetailsModel;
-import com.example.a.myapplication.fragment.CheckProductFragment;
-import com.example.a.myapplication.fragment.ProductTitileMessageFragment;
-import com.example.a.myapplication.http.OkHttpUtil;
 import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
 import com.example.a.myapplication.view.RoundImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
 
@@ -55,6 +49,7 @@ public class ProductDetailsActivity extends BaseActivity {
     @InjectView(R.id.check_layout)
     protected FrameLayout check_layout;
     public ProductDetailsModel mProductDetailsModel;
+
     @Override
     protected int getLayoutID() {
         return R.layout.activity_productdetail;
@@ -65,21 +60,22 @@ public class ProductDetailsActivity extends BaseActivity {
         Log.e("id", getIntent().getExtras().getString("id"));
         titleText.setText("单品详情");
     }
+
     @Override
     protected void initData() {
         Map<String, String> parm = CommonUtils.getMapParm();
         parm.put("itemid", getIntent().getExtras().getString("id"));
-        OkHttpUtil.getInstance().addRequestPost(Config.StylistDe, parm, new OkHttpUtil.HttpCallBack<ProductDetailsModel>() {
-            @Override
-            public void onSuccss(ProductDetailsModel productDetailsModel) {
-                EventBus.getDefault().post(productDetailsModel);
-            }
-
-            @Override
-            public void onFailure(String error) {
-
-            }
-        });
+//        OkHttpUtil.getInstance().addRequestPost(Config.StylistDe, parm, new OkHttpUtil.HttpCallBack<ProductDetailsModel>() {
+//            @Override
+//            public void onSuccss(ProductDetailsModel productDetailsModel) {
+//                EventBus.getDefault().post(productDetailsModel);
+//            }
+//
+//            @Override
+//            public void onFailure(String error) {
+//
+//            }
+//        });
     }
 
     @Override
@@ -89,9 +85,9 @@ public class ProductDetailsActivity extends BaseActivity {
             mProductDetailsModel = (ProductDetailsModel) obj;
             ImageLoader.getInstance().displayImage(Config.hostImgString + mProductDetailsModel.getO().getImg(), imgF);
             ImageLoader.getInstance().displayImage(Config.hostImgString + mProductDetailsModel.getO().getHead(), head);
-            name.setText( mProductDetailsModel.getO().getName());
-            messageNum.setText( mProductDetailsModel.getO().getCollection());
-            shopNum.setText( mProductDetailsModel.getO().getComment());
+            name.setText(mProductDetailsModel.getO().getName());
+            messageNum.setText(mProductDetailsModel.getO().getCollection());
+            shopNum.setText(mProductDetailsModel.getO().getComment());
         }
     }
 
@@ -117,12 +113,13 @@ public class ProductDetailsActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.check_layout:
-                Bundle bundle=getIntent().getExtras();
-                bundle.putString("imgurl",mProductDetailsModel.getO().getImg());
-                CommonUtils.startIntent(this, ProductTitleMessageActivity.class,bundle);
+                Bundle bundle = getIntent().getExtras();
+                bundle.putString("imgurl", mProductDetailsModel.getO().getImg());
+//                CommonUtils.startIntent(this, ProductTitleMessageActivity.class, bundle);
                 break;
         }
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
