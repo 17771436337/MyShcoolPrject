@@ -24,7 +24,7 @@ public class Config {
     /**
      * 造型师列表
      */
-    public final static String QITTMELIST = hostString+"App/Item/qItemList";
+    public final static String QITTMELIST = hostString + "App/Item/qItemList";
 
     public final static String listCount = "10";
 
@@ -112,7 +112,6 @@ public class Config {
     public static final String cartList = Config.hostString + "App/Order/cartList";
 
 
-
     /**
      * 个人支付宝
      */
@@ -122,7 +121,6 @@ public class Config {
      * 支付订单
      */
     public final static String pay = Config.hostString + "App/Order/pay";
-
 
 
     /**
@@ -146,7 +144,10 @@ public class Config {
      */
     public final static String getSecondCategory = hostString + "App/Category/getSecondCategory";
 
-
+    /**
+     * 获取流行列表
+     */
+    public final static String getPopulars = hostString + "App/Exclusive/getPopulars";
 
     //---------------------------------------------------------------------
 
@@ -205,15 +206,15 @@ public class Config {
     /**
      * 求单品详情	http://115.28.94.239/wardrobe/code/wardrode/index.php?s=/App/Item/itemDetails
      */
-    public final static String StylistDe = hostString+"App/Item/itemDetails";
+    public final static String StylistDe = hostString + "App/Item/itemDetails";
     /**
      * 求单品详情-查看解答	http://115.28.94.239/wardrobe/code/wardrode/index.php?s=/App/Item/answerList
      */
-    public final static String ANSWERLIST = hostString+"App/Item/answerList";
+    public final static String ANSWERLIST = hostString + "App/Item/answerList";
     /**
      * 评论列表	http://115.28.94.239/wardrobe/code/wardrode/index.php?s=/App/Item/commentList
      */
-    public final static String COMMENTLIST = hostString+"App/Item/commentList";
+    public final static String COMMENTLIST = hostString + "App/Item/commentList";
 
 
     /**
@@ -246,14 +247,13 @@ public class Config {
      */
     public static final String shopDetails = Config.hostString + "App/Shop/shopDetails";
     /**
-     * 	商品详情(加入购物车页面)
+     * 商品详情(加入购物车页面)
      */
     public static final String cartShopInfo = Config.hostString + "App/Shop/cartShopInfo";
     /**
-     * 		商品详情-加入购物车
+     * 商品详情-加入购物车
      */
     public static final String addCart = Config.hostString + "App/Order/addCart";
-
 
 
 }

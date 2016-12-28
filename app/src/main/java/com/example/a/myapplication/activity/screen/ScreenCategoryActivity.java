@@ -1,5 +1,6 @@
 package com.example.a.myapplication.activity.screen;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -152,7 +153,19 @@ public class ScreenCategoryActivity extends BaseActivity implements AdapterView.
         bundle.putString("id", model.getO().get(position - 1).getId());
         bundle.putString("name", model.getO().get(position - 1).getName());
         CommonUtils.startIntent(this, ScreenCategoryTowActivity.class, bundle, ScreenActivity.CATEGORY);
-        finish();
+
+
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == 0x0001) {
+            if (requestCode == ScreenActivity.CATEGORY) {
+                Intent intent = new Intent();
+                intent.putExtras(data);
+                setResult(0x0001, intent);
+                finish();
+            }
+        }
+    }
 }

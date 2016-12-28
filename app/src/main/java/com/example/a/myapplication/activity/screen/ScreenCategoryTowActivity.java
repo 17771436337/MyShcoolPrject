@@ -1,5 +1,6 @@
 package com.example.a.myapplication.activity.screen;
 
+import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -19,6 +20,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import butterknife.InjectView;
@@ -85,6 +87,29 @@ public class ScreenCategoryTowActivity extends BaseActivity implements AdapterVi
         TitleView1 view = new TitleView1(this);
         titleView.addView(view.getView());
         view.setTitleText(name, "完成");
+        view.setTitleOnClickListeneRight(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (model != null && model.getO() != null) {
+                    ScreenCategoryTowModel towModel = new ScreenCategoryTowModel();
+                    ArrayList<ScreenCategoryTowModel.Category> list = new ArrayList<ScreenCategoryTowModel.Category>();
+                    for (int i = 0; i < model.getO().size(); i++) {
+                        ScreenCategoryTowModel.Category data = model.getO().get(i);
+                        if (data.is()) {
+                            list.add(data);
+                        }
+                    }
+
+                    towModel.setO(list);
+                    Intent intent = new Intent();
+                    intent.putExtra("category", towModel);
+                    setResult(0x0001, intent);
+                    finish();
+                } else {
+
+                }
+            }
+        });
     }
 
 
@@ -118,7 +143,15 @@ public class ScreenCategoryTowActivity extends BaseActivity implements AdapterVi
             pullListView.onRefreshComplete();
             if (screenCategoryTowModel.getC() == 1) {
 
-                model = screenCategoryTowModel;
+                if (model.getO() != null) {
+                    if (page == 1) {
+                        model.getO().clear();
+                    }
+
+                    model.getO().addAll(screenCategoryTowModel.getO());
+                } else {
+                    model = screenCategoryTowModel;
+                }
                 if (screenCategoryTowModel.getO() != null && screenCategoryTowModel.getO().size() > 0) {
                     if (page == 1) {
                         if (adapter.getmDatas() != null)
@@ -160,4 +193,6 @@ public class ScreenCategoryTowActivity extends BaseActivity implements AdapterVi
             adapter.notifyDataSetChanged();
         }
     }
+
+
 }
