@@ -5,7 +5,6 @@
               android:orientation="vertical">
 
 
-
     <RelativeLayout
         android:id="@+id/title_layout"
         android:layout_width="match_parent"
@@ -56,6 +55,7 @@
                     android:ellipsize="marquee"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
+                    android:gravity="right"
                     android:marqueeRepeatLimit="marquee_forever"
                     android:maxLines="1"
                     android:scrollHorizontally="true"
@@ -82,6 +82,7 @@
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
                 android:text="品类"
+
                 android:textColor="@color/black_text"
                 android:textSize="14sp"/>
 
@@ -93,24 +94,28 @@
                 android:layout_centerVertical="true">
 
                 <ImageView
+                    android:id="@+id/category_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/icon_screen_add"
-                    android:visibility="gone"/>
+                    />
 
 
                 <TextView
+                    android:id="@+id/category_text"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:ellipsize="marquee"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
+                    android:gravity="right"
                     android:marqueeRepeatLimit="marquee_forever"
                     android:maxLines="1"
                     android:scrollHorizontally="true"
                     android:text="dahsdashdhaskdhascmda,sd,asdasasduiaosudanas.,dasd "
                     android:textColor="@color/black_transparency_text"
                     android:textSize="14sp"
+                    android:visibility="gone"
 
                     />
             </FrameLayout>
@@ -141,25 +146,29 @@
                 android:layout_centerVertical="true">
 
                 <ImageView
+                    android:id="@+id/fashion_icon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/icon_screen_add"
-                    android:visibility="gone"/>
+                    />
 
 
                 <TextView
+                    android:id="@+id/fashion_text"
                     android:layout_width="120dp"
                     android:layout_height="wrap_content"
                     android:ellipsize="marquee"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
+                    android:gravity="right"
                     android:marqueeRepeatLimit="marquee_forever"
                     android:maxLines="1"
+
                     android:scrollHorizontally="true"
                     android:text="dahsdashdhaskdhascmda,sd,asdasasduiaosudanas.,dasd "
                     android:textColor="@color/black_transparency_text"
                     android:textSize="14sp"
-
+                    android:visibility="gone"
                     />
             </FrameLayout>
         </RelativeLayout>
@@ -201,6 +210,7 @@
                     android:ellipsize="marquee"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
+                    android:gravity="right"
                     android:marqueeRepeatLimit="marquee_forever"
                     android:maxLines="1"
                     android:scrollHorizontally="true"
@@ -249,6 +259,7 @@
                     android:ellipsize="marquee"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
+                    android:gravity="right"
                     android:marqueeRepeatLimit="marquee_forever"
                     android:maxLines="1"
                     android:scrollHorizontally="true"

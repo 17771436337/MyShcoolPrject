@@ -5,7 +5,6 @@
               android:orientation="vertical">
 
 
-
     <RelativeLayout
         android:id="@+id/title_layout"
         android:layout_width="match_parent"
@@ -17,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@color/bg_transparency"
-        android:dividerPadding="1dp"
+        android:dividerHeight="1dp"
         android:scrollbars="none"
         ptr:ptrHeaderTextColor="@color/color_refresh"
         />
