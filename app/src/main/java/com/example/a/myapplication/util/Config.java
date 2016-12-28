@@ -201,8 +201,6 @@ public class Config {
      */
     public final static String getSecondCategory = hostString + "App/Category/getSecondCategory";
 
-    //---------------------------------------------------------------------
-
 
     //********存入缓存的对应内容的键***********
     /**
@@ -222,11 +220,6 @@ public class Config {
      */
     public final static String PHONE = "phone";
     /**
-     * 用户密码
-     */
-<<<<<<< Temporary merge branch 1
-    public static final String shopDetails = Config.hostString + "App/Shop/shopDetails";
-    /**
      * 	商品详情(加入购物车页面)
      */
     public static final String cartShopInfo = Config.hostString + "App/Shop/cartShopInfo";
@@ -234,9 +227,7 @@ public class Config {
      * 		商品详情-加入购物车
      */
     public static final String addCart = Config.hostString + "App/Order/addCart";
-=======
     public final static String PASSWORD = "password";
->>>>>>> Temporary merge branch 2
 
     /**
      * 用户性别
