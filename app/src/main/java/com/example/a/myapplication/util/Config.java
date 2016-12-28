@@ -15,6 +15,10 @@ public class Config {
     public final static String hostImgString = "http://115.28.94.239/wardrobe/code/wardrode";
 
     public final static String NATIVE = hostString + "wardrobe/code/wardrode/Public/Uploads/images/icon_up_img.png";//固定图片地址
+    /**
+     * 获取流行列表
+     */
+    public final static String getPopulars = hostString + "App/Exclusive/getPopulars";
 
     /**
      * 支付宝二维码图片地址

@@ -21,6 +21,8 @@ public class ShopAdapter extends SuperBaseAdapter<ShopModel.Shop> {
 
     @Override
     protected BaseHolder<ShopModel.Shop> getItemHolder(int position) {
-        return new ShopHolder();
+        return new ShopHolder(this);
     }
+
+
 }

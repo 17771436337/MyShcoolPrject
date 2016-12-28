@@ -46,8 +46,6 @@ public class ProductTitleMessageActivity extends BaseActivity {
     ProductTitleMessageModel mProductTitleMessageModel;
     @InjectView(R.id.activity_product_title_message_vp)
     ViewPager activityProductTitleMessageVp;
-    @InjectView(R.id.layout_comment_rl)
-    FrameLayout layoutCommentRl;
     @InjectView(R.id.layout_comment_but)
     Button layoutCommentBut;
     FragAdapter adapter;

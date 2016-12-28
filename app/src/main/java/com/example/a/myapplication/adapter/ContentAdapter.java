@@ -10,12 +10,14 @@ import java.util.List;
  * Created by Administrator on 2016/12/8.
  */
 public class ContentAdapter extends SuperBaseAdapter<ShopModel.Shop.Content> {
-    public ContentAdapter( List<ShopModel.Shop.Content> datas) {
+    ShopAdapter shopAdapter;
+    public ContentAdapter(List<ShopModel.Shop.Content> datas, ShopAdapter shopAdapter) {
         super(datas);
+        this.shopAdapter = shopAdapter;
     }
 
     @Override
     protected BaseHolder<ShopModel.Shop.Content>  getItemHolder(int position) {
-        return new ContentHolder();
+        return new ContentHolder(this,shopAdapter);
     }
 }

@@ -25,7 +25,7 @@ import butterknife.OnClick;
  * Created by Administrator on 2016/12/14.
  */
 public class ShopDialog extends PopupWindow {
-    private Context context;
+ /*   private Context context;
     View view;
     @InjectView(R.id.pop_num)
     protected TextView pop_num;
@@ -92,9 +92,9 @@ public class ShopDialog extends PopupWindow {
     }
 
 
-    /**
+    *//**
      * 弹窗显示的位置
-     */
+     *//*
     public void showAsDropDown(View parent) {
         this.showAtLocation(parent, Gravity.BOTTOM, 0, 0);
         this.setFocusable(true);
@@ -149,7 +149,7 @@ public class ShopDialog extends PopupWindow {
 //                break;
 //        }
 //    }
-
+*/
 
     /**
      * S
