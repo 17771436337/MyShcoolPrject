@@ -29,18 +29,21 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:paddingBottom="10dp"
+                android:weightSum="6"
                 android:paddingTop="10dp"
                 android:showDividers="end">
 
                 <ImageView
-                    android:id="@+id/iv_adapter_grid_pic"
+                    android:layout_weight="1"
+                    android:id="@+id/dialog_shop_pic"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="10dp"
-                    android:src="@drawable/detail_show_1"/>
+                    />
 
                 <LinearLayout
+                    android:layout_weight="4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -49,37 +52,39 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/dialog_shop_title"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:text="名牌衣服"
                         android:textColor="@color/black_text"
                         android:textSize="14sp"/>
 
                     <TextView
+                        android:id="@+id/dialog_shop_pirac"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:text="￥125.00"
                         android:textColor="@color/black_text"
                         android:textSize="14sp"/>
 
                     <TextView
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:text="请选择尺码"
                         android:textColor="@color/black_transparency_text"
                         android:textSize="12sp"/>
                 </LinearLayout>
 
 
                 <LinearLayout
+                    android:layout_weight="1"
                     android:background="@drawable/black_border_shape"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:weightSum="3"
+                    android:layout_marginRight="10dp"
                     android:layout_gravity="right|center_vertical"
-                    android:gravity="right"
                     android:orientation="horizontal">
 
 
@@ -87,42 +92,43 @@
                         android:id="@+id/pop_reduce"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
+                        android:layout_weight="1"
                         android:paddingBottom="10dp"
-                        android:paddingLeft="12dp"
-                        android:paddingRight="12dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
                         android:paddingTop="10dp"
+                        android:gravity="center"
 
                         android:text="一"
-                        android:textColor="@color/black_text"/>
+                        android:textColor="#C3C3C3"/>
 
                     <TextView
-                        android:id="@+id/pop_num"
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/dialog_shop_num"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
                         android:gravity="center"
                         android:padding="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/black_border_shape"
                         android:text="1"
-                        android:textColor="@color/black_text"/>
+                        android:textColor="@color/black"/>
 
                     <TextView
                         android:id="@+id/pop_add"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:background="@drawable/black_border_shape"
-                        android:paddingBottom="10dp"
-                        android:paddingLeft="13dp"
-                        android:paddingRight="13dp"
-                        android:paddingTop="10dp"
+                        android:padding="10dp"
+                        android:layout_weight="1"
+                        android:textSize="15dp"
                         android:text="+"
-                        android:textColor="@color/black_text"/>
+                        android:gravity="center"
+                        android:textColor="#C3C3C3"/>
                 </LinearLayout>
 
             </LinearLayout>
 
             <ImageView
-                android:id="@+id/delete"
+                android:id="@+id/dialog_shop_delete"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_alignParentRight="true"
@@ -135,7 +141,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
+            android:background="#FAFAFA"
             android:orientation="vertical"
             android:paddingTop="10dp">
 
@@ -148,6 +154,17 @@
                 android:textSize="14sp"/>
 
             <TextView
+                android:id="@+id/dialog_shop_color"
+                android:layout_width="50dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="30dp"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:background="#5E5E5E"
+                android:layout_marginTop="10dp"
+                />
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
@@ -155,10 +172,48 @@
                 android:text="尺码："
                 android:textColor="@color/black_transparency_text"
                 android:textSize="14sp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/dialog_shop_s"
+                    android:layout_width="50dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="30dp"
+                    android:gravity="center"
+                    android:textColor="#5E5E5E"
+                    android:background="@drawable/black_border_shape"
+                    android:layout_marginTop="10dp"
+                   />
+                <TextView
+                    android:id="@+id/dialog_shop_m"
+                    android:layout_width="50dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:textColor="#5E5E5E"
+                    android:background="@drawable/black_border_shape"
+                    android:layout_marginTop="10dp"
+                   />
+                <TextView
+                    android:id="@+id/dialog_shop_l"
+                    android:layout_width="50dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"
+                    android:textColor="#5E5E5E"
+                    android:background="@drawable/black_border_shape"
+                    android:layout_marginTop="10dp"
+                   />
+            </LinearLayout>
+
             <TextView
+                android:id="@+id/dialog_shop_but"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:background="@color/login_button"
                 android:gravity="center"
                 android:paddingBottom="10dp"

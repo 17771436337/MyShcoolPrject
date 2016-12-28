@@ -26,4 +26,5 @@
 
     <color name="bg_gay">#8E8E8E</color>
     <color name="listview_divider">#EEEEEE</color>
+    <color name="font_color">#5E5E5E</color>
 </resources>

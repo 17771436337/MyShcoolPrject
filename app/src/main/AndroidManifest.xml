@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.example.a.myapplication">
+    package="com.example.a.myapplication">
 
     <uses-permission android:name="android.permission.INTERNET"/>
 
@@ -54,10 +54,10 @@
         <activity android:name=".activity.app.BingDingPhoneActivty"/>
 
         <!-- 修改密码 -->
-        <activity android:name=".activity.app.ChangPassWordActivty"/>
+        <activity android:name=".activity.app.ChangPassWordActivty" />
 
-             <!-- 意见反馈 -->
-        <activity android:name=".activity.app.FeedBackActivty"/>
+        <!-- 意见反馈 -->
+        <activity android:name=".activity.app.FeedBackActivty" />
 
         <!-- 测试 -->
         <activity android:name=".activity.TestActivity"/>
@@ -142,6 +142,14 @@
 
         <!--我的关注-->
         <activity android:name=".activity.MyWatchlistActivity"></activity>
+        <activity android:name=".activity.QRPayActivity" />
+        <activity android:name=".activity.stylist.ProductTitleMessageActivity" />
+        <activity android:name=".activity.CommentListActivity" />
+        <activity android:name=".activity.stylist.SingleProductDetailsActivity"></activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
     </application>
 
 </manifest>
