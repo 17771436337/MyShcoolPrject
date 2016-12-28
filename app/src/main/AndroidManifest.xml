@@ -138,21 +138,17 @@
         <activity android:name=".activity.OrederDetailsActivity"/>
 
         <!-- 二维码 -->
-<<<<<<< Temporary merge branch 1
+
         <activity android:name=".activity.QRPayActivity" />
         <activity android:name=".activity.stylist.ProductTitleMessageActivity" />
-        <activity android:name=".activity.CommentListActivity" />
-        <activity android:name=".activity.stylist.SingleProductDetailsActivity"></activity><!-- ATTENTION: This was auto-generated to add Google Play services to your project for
-     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information. -->
+        <!--<activity android:name=".activity.CommentListActivity" />-->
+        <activity android:name=".activity.stylist.SingleProductDetailsActivity"></activity>
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-=======
-        <activity android:name=".activity.QRPayActivity"/>
 
         <!--我的关注-->
-        <activity android:name=".activity.MyWatchlistActivity"></activity>
->>>>>>> Temporary merge branch 2
+      <!--  <activity android:name=".activity.MyWatchlistActivity"></activity>-->
     </application>
 
 </manifest>

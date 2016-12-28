@@ -10,8 +10,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:background="#90EEEEEE"
-        android:layout_height="75dp">
-
+        android:layout_height="50dp">
         <TextView
             android:id="@+id/activity_product_title_message_tv1"
             android:layout_width="wrap_content"

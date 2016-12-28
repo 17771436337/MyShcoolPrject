@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.a.myapplication.R;
-import com.example.a.myapplication.bean.ScreenBrandModel;
+import com.example.a.myapplication.bean.ScreenColorModel;
 import com.example.a.myapplication.util.Config;
 import com.example.a.myapplication.util.UIUtils;
 
@@ -18,10 +18,9 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 
 /**
- * Created by Administrator on 2016/12/9.
+ * Created by Administrator on 2016/12/28.
  */
-public class ScreenBrandHolder extends BaseHolder<ScreenBrandModel.Brand> {
-
+public class ScreenColorHolder extends BaseHolder<ScreenColorModel.OBean> {
 
     @InjectView(R.id.icon)
     protected ImageView icon;
@@ -32,16 +31,17 @@ public class ScreenBrandHolder extends BaseHolder<ScreenBrandModel.Brand> {
     @InjectView(R.id.chexk)
     protected ImageView chexk;
 
+
     @Override
     protected View initView() {
-        View view = View.inflate(UIUtils.getContext(), R.layout.item_brand_list, null);
+        View view = View.inflate(UIUtils.getContext(), R.layout.item_color_grid, null);
         ButterKnife.inject(this, view);
         return view;
     }
 
     @Override
-    protected void refreshUI(ScreenBrandModel.Brand data) {
-        Glide.with(UIUtils.getContext()).load(Config.hostImgString + data.getLogo()).asBitmap().centerCrop().into(new BitmapImageViewTarget(icon) {
+    protected void refreshUI(ScreenColorModel.OBean data) {
+        Glide.with(UIUtils.getContext()).load(Config.hostImgString + data.getImg()).asBitmap().centerCrop().into(new BitmapImageViewTarget(icon) {
             @Override
             protected void setResource(Bitmap resource) {
                 RoundedBitmapDrawable circularBitmapDrawable =
@@ -50,8 +50,8 @@ public class ScreenBrandHolder extends BaseHolder<ScreenBrandModel.Brand> {
                 icon.setImageDrawable(circularBitmapDrawable);
             }
         });
-
         text.setText(data.getName());
+
         if (data.is()) {
             chexk.setVisibility(View.VISIBLE);
         } else {

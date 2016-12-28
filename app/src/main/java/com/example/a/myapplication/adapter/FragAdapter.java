@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.example.a.myapplication.bean.ProductTitleMessageModel;
 import com.example.a.myapplication.fragment.ProductTitleMessageTwoFragment;
 
 import java.util.List;
@@ -15,19 +16,21 @@ import java.util.List;
 public class FragAdapter extends FragmentPagerAdapter {
 
     private List<ProductTitleMessageTwoFragment> fragments;
+    private List<ProductTitleMessageModel.OBean> oBeenList;
 
 
     public FragAdapter(FragmentManager fm) {
         super(fm);
     }
 
-    public FragAdapter(FragmentManager fm, List<ProductTitleMessageTwoFragment> fragments) {
+    public FragAdapter(FragmentManager fm, List<ProductTitleMessageTwoFragment> fragments,List<ProductTitleMessageModel.OBean> oBeenList) {
         super(fm);
         this.fragments = fragments;
+        this.oBeenList = oBeenList;
     }
 
     @Override
-    public Fragment getItem(int position) {
+    public ProductTitleMessageTwoFragment getItem(int position) {
         ProductTitleMessageTwoFragment page = null;
         if (fragments.size() > position) {
             page = fragments.get(position);
@@ -38,10 +41,9 @@ public class FragAdapter extends FragmentPagerAdapter {
         while (position>=fragments.size()) {
             fragments.add(null);
         }
-        page = ProductTitleMessageTwoFragment.newInstance(fragments.get(position));
-        pages.set(position, page);
+        page = ProductTitleMessageTwoFragment.newInstance(oBeenList.get(position));
+        fragments.set(position, page);
         return page;
-        return fragments.get(position);
     }
 
     @Override

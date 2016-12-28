@@ -134,7 +134,7 @@ public class ScreenFashionActivity extends BaseActivity implements AdapterView.O
         super.onEventMainThread(obj);
         if (obj instanceof ScreenFashionModel) {
             ScreenFashionModel screenFashionModel = (ScreenFashionModel) obj;
-
+            pullListView.onRefreshComplete();
             if (screenFashionModel.getC() == 1) {
                 if (model.getO() != null) {
                     if (page == 1) {

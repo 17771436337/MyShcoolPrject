@@ -47,7 +47,7 @@ public class ProductTitleMessageTwoFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        oBean = (ProductTitleMessageModel.OBean) getArguments().getParcelable("OBean");
+        oBean = getArguments().getParcelable("OBean");
     }
 
     @Override
@@ -61,7 +61,9 @@ public class ProductTitleMessageTwoFragment extends BaseFragment {
         fragmentProductTitleMessageTwoPullLayout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                CommonUtils.startIntent(BaseApplication.mCurrentActivity, SingleProductDetailsActivity.class);
+                Bundle bundle=   new Bundle();
+                bundle.putString("sid",oBean.getDetails().get(i-1).getId());
+                CommonUtils.startIntent(BaseApplication.mCurrentActivity, SingleProductDetailsActivity.class,bundle);
             }
         });
         return view;

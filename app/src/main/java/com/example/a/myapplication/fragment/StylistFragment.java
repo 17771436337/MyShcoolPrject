@@ -17,6 +17,7 @@ import com.example.a.myapplication.bean.StyListModel;
 import com.example.a.myapplication.http.OkHttpUtil;
 import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
+import com.example.a.myapplication.util.OnDataChangeListener;
 import com.example.a.myapplication.view.LoadingPager;
 import com.google.gson.Gson;
 
@@ -30,7 +31,7 @@ import butterknife.InjectView;
 /**
  * 造型师下Viewpage下
  */
-public class StylistFragment  extends BaseFragment  {
+public class StylistFragment  extends BaseFragment  implements OnDataChangeListener {
     @InjectView(R.id.swipe_target)
     protected RecyclerView fragment_stylist_rv;
     @InjectView(R.id.swipeToLoadLayout)
@@ -41,6 +42,7 @@ public class StylistFragment  extends BaseFragment  {
     private int mPage;
     StylistAdapter adapter;
     StyListModel styListModel;
+    public static StylistFragment mStylistFragment;
     public static StylistFragment newInstance(int page) {
         Bundle args = new Bundle();
         args.putInt(ARGS_PAGE, page);
@@ -102,7 +104,7 @@ public class StylistFragment  extends BaseFragment  {
             return LoadingPager.LoadedResult.ERROR;
         }
     }
-
+    public Map<String, String> parm;
     public StyListModel initDate() throws Exception{
         Map<String, String> parm = CommonUtils.getMapParm();
         parm.put("pagination", String.valueOf(page));
@@ -116,7 +118,13 @@ public class StylistFragment  extends BaseFragment  {
         return  styListModel;
 
     }
-
+    @Override
+    public void onDataChagne(Map<String, String> parm) {
+        this.parm=parm;
+        initData();
+        adapter.getDateList().clear();
+        notifyData();
+    }
     public void notifyData(){
 
         adapter.getDateList().addAll(styListModel.getO());
@@ -137,6 +145,8 @@ public class StylistFragment  extends BaseFragment  {
             fragment_stylist_sl.setLoadingMore(false);
         }
     }
+
+
 
     public static class SpacesItemDecoration extends RecyclerView.ItemDecoration {
         private int space;
