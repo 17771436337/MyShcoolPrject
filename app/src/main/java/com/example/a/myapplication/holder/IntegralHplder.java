@@ -40,7 +40,21 @@ public class IntegralHplder extends BaseHolder<IntegralModel.OBean> {
 
         text.setText(data.getDescribe());
         time.setText(data.getTime());
-        integral.setText(data.getIntegral());
+
+        switch (data.getItype()) {
+            case "0":
+                integral.setText("+" + data.getIntegral());
+                integral.setTextColor(UIUtils.getColor(R.color.red_text));
+
+                break;
+            case "1":
+                integral.setText("-" + data.getIntegral());
+                integral.setTextColor(UIUtils.getColor(R.color.black_transparency_text));
+
+                break;
+        }
+
+
         switch (data.getType()) {
             case "1":  // 1邀请好友2购物3分享商品4分享APP 5好物置换
                 icon.setImageResource(R.drawable.icon_integeral_1);

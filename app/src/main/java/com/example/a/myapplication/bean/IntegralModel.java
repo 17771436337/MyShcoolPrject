@@ -44,6 +44,15 @@ public class IntegralModel extends BaseModel {
         private String describe;
         private String integral;
         private String time;
+        private String itype;
+
+        public String getItype() {
+            return itype;
+        }
+
+        public void setItype(String itype) {
+            this.itype = itype;
+        }
 
         public String getType() {
             return type;
