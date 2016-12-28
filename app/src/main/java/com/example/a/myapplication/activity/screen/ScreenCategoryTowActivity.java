@@ -1,5 +1,6 @@
 package com.example.a.myapplication.activity.screen;
 
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.example.a.myapplication.BaseActivity;
@@ -18,7 +19,7 @@ import butterknife.InjectView;
  * Created by Administrator on 2016/12/12.
  * 品类二级筛选
  */
-public class ScreenCategoryTowActivity extends BaseActivity {
+public class ScreenCategoryTowActivity extends BaseActivity implements AdapterView.OnItemClickListener {
 
     @InjectView(R.id.pull_layout)
     protected PullToRefreshListView pullListView;
@@ -42,6 +43,17 @@ public class ScreenCategoryTowActivity extends BaseActivity {
         adapter = new ScreenCategoryTowAdapter(pullListView, model.getList());
         pullListView.setMode(PullToRefreshBase.Mode.BOTH);
         pullListView.getRefreshableView().setAdapter(adapter);
+        pullListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                EventBus.getDefault().post("onPullDownToRefresh");
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                EventBus.getDefault().post("onPullUpToRefresh");
+            }
+        });
 
 
     }
@@ -69,5 +81,19 @@ public class ScreenCategoryTowActivity extends BaseActivity {
             list.add(category);
         }
         model.setList(list);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if (model != null) {
+            ScreenCategoryTowModel.Category data = model.getO().get(position - 1);
+            if (data.is()) {
+                data.setIs(false);
+            } else {
+                data.setIs(true);
+            }
+
+            adapter.notifyDataSetChanged();
+        }
     }
 }

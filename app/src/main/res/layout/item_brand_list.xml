@@ -31,12 +31,14 @@
             android:textColor="@color/black_text"
             android:textSize="14sp"/>
 
-        <CheckBox
-            style="@style/MyCheck"
+        <ImageView
+
+            android:id="@+id/chexk"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"/>
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_selseor"/>
     </RelativeLayout>
 
 </LinearLayout>
