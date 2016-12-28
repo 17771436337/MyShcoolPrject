@@ -7,47 +7,23 @@ import android.widget.BaseAdapter;
 import com.example.a.myapplication.holder.BaseHolder;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public abstract class SuperBaseAdapter<T> extends BaseAdapter { //implements AdapterView.OnItemClickListener {
+public abstract class SuperBaseAdapter<T> extends BaseAdapter{ //implements AdapterView.OnItemClickListener {
     private final static int TYPE_LOAD_MORE = 0;
     private final static int TYPE_NORMAL_ITEM = 1;
     private List<T> mDatas;
     private PullToRefreshBase mListView;
 
-    public List<T> getmDatas() {
-        return mDatas;
-    }
-
-    public void setmDatas(List<T> mDatas) {
-        this.mDatas = mDatas;
-    }
-
     public SuperBaseAdapter(PullToRefreshBase listView, List<T> datas) {
-
         this.mDatas = datas;
-        if (null == datas) {
-            this.mDatas = new ArrayList<T>();
-        }
         this.mListView = listView;
-        // mListView.setOnRereshListListenr(this);
+       // mListView.setOnRereshListListenr(this);
     }
 
-    public SuperBaseAdapter(List<T> datas) {
-        if (null == datas) {
-            this.mDatas = new ArrayList<T>();
-        }
+    public SuperBaseAdapter( List<T> datas) {
         this.mDatas = datas;
 
-    }
-
-    /**
-     * 添加数据
-     */
-    public void addData(List<T> datas) {
-        this.mDatas.addAll(datas);
-        notifyDataSetChanged();
     }
 
     @Override
@@ -70,7 +46,6 @@ public abstract class SuperBaseAdapter<T> extends BaseAdapter { //implements Ada
     public long getItemId(int position) {
         return position;
     }
-
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         BaseHolder holder = null;

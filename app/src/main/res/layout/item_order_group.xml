@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/favorable_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view1"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingLeft="30dp"
+        android:paddingRight="15dp"
+        android:paddingTop="5dp"
+        >
+
+        <TextView
+            android:id="@+id/favorable_title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="选择优惠"
+            android:textColor="@color/black_text"
+            android:textSize="16sp"
+            />
+
+        <TextView
+            android:id="@+id/favorable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@id/favorable_title_text"
+            android:text="(优惠总数：00.00)"
+            android:textColor="@color/black_transparency_text"
+            android:textSize="14sp"/>
+
+        <ImageView
+            android:id="@+id/arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="right"
+            android:src="@drawable/icon_up_arrow"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/image1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:src="@drawable/icon_imaginary_line"/>
+</LinearLayout>

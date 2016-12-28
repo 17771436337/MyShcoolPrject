@@ -34,12 +34,12 @@ import butterknife.ButterKnife;
 public abstract class BaseActivity extends FragmentActivity {
     Intent mIntent;
     public int resultCcode;
-   public ViewGroup mView;
+    ViewGroup mView;
     // 对所有的activity进行管理
     protected static List<Activity> mActivities = new LinkedList<Activity>();
     private static Activity mCurrentActivity;
     protected TitleView mTitleView;
-    public LoadingPagerActivity mLoadingPagerActivity;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

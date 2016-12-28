@@ -1,6 +1,5 @@
 package com.example.a.myapplication.activity;
 
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.example.a.myapplication.BaseActivity;
@@ -9,7 +8,6 @@ import com.example.a.myapplication.adapter.MyFansAdapter;
 import com.example.a.myapplication.bean.FansModel;
 import com.example.a.myapplication.http.OkHttpUtil;
 import com.example.a.myapplication.util.Config;
-import com.example.a.myapplication.util.Preference;
 import com.example.a.myapplication.view.TitleView1;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -35,9 +33,6 @@ public class MyFansActivity extends BaseActivity {
     @InjectView(R.id.title_layout)
     protected RelativeLayout titleView;
 
-    int page = 1;
-
-
     @Override
     protected int getLayoutID() {
         return R.layout.activity_myfans;
@@ -47,23 +42,8 @@ public class MyFansActivity extends BaseActivity {
     protected void initView() {
         initTitle();
         getData();
+
         pullListView.setMode(PullToRefreshBase.Mode.BOTH);
-        adapter = new MyFansAdapter(pullListView, data.getO());
-        pullListView.getRefreshableView().setAdapter(adapter);
-
-        pullListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
-            @Override
-            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-                page++;
-                getData();
-            }
-
-            @Override
-            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-                page = 1;
-                getData();
-            }
-        });
 
 
     }
@@ -71,7 +51,7 @@ public class MyFansActivity extends BaseActivity {
     @Override
     protected void initData() {
         getData();
-
+        adapter.notifyDataSetChanged();
     }
 
     /**
@@ -88,9 +68,7 @@ public class MyFansActivity extends BaseActivity {
 
 
         Map<String, String> par = new HashMap<String, String>();
-        par.put("fid", Preference.get(Config.ID, ""));
-        par.put("pagination", page + "");
-        par.put("pagelen", Config.listCount);
+        par.put("fid", "2");
         OkHttpUtil.getInstance().addRequestPost(Config.getfans, par, new OkHttpUtil.HttpCallBack<FansModel>() {
 
             @Override
@@ -113,13 +91,8 @@ public class MyFansActivity extends BaseActivity {
         if (obj instanceof FansModel) {
             FansModel fansModel = (FansModel) obj;
             data = fansModel;
-            pullListView.onRefreshComplete();
-            if (page == 1) {
-                adapter.getmDatas().clear();
-            }
-            adapter.addData(data.getO());
-            adapter.notifyDataSetChanged();
-
+            adapter = new MyFansAdapter(pullListView, data.getO());
+            pullListView.getRefreshableView().setAdapter(adapter);
         }
     }
 }

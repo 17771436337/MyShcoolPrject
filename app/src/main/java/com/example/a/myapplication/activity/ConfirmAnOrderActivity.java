@@ -50,9 +50,10 @@ public class ConfirmAnOrderActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.location_layout:
                 CommonUtils.startIntent(this, LocationActivity.class);
+
                 break;
             case R.id.pay_text://支付
-                CommonUtils.startIntent(this, ConfirmAnOrderActivity.class);
+                CommonUtils.startIntent(this, OrederDetailsActivity.class);
                 break;
             case R.id.qr_layout:  //二维码支付
                 CommonUtils.startIntent(this, QRPayActivity.class);

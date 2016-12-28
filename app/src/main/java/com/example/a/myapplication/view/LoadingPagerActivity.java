@@ -32,7 +32,7 @@ public abstract class LoadingPagerActivity extends FrameLayout implements OnClic
     private TextView mTvLoadtitle;
     private TextView mTvErrortitle;
     private TextView mBack;
-    public String mTitlt;
+
     /**
      * 属性空页面
      */
@@ -56,9 +56,8 @@ public abstract class LoadingPagerActivity extends FrameLayout implements OnClic
         this.mCurrentState = mCurrentState;
     }
 
-    public LoadingPagerActivity(Context context,String mTitlt) {
+    public LoadingPagerActivity(Context context) {
         super(context);
-        this.mTitlt=mTitlt;
         activity = (Activity) context;
         initView();
     }
@@ -91,6 +90,7 @@ public abstract class LoadingPagerActivity extends FrameLayout implements OnClic
             mEmptyView = View.inflate(getContext(), R.layout.activity_pager_empty, null);
             // 添加到容器中
             addView(mEmptyView);
+            mTvtitle = (TextView) mEmptyView.findViewById(R.id.title_text);
             inintBack(mEmptyView);
         }
 
@@ -101,6 +101,7 @@ public abstract class LoadingPagerActivity extends FrameLayout implements OnClic
             addView(mErrorView);
             mRetryView = mErrorView.findViewById(R.id.error_btn_retry);
             mRetryView.setOnClickListener(this);
+            mTvtitle = (TextView) mErrorView.findViewById(R.id.title_text);
             inintBack(mErrorView);
             mTvErrortitle = (TextView) mErrorView.findViewById(R.id.title_text);
         }
@@ -114,10 +115,9 @@ public abstract class LoadingPagerActivity extends FrameLayout implements OnClic
      */
     private void inintBack(View view) {
         mBack = (TextView) view.findViewById(R.id.back_image);
-        mTvtitle = (TextView) view.findViewById(R.id.title_text);
-        mBack.setText(getResources().getString(R.string.icon_ht));
-         initIcon(mBack);
-         mBack.setOnClickListener(new OnClickListener() {
+        initIcon(mBack);
+        // mBack.setText(getResources().getString(R.string.icon_fanh));
+        mBack.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 activity.finish();
@@ -142,6 +142,7 @@ public abstract class LoadingPagerActivity extends FrameLayout implements OnClic
         if (mCurrentState == STATE_SUCCESS && mSuccessView == null) {
             // 需要创造成功的View
             mSuccessView = initSuccessView();
+
             // 添加到容器中
             addView(mSuccessView);
         }

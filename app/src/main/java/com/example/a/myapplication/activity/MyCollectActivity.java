@@ -54,10 +54,10 @@ public class MyCollectActivity extends BaseActivity {
     protected void initView() {
         ScreenUtils.initScreen(this);
         initTitle();
-        pullGridView.setMode(BOTH);
-        adapter = new MyCollecAdapter(pullGridView, moder.getO());
-        pullGridView.getRefreshableView().setAdapter(adapter);
+
         getData();
+
+        pullGridView.setMode(BOTH);
 
 
     }
@@ -79,6 +79,7 @@ public class MyCollectActivity extends BaseActivity {
 
     @OnClick({R.id.shop, R.id.style})
     public void onRadioButtonClicked(RadioButton radioButton) {
+
         boolean checked = radioButton.isChecked();
         switch (radioButton.getId()) {
             case R.id.shop:
@@ -122,6 +123,7 @@ public class MyCollectActivity extends BaseActivity {
             }
         });
 
+
     }
 
 
@@ -129,13 +131,11 @@ public class MyCollectActivity extends BaseActivity {
     public void onEventMainThread(Object obj) {
         super.onEventMainThread(obj);
         if (obj instanceof MyCollecModer) {
-            pullGridView.onRefreshComplete();
             MyCollecModer myCollecModer = (MyCollecModer) obj;
             if (myCollecModer.getC() == 1) {
                 moder = myCollecModer;
-
-                adapter.addData(moder.getO());
-                adapter.notifyDataSetChanged();
+                adapter = new MyCollecAdapter(pullGridView, moder.getO());
+                pullGridView.getRefreshableView().setAdapter(adapter);
             } else {
 
             }

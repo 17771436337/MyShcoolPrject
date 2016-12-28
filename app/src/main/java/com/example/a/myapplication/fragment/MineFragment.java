@@ -18,10 +18,7 @@ import com.example.a.myapplication.activity.MyCollectActivity;
 import com.example.a.myapplication.activity.MyFansActivity;
 import com.example.a.myapplication.activity.MyOrderActivity;
 import com.example.a.myapplication.activity.MyProFileActivity;
-import com.example.a.myapplication.activity.MyWatchlistActivity;
 import com.example.a.myapplication.activity.ShopActivity;
-import com.example.a.myapplication.activity.WheelPicker.AddressInitTask;
-import com.example.a.myapplication.activity.WheelPicker.DatePicker;
 import com.example.a.myapplication.activity.app.SettingActivity;
 import com.example.a.myapplication.bean.MianProfineModel;
 import com.example.a.myapplication.http.OkHttpUtil;
@@ -100,7 +97,7 @@ public class MineFragment extends Fragment {
      */
     @OnClick({R.id.order_text, R.id.shopping_text, R.id.integral_text,
             R.id.replacement_text, R.id.collect_text, R.id.fans_layout,
-            R.id.attention_layout, R.id.right, R.id.file_text, R.id.message_icon,R.id.collect_test,R.id.collect_test2})
+            R.id.attention_layout, R.id.right, R.id.file_text, R.id.message_icon})
     public void OnClic(View v) {
         switch (v.getId()) {
             case R.id.order_text://我的订单
@@ -122,7 +119,7 @@ public class MineFragment extends Fragment {
                 CommonUtils.startIntent(getActivity(), MyFansActivity.class);
                 break;
             case R.id.attention_layout: //我的关注
-                CommonUtils.startIntent(getActivity(), MyWatchlistActivity.class);
+                makeText(getActivity(), "我的关注", 1000).show();
                 break;
             case R.id.right://设置
 
@@ -133,20 +130,6 @@ public class MineFragment extends Fragment {
                 break;
             case R.id.message_icon://消息
                 CommonUtils.startIntent(getActivity(), MessageActvity.class);
-                break;
-            case R.id.collect_test://消息
-                new AddressInitTask(getActivity()).execute("贵州", "毕节", "纳雍");
-                break;
-            case R.id.collect_test2://消息
-                DatePicker picker = new DatePicker(getActivity());
-                picker.setRange(2000, 2016);
-                picker.setSelectedItem(2015, 10, 10);
-                picker.setOnDatePickListener(new DatePicker.OnYearMonthDayPickListener() {
-                    @Override
-                    public void onDatePicked(String year, String month, String day) {
-                    }
-                });
-                picker.show();
                 break;
 
 

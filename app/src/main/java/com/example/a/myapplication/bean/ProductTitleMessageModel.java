@@ -1,8 +1,5 @@
 package com.example.a.myapplication.bean;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import java.io.Serializable;
 import java.util.List;
 
@@ -36,7 +33,7 @@ public class ProductTitleMessageModel extends BaseModel{
         this.o = o;
     }
 
-    public static class OBean  implements Parcelable {
+    public static class OBean  implements Serializable {
         /**
          * rid : 5850a2072d0b1
          * name : 小学长
@@ -81,43 +78,7 @@ public class ProductTitleMessageModel extends BaseModel{
             this.details = details;
         }
 
-        @Override
-        public int describeContents() {
-            return 0;
-        }
-        public OBean(Parcel in)
-        {
-            rid = in.readString();
-            name = in.readString();
-            head = in.readString();
-            details = in.readArrayList(DetailsBean.class.getClassLoader());
-        }
-        @Override
-        public void writeToParcel(Parcel parcel, int i) {
-
-            parcel.writeString(rid);
-            parcel.writeString(name);
-            parcel.writeString(head);
-            parcel.writeTypedList(details);
-        }
-
-
-        public static final Parcelable.Creator<OBean> CREATOR = new Creator<OBean>() {
-
-            @Override
-            public OBean[] newArray(int size) {
-                // TODO Auto-generated method stub
-                return new OBean[size];
-            }
-
-            @Override
-            public OBean createFromParcel(Parcel source) {
-                // TODO Auto-generated method stub
-                return new OBean(source);
-            }
-        };
-
-        public static class DetailsBean implements Parcelable {
+        public static class DetailsBean {
             /**
              * brand : Jack Johns
              * category : 上衣
@@ -151,40 +112,6 @@ public class ProductTitleMessageModel extends BaseModel{
             public void setId(String id) {
                 this.id = id;
             }
-
-            @Override
-            public int describeContents() {
-                return 0;
-            }
-            public DetailsBean(Parcel in)
-            {
-                brand = in.readString();
-                category = in.readString();
-                id = in.readString();
-            }
-
-            @Override
-            public void writeToParcel(Parcel parcel, int i) {
-
-                parcel.writeString(brand);
-                parcel.writeString(category);
-                parcel.writeString(id);
-                parcel.writeString(id);
-            }
-            public static final Parcelable.Creator<DetailsBean> CREATOR = new Creator<DetailsBean>() {
-
-                @Override
-                public DetailsBean[] newArray(int size) {
-                    // TODO Auto-generated method stub
-                    return new DetailsBean[size];
-                }
-
-                @Override
-                public DetailsBean createFromParcel(Parcel source) {
-                    // TODO Auto-generated method stub
-                    return new DetailsBean(source);
-                }
-            };
         }
     }
 }

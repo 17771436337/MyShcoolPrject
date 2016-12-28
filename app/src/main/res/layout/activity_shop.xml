@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:background="@color/white">
 
     <RelativeLayout
         android:id="@+id/title_layout"
@@ -25,9 +26,9 @@
             style="@style/MyCheck"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:gravity="center"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"/>
+            android:layout_marginLeft="15dp"
+            android:gravity="center"/>
 
         <TextView
             android:id="@+id/account"
@@ -35,10 +36,13 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:background="@color/black"
-            android:padding="20dp"
+            android:paddingBottom="20dp"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp"
+            android:paddingTop="20dp"
             android:text="结算"
             android:textColor="@color/white"
-            android:textSize="14sp"/>
+            android:textSize="16sp"/>
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -52,7 +56,7 @@
                 android:id="@+id/price_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="总价：￥156.00"
+                android:text="总价：￥0.00"
                 android:textColor="@color/black_text"
                 android:textSize="14sp"/>
 
@@ -66,16 +70,27 @@
         </LinearLayout>
     </RelativeLayout>
 
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_below="@id/title_layout"
+
+        android:background="#5FF0F0F0"/>
+
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         xmlns:ptr="http://schemas.android.com/apk/res-auto"
         android:id="@+id/pull_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/buttom"
-        android:layout_below="@id/title_layout"
-        android:divider="@color/bg_transparency"
-        android:dividerHeight="1dp"
+        android:layout_below="@id/line"
+        android:divider="#5FF0F0F0"
+        android:dividerHeight="10dp"
+        android:dividerPadding="10dp"
         android:scrollbars="none"
+        android:showDividers="beginning"
         ptr:ptrHeaderTextColor="@color/color_refresh"/>
 
 

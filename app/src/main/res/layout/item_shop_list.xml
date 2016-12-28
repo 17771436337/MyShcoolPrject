@@ -9,6 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
         android:orientation="horizontal">
 
         <CheckBox
@@ -22,9 +23,10 @@
 
         <ImageView
             android:id="@+id/title_img"
-            android:layout_width="80dp"
+            android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
             android:scaleType="center"
             android:src="@drawable/android"/>
 
@@ -36,22 +38,23 @@
             android:gravity="center_vertical"
             android:text="content"
             android:textColor="@android:color/black"
-            android:textSize="20sp"/>
+            android:textSize="16sp"/>
     </LinearLayout>
 
     <com.example.a.myapplication.view.CustomListView
         android:id="@+id/lv_product"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:cacheColorHint="#00000000"
         android:descendantFocusability="beforeDescendants"
         android:divider="#00000000"
-        android:dividerHeight="2dp"
+        android:dividerHeight="10dp"
         android:fadingEdge="none"
         android:fastScrollEnabled="false"
         android:footerDividersEnabled="false"
         android:headerDividersEnabled="false"
-        android:paddingLeft="20dp"
+        android:paddingLeft="15dp"
         android:smoothScrollbar="true"/>
 
 

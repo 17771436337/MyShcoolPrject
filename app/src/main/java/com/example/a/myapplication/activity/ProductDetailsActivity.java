@@ -117,9 +117,8 @@ public class ProductDetailsActivity extends BaseActivity {
                 finish();
                 break;
             case R.id.check_layout:
-                Bundle bundle=getIntent().getExtras();
-                bundle.putString("imgurl",mProductDetailsModel.getO().getImg());
-                CommonUtils.startIntent(this, ProductTitleMessageActivity.class,bundle);
+
+                CommonUtils.startIntent(this, ProductTitleMessageActivity.class,getIntent().getExtras());
                 break;
         }
     }

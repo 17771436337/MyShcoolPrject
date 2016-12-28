@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="D:\ProgramFiles\Android\MyApplication2\cardlib\src\main\assets"/><source path="D:\ProgramFiles\Android\MyApplication2\cardlib\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="D:\ProgramFiles\Android\MyApplication2\cardlib\src\debug\assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="F:\work\MyApplication(1)\My\cardlib\src\main\assets"/><source path="F:\work\MyApplication(1)\My\cardlib\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="F:\work\MyApplication(1)\My\cardlib\src\debug\assets"/></dataSet></merger>

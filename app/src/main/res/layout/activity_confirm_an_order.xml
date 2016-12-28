@@ -2,11 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:background="@color/white"
               android:orientation="vertical">
+
     <RelativeLayout
         android:id="@+id/title_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></RelativeLayout>
+
     <RelativeLayout
         android:id="@+id/location_layout"
         android:layout_width="match_parent"
@@ -14,30 +17,54 @@
         android:background="@color/black"
         android:gravity="center_vertical">
 
-        <LinearLayout
+
+        <ImageView
+            android:id="@+id/location_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/icon_location"/>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="10dp"
+
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/location_icon"
+            android:background="@color/white"/>
+
+
+        <ImageView
+            android:id="@+id/arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/icon_my_gay"/>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/arrow"
+            android:layout_toRightOf="@id/location_icon"
             android:gravity="center_vertical"
+
             >
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:src="@drawable/icon_location"/>
-
-            <View
-                android:layout_width="1dp"
-                android:layout_height="40dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:background="@color/white"/>
 
             <TextView
+                android:id="@+id/text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="left|bottom"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:gravity="center_vertical"
@@ -45,15 +72,53 @@
                 android:textColor="@color/white"
                 android:textSize="14sp"
                 />
-        </LinearLayout>
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="15dp"
-            android:src="@drawable/icon_my_gay"/>
+
+            <LinearLayout
+                android:id="@+id/location_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="姓名：擦是打算"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"/>
+
+                    <TextView
+                        android:id="@+id/phone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="电话：17771436337"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"/>
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="湖北省 武汉市  江夏区 *******区*********市********楼"
+                    android:textColor="@color/white"
+
+                    android:textSize="14sp"/>
+            </LinearLayout>
+        </FrameLayout>
+
+
     </RelativeLayout>
 
     <TextView
@@ -76,6 +141,7 @@
         android:background="@color/bg_transparency"/>
 
     <RelativeLayout
+        android:id="@+id/pai_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -103,6 +169,7 @@
 
 
         <CheckBox
+            android:id="@+id/pai_chexkbox"
             style="@style/MyCheck"
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -112,6 +179,7 @@
 
 
     <RelativeLayout
+        android:id="@+id/wx_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -145,6 +213,7 @@
 
 
         <CheckBox
+            android:id="@+id/wx_chexkbox"
             style="@style/MyCheck"
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -173,8 +242,10 @@
             android:id="@+id/icon_qr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/icon_wxpay"/>
+            android:src="@drawable/icon_qr"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -188,12 +259,19 @@
 
 
         <CheckBox
+            android:id="@+id/qr_chexkbox"
             style="@style/MyCheck"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"/>
     </RelativeLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:background="@color/bg_fans"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -217,6 +295,7 @@
 
 
     <RelativeLayout
+        android:id="@+id/unlimited_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -237,6 +316,7 @@
 
 
         <CheckBox
+            android:id="@+id/unlimited"
             style="@style/MyCheck"
             android:layout_width="30dp"
             android:layout_height="30dp"
@@ -245,6 +325,7 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/workday_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -261,6 +342,7 @@
 
 
         <TextView
+            android:id="@+id/time_workday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -271,12 +353,52 @@
 
 
         <CheckBox
+            android:id="@+id/workday"
             style="@style/MyCheck"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"/>
     </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/holiday_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingBottom="10dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="30dp"
+            android:background="@color/bg_transparency"/>
+
+
+        <TextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="30dp"
+            android:text="仅双休日/节假日收货"
+            android:textColor="@color/black_text"
+            android:textSize="14sp"/>
+
+
+        <CheckBox
+            android:id="@+id/holiday"
+            style="@style/MyCheck"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -290,8 +412,13 @@
             android:layout_height="wrap_content"
             android:background="@color/white">
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/bg_transparency"/>
+
             <TextView
-                android:id="@+id/text"
+                android:id="@+id/text_pr"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -303,10 +430,11 @@
                 android:textSize="14sp"/>
 
             <TextView
+                android:id="@+id/order_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@id/text"
+                android:layout_toRightOf="@id/text_pr"
                 android:paddingBottom="5dp"
                 android:paddingTop="5dp"
                 android:text="￥156.00"
