@@ -92,12 +92,13 @@ public class CommonUtils {
 
         return szimei;
     }
+
     /**
      * 创建一个请求参数map对象
      */
-    public static Map<String,String> getMapParm(){
-        Map<String,String>     parm = new HashMap<String,String>();
-        return parm ;
+    public static Map<String, String> getMapParm() {
+        Map<String, String> parm = new HashMap<String, String>();
+        return parm;
     }
 /*
     *//**
@@ -114,12 +115,6 @@ public class CommonUtils {
                     Toast.LENGTH_LONG).show();
         }
     }*/
-
-
-
-
-
-
 
 
     /**
@@ -139,7 +134,18 @@ public class CommonUtils {
         Intent intent = new Intent();
         intent.setClass(context, clazz);
 //        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivityForResult(intent,requestCode);
+        context.startActivityForResult(intent, requestCode);
+    }
+
+    /**
+     * intent跳转
+     */
+    public static void startIntent(Activity context, Class clazz, Bundle b, int requestCode) {
+        Intent intent = new Intent();
+        intent.setClass(context, clazz);
+        intent.putExtras(b);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivityForResult(intent, requestCode);
     }
 
     /**
@@ -161,8 +167,6 @@ public class CommonUtils {
         intent.setAction("ui.user.LoginSmsActivity");
         return intent;
     }
-
-
 
 
     //经纬度转墨卡托
@@ -223,12 +227,13 @@ public class CommonUtils {
 
         return BasicDataTypesUtil.doubleKeepTwoDecimalS(jl/digit);
     }*/
+
     /**
-     *创建一个主键
+     * 创建一个主键
      */
-    public static Long getPK(){
-        long time=new Date().getTime();
+    public static Long getPK() {
+        long time = new Date().getTime();
         long l = (long) ((Math.random() * 9 + 1) * 100000);
-        return time+l;
+        return time + l;
     }
 }

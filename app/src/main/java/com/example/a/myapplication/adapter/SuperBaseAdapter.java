@@ -35,10 +35,11 @@ public abstract class SuperBaseAdapter<T> extends BaseAdapter { //implements Ada
     }
 
     public SuperBaseAdapter(List<T> datas) {
+        this.mDatas = datas;
         if (null == datas) {
             this.mDatas = new ArrayList<T>();
         }
-        this.mDatas = datas;
+
 
     }
 

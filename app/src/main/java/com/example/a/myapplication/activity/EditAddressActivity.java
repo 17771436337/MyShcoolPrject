@@ -11,6 +11,7 @@ import android.widget.Toast;
 import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.BaseApplication;
 import com.example.a.myapplication.R;
+import com.example.a.myapplication.activity.WheelPicker.AddressInitTask;
 import com.example.a.myapplication.bean.BaseModel;
 import com.example.a.myapplication.bean.LocationMoldel;
 import com.example.a.myapplication.http.OkHttpUtil;
@@ -124,10 +125,26 @@ public class EditAddressActivity extends BaseActivity {
             Toast.makeText(this, "请输入邮政编码", Toast.LENGTH_SHORT).show();
             return;
         }
+
+        if (TextUtils.isEmpty(province)) {
+            Toast.makeText(this, "请选择省份", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (TextUtils.isEmpty(city)) {
+            Toast.makeText(this, "请选择城市", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (TextUtils.isEmpty(area)) {
+            Toast.makeText(this, "请选择市区", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         if (TextUtils.isEmpty(address)) {
             Toast.makeText(this, "请输入详细地址", Toast.LENGTH_SHORT).show();
             return;
         }
+
 
         Map<String, String> par = new HashMap<String, String>();
 
@@ -187,7 +204,18 @@ public class EditAddressActivity extends BaseActivity {
     protected void onClick(View v) {
         switch (v.getId()) {
             case R.id.city:
-//                new AddressInitTask(this).execute("贵州", "毕节", "纳雍");
+                AddressInitTask execute = new AddressInitTask(this);
+                execute.execute("贵州", "毕节", "纳雍");
+                execute.setOnAddressPickListene(new AddressInitTask.PickListene() {
+                    @Override
+                    public void setOnAddressPickListene(String province, String city, String count) {
+                        EditAddressActivity.this.province = province;
+                        EditAddressActivity.this.city = city;
+                        area = count;
+                        Location.setText(province + "-" + city + "-" + count);
+                    }
+                });
+
                 break;
         }
     }

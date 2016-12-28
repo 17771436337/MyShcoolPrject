@@ -1,28 +1,37 @@
 package com.example.a.myapplication.activity.screen;
 
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
 import com.example.a.myapplication.adapter.ScreenCategoryOneAdapter;
 import com.example.a.myapplication.bean.ScreenCategoryOneModel;
+import com.example.a.myapplication.http.OkHttpUtil;
 import com.example.a.myapplication.util.CommonUtils;
+import com.example.a.myapplication.util.Config;
 import com.example.a.myapplication.view.TitleView1;
+import com.handmark.pulltorefresh.library.PullToRefreshBase;
+import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
-import java.util.ArrayList;
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.Map;
 
 import butterknife.InjectView;
-import butterknife.OnItemClick;
 
 /**
  * Created by Administrator on 2016/12/12.
  * 品类的一级筛选
  */
-public class ScreenCategoryActivity extends BaseActivity{
+public class ScreenCategoryActivity extends BaseActivity implements AdapterView.OnItemClickListener {
 
     @InjectView(R.id.list_view)
-    protected ListView listView;
+    protected PullToRefreshListView listView;
 
     ScreenCategoryOneModel model = new ScreenCategoryOneModel();
 
@@ -30,6 +39,9 @@ public class ScreenCategoryActivity extends BaseActivity{
 
     @InjectView(R.id.title_layout)
     protected RelativeLayout titleView;
+
+    int page = 1;
+
     @Override
     protected int getLayoutID() {
         return R.layout.activity_category;
@@ -38,11 +50,25 @@ public class ScreenCategoryActivity extends BaseActivity{
     @Override
     protected void initView() {
         initTitle();
+
+        listView.setMode(PullToRefreshBase.Mode.BOTH);
+        adapter = new ScreenCategoryOneAdapter(model.getO());
+        listView.getRefreshableView().setAdapter(adapter);
+        listView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+                EventBus.getDefault().post("onPullDownToRefresh");
+            }
+
+            @Override
+            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+                EventBus.getDefault().post("onPullUpToRefresh");
+            }
+        });
+
+
+        listView.getRefreshableView().setOnItemClickListener(this);
         getData();
-        adapter = new ScreenCategoryOneAdapter(model.getList());
-        listView.setAdapter(adapter);
-
-
 
     }
 
@@ -50,6 +76,7 @@ public class ScreenCategoryActivity extends BaseActivity{
     protected void initData() {
 
     }
+
     /**
      * 标题初始化
      */
@@ -59,22 +86,73 @@ public class ScreenCategoryActivity extends BaseActivity{
         view.setTitleText("选择种类", "");
     }
 
-    private  void getData(){
+    private void getData() {
 
-        ArrayList<ScreenCategoryOneModel.Category> list = new ArrayList<ScreenCategoryOneModel.Category>();
-        for (int i = 0; i<10;i++){
-            ScreenCategoryOneModel.Category category = new  ScreenCategoryOneModel.Category();
-            list.add(category);
+        Map<String, String> par = CommonUtils.getMapParm();
+        par.put("pagination", String.valueOf(page));
+        par.put("pagelen", Config.listCount);
+        OkHttpUtil.getInstance().addRequestPost(Config.getFirstCategory, par, new OkHttpUtil.HttpCallBack<ScreenCategoryOneModel>() {
+
+            @Override
+            public void onSuccss(ScreenCategoryOneModel screenCategoryOneModel) {
+                EventBus.getDefault().post(screenCategoryOneModel);
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+
+
+    }
+
+
+    @Override
+    public void onEventMainThread(Object obj) {
+        super.onEventMainThread(obj);
+        if (obj instanceof ScreenCategoryOneModel) {
+            ScreenCategoryOneModel screenCategoryOneModel = (ScreenCategoryOneModel) obj;
+            if (screenCategoryOneModel.getC() == 1) {
+                listView.onRefreshComplete();
+                model = screenCategoryOneModel;
+                if (screenCategoryOneModel.getO() != null && screenCategoryOneModel.getO().size() > 0) {
+                    if (page == 1) {
+                        if (adapter.getmDatas() != null)
+                            adapter.getmDatas().clear();
+                    }
+
+                    adapter.addData(screenCategoryOneModel.getO());
+                    adapter.notifyDataSetChanged();
+
+                }
+            } else {
+                Toast.makeText(this, screenCategoryOneModel.getM() + "", Toast.LENGTH_SHORT).show();
+            }
         }
-        model.setList(list);
+
+
+        if (obj instanceof String) {
+            String str = (String) obj;
+            if (str.equals("onPullDownToRefresh")) {
+                page = 1;
+                getData();
+
+            } else if (str.equals("onPullUpToRefresh")) {
+                page++;
+                getData();
+            }
+        }
     }
 
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-
-    @OnItemClick(R.id.list_view)
-    public void onItemClick(int position){
-
-        CommonUtils.startIntent(this,ScreenCategoryTowActivity.class, ScreenActivity.CATEGORY);
-
+        Bundle bundle = new Bundle();
+        bundle.putString("id", model.getO().get(position - 1).getId());
+        bundle.putString("name", model.getO().get(position - 1).getName());
+        CommonUtils.startIntent(this, ScreenCategoryTowActivity.class, bundle, ScreenActivity.CATEGORY);
+        finish();
     }
+
 }
