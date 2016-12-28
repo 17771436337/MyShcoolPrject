@@ -9,17 +9,24 @@ import android.widget.TextView;
 
 import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
+import com.example.a.myapplication.activity.stylist.ProductTitleMessageActivity;
 import com.example.a.myapplication.bean.ProductDetailsModel;
+import com.example.a.myapplication.http.OkHttpUtil;
 import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
 import com.example.a.myapplication.view.RoundImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+
+import static com.example.a.myapplication.http.OkHttpUtil.getInstance;
+import static org.greenrobot.eventbus.EventBus.*;
 
 /**
  * Created by Administrator on 2016/12/12.
@@ -63,17 +70,17 @@ public class ProductDetailsActivity extends BaseActivity {
     protected void initData() {
         Map<String, String> parm = CommonUtils.getMapParm();
         parm.put("itemid", getIntent().getExtras().getString("id"));
-//        OkHttpUtil.getInstance().addRequestPost(Config.StylistDe, parm, new OkHttpUtil.HttpCallBack<ProductDetailsModel>() {
-//            @Override
-//            public void onSuccss(ProductDetailsModel productDetailsModel) {
-//                EventBus.getDefault().post(productDetailsModel);
-//            }
-//
-//            @Override
-//            public void onFailure(String error) {
-//
-//            }
-//        });
+        getInstance().addRequestPost(Config.StylistDe, parm, new OkHttpUtil.HttpCallBack<ProductDetailsModel>() {
+            @Override
+            public void onSuccss(ProductDetailsModel productDetailsModel) {
+                getDefault().post(productDetailsModel);
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
     }
 
     @Override
@@ -96,6 +103,7 @@ public class ProductDetailsActivity extends BaseActivity {
 
     @Override
     public void onEventAsyncThread(Object obj) {
+
         super.onEventAsyncThread(obj);
     }
 
@@ -112,8 +120,10 @@ public class ProductDetailsActivity extends BaseActivity {
                 break;
             case R.id.check_layout:
                 Bundle bundle = getIntent().getExtras();
-                bundle.putString("imgurl", mProductDetailsModel.getO().getImg());
-//                CommonUtils.startIntent(this, ProductTitleMessageActivity.class, bundle);
+                if (mProductDetailsModel.getO() != null) {
+                    bundle.putString("imgurl", mProductDetailsModel.getO().getImg());
+                }
+                CommonUtils.startIntent(this, ProductTitleMessageActivity.class, bundle);
                 break;
         }
     }

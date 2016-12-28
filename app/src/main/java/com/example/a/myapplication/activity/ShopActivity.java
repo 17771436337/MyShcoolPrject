@@ -18,6 +18,7 @@ import com.example.a.myapplication.holder.ShopHolder;
 import com.example.a.myapplication.http.OkHttpUtil;
 import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
+import com.example.a.myapplication.util.Preference;
 import com.example.a.myapplication.view.TitleView1;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -127,7 +128,7 @@ public class ShopActivity extends BaseActivity implements ContentHolder.IsChecke
     private void getData() {
 
         Map<String, String> par = new HashMap<>();
-        par.put("uid", "2");
+        par.put("uid", Preference.get(Config.ID, ""));
         OkHttpUtil.getInstance().addRequestPost(Config.cartList, par, new OkHttpUtil.HttpCallBack<ShopModel>() {
 
             @Override

@@ -348,15 +348,6 @@ public class OkHttpUtil {
                 isDebug(body);
 
                 try {
-
-
-//                    int status = new JSONObject(body).getInt("c");
-//                    String msg = new JSONObject(body).getString("m");
-//                    if(0==status) {
-//                        Toast.makeText(BaseApplication.mCurrentActivity, msg, Toast.LENGTH_SHORT);
-//                        return;
-//                    }
-
                     Type[] types = callBack.getClass().getGenericInterfaces();
                     ParameterizedType parameterizedType = (ParameterizedType) types[0];
                     final Type actualTypeArguments = parameterizedType.getActualTypeArguments()[0];

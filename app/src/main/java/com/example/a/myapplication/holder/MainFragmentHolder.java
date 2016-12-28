@@ -1,5 +1,6 @@
 package com.example.a.myapplication.holder;
 
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -8,7 +9,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.a.myapplication.R;
+import com.example.a.myapplication.activity.RecommendListActivity;
 import com.example.a.myapplication.bean.MainFragmentModel;
+import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
 import com.example.a.myapplication.util.ScreenUtils;
 import com.example.a.myapplication.util.UIUtils;
@@ -41,12 +44,21 @@ public class MainFragmentHolder extends BaseHolder<MainFragmentModel.OBean> {
     }
 
     @Override
-    protected void refreshUI(MainFragmentModel.OBean data) {
+    protected void refreshUI(final MainFragmentModel.OBean data) {
         r1.setLayoutParams(layoutParams);
         mTextView.setText(data.getName());
         Glide.with(UIUtils.getContext()).load(Config.hostImgString + data.getImg())
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .centerCrop()
                 .crossFade().into(img);
+
+        img.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle=    new Bundle();
+                bundle.putString("name",data.getName());
+                CommonUtils.startIntent(UIUtils.getContext(), RecommendListActivity.class,bundle);
+            }
+        });
     }
 }
