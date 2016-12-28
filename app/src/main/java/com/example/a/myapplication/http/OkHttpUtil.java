@@ -3,7 +3,9 @@ package com.example.a.myapplication.http;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.example.a.myapplication.BaseApplication;
 import com.example.a.myapplication.util.JsonUtil;
 import com.google.gson.Gson;
 import com.squareup.okhttp.Call;
@@ -16,6 +18,9 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.RequestBody;
 import com.squareup.okhttp.Response;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,10 +37,11 @@ import java.util.concurrent.TimeUnit;
  * Created by yutianran on 16/2/24.
  */
 public class OkHttpUtil {
-    Request.Builder  builder;
+    Request.Builder builder;
     private OkHttpClient okHttpClient;
     private Callback callback;
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+
     public static OkHttpUtil getInstance() {
         return SingletonHolder.mInstance;
     }
@@ -43,6 +49,8 @@ public class OkHttpUtil {
     private static class SingletonHolder {
         private static final OkHttpUtil mInstance = new OkHttpUtil();
     }
+
+
     private OkHttpUtil() {
         okHttpClient = new OkHttpClient();
         okHttpClient.setConnectTimeout(3, TimeUnit.SECONDS);
@@ -53,6 +61,7 @@ public class OkHttpUtil {
         okHttpClient.setRetryOnConnectionFailure(true);
         builder = new Request.Builder();
     }
+
     public <T> void addRequestPut(String url, Map<String, String> params, final HttpCallBack<T> callBack) {
         Request request = builder
                 .url(url)
@@ -82,11 +91,16 @@ public class OkHttpUtil {
         });
 
     }
+
     public <T> void addRequestPost(String url, Map<String, String> params, final HttpCallBack<T> callBack) {
         if (params == null || params.size() == 0) {
             return;
         }
-        RequestBody requestBody= buildParams(params);
+
+        isDebugUrl(url);
+        isDebug(params);
+        RequestBody requestBody = buildParams(params);
+
         Request request = builder
                 .url(url)
                 .post(requestBody)
@@ -98,6 +112,8 @@ public class OkHttpUtil {
                 final String body = response.body().string();
                 isDebug(body);
                 try {
+
+
                     Type[] types = callBack.getClass().getGenericInterfaces();
                     ParameterizedType parameterizedType = (ParameterizedType) types[0];
                     final Type actualTypeArguments = parameterizedType.getActualTypeArguments()[0];
@@ -114,8 +130,9 @@ public class OkHttpUtil {
         });
 
     }
+
     public <T> void addRequestDetele(String url, final HttpCallBack<T> callBack) {
-        Request request =  builder
+        Request request = builder
 
                 .url(url)
                 .delete()
@@ -144,7 +161,8 @@ public class OkHttpUtil {
     }
 
     public <T> void addRequestGet(String url, final HttpCallBack<T> callBack) {
-        Request request =  builder
+        isDebugUrl(url);
+        Request request = builder
                 .url(url)
                 .get()
                 .build();
@@ -159,26 +177,28 @@ public class OkHttpUtil {
                     ParameterizedType parameterizedType = (ParameterizedType) types[0];
                     final Type actualTypeArguments = parameterizedType.getActualTypeArguments()[0];
                     //// TODO: 2016/3/10 ???????????????
-                    callBack.onSuccss((T)JsonUtil.getInstance().stringToObj(body, actualTypeArguments));
+                    callBack.onSuccss((T) JsonUtil.getInstance().stringToObj(body, actualTypeArguments));
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
+
             @Override
             public void onFailure(Request arg0, IOException arg1) {
                 final String res = arg1.getMessage();
                 isDebug(res);
             }
         });
+
     }
 
     public String addRequestNoCallGet(String url) {
-        Request request =  builder
+        Request request = builder
                 .url(url)
                 .get()
                 .build();
         final Call callnocallget = okHttpClient.newCall(request);
-        String body="";
+        String body = "";
         try {
             Response response = callnocallget.execute();
             body = response.body().string();
@@ -190,15 +210,21 @@ public class OkHttpUtil {
     }
 
     public String addRequestNoCallPost(String url, Map<String, String> params) {
-        Request request =  builder
+        isDebugUrl(url);
+        isDebug(params);
+        Request request = builder
                 .url(url)
                 .post(buildParams(params))
                 .build();
-        String body="";
+        String body = "";
         final Call call = okHttpClient.newCall(request);
         try {
+
+
             Response response = call.execute();
             body = response.body().string();
+
+
             isDebug(body);
         } catch (Exception e) {
             e.printStackTrace();
@@ -206,6 +232,8 @@ public class OkHttpUtil {
         }
         return body;
     }
+
+
     public <T> void addRequest(String url, int tag, Bundle params, final HttpCallBack<T> callBack) {
         if (params == null || params.size() == 0) {
             return;
@@ -240,7 +268,6 @@ public class OkHttpUtil {
     public <T> void addRequest(String url, int tag, final HttpCallBack<T> callBack) {
         final Request request = new Request.Builder().url(url).tag(tag).build();
         Call call = okHttpClient.newCall(request);
-
         call.enqueue(new Callback() {
             @Override
             public void onResponse(Response response) throws IOException {
@@ -277,11 +304,20 @@ public class OkHttpUtil {
             public void onResponse(Response response) throws IOException {
                 final String body = response.body().string();
                 try {
+
+
+                    int status = new JSONObject(body).getInt("c");
+                    String msg = new JSONObject(body).getString("m");
+                    if(0==status) {
+                        Toast.makeText(BaseApplication.mCurrentActivity, msg, Toast.LENGTH_SHORT);
+                        return;
+                    }
+
                     Type[] types = callBack.getClass().getGenericInterfaces();
                     ParameterizedType parameterizedType = (ParameterizedType) types[0];
                     final Type actualTypeArguments = parameterizedType.getActualTypeArguments()[0];
                     //// TODO: 2016/3/10 ???????????????
-                    callBack.onSuccss((T)JsonUtil.getInstance().stringToObj(body, actualTypeArguments));
+                    callBack.onSuccss((T) JsonUtil.getInstance().stringToObj(body, actualTypeArguments));
 
                 } catch (Exception e) {
 
@@ -310,7 +346,17 @@ public class OkHttpUtil {
             public void onResponse(Response response) throws IOException {
                 final String body = response.body().string();
                 isDebug(body);
+
                 try {
+
+
+//                    int status = new JSONObject(body).getInt("c");
+//                    String msg = new JSONObject(body).getString("m");
+//                    if(0==status) {
+//                        Toast.makeText(BaseApplication.mCurrentActivity, msg, Toast.LENGTH_SHORT);
+//                        return;
+//                    }
+
                     Type[] types = callBack.getClass().getGenericInterfaces();
                     ParameterizedType parameterizedType = (ParameterizedType) types[0];
                     final Type actualTypeArguments = parameterizedType.getActualTypeArguments()[0];
@@ -368,7 +414,26 @@ public class OkHttpUtil {
         void onFailure(String error);
     }
 
-    public void isDebug(String json){
-        Log.e("网络请求返回的json",json);
+    public void isDebug(String json)  {
+        Log.e("网络请求返回的json", json + "");
+    }
+    public boolean isOk(String json) throws JSONException {
+
+        int status = new JSONObject(json).getInt("c");
+        String msg = new JSONObject(json).getString("m");
+        if(0==status){
+            Toast.makeText(BaseApplication.mCurrentActivity,msg,Toast.LENGTH_SHORT);
+            return false;
+        }else{
+            return true;
+        }
+    }
+
+    public void isDebugUrl(String url) {
+        Log.e("url地址：", "url地址：" + url);
+    }
+
+    public void isDebug(Map<String, String> params) {
+        Log.e("params：", "params：" + new Gson().toJson(params));
     }
 }

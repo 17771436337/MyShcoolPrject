@@ -15,10 +15,9 @@ public class MyFragmentPagerAdapter extends FragmentPagerAdapter {
     private String[] titles = new String[]{"求单品", "求风格"};
     private Context context;
 
-    public MyFragmentPagerAdapter(FragmentManager fm, Context context,String[] titles) {
+    public MyFragmentPagerAdapter(FragmentManager fm, Context context) {
         super(fm);
         this.context = context;
-        this.titles = titles;
     }
 
     @Override

@@ -13,7 +13,7 @@ public class ContentAdapter extends SuperBaseAdapter<ShopModel.Shop.Content> {
     ShopAdapter shopAdapter;
     public ContentAdapter(List<ShopModel.Shop.Content> datas, ShopAdapter shopAdapter) {
         super(datas);
-        this.shopAdapter = shopAdapter;
+       this.shopAdapter = shopAdapter;
     }
 
     @Override

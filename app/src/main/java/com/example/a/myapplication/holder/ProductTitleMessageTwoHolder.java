@@ -29,7 +29,7 @@ public class ProductTitleMessageTwoHolder extends BaseHolder<ProductTitleMessage
 
     @Override
     protected View initView() {
-        view = View.inflate(UIUtils.getContext(), R.layout.item_message_list, null);
+         view = View.inflate(UIUtils.getContext(), R.layout.item_message_list, null);
         ButterKnife.inject(this,view);
         return view;
     }

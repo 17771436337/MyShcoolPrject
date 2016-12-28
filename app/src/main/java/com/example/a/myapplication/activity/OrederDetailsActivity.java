@@ -16,7 +16,6 @@ import com.example.a.myapplication.http.OkHttpUtil;
 import com.example.a.myapplication.lib.CustomExpandableListView;
 import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
-import com.example.a.myapplication.util.Preference;
 import com.example.a.myapplication.view.CustomListView;
 import com.example.a.myapplication.view.TitleView1;
 
@@ -113,7 +112,7 @@ public class OrederDetailsActivity extends BaseActivity {
     private void getData() {
 
         Map<String, String> par = CommonUtils.getMapParm();
-        par.put("uid", Preference.get(Config.ID, ""));
+        par.put("uid", 2 + "");
 
         par.put("cart_ids", id);
 

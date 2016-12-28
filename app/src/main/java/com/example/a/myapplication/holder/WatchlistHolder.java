@@ -14,7 +14,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.a.myapplication.R;
 import com.example.a.myapplication.bean.BaseModel;
-import com.example.a.myapplication.bean.FansModel;
+import com.example.a.myapplication.bean.WatchlistModel;
 import com.example.a.myapplication.http.OkHttpUtil;
 import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
@@ -28,9 +28,9 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 
 /**
- * Created by Administrator on 2016/12/7.
+ * Created by Administrator on 2016/12/22.
  */
-public class MyFansHolder extends BaseHolder<FansModel.MyFans> {
+public class WatchlistHolder extends BaseHolder<WatchlistModel.OBean> {
 
     @InjectView(R.id.head)
     protected ImageView head;
@@ -39,12 +39,13 @@ public class MyFansHolder extends BaseHolder<FansModel.MyFans> {
     protected TextView nameText;
     //
     @InjectView(R.id.no)
-    protected TextView no;//加关注
+    protected TextView no;//取消
 
     @InjectView(R.id.yes)
     protected TextView yes;//已关注
 
-    FansModel.MyFans data;
+
+    WatchlistModel.OBean data;
 
     @Override
     protected View initView() {
@@ -54,9 +55,9 @@ public class MyFansHolder extends BaseHolder<FansModel.MyFans> {
     }
 
     @Override
-    protected void refreshUI(FansModel.MyFans data) {
-
+    protected void refreshUI(WatchlistModel.OBean data) {
         this.data = data;
+        no.setText("取消");
 
         Glide.with(UIUtils.getContext()).load(Config.hostImgString + data.getFhead()).asBitmap().centerCrop().into(new BitmapImageViewTarget(head) {
             @Override
@@ -69,14 +70,15 @@ public class MyFansHolder extends BaseHolder<FansModel.MyFans> {
         });
 
         nameText.setText(data.getFname());
-        if (data.getIs_focus().equals("0")) {//未关注   /
-            yes.setVisibility(View.GONE);
-            no.setVisibility(View.VISIBLE);
-        } else {
-            yes.setVisibility(View.VISIBLE);
-            no.setVisibility(View.GONE);
-        }
-
+        yes.setVisibility(View.VISIBLE);
+        no.setVisibility(View.GONE);
+//        if (data.().equals("0")) {//未关注   /
+//            yes.setVisibility(View.GONE);
+//            no.setVisibility(View.VISIBLE);
+//        } else {
+//            yes.setVisibility(View.VISIBLE);
+//            no.setVisibility(View.GONE);
+//        }
 
     }
 
@@ -85,11 +87,13 @@ public class MyFansHolder extends BaseHolder<FansModel.MyFans> {
     protected void onClick(View v) {
         switch (v.getId()) {
             case R.id.no://加关注
+
+                break;
+            case R.id.yes://取消
                 Map<String, String> par = CommonUtils.getMapParm();
                 par.put("id", Preference.get(Config.ID, ""));
                 par.put("nid", data.getNid());
-                OkHttpUtil.getInstance().addRequestPost(Config.addfocuson, par, new OkHttpUtil.HttpCallBack<BaseModel>() {
-
+                OkHttpUtil.getInstance().addRequestPost(Config.savefocuson, par, new OkHttpUtil.HttpCallBack<BaseModel>() {
                     @Override
                     public void onSuccss(BaseModel baseModel) {
                         Message message = new Message();
@@ -104,8 +108,7 @@ public class MyFansHolder extends BaseHolder<FansModel.MyFans> {
                     }
                 });
 
-                break;
-            case R.id.yes://已关注
+
                 break;
         }
     }
@@ -119,10 +122,9 @@ public class MyFansHolder extends BaseHolder<FansModel.MyFans> {
                 case 0x0001:
                     BaseModel baseModel = (BaseModel) msg.obj;
                     if (baseModel.getC() == 1) {
-                        Toast.makeText(UIUtils.getContext(), "关注成功", Toast.LENGTH_SHORT).show();
-                        yes.setVisibility(View.VISIBLE);
-                        no.setVisibility(View.GONE);
-
+                        Toast.makeText(UIUtils.getContext(), "取消关注成功", Toast.LENGTH_SHORT).show();
+                        yes.setVisibility(View.GONE);
+                        no.setVisibility(View.VISIBLE);
                     } else {
                         Toast.makeText(UIUtils.getContext(), baseModel.getM() + "", Toast.LENGTH_SHORT).show();
                     }
@@ -130,4 +132,5 @@ public class MyFansHolder extends BaseHolder<FansModel.MyFans> {
             }
         }
     };
+
 }

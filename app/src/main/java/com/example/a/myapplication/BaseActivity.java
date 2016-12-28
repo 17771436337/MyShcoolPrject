@@ -39,6 +39,7 @@ public abstract class BaseActivity extends FragmentActivity {
     protected static List<Activity> mActivities = new LinkedList<Activity>();
     private static Activity mCurrentActivity;
     protected TitleView mTitleView;
+    public LoadingPagerActivity mLoadingPagerActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +66,6 @@ public abstract class BaseActivity extends FragmentActivity {
     protected void onDestroy() {
         super.onDestroy();
         EventBus.getDefault().unregister(this);
-
         synchronized (mActivities) {
             mActivities.remove(this);
         }
@@ -191,6 +191,7 @@ public abstract class BaseActivity extends FragmentActivity {
         }
         super.onStart();
     }
+
     /**
      * 初始化icon字体
      */
@@ -198,7 +199,6 @@ public abstract class BaseActivity extends FragmentActivity {
         Typeface iconfont = Typeface.createFromAsset(getAssets(), "iconfont.ttf");
         mTextView.setTypeface(iconfont);
     }
-
 
     /*以下为：事件分发*/
     @Subscribe(threadMode = ThreadMode.POSTING)

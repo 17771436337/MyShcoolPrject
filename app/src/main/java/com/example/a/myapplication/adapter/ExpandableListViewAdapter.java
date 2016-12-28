@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.example.a.myapplication.R;
 import com.example.a.myapplication.activity.OrederDetailsActivity;
-import com.example.a.myapplication.bean.BaseModel;
+import com.example.a.myapplication.bean.UserCouponModel;
 import com.example.a.myapplication.http.OkHttpUtil;
 import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
@@ -135,10 +135,10 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter impleme
             par.put("uid", Preference.get(Config.ID, ""));
             par.put("coupon_no", s.toString());
             par.put("oid", orederDetailsActivity.orderId + "");
-            OkHttpUtil.getInstance().addRequestPost(Config.useCoupon, par, new OkHttpUtil.HttpCallBack<BaseModel>() {
+            OkHttpUtil.getInstance().addRequestPost(Config.useCoupon, par, new OkHttpUtil.HttpCallBack<UserCouponModel>() {
 
                 @Override
-                public void onSuccss(BaseModel userCouponModel) {
+                public void onSuccss(UserCouponModel userCouponModel) {
                     Message message = new Message();
                     message.obj = userCouponModel;
                     message.what = 0x0001;
@@ -181,7 +181,7 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter impleme
             super.handleMessage(msg);
             switch (msg.what) {
                 case 0x0001:
-                    BaseModel userCouponModel = (BaseModel) msg.obj;
+                    UserCouponModel userCouponModel = (UserCouponModel) msg.obj;
                     if (userCouponModel.getC() == 1) {
                         orederDetailsActivity.setTextPrice(0);
                         notifyDataSetChanged();

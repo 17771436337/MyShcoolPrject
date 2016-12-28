@@ -19,6 +19,6 @@ public class ProductTitleMessageTwoAdapter extends  SuperBaseAdapter<ProductTitl
 
     @Override
     protected BaseHolder<ProductTitleMessageModel.OBean.DetailsBean> getItemHolder(int position) {
-        return new ProductTitleMessageTwoHolder(position) ;
+        return new ProductTitleMessageTwoHolder( position) ;
     }
 }

@@ -135,11 +135,6 @@ public class Config {
 
 
     /**
-     * 求单品详情-查看解答	http://115.28.94.239/wardrobe/code/wardrode/index.php?s=/App/Item/answerList
-     */
-    public final static String ANSWERLIST = hostString + "App/Item/answerList";
-
-    /**
      * 获取一品类列表
      */
     public final static String getFirstCategory = hostString + "App/Category/getFirstCategory";
@@ -227,6 +222,10 @@ public class Config {
      * 求单品详情	http://115.28.94.239/wardrobe/code/wardrode/index.php?s=/App/Item/itemDetails
      */
     public final static String StylistDe = hostString + "App/Item/itemDetails";
+    /**
+     * 求单品详情-查看解答	http://115.28.94.239/wardrobe/code/wardrode/index.php?s=/App/Item/answerList
+     */
+    public final static String ANSWERLIST = hostString + "App/Item/answerList";
     /**
      * 评论列表	http://115.28.94.239/wardrobe/code/wardrode/index.php?s=/App/Item/commentList
      */

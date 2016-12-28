@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.a.myapplication.R;
 import com.example.a.myapplication.activity.IntegralActivity;
@@ -18,6 +19,7 @@ import com.example.a.myapplication.activity.MyCollectActivity;
 import com.example.a.myapplication.activity.MyFansActivity;
 import com.example.a.myapplication.activity.MyOrderActivity;
 import com.example.a.myapplication.activity.MyProFileActivity;
+import com.example.a.myapplication.activity.MyWatchlistActivity;
 import com.example.a.myapplication.activity.ShopActivity;
 import com.example.a.myapplication.activity.app.SettingActivity;
 import com.example.a.myapplication.bean.MianProfineModel;
@@ -26,8 +28,6 @@ import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
 import com.example.a.myapplication.util.Preference;
 import com.nostra13.universalimageloader.core.ImageLoader;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -110,7 +110,7 @@ public class MineFragment extends Fragment {
                 CommonUtils.startIntent(getActivity(), IntegralActivity.class);
                 break;
             case R.id.replacement_text://好物置换
-                makeText(getActivity(), "研发中，敬请期待", 1000).show();
+                makeText(getActivity(), "研发中，敬请期待", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.collect_text://我的收藏
                 CommonUtils.startIntent(getActivity(), MyCollectActivity.class);
@@ -119,7 +119,7 @@ public class MineFragment extends Fragment {
                 CommonUtils.startIntent(getActivity(), MyFansActivity.class);
                 break;
             case R.id.attention_layout: //我的关注
-                makeText(getActivity(), "我的关注", 1000).show();
+                CommonUtils.startIntent(getActivity(), MyWatchlistActivity.class);
                 break;
             case R.id.right://设置
 
@@ -185,6 +185,7 @@ public class MineFragment extends Fragment {
                     fansTextView.setText(mianProfineModel.getO().getFans());
                     attentionTextView.setText(mianProfineModel.getO().getFocus());
                     Preference.put(Config.REMIND, mianProfineModel.getO().getRemind());
+                    Preference.put(Config.HEAD, mianProfineModel.getO().getHead());
 
 
                 } else {

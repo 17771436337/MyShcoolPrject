@@ -21,7 +21,6 @@ import com.example.a.myapplication.http.OkHttpUtil;
 import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
 import com.example.a.myapplication.util.Download;
-import com.example.a.myapplication.util.Preference;
 import com.example.a.myapplication.view.TitleView1;
 
 import org.greenrobot.eventbus.EventBus;
@@ -197,7 +196,7 @@ public class QRPayActivity extends BaseActivity {
      */
     public void getOrderLastFour() {
         Map<String, String> par = CommonUtils.getMapParm();
-        par.put("uid", Preference.get(Config.ID, ""));
+        par.put("uid", "2");
         par.put("oid", oid);
         OkHttpUtil.getInstance().addRequestPost(Config.getOrderLastFour, par, new OkHttpUtil.HttpCallBack<OrderLastFour>() {
 

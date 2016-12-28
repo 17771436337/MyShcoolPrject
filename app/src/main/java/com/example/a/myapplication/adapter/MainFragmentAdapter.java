@@ -10,9 +10,13 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.a.myapplication.R;
+import com.example.a.myapplication.bean.MainFragmentModel;
+import com.example.a.myapplication.util.Config;
 import com.example.a.myapplication.util.ScreenUtils;
-import com.nostra13.universalimageloader.core.ImageLoader;
+import com.example.a.myapplication.util.UIUtils;
 
 import java.util.List;
 
@@ -25,23 +29,25 @@ public class MainFragmentAdapter extends RecyclerView.Adapter<MainFragmentAdapte
 
     RelativeLayout.LayoutParams layoutParams;
     private LayoutInflater mInflater;
-    private List<String> mDatas;
+    private List<MainFragmentModel.OBean> mDatas;
     private OnItemClickListener mOnItemClickListener;
 
-    public MainFragmentAdapter(Context context, List<String> mDatas) {
+    public MainFragmentAdapter(Context context, List<MainFragmentModel.OBean> mDatas) {
         this.mDatas = mDatas;
         layoutParams = new RelativeLayout.LayoutParams(ScreenUtils.getScreenW(), ScreenUtils.getScreenH() / 3 * 2);
-
         mInflater = LayoutInflater.from(context);
-
     }
 
     @Override
     public void onBindViewHolder(final ItemViewHolder itemViewHolder, final int i) {
 
         itemViewHolder.r1.setLayoutParams(layoutParams);
-        itemViewHolder.mTextView.setText(mDatas.get(i));
-        ImageLoader.getInstance().displayImage("http://ww2.sinaimg.cn/large/610dc034jw1fa8n634v0vj20u00qx0x4.jpg", itemViewHolder.img);
+        itemViewHolder.mTextView.setText(mDatas.get(i).getName());
+        Glide.with(UIUtils.getContext()).load(Config.hostImgString + mDatas.get(i).getImg())
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .centerCrop()
+                .crossFade().into(itemViewHolder.img);
+
         if (mOnItemClickListener != null) {
             /**
              * 这里加了判断，itemViewHolder.itemView.hasOnClickListeners()
@@ -82,7 +88,7 @@ public class MainFragmentAdapter extends RecyclerView.Adapter<MainFragmentAdapte
      * @param position
      * @param value
      */
-    public void add(int position, String value) {
+    public void add(int position, MainFragmentModel.OBean value) {
         if (position > mDatas.size()) {
             position = mDatas.size();
         }

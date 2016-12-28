@@ -17,7 +17,6 @@ import com.example.a.myapplication.bean.StyListModel;
 import com.example.a.myapplication.http.OkHttpUtil;
 import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
-import com.example.a.myapplication.util.OnDataChangeListener;
 import com.example.a.myapplication.view.LoadingPager;
 import com.google.gson.Gson;
 
@@ -31,7 +30,7 @@ import butterknife.InjectView;
 /**
  * 造型师下Viewpage下
  */
-public class StylistFragment  extends BaseFragment  implements OnDataChangeListener {
+public class StylistFragment  extends BaseFragment  {
     @InjectView(R.id.swipe_target)
     protected RecyclerView fragment_stylist_rv;
     @InjectView(R.id.swipeToLoadLayout)
@@ -42,7 +41,6 @@ public class StylistFragment  extends BaseFragment  implements OnDataChangeListe
     private int mPage;
     StylistAdapter adapter;
     StyListModel styListModel;
-    public static StylistFragment mStylistFragment;
     public static StylistFragment newInstance(int page) {
         Bundle args = new Bundle();
         args.putInt(ARGS_PAGE, page);
@@ -92,6 +90,7 @@ public class StylistFragment  extends BaseFragment  implements OnDataChangeListe
             }
         });
 
+
     }
     public LoadingPager.LoadedResult initData() {
         try{
@@ -104,27 +103,21 @@ public class StylistFragment  extends BaseFragment  implements OnDataChangeListe
             return LoadingPager.LoadedResult.ERROR;
         }
     }
-    public Map<String, String> parm;
+
     public StyListModel initDate() throws Exception{
         Map<String, String> parm = CommonUtils.getMapParm();
         parm.put("pagination", String.valueOf(page));
         String result=OkHttpUtil.getInstance().addRequestNoCallPost(Config.QITTMELIST, parm);
         styListModel= new Gson().fromJson(result, StyListModel.class);
-       /* if(page==1){
+        if(page==1){
             StyListModel.OBean oBean=   new StyListModel.OBean();
             oBean.setImg(Config.NATIVE);
             styListModel.getO().add(0,oBean);
-        }*/
+        }
         return  styListModel;
 
     }
-    @Override
-    public void onDataChagne(Map<String, String> parm) {
-        this.parm=parm;
-        initData();
-        adapter.getDateList().clear();
-        notifyData();
-    }
+
     public void notifyData(){
 
         adapter.getDateList().addAll(styListModel.getO());
@@ -145,8 +138,6 @@ public class StylistFragment  extends BaseFragment  implements OnDataChangeListe
             fragment_stylist_sl.setLoadingMore(false);
         }
     }
-
-
 
     public static class SpacesItemDecoration extends RecyclerView.ItemDecoration {
         private int space;

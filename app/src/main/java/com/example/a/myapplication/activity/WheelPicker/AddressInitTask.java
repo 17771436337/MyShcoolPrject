@@ -5,11 +5,9 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-
 import com.alibaba.fastjson.JSON;
 
 import java.util.ArrayList;
-
 
 /**
  * 获取地址数据并显示地址选择器
@@ -21,16 +19,17 @@ public class AddressInitTask extends AsyncTask<String, Void, ArrayList<AddressPi
     private Activity activity;
     private ProgressDialog dialog;
     private String selectedProvince = "", selectedCity = "", selectedCounty = "";
-    private boolean hideCounty=false;
+    private boolean hideCounty = false;
 
     /**
      * 初始化为不显示区县的模式
+     *
      * @param activity
-     * @param hideCounty   is hide County
+     * @param hideCounty is hide County
      */
-    public AddressInitTask(Activity activity,boolean hideCounty) {
+    public AddressInitTask(Activity activity, boolean hideCounty) {
         this.activity = activity;
-        this.hideCounty=hideCounty;
+        this.hideCounty = hideCounty;
         dialog = ProgressDialog.show(activity, null, "正在初始化数据...", true, true);
     }
 
@@ -38,6 +37,7 @@ public class AddressInitTask extends AsyncTask<String, Void, ArrayList<AddressPi
         this.activity = activity;
         dialog = ProgressDialog.show(activity, null, "正在初始化数据...", true, true);
     }
+
     @Override
     protected ArrayList<AddressPicker.Province> doInBackground(String... params) {
         if (params != null) {
@@ -78,10 +78,12 @@ public class AddressInitTask extends AsyncTask<String, Void, ArrayList<AddressPi
             picker.setOnAddressPickListener(new AddressPicker.OnAddressPickListener() {
                 @Override
                 public void onAddressPicked(String province, String city, String county) {
-                    if (county==null){
-                        Toast.makeText(activity, province + city, Toast.LENGTH_LONG).show();
+                    if (county == null) {
+                        pickListene.setOnAddressPickListene(province, city, "全部");
+//                        Toast.makeText(activity, province + city, Toast.LENGTH_LONG).show();
                     } else {
-                        Toast.makeText(activity, province + city + county, Toast.LENGTH_LONG).show();
+                        pickListene.setOnAddressPickListene(province, city, county);
+//                        Toast.makeText(activity, province + city + county, Toast.LENGTH_LONG).show();
                     }
                 }
             });
@@ -89,6 +91,17 @@ public class AddressInitTask extends AsyncTask<String, Void, ArrayList<AddressPi
         } else {
             Toast.makeText(activity, "数据初始化失败", Toast.LENGTH_SHORT).show();
         }
+    }
+
+
+    private PickListene pickListene;
+
+    public void setOnAddressPickListene(PickListene pickListene) {
+        this.pickListene = pickListene;
+    }
+
+    public interface PickListene {
+        void setOnAddressPickListene(String province, String city, String count);
     }
 
 }
