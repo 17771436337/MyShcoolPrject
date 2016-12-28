@@ -1,11 +1,12 @@
 package com.example.a.myapplication.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Administrator on 2016/12/12.
  */
-public class ScreenCategoryTowModel extends BaseModel{
+public class ScreenCategoryTowModel extends BaseModel implements Serializable {
 
 
     /**
@@ -32,7 +33,7 @@ public class ScreenCategoryTowModel extends BaseModel{
         this.o = o;
     }
 
-    public static class Category {
+    public static class Category implements Serializable {
         /**
          * id : 17
          * name : 连衣裙

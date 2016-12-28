@@ -1,10 +1,16 @@
 package com.example.a.myapplication.activity.screen;
 
+import android.content.Intent;
+import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
+import com.example.a.myapplication.bean.ScreenCategoryTowModel;
+import com.example.a.myapplication.bean.ScreenFashionModel;
 import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.view.TitleView1;
 
@@ -24,6 +30,19 @@ public class ScreenActivity extends BaseActivity {
 
     @InjectView(R.id.title_layout)
     protected RelativeLayout titleView;
+
+    @InjectView(R.id.category_icon)
+    protected ImageView categoryIcon;
+
+    @InjectView(R.id.category_text)
+    protected TextView categoryText;
+
+
+    @InjectView(R.id.fashion_icon)
+    protected ImageView fashionIcon;
+
+    @InjectView(R.id.fashion_text)
+    protected TextView fashionText;
 
     @Override
     protected int getLayoutID() {
@@ -59,7 +78,7 @@ public class ScreenActivity extends BaseActivity {
                 break;
 
             case R.id.category_layout: //品类
-                CommonUtils.startIntent(this, ScreenCategoryActivity.class, FASHION);
+                CommonUtils.startIntent(this, ScreenCategoryActivity.class, CATEGORY);
                 break;
             case R.id.fashion_layout: //流行
                 CommonUtils.startIntent(this, ScreenFashionActivity.class, FASHION);
@@ -74,5 +93,49 @@ public class ScreenActivity extends BaseActivity {
                 break;
 
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        Log.e("onActivityResult", requestCode + "onActivityResult" + resultCode);
+        if (resultCode == 0x0001) {
+            if (requestCode == CATEGORY) {//品类/
+                ScreenCategoryTowModel towMode = (ScreenCategoryTowModel) data.getSerializableExtra("category");
+                String string = "";
+                if (towMode != null) {
+                    categoryText.setVisibility(View.VISIBLE);
+                    categoryIcon.setVisibility(View.GONE);
+                    for (int i = 0; i < towMode.getO().size(); i++) {
+                        string = string + towMode.getO().get(i).getName() + ",";
+                    }
+                    categoryText.setText(string);
+                } else {
+                    categoryText.setVisibility(View.GONE);
+                    categoryIcon.setVisibility(View.VISIBLE);
+                }
+
+            }
+
+            if (requestCode == FASHION) {//流行
+                ScreenFashionModel towMode = (ScreenFashionModel) data.getSerializableExtra("fashion");
+                String string = "";
+                if (towMode != null) {
+                    fashionIcon.setVisibility(View.GONE);
+                    fashionText.setVisibility(View.VISIBLE);
+                    for (int i = 0; i < towMode.getO().size(); i++) {
+                        string = string + towMode.getO().get(i).getName() + ",";
+                    }
+                    fashionText.setText(string);
+                } else {
+                    fashionIcon.setVisibility(View.VISIBLE);
+                    fashionText.setVisibility(View.GONE);
+                }
+
+
+            }
+
+
+        }
+
     }
 }

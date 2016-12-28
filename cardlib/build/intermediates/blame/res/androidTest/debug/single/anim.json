@@ -8,8 +8,20 @@
         "source": "F:\\work\\MyApplication(1)\\My\\cardlib\\build\\intermediates\\bundles\\debug\\res\\anim\\recents_launch_prev_affiliated_task_target.xml"
     },
     {
+        "merged": "D:\\ProgramFiles\\Android\\MyApplication2\\cardlib\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\recents_return_to_launcher_exit.xml",
+        "source": "D:\\ProgramFiles\\Android\\MyApplication2\\cardlib\\build\\intermediates\\bundles\\debug\\res\\anim\\recents_return_to_launcher_exit.xml"
+    },
+    {
+        "merged": "D:\\ProgramFiles\\Android\\MyApplication2\\cardlib\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\recents_launch_prev_affiliated_task_target.xml",
+        "source": "D:\\ProgramFiles\\Android\\MyApplication2\\cardlib\\build\\intermediates\\bundles\\debug\\res\\anim\\recents_launch_prev_affiliated_task_target.xml"
+    },
+    {
         "merged": "F:\\work\\MyApplication(1)\\My\\cardlib\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\recents_to_launcher_enter.xml",
         "source": "F:\\work\\MyApplication(1)\\My\\cardlib\\build\\intermediates\\bundles\\debug\\res\\anim\\recents_to_launcher_enter.xml"
+    },
+    {
+        "merged": "D:\\ProgramFiles\\Android\\MyApplication2\\cardlib\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\recents_to_search_launcher_enter.xml",
+        "source": "D:\\ProgramFiles\\Android\\MyApplication2\\cardlib\\build\\intermediates\\bundles\\debug\\res\\anim\\recents_to_search_launcher_enter.xml"
     },
     {
         "merged": "F:\\work\\MyApplication(1)\\My\\cardlib\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\recents_return_to_launcher_exit.xml",
@@ -20,11 +32,27 @@
         "source": "F:\\work\\MyApplication(1)\\My\\cardlib\\build\\intermediates\\bundles\\debug\\res\\anim\\recents_to_search_launcher_enter.xml"
     },
     {
+        "merged": "D:\\ProgramFiles\\Android\\MyApplication2\\cardlib\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\recents_to_launcher_enter.xml",
+        "source": "D:\\ProgramFiles\\Android\\MyApplication2\\cardlib\\build\\intermediates\\bundles\\debug\\res\\anim\\recents_to_launcher_enter.xml"
+    },
+    {
+        "merged": "D:\\ProgramFiles\\Android\\MyApplication2\\cardlib\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\recents_return_to_launcher_enter.xml",
+        "source": "D:\\ProgramFiles\\Android\\MyApplication2\\cardlib\\build\\intermediates\\bundles\\debug\\res\\anim\\recents_return_to_launcher_enter.xml"
+    },
+    {
+        "merged": "D:\\ProgramFiles\\Android\\MyApplication2\\cardlib\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\recents_to_search_launcher_exit.xml",
+        "source": "D:\\ProgramFiles\\Android\\MyApplication2\\cardlib\\build\\intermediates\\bundles\\debug\\res\\anim\\recents_to_search_launcher_exit.xml"
+    },
+    {
         "merged": "F:\\work\\MyApplication(1)\\My\\cardlib\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\recents_to_launcher_exit.xml",
         "source": "F:\\work\\MyApplication(1)\\My\\cardlib\\build\\intermediates\\bundles\\debug\\res\\anim\\recents_to_launcher_exit.xml"
     },
     {
         "merged": "F:\\work\\MyApplication(1)\\My\\cardlib\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\recents_return_to_launcher_enter.xml",
         "source": "F:\\work\\MyApplication(1)\\My\\cardlib\\build\\intermediates\\bundles\\debug\\res\\anim\\recents_return_to_launcher_enter.xml"
+    },
+    {
+        "merged": "D:\\ProgramFiles\\Android\\MyApplication2\\cardlib\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\recents_to_launcher_exit.xml",
+        "source": "D:\\ProgramFiles\\Android\\MyApplication2\\cardlib\\build\\intermediates\\bundles\\debug\\res\\anim\\recents_to_launcher_exit.xml"
     }
 ]

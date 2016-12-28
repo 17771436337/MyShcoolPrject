@@ -1,17 +1,27 @@
 package com.example.a.myapplication.activity.screen;
 
+import android.content.Intent;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
 import com.example.a.myapplication.adapter.ScreenCategoryTowAdapter;
 import com.example.a.myapplication.bean.ScreenCategoryTowModel;
+import com.example.a.myapplication.http.OkHttpUtil;
+import com.example.a.myapplication.util.CommonUtils;
+import com.example.a.myapplication.util.Config;
 import com.example.a.myapplication.view.TitleView1;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
+import java.util.Map;
 
 import butterknife.InjectView;
 
@@ -31,6 +41,10 @@ public class ScreenCategoryTowActivity extends BaseActivity implements AdapterVi
     @InjectView(R.id.title_layout)
     protected RelativeLayout titleView;
 
+    private String id;  //一级分类对应的id
+    private String name;//选择标题名字
+    private int page = 1;
+
     @Override
     protected int getLayoutID() {
         return R.layout.activity_categorytow;
@@ -38,9 +52,11 @@ public class ScreenCategoryTowActivity extends BaseActivity implements AdapterVi
 
     @Override
     protected void initView() {
+        id = getIntent().getExtras().getString("id");
+        name = getIntent().getExtras().getString("name");
         initTitle();
         getData();
-        adapter = new ScreenCategoryTowAdapter(pullListView, model.getList());
+        adapter = new ScreenCategoryTowAdapter(pullListView, model.getO());
         pullListView.setMode(PullToRefreshBase.Mode.BOTH);
         pullListView.getRefreshableView().setAdapter(adapter);
         pullListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
@@ -54,6 +70,7 @@ public class ScreenCategoryTowActivity extends BaseActivity implements AdapterVi
                 EventBus.getDefault().post("onPullUpToRefresh");
             }
         });
+        pullListView.getRefreshableView().setOnItemClickListener(this);
 
 
     }
@@ -69,18 +86,98 @@ public class ScreenCategoryTowActivity extends BaseActivity implements AdapterVi
     private void initTitle() {
         TitleView1 view = new TitleView1(this);
         titleView.addView(view.getView());
-        view.setTitleText("上衣", "完成");
+        view.setTitleText(name, "完成");
+        view.setTitleOnClickListeneRight(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (model != null && model.getO() != null) {
+                    ScreenCategoryTowModel towModel = new ScreenCategoryTowModel();
+                    ArrayList<ScreenCategoryTowModel.Category> list = new ArrayList<ScreenCategoryTowModel.Category>();
+                    for (int i = 0; i < model.getO().size(); i++) {
+                        ScreenCategoryTowModel.Category data = model.getO().get(i);
+                        if (data.is()) {
+                            list.add(data);
+                        }
+                    }
+
+                    towModel.setO(list);
+                    Intent intent = new Intent();
+                    intent.putExtra("category", towModel);
+                    setResult(0x0001, intent);
+                    finish();
+                } else {
+
+                }
+            }
+        });
     }
 
 
     private void getData() {
 
-        ArrayList<ScreenCategoryTowModel.Category> list = new ArrayList<ScreenCategoryTowModel.Category>();
-        for (int i = 0; i < 10; i++) {
-            ScreenCategoryTowModel.Category category = new ScreenCategoryTowModel.Category();
-            list.add(category);
+        Map<String, String> par = CommonUtils.getMapParm();
+        par.put("pagination", String.valueOf(page));
+        par.put("pagelen", Config.listCount);
+        par.put("pid", id);
+        OkHttpUtil.getInstance().addRequestPost(Config.getSecondCategory, par, new OkHttpUtil.HttpCallBack<ScreenCategoryTowModel>() {
+
+            @Override
+            public void onSuccss(ScreenCategoryTowModel screenCategoryTowModel) {
+                EventBus.getDefault().post(screenCategoryTowModel);
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+
+
+    }
+
+    @Override
+    public void onEventMainThread(Object obj) {
+        super.onEventMainThread(obj);
+        if (obj instanceof ScreenCategoryTowModel) {
+            ScreenCategoryTowModel screenCategoryTowModel = (ScreenCategoryTowModel) obj;
+            pullListView.onRefreshComplete();
+            if (screenCategoryTowModel.getC() == 1) {
+
+                if (model.getO() != null) {
+                    if (page == 1) {
+                        model.getO().clear();
+                    }
+
+                    model.getO().addAll(screenCategoryTowModel.getO());
+                } else {
+                    model = screenCategoryTowModel;
+                }
+                if (screenCategoryTowModel.getO() != null && screenCategoryTowModel.getO().size() > 0) {
+                    if (page == 1) {
+                        if (adapter.getmDatas() != null)
+                            adapter.getmDatas().clear();
+                    }
+
+                    adapter.addData(screenCategoryTowModel.getO());
+                    adapter.notifyDataSetChanged();
+
+                }
+            } else {
+                Toast.makeText(this, screenCategoryTowModel.getM() + "", Toast.LENGTH_SHORT).show();
+            }
         }
-        model.setList(list);
+
+        if (obj instanceof String) {
+            String str = (String) obj;
+            if (str.equals("onPullDownToRefresh")) {
+                page = 1;
+                getData();
+
+            } else if (str.equals("onPullUpToRefresh")) {
+                page++;
+                getData();
+            }
+        }
     }
 
     @Override
@@ -96,4 +193,6 @@ public class ScreenCategoryTowActivity extends BaseActivity implements AdapterVi
             adapter.notifyDataSetChanged();
         }
     }
+
+
 }
