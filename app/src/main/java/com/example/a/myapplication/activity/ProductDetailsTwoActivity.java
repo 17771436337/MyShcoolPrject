@@ -68,16 +68,7 @@ public class ProductDetailsTwoActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.shop_text})
-    protected void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.shop_text://加入购物车
-//                Toast.makeText(this, "点击效果", 1000).show();
-                ShopDialog dialog = new ShopDialog(this);
-                dialog.showAsDropDown(v);
-                break;
-        }
-    }
+
 
 
 }

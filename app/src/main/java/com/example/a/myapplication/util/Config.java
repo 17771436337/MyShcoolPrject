@@ -203,6 +203,14 @@ public class Config {
      * 商品详情(点击加入购物车前)
      */
     public static final String shopDetails = Config.hostString + "App/Shop/shopDetails";
+    /**
+     * 	商品详情(加入购物车页面)
+     */
+    public static final String cartShopInfo = Config.hostString + "App/Shop/cartShopInfo";
+    /**
+     * 		商品详情-加入购物车
+     */
+    public static final String addCart = Config.hostString + "App/Order/addCart";
 
 
 
