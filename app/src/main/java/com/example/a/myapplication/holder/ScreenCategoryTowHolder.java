@@ -25,6 +25,9 @@ public class ScreenCategoryTowHolder extends BaseHolder<ScreenCategoryTowModel.C
     @InjectView(R.id.text)
     protected TextView text;
 
+    @InjectView(R.id.chexk)
+    protected ImageView chexk;
+
 
     @Override
     protected View initView() {
@@ -41,5 +44,11 @@ public class ScreenCategoryTowHolder extends BaseHolder<ScreenCategoryTowModel.C
                 .crossFade().into(icon);
 
         text.setText(data.getName());
+
+        if (data.is()) {
+            chexk.setVisibility(View.VISIBLE);
+        } else {
+            chexk.setVisibility(View.GONE);
+        }
     }
 }

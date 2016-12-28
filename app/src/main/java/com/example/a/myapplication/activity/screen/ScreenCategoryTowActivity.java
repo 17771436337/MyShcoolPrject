@@ -1,5 +1,7 @@
 package com.example.a.myapplication.activity.screen;
 
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -25,7 +27,7 @@ import butterknife.InjectView;
  * Created by Administrator on 2016/12/12.
  * 品类二级筛选
  */
-public class ScreenCategoryTowActivity extends BaseActivity {
+public class ScreenCategoryTowActivity extends BaseActivity implements AdapterView.OnItemClickListener {
 
     @InjectView(R.id.pull_layout)
     protected PullToRefreshListView pullListView;
@@ -66,6 +68,7 @@ public class ScreenCategoryTowActivity extends BaseActivity {
                 EventBus.getDefault().post("onPullUpToRefresh");
             }
         });
+        pullListView.getRefreshableView().setOnItemClickListener(this);
 
 
     }
@@ -141,6 +144,20 @@ public class ScreenCategoryTowActivity extends BaseActivity {
                 page++;
                 getData();
             }
+        }
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if (model != null) {
+            ScreenCategoryTowModel.Category data = model.getO().get(position - 1);
+            if (data.is()) {
+                data.setIs(false);
+            } else {
+                data.setIs(true);
+            }
+
+            adapter.notifyDataSetChanged();
         }
     }
 }

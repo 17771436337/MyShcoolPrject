@@ -42,6 +42,15 @@ public class ScreenCategoryTowModel extends BaseModel{
         private String id;
         private String name;
         private String img;
+        private boolean is;
+
+        public boolean is() {
+            return is;
+        }
+
+        public void setIs(boolean is) {
+            this.is = is;
+        }
 
         public String getId() {
             return id;
