@@ -22,7 +22,7 @@
             android:drawableLeft="@drawable/icon_integral_title"
             android:drawablePadding="5dp"
             android:gravity="center_vertical"
-            android:text="当前积分;"
+            android:text="当前积分："
             android:textColor="@color/black_text"
             android:textSize="14sp"
             />
@@ -33,7 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/title_text"
-            android:text="152"
+            android:text="0"
             android:textColor="@color/red_text"
             android:textSize="16sp"/>
 
