@@ -164,6 +164,11 @@ public class Config {
      */
     public final static String getIdol = hostString + "App/Exclusive/getIdol";
 
+    /**
+     * 消息列表
+     */
+    public final static String messageList = hostString + "App/Message/messageList";
+
     //---------------------------------------------------------------------
 
 
