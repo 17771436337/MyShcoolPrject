@@ -60,7 +60,7 @@ public class MyCollectHolder extends BaseHolder<MyCollecModer.Colledt> {
         //-------
         Glide.with(UIUtils.getContext()).load(Config.hostImgString + data.getImg())
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .centerCrop()
+                .placeholder(R.drawable.default_img)
                 .crossFade().into(img);
 
 //        name.setText(data.getName());

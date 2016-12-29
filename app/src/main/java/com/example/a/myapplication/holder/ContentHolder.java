@@ -71,7 +71,7 @@ public class ContentHolder extends BaseHolder<ShopModel.Shop.Content> {
         this.data = data;
         Glide.with(UIUtils.getContext()).load(Config.hostImgString + data.getImg())
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .centerCrop()
+                .placeholder(R.drawable.default_img)
                 .crossFade().into(img);
 
         select.setChecked(data.is());

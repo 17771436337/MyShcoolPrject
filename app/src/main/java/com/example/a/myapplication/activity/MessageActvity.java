@@ -37,6 +37,7 @@ public class MessageActvity extends BaseActivity implements OnItemClickListener 
     @InjectView(R.id.pull_layout)
     protected PullToRefreshListView pullListView;
 
+
     private MessageModel model = new MessageModel();
 
     MessageAdapter adapter;

@@ -40,7 +40,7 @@ public class ScreenCategoryTowHolder extends BaseHolder<ScreenCategoryTowModel.C
     protected void refreshUI(ScreenCategoryTowModel.Category data) {
         Glide.with(UIUtils.getContext()).load(Config.hostImgString + data.getImg())
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .centerCrop()
+                .placeholder(R.drawable.default_img)
                 .crossFade().into(icon);
 
         text.setText(data.getName());

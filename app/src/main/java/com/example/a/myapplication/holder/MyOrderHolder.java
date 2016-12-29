@@ -67,7 +67,7 @@ public class MyOrderHolder extends BaseHolder<MyOrderModer.Order> {
     protected void refreshUI(MyOrderModer.Order data) {
         Glide.with(UIUtils.getContext()).load(Config.hostImgString + data.getImg())
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .centerCrop()
+                .placeholder(R.drawable.default_img)
                 .crossFade().into(img);
 
         Glide.with(UIUtils.getContext()).load(Config.hostImgString + data.getLogo()).asBitmap().centerCrop().into(new BitmapImageViewTarget(logo) {

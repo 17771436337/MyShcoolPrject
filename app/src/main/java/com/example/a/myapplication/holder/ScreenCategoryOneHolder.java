@@ -37,7 +37,7 @@ public class ScreenCategoryOneHolder extends BaseHolder<ScreenCategoryOneModel.C
 
         Glide.with(UIUtils.getContext()).load(Config.hostImgString + data.getImg())
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .centerCrop()
+                .placeholder(R.drawable.default_img)
                 .crossFade().into(icon);
 
         text.setText(data.getName());

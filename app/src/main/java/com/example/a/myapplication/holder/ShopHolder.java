@@ -76,7 +76,9 @@ public class ShopHolder extends BaseHolder<ShopModel.Shop> {
         adaper = new ContentAdapter(data.getShops(), shopAdapter);
         listView.setAdapter(adaper);
 
-        Glide.with(UIUtils.getContext()).load(Config.hostImgString + data.getLogo()).asBitmap().centerCrop().into(new BitmapImageViewTarget(img) {
+        Glide.with(UIUtils.getContext())
+
+                .load(Config.hostImgString + data.getLogo()).asBitmap().centerCrop().into(new BitmapImageViewTarget(img) {
             @Override
             protected void setResource(Bitmap resource) {
                 RoundedBitmapDrawable circularBitmapDrawable =

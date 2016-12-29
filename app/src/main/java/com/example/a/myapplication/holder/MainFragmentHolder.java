@@ -49,15 +49,15 @@ public class MainFragmentHolder extends BaseHolder<MainFragmentModel.OBean> {
         mTextView.setText(data.getName());
         Glide.with(UIUtils.getContext()).load(Config.hostImgString + data.getImg())
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .centerCrop()
+                .placeholder(R.drawable.default_main)
                 .crossFade().into(img);
 
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundle=    new Bundle();
-                bundle.putString("name",data.getName());
-                CommonUtils.startIntent(UIUtils.getContext(), RecommendListActivity.class,bundle);
+                Bundle bundle = new Bundle();
+                bundle.putString("name", data.getName());
+                CommonUtils.startIntent(UIUtils.getContext(), RecommendListActivity.class, bundle);
             }
         });
     }

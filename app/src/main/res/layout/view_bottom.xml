@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="50dp"
-    android:background="@color/white" >
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/white">
 
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dp"
-        android:background="@color/bg_transparency" />
+        android:background="@color/bg_transparency"/>
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="49dp"
         android:layout_marginTop="1dp"
         android:divider="@color/bg_transparency"
-        android:showDividers="middle"
         android:dividerPadding="1dp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:showDividers="middle">
 
         <RelativeLayout
             android:id="@+id/b1_layout"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1" >
+            android:layout_weight="1">
 
             <ImageView
                 android:id="@+id/icon1"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="5dp" />
+                android:layout_marginTop="5dp"/>
 
             <TextView
                 android:id="@+id/text1"
@@ -41,7 +41,7 @@
                 android:layout_marginTop="3dp"
                 android:text="专属"
                 android:textColor="@color/white"
-                android:textSize="12sp" />
+                android:textSize="12sp"/>
 
 
         </RelativeLayout>
@@ -51,14 +51,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1" >
+            android:layout_weight="1">
 
             <ImageView
                 android:id="@+id/icon2"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="5dp" />
+                android:layout_marginTop="5dp"/>
 
             <TextView
                 android:id="@+id/text2"
@@ -69,20 +69,21 @@
                 android:layout_marginTop="3dp"
                 android:text="衣橱"
                 android:textColor="@color/white"
-                android:textSize="12sp" />
+                android:textSize="12sp"/>
+
             <TextView
                 android:id="@+id/count2"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="12dp"
-                android:background="@drawable/num_mes"
                 android:layout_marginTop="3dp"
+                android:background="@drawable/num_mes"
                 android:gravity="center"
                 android:text="2"
-                android:visibility="gone"
                 android:textColor="@color/white"
-                android:textSize="10sp" />
+                android:textSize="10sp"
+                android:visibility="gone"/>
         </RelativeLayout>
 
 
@@ -91,14 +92,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1" >
+            android:layout_weight="1">
 
             <ImageView
                 android:id="@+id/icon3"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="5dp" />
+                android:layout_marginTop="5dp"/>
 
             <TextView
                 android:id="@+id/text3"
@@ -107,9 +108,9 @@
                 android:layout_below="@+id/icon3"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="3dp"
-                android:text="设计师"
+                android:text="造型师"
                 android:textColor="@color/white"
-                android:textSize="12sp" />
+                android:textSize="12sp"/>
         </RelativeLayout>
 
         <RelativeLayout
@@ -117,14 +118,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_weight="1" >
+            android:layout_weight="1">
 
             <ImageView
                 android:id="@+id/icon4"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="5dp" />
+                android:layout_marginTop="5dp"/>
 
             <TextView
                 android:id="@+id/text4"
@@ -135,7 +136,7 @@
                 android:layout_marginTop="3dp"
                 android:text="我"
                 android:textColor="@color/white"
-                android:textSize="12sp" />
+                android:textSize="12sp"/>
         </RelativeLayout>
     </LinearLayout>
 

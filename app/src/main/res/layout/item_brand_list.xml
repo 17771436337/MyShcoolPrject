@@ -18,7 +18,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/android"/>
+            android:src="@drawable/default_logo"/>
 
         <TextView
             android:id="@+id/text"

@@ -126,7 +126,6 @@ public class MyProFileActivity extends BaseActivity {
                 Preference.put(Config.NAME, name.getText().toString());
                 Preference.put(Config.SEX, sex.getText().toString());
                 Preference.put(Config.AGE, date.getText().toString());
-
                 finish();
             }
 

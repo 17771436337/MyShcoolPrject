@@ -57,7 +57,7 @@ public class MessageHolder extends BaseHolder<MessageModel.Message> {
                 content.setVisibility(View.VISIBLE);
                 Glide.with(UIUtils.getContext()).load(Config.hostImgString + data.getInfo().getImg())
                         .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                        .centerCrop()
+                        .placeholder(R.drawable.default_img)
                         .crossFade().into(img);
                 content.setText("#" + data.getInfo().getBrand() + "      #" + data.getInfo().getCategory());
                 icon.setImageResource(R.drawable.icon_message_1);
@@ -67,7 +67,7 @@ public class MessageHolder extends BaseHolder<MessageModel.Message> {
                 content.setVisibility(View.VISIBLE);
                 Glide.with(UIUtils.getContext()).load(Config.hostImgString + data.getInfo().getImg())
                         .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                        .centerCrop()
+                        .placeholder(R.drawable.default_img)
                         .crossFade().into(img);
                 content.setText("#" + data.getInfo().getBrand() + "      #" + data.getInfo().getCategory());
                 icon.setImageResource(R.drawable.icon_message_2);
@@ -91,7 +91,7 @@ public class MessageHolder extends BaseHolder<MessageModel.Message> {
                 if (data.getInfo() != null) {
                     Glide.with(UIUtils.getContext()).load(Config.hostImgString + data.getInfo().getImg())
                             .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                            .centerCrop()
+                            .placeholder(R.drawable.default_img)
                             .crossFade().into(img);
                     content.setText("点击查看详情");
                 } else {
@@ -106,7 +106,7 @@ public class MessageHolder extends BaseHolder<MessageModel.Message> {
                 if (data.getInfo() != null) {
                     Glide.with(UIUtils.getContext()).load(Config.hostImgString + data.getInfo().getImg())
                             .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                            .centerCrop()
+                            .placeholder(R.drawable.default_img)
                             .crossFade().into(img);
                     content.setText("点击查看详情");
                 } else {
