@@ -43,6 +43,7 @@
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
             android:textColor="@color/black_text"
+            android:textCursorDrawable="@null"
             android:textSize="14sp"
             />
 
@@ -95,6 +96,7 @@
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
             android:textColor="@color/black_text"
+            android:textCursorDrawable="@null"
             android:textSize="14sp"
             />
     </LinearLayout>
@@ -137,6 +139,7 @@
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
             android:textColor="@color/black_text"
+            android:textCursorDrawable="@null"
             android:textSize="14sp"
             />
     </LinearLayout>
