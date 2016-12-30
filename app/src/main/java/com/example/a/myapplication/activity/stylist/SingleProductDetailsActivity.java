@@ -52,14 +52,6 @@ public class SingleProductDetailsActivity extends BaseActivity {
     ShopDetailsModel mShopDetailsModel;
     @InjectView(R.id.activity_single_product_details_name)
     TextView activitySingleProductDetailsName;
-    @InjectView(R.id.activity_single_product_details_brand)
-    TextView activitySingleProductDetailsBrand;
-    @InjectView(R.id.activity_single_product_details_category)
-    TextView activitySingleProductDetailsCategory;
-    @InjectView(R.id.activity_single_product_details_color)
-    TextView activitySingleProductDetailsColor;
-    @InjectView(R.id.activity_single_product_details_popilar)
-    TextView activitySingleProductDetailsPopilar;
     @InjectView(R.id.activity_single_product_details_idol)
     TextView activitySingleProductDetailsIdol;
     @InjectView(R.id.activity_single_product_details_gwc)
@@ -117,12 +109,11 @@ public class SingleProductDetailsActivity extends BaseActivity {
         if (obj instanceof ShopDetailsModel) {
             mShopDetailsModel = (ShopDetailsModel) obj;
             if (1 == mShopDetailsModel.getC()) {
-                activitySingleProductDetailsName.setText(mShopDetailsModel.getO().getName());
-                activitySingleProductDetailsBrand.setText(mShopDetailsModel.getO().getBrand());
-                activitySingleProductDetailsCategory.setText(mShopDetailsModel.getO().getCategory());
-                activitySingleProductDetailsColor.setText(mShopDetailsModel.getO().getColor());
-                activitySingleProductDetailsPopilar.setText(mShopDetailsModel.getO().getPopular());
-                activitySingleProductDetailsIdol.setText(mShopDetailsModel.getO().getIdol());
+                activitySingleProductDetailsName.setText(mShopDetailsModel.getO().getName()+"   "+
+                        mShopDetailsModel.getO().getBrand()+"   "+
+                        mShopDetailsModel.getO().getCategory()+"   "+
+                        mShopDetailsModel.getO().getColor()+"   "+
+                        mShopDetailsModel.getO().getPopular()  );
                 activitySingleProductDetailsIdol.setText(mShopDetailsModel.getO().getIdol());
                 activitySingleProductDetailsPrice.setText("￥" + mShopDetailsModel.getO().getPrice());
                 imgs = mShopDetailsModel.getO().getImgs();
@@ -167,7 +158,7 @@ public class SingleProductDetailsActivity extends BaseActivity {
                         popReduce = (TextView) view.findViewById(R.id.pop_reduce);//减数量
                         dialogShopNum = (TextView) view.findViewById(R.id.dialog_shop_num);//数量
                         final String num=dialogShopNum.getText().toString().trim();
-                         intNum=Integer.parseInt(num);
+                        intNum=Integer.parseInt(num);
                         popAdd = (TextView) view.findViewById(R.id.pop_add);//加数量
                         dialogShopDelete = (ImageView) view.findViewById(R.id.dialog_shop_delete);//关闭
                         dialogShopBut = (TextView) view.findViewById(R.id.dialog_shop_but);//确定
@@ -196,14 +187,14 @@ public class SingleProductDetailsActivity extends BaseActivity {
                             @Override
                             public void onClick(View view) {
                                 intNum= intNum-1;
-                                    dialogShopNum.setText(intNum>=0?String.valueOf(intNum):"0");
+                                dialogShopNum.setText(intNum>=0?String.valueOf(intNum):"0");
                             }
                         });
                         popAdd.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 intNum= intNum+1;
-                                    dialogShopNum.setText((intNum)>=0?String.valueOf(intNum):"0");
+                                dialogShopNum.setText((intNum)>=0?String.valueOf(intNum):"0");
                             }
                         });
                         dialogShopDelete.setOnClickListener(new View.OnClickListener() {
@@ -268,7 +259,7 @@ public class SingleProductDetailsActivity extends BaseActivity {
         OkHttpUtil.getInstance().addRequestPost(Config.addCart, parm, new OkHttpUtil.HttpCallBack<BaseModel>() {
             @Override
             public void onSuccss(BaseModel baseModel) {
-                    EventBus.getDefault().post(baseModel.getM());
+                EventBus.getDefault().post(baseModel.getM());
             }
 
             @Override
@@ -304,15 +295,14 @@ public class SingleProductDetailsActivity extends BaseActivity {
     public void init() {
         activity_single_product_details_tv1.setText(getString(R.string.icon_gwc));
         initIconFont(activity_single_product_details_tv1);
-        activity_single_product_details_tv2.setText(getString(R.string.icon_sc));
+        activity_single_product_details_tv2.setText(getString(R.string.icon_sc2));
         initIconFont(activity_single_product_details_tv2);
-        activity_single_product_details_tv3.setText(getString(R.string.icon_fx));
+        activity_single_product_details_tv3.setText(getString(R.string.icon_fx2));
         initIconFont(activity_single_product_details_tv3);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.inject(this);

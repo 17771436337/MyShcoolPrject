@@ -113,7 +113,8 @@ public class ShopActivity extends BaseActivity implements ContentHolder.IsChecke
                         model.getO().get(i).getShops().get(j).setIs(checkBox.isChecked());
                         if (checkBox.isChecked()) {
                             num = Double.parseDouble(model.getO().get(i).getShops().get(j).getPrice());
-                            pricer += num;
+                            int sum = Integer.parseInt(model.getO().get(i).getShops().get(j).getSum());
+                            pricer += (num * sum);
                             id += model.getO().get(i).getShops().get(j).getId() + ",";
                         }
                     }
@@ -170,7 +171,8 @@ public class ShopActivity extends BaseActivity implements ContentHolder.IsChecke
             for (int j = 0; j < model.getO().get(i).getShops().size(); j++) {
                 if (model.getO().get(i).getShops().get(j).is()) {
                     num = Double.parseDouble(model.getO().get(i).getShops().get(j).getPrice());
-                    pricer += num;
+                    int sum = Integer.parseInt(model.getO().get(i).getShops().get(j).getSum());
+                    pricer += (num * sum);
                     id += model.getO().get(i).getShops().get(j).getId() + ",";
                 } else {
                     checkBox.setChecked(false);
@@ -190,7 +192,8 @@ public class ShopActivity extends BaseActivity implements ContentHolder.IsChecke
             for (int j = 0; j < model.getO().get(i).getShops().size(); j++) {
                 if (model.getO().get(i).getShops().get(j).is()) {
                     num = Double.parseDouble(model.getO().get(i).getShops().get(j).getPrice());
-                    pricer += num;
+                    int sum = Integer.parseInt(model.getO().get(i).getShops().get(j).getSum());
+                    pricer += (num * sum);
                     id += model.getO().get(i).getShops().get(j).getId() + ",";
                 } else {
                     checkBox.setChecked(false);

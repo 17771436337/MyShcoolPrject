@@ -8,8 +8,13 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="45dp">
-        >
 
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/r1"
+            android:background="@color/bg_transparency"/>
 
         <TextView
             android:id="@+id/title_text"
@@ -40,6 +45,11 @@
             android:src="@drawable/icon_message"/>
     </RelativeLayout>
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/title_layout"
+        android:background="@color/bg_transparency"/>
 
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         xmlns:ptr="http://schemas.android.com/apk/res-auto"

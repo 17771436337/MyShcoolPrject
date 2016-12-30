@@ -9,9 +9,8 @@
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:background="#90EEEEEE"
-        android:layout_height="75dp">
-
+        android:background="#99EEEEEE"
+        android:layout_height="50dp">
         <TextView
             android:id="@+id/activity_product_title_message_tv1"
             android:layout_width="wrap_content"
@@ -28,8 +27,9 @@
             android:layout_centerInParent="true"
             android:orientation="horizontal">
             <com.example.a.myapplication.view.RoundImageView
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+                android:id="@+id/fragment_product_title_message_two_riv"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/icon_mycollect"/>
             <LinearLayout
@@ -38,16 +38,18 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <TextView
+                    android:id="@+id/fragment_product_title_message_two_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/black"
-                    android:textSize="19dp"
+                    android:textSize="15dp"
                     android:text="啊木木"/>
                 <TextView
+                    android:id="@+id/fragment_product_title_message_two_con"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#676767"
-                    android:textSize="15dp"
+                    android:textSize="12dp"
                     android:text="【推荐的商品】"/>
             </LinearLayout>
         </LinearLayout>
@@ -70,12 +72,10 @@
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         android:id="@+id/fragment_product_title_message_two_pull_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:divider="@color/listview_divider"
-        android:background="#90EEEEEE"
+        android:background="#EEEEEE"
         android:scrollbars="none"
         ptr:ptrHeaderTextColor="@color/color_refresh"
         />
-
-
 </LinearLayout>

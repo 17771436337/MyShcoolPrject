@@ -3,6 +3,7 @@ package com.example.a.myapplication.holder;
 import android.graphics.Bitmap;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -41,15 +42,24 @@ public class ScreenBrandHolder extends BaseHolder<ScreenBrandModel.Brand> {
 
     @Override
     protected void refreshUI(ScreenBrandModel.Brand data) {
-        Glide.with(UIUtils.getContext()).load(Config.hostImgString + data.getLogo()).asBitmap().centerCrop().into(new BitmapImageViewTarget(icon) {
-            @Override
-            protected void setResource(Bitmap resource) {
-                RoundedBitmapDrawable circularBitmapDrawable =
-                        RoundedBitmapDrawableFactory.create(UIUtils.getContext().getResources(), resource);
-                circularBitmapDrawable.setCircular(true);
-                icon.setImageDrawable(circularBitmapDrawable);
-            }
-        });
+
+        if (TextUtils.isEmpty(data.getLogo())) {
+            icon.setImageResource(R.drawable.default_head);
+        } else {
+
+
+            Glide.with(UIUtils.getContext()).load(Config.hostImgString + data.getLogo()).asBitmap().centerCrop().into(new BitmapImageViewTarget(icon) {
+                @Override
+                protected void setResource(Bitmap resource) {
+                    RoundedBitmapDrawable circularBitmapDrawable =
+                            RoundedBitmapDrawableFactory.create(UIUtils.getContext().getResources(), resource);
+                    circularBitmapDrawable.setCircular(true);
+                    icon.setImageDrawable(circularBitmapDrawable);
+                }
+            });
+
+        }
+
 
         text.setText(data.getName());
         if (data.is()) {

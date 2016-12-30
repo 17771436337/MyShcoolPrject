@@ -27,6 +27,7 @@
             android:id="@+id/img"
             android:layout_width="124dp"
             android:layout_height="124dp"
+            android:background="@drawable/black_border"
             android:scaleType="fitXY"
             android:src="@drawable/default_img"
             />
@@ -97,7 +98,7 @@
                     android:layout_marginLeft="10dp"
                     android:text="￥150.00"
                     android:textColor="@color/black_transparency_text"
-                    android:textSize="14sp"/>
+                    android:textSize="12sp"/>
 
                 <TextView
                     android:id="@+id/sum"

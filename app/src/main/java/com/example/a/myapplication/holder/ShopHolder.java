@@ -92,7 +92,9 @@ public class ShopHolder extends BaseHolder<ShopModel.Shop> {
         ArrayList<Boolean> booleen = new ArrayList<>();
         for (int i = 0; i < data.getShops().size(); i++) {
             if (data.getShops().get(i).is()) {
-                price += Double.parseDouble(data.getShops().get(i).getPrice());
+                double num = Double.parseDouble(data.getShops().get(i).getPrice());
+                int sum = Integer.parseInt(data.getShops().get(i).getSum());
+                price += (num * sum);
                 booleen.add(data.getShops().get(i).is());
             }
         }

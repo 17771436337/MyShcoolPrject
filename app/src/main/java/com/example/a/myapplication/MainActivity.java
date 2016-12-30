@@ -102,7 +102,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             this.setCurrentFragment(findCatchFragment, findFragment, "tab2");
 
         } else if (currentPostion == 2) {
-            this.setCurrentFragment(tradeCatchFragment, tradeFragment, "tab4");
+            this.setCurrentFragment(findCatchFragment, findFragment, "tab2");
+//            this.setCurrentFragment(tradeCatchFragment, tradeFragment, "tab4");
 
         } else if (currentPostion == 3) {
 

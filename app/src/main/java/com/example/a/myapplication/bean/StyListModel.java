@@ -42,6 +42,7 @@ public class StyListModel extends BaseModel {
          */
 
         private String id;
+        private String itemid;
         private String img;
         private String collection;
         private String head;
@@ -85,6 +86,14 @@ public class StyListModel extends BaseModel {
 
         public void setName(String name) {
             this.name = name;
+        }
+
+        public String getItemid() {
+            return itemid;
+        }
+
+        public void setItemid(String itemid) {
+            this.itemid = itemid;
         }
     }
 }

@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -58,16 +59,21 @@ public class MyFansHolder extends BaseHolder<FansModel.MyFans> {
 
         this.data = data;
 
-        Glide.with(UIUtils.getContext()).load(Config.hostImgString + data.getFhead()).asBitmap().centerCrop().into(new BitmapImageViewTarget(head) {
-            @Override
-            protected void setResource(Bitmap resource) {
-                RoundedBitmapDrawable circularBitmapDrawable =
-                        RoundedBitmapDrawableFactory.create(UIUtils.getResources(), resource);
-                circularBitmapDrawable.setCircular(true);
-                head.setImageDrawable(circularBitmapDrawable);
-            }
-        });
 
+        if (TextUtils.isEmpty(data.getFhead())) {
+            head.setImageResource(R.drawable.default_head);
+        } else {
+            Glide.with(UIUtils.getContext()).load(Config.hostImgString + data.getFhead()).asBitmap().centerCrop().into(new BitmapImageViewTarget(head) {
+                @Override
+                protected void setResource(Bitmap resource) {
+                    RoundedBitmapDrawable circularBitmapDrawable =
+                            RoundedBitmapDrawableFactory.create(UIUtils.getResources(), resource);
+                    circularBitmapDrawable.setCircular(true);
+
+                    head.setImageDrawable(circularBitmapDrawable);
+                }
+            });
+        }
         nameText.setText(data.getFname());
         if (data.getIs_focus().equals("0")) {//未关注   /
             yes.setVisibility(View.GONE);

@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.a.myapplication.R;
 import com.example.a.myapplication.adapter.MyFragmentPagerAdapter;
+import com.example.a.myapplication.util.Config;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
@@ -45,7 +47,7 @@ public class FindFragment extends Fragment {
     private void initTitleView() {
         title_text.setText("设计师");
         message_icon.setImageResource(R.drawable.icon_screen);
-        MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getActivity().getSupportFragmentManager(),getActivity(),titles);
+        MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getActivity().getSupportFragmentManager(),getActivity(),titles, Config.QITTMELIST,"");
         fragment_find_vp.setAdapter(adapter);
         fragment_find_tal.setupWithViewPager(fragment_find_vp);
     }

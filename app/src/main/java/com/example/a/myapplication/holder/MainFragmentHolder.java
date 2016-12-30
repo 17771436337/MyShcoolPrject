@@ -57,6 +57,7 @@ public class MainFragmentHolder extends BaseHolder<MainFragmentModel.OBean> {
             public void onClick(View view) {
                 Bundle bundle = new Bundle();
                 bundle.putString("name", data.getName());
+                bundle.putString("id", data.getId());
                 CommonUtils.startIntent(UIUtils.getContext(), RecommendListActivity.class, bundle);
             }
         });

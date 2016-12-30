@@ -9,6 +9,12 @@
         layout="@layout/view_main_title"
         />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/title_layout"
+        android:background="@color/bg_transparency"/>
+
     <ImageView
 
         android:layout_width="wrap_content"

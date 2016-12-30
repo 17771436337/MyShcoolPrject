@@ -79,7 +79,7 @@ public class TwitterRefreshHeaderView extends SwipeRefreshHeaderLayout {
             progressBar.setVisibility(GONE);
             ivSuccess.setVisibility(GONE);
             if (y > mHeaderHeight) {
-                tvRefresh.setText("你慧理财 财汇理你");
+                tvRefresh.setText("正在刷新中...");
                 if (!rotated) {
                     ivArrow.clearAnimation();
                     ivArrow.startAnimation(rotateUp);

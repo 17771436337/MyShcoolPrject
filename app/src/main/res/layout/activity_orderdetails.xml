@@ -28,6 +28,8 @@
         android:layout_height="wrap_content"
         android:layout_above="@id/yes"
         android:layout_below="@id/title_layout"
+        android:layout_marginBottom="10dp"
+        android:background="@color/white"
         android:scrollbars="none">
 
         <RelativeLayout
@@ -49,7 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="10dp"
                 android:layout_below="@+id/listView"
-                android:background="@color/bg_transparency"/>
+                android:background="@color/bg_fans"/>
 
             <com.example.a.myapplication.lib.CustomExpandableListView
                 android:id="@+id/ExpandableListView"
@@ -152,6 +154,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/r2"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal"
                     android:paddingLeft="10dp"
                     android:paddingRight="15dp"

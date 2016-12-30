@@ -28,13 +28,14 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#E7E7E7"/>
+        android:background="#E7E7E7"
+        />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/fragment_find_vp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/fragment_find_tal"
-        android:layout_marginTop="10dp"
+
         android:background="@color/white"/>
 </RelativeLayout>

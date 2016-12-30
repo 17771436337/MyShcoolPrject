@@ -2,18 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
+              android:background="@color/white"
               android:orientation="vertical">
+
     <RelativeLayout
         android:id="@+id/title_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"></RelativeLayout>
+
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         xmlns:ptr="http://schemas.android.com/apk/res-auto"
         android:id="@+id/pull_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@color/bg_transparency"
-        android:dividerHeight="1dp"
+        android:dividerHeight="0dp"
         android:scrollbars="none"
         ptr:ptrHeaderTextColor="@color/color_refresh"
         />

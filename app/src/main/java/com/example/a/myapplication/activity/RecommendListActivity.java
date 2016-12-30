@@ -18,6 +18,9 @@ import com.example.a.myapplication.adapter.MyRecyclerCommonAdapter;
 import com.example.a.myapplication.bean.RecommendModel;
 import com.example.a.myapplication.fragment.StylistFragment;
 import com.example.a.myapplication.util.CommonUtils;
+import com.example.a.myapplication.util.Config;
+
+import java.util.Map;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -45,38 +48,56 @@ public class RecommendListActivity extends BaseActivity implements SwipeRefreshL
     private MyRecyclerCommonAdapter<RecommendModel.GankEntity> adapter;
     private int startIndex = 2;   //下标
     private int screenWidth;
+    public String id;
     private String[] titles = new String[]{"求单品"};
-
     @Override
     protected int getLayoutID() {
         return R.layout.activity_recommend;
     }
-
     @Override
     protected void initView() {
         initTitleView();
     }
-
+    String url= Config.getExclusiveItems;
     private void initTitleView() {
         titleText.setText(getIntent().getExtras().getString("name"));
         right.setImageResource(R.drawable.icon_screen);
-        MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), this, titles);
+        id=getIntent().getStringExtra("id");
+        MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), this,titles, url,id);
         activityRecommendVp.setAdapter(adapter);
         activityRecommendTal.setupWithViewPager(activityRecommendVp);
         right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CommonUtils.startIntent(RecommendListActivity.this, ScreenActivity.class, 1000);
+                CommonUtils.startIntent(RecommendListActivity.this, ScreenActivity.class,1000);
             }
         });
-    }
 
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1000) {
-
-            // ((StylistFragment)getFragmentManager().getBackStackEntryAt(0)).onDataChagne();
+        if(requestCode==1000){
+            Map<String,String> parm=CommonUtils.getMapParm();
+            if(null==data){
+                return;
+            }
+            if(null!=data.getStringExtra("brand")){
+                parm.put("brands",data.getStringExtra("brand"));
+            }
+            if(null!=data.getStringExtra("categorys")){
+                parm.put("categorys",data.getStringExtra("categorys"));
+            }
+            if(null!=data.getStringExtra("colors")){
+                parm.put("colors",data.getStringExtra("colors"));
+            }
+            if(null!=data.getStringExtra("populars")){
+                parm.put("populars",data.getStringExtra("populars"));
+            }
+            if(null!=data.getStringExtra("idols")){
+                parm.put("idols",data.getStringExtra("idols"));
+            }
+            StylistFragment.mCurrentFragment.onDataChagne(parm);
         }
     }
 
@@ -91,10 +112,5 @@ public class RecommendListActivity extends BaseActivity implements SwipeRefreshL
 
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.inject(this);
-    }
+
 }

@@ -133,7 +133,7 @@ public abstract class BaseFragment extends Fragment {
     }
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND)
-    public void onEventBackgroundThread(Object obj) {
+    public void onEventBackgroundThread(Object obj) throws Exception {
         //接收消息-后台线程
     }
 

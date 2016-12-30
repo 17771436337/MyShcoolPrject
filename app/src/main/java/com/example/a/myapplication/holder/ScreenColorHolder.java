@@ -41,6 +41,7 @@ public class ScreenColorHolder extends BaseHolder<ScreenColorModel.OBean> {
 
     @Override
     protected void refreshUI(ScreenColorModel.OBean data) {
+
         Glide.with(UIUtils.getContext()).load(Config.hostImgString + data.getImg()).asBitmap().centerCrop().into(new BitmapImageViewTarget(icon) {
             @Override
             protected void setResource(Bitmap resource) {

@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +22,7 @@ import com.example.a.myapplication.http.OkHttpUtil;
 import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
 import com.example.a.myapplication.util.Download;
+import com.example.a.myapplication.util.PopupUtil;
 import com.example.a.myapplication.util.Preference;
 import com.example.a.myapplication.view.TitleView1;
 
@@ -99,25 +101,7 @@ public class QRPayActivity extends BaseActivity {
         switch (v.getId()) {
             case R.id.qr_img:
 
-                final String path = Environment.getExternalStorageDirectory()
-                        + File.separator + "ysb/img/";
-                Bitmap bitmap = img.getDrawingCache();
-
-
-                new Download(Config.QR_IMG, path, "pai.jpg").doDownLoad(new Download.BaseCallListener() {
-                    @Override
-                    public void onSuccess(String pResponse) {
-                        EventBus.getDefault().post(path);
-//
-                    }
-
-                    @Override
-                    public void onFail(String pResponse) {
-//
-                        EventBus.getDefault().post("onFail");
-                    }
-                });
-
+                dialog();
                 break;
         }
         // return true;        // Click事件被onLongClick处理掉
@@ -157,15 +141,6 @@ public class QRPayActivity extends BaseActivity {
         }
 
 
-//        if (obj instanceof BaseModel) {//确定按钮
-//            BaseModel baseModel = (BaseModel) obj;
-//            if (baseModel.getC() == 1) {
-//
-//            } else {
-//                Toast.makeText(this, baseModel.getM() + "", Toast.LENGTH_SHORT).show();
-//            }
-//        }
-
         if (obj instanceof OrderLastFour) { //获取订单后四位
             OrderLastFour orderLastFour = (OrderLastFour) obj;
             if (orderLastFour.getC() == 1) {
@@ -191,13 +166,65 @@ public class QRPayActivity extends BaseActivity {
 
     }
 
+    /**
+     * 确定弹框
+     */
+
+    private void dialog() {
+
+        PopupUtil.showInCenter(this, R.layout.dialog_qr, new PopupUtil.ShowListener() {
+            @Override
+            public void onShow(View view, final PopupWindow popupWindow) {
+                TextView no = (TextView) view.findViewById(R.id.no);
+                TextView yes = (TextView) view.findViewById(R.id.yes);
+
+                no.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        popupWindow.dismiss();
+                    }
+                });
+
+                yes.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final String path = Environment.getExternalStorageDirectory()
+                                + File.separator + "ysb/img/";
+                        Bitmap bitmap = img.getDrawingCache();
+
+
+                        new Download(Config.QR_IMG, path, "pai.jpg").doDownLoad(new Download.BaseCallListener() {
+                            @Override
+                            public void onSuccess(String pResponse) {
+                                EventBus.getDefault().post(path);
+
+//
+                            }
+
+                            @Override
+                            public void onFail(String pResponse) {
+//
+                                EventBus.getDefault().post("onFail");
+
+                            }
+
+
+                        });
+
+                        popupWindow.dismiss();
+                    }
+                });
+            }
+        });
+    }
+
 
     /**
      * 获取订单后四位
      */
     public void getOrderLastFour() {
         Map<String, String> par = CommonUtils.getMapParm();
-        par.put("uid", Preference.get(Config.ID,""));
+        par.put("uid", Preference.get(Config.ID, ""));
         par.put("oid", oid);
         OkHttpUtil.getInstance().addRequestPost(Config.getOrderLastFour, par, new OkHttpUtil.HttpCallBack<OrderLastFour>() {
 
@@ -228,7 +255,7 @@ public class QRPayActivity extends BaseActivity {
         }
 
         Map<String, String> par = new HashMap<String, String>();
-        par.put("uid", "2");
+        par.put("uid", Preference.get(Config.ID, ""));
         par.put("order", order);
         par.put("paynum", paynum);
         OkHttpUtil.getInstance().addRequestPost(Config.addPayLog, par, new OkHttpUtil.HttpCallBack<BaseModel>() {
@@ -254,7 +281,7 @@ public class QRPayActivity extends BaseActivity {
      */
     private void pay() {
         Map<String, String> par = CommonUtils.getMapParm();
-        par.put("uid", "2");
+        par.put("uid", Preference.get(Config.ID, ""));
         par.put("oid", oid);
         par.put("pay", pay);
         par.put("aid", aid);

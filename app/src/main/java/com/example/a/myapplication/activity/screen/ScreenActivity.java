@@ -70,11 +70,11 @@ public class ScreenActivity extends BaseActivity {
     protected TextView styleText;
 
 
-    private String brands;//品牌id /
-    private String categorys;//品类id   /
-    private String colors;//颜色id  /
-    private String populars;//流行id/
-    private String idols;//风格偶像id  /
+    private String brands = "";//品牌id /
+    private String categorys = "";//品类id   /
+    private String colors = "";//颜色id  /
+    private String populars = "";//流行id/
+    private String idols = "";//风格偶像id  /
 
     @Override
     protected int getLayoutID() {
@@ -90,7 +90,6 @@ public class ScreenActivity extends BaseActivity {
     protected void initData() {
 
     }
-
 
     /**
      * 标题初始化
@@ -108,7 +107,7 @@ public class ScreenActivity extends BaseActivity {
                 intent.putExtra("colors", colors);
                 intent.putExtra("populars", populars);
                 intent.putExtra("idols", idols);
-                setResult(0x0001, intent);
+                setResult(1000, intent);
                 finish();
             }
         });
@@ -154,7 +153,10 @@ public class ScreenActivity extends BaseActivity {
                     for (int i = 0; i < towMode.getO().size(); i++) {
                         string = string + towMode.getO().get(i).getName() + ",";
                         categorys = categorys + towMode.getO().get(i).getId() + ",";
+//                        string=  categorys.substring(0,string.length()-1);
                     }
+                    categorys = categorys.substring(0, categorys.length() - 1);
+                    string = string.substring(0, string.length() - 1);
                     categoryText.setText(string);
                 } else {
                     categoryText.setVisibility(View.GONE);
@@ -172,8 +174,10 @@ public class ScreenActivity extends BaseActivity {
                     for (int i = 0; i < towMode.getO().size(); i++) {
                         string = string + towMode.getO().get(i).getName() + ",";
                         populars = populars + towMode.getO().get(i).getId() + ",";
-
+//                        populars=  populars.substring(0,populars.length()-1);
                     }
+                    populars = populars.substring(0, populars.length() - 1);
+                    string = string.substring(0, string.length() - 1);
                     fashionText.setText(string);
                 } else {
                     fashionIcon.setVisibility(View.VISIBLE);
@@ -192,7 +196,10 @@ public class ScreenActivity extends BaseActivity {
                     for (int i = 0; i < towMode.getO().size(); i++) {
                         string = string + towMode.getO().get(i).getName() + ",";
                         colors = colors + towMode.getO().get(i).getId() + ",";
+//                        string=  brands.substring(0,string.length()-1);
                     }
+                    colors = colors.substring(0, colors.length() - 1);
+                    string = string.substring(0, string.length() - 1);
                     colorText.setText(string);
                 } else {
                     colorIcon.setVisibility(View.VISIBLE);
@@ -210,7 +217,10 @@ public class ScreenActivity extends BaseActivity {
                     for (int i = 0; i < towMode.getO().size(); i++) {
                         string = string + towMode.getO().get(i).getName() + ",";
                         brands = brands + towMode.getO().get(i).getId() + ",";
+
                     }
+                    brands = brands.substring(0, brands.length() - 1);
+                    string = string.substring(0, string.length() - 1);
                     brandText.setText(string);
                 } else {
                     brandIcon.setVisibility(View.VISIBLE);
@@ -228,6 +238,7 @@ public class ScreenActivity extends BaseActivity {
                     for (int i = 0; i < towMode.getO().size(); i++) {
                         string = string + towMode.getO().get(i).getName() + ",";
                         idols = idols + towMode.getO().get(i).getId() + ",";
+                        idols = idols.substring(0, idols.length() - 1);
                     }
                     styleText.setText(string);
                 } else {
@@ -236,8 +247,6 @@ public class ScreenActivity extends BaseActivity {
                 }
 
             }
-
-
         }
 
     }

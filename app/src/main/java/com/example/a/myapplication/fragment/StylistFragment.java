@@ -1,5 +1,6 @@
 package com.example.a.myapplication.fragment;
 
+import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -17,6 +18,7 @@ import com.example.a.myapplication.bean.StyListModel;
 import com.example.a.myapplication.http.OkHttpUtil;
 import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
+import com.example.a.myapplication.util.OnDataChangeListener;
 import com.example.a.myapplication.view.LoadingPager;
 import com.google.gson.Gson;
 
@@ -30,7 +32,7 @@ import butterknife.InjectView;
 /**
  * 造型师下Viewpage下
  */
-public class StylistFragment  extends BaseFragment  {
+public class StylistFragment  extends BaseFragment  implements OnDataChangeListener {
     @InjectView(R.id.swipe_target)
     protected RecyclerView fragment_stylist_rv;
     @InjectView(R.id.swipeToLoadLayout)
@@ -41,9 +43,15 @@ public class StylistFragment  extends BaseFragment  {
     private int mPage;
     StylistAdapter adapter;
     StyListModel styListModel;
-    public static StylistFragment newInstance(int page) {
+    public static StylistFragment mCurrentFragment;
+    public boolean isChangeData;
+    public String id;
+    String mUrl;
+    public static StylistFragment newInstance(int page,String url,String id) {
         Bundle args = new Bundle();
         args.putInt(ARGS_PAGE, page);
+        args.putString("URL", url);
+        args.putString("id", id);
         StylistFragment fragment = new StylistFragment();
         fragment.setArguments(args);
         return fragment;
@@ -52,6 +60,8 @@ public class StylistFragment  extends BaseFragment  {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mPage = getArguments().getInt(ARGS_PAGE);
+        mUrl = getArguments().getString("URL");
+        id = getArguments().getString("id");
     }
 
     @Override
@@ -63,6 +73,13 @@ public class StylistFragment  extends BaseFragment  {
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        mCurrentFragment=this;
+    }
+
+
+    @Override
     protected LoadingPager.LoadedResult onLoadingData() {
         return initData();
     }
@@ -70,7 +87,7 @@ public class StylistFragment  extends BaseFragment  {
     public void init() {
         fragment_stylist_rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         //设置adapter
-        adapter = new StylistAdapter();
+        adapter = new StylistAdapter(Config.QITTMELIST);
         fragment_stylist_rv.setAdapter(adapter);
         //设置item之间的间隔
         SpacesItemDecoration decoration = new SpacesItemDecoration(500);
@@ -90,11 +107,15 @@ public class StylistFragment  extends BaseFragment  {
             }
         });
 
-
     }
     public LoadingPager.LoadedResult initData() {
         try{
-            initDate();
+            Map<String, String> parm = CommonUtils.getMapParm();
+            if(null!=id&&!"".equals(id)){
+                parm.put("id",id);
+            }
+            parm.put("pagination", String.valueOf(page));
+            initDate(parm);
             if(null==styListModel.getO()||styListModel.getO().size()==0){
                 return LoadingPager.LoadedResult.EMPTY;
             }
@@ -103,21 +124,28 @@ public class StylistFragment  extends BaseFragment  {
             return LoadingPager.LoadedResult.ERROR;
         }
     }
+    public Map<String, String> parm;
+    public StyListModel initDate(Map<String,String> parm) throws Exception{
 
-    public StyListModel initDate() throws Exception{
-        Map<String, String> parm = CommonUtils.getMapParm();
-        parm.put("pagination", String.valueOf(page));
-        String result=OkHttpUtil.getInstance().addRequestNoCallPost(Config.QITTMELIST, parm);
+        String result=OkHttpUtil.getInstance().addRequestNoCallPost(mUrl, parm);
         styListModel= new Gson().fromJson(result, StyListModel.class);
-        if(page==1){
+        if(page==1&&mUrl.equals(Config.QITTMELIST)){
             StyListModel.OBean oBean=   new StyListModel.OBean();
             oBean.setImg(Config.NATIVE);
             styListModel.getO().add(0,oBean);
         }
+        if(isChangeData){
+            EventBus.getDefault().post("isGetData");
+        }
         return  styListModel;
 
     }
-
+    @Override
+    public void onDataChagne(Map<String, String> parm) {
+        this.parm=parm;
+        this.isChangeData=true;
+        EventBus.getDefault().post("onDataChagne");
+    }
     public void notifyData(){
 
         adapter.getDateList().addAll(styListModel.getO());
@@ -136,6 +164,23 @@ public class StylistFragment  extends BaseFragment  {
             page++;
             //notifyData();
             fragment_stylist_sl.setLoadingMore(false);
+        }
+        if("isGetData".equals(obj.toString())){
+            adapter.getDateList().clear();
+            if(null!=styListModel.getO()){
+                adapter.getDateList().addAll(styListModel.getO());
+            }
+            adapter.notifyDataSetChanged();
+            isChangeData=false;
+        }
+
+    }
+
+    @Override
+    public void onEventBackgroundThread(Object obj) throws Exception {
+        super.onEventBackgroundThread(obj);
+        if("onDataChagne".equals(obj.toString())){
+            initDate(parm);
         }
     }
 

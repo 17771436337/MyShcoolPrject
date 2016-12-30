@@ -1,8 +1,9 @@
 package com.example.a.myapplication.fragment;
 
 import android.os.Bundle;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
@@ -13,10 +14,11 @@ import com.example.a.myapplication.activity.stylist.SingleProductDetailsActivity
 import com.example.a.myapplication.adapter.ProductTitleMessageTwoAdapter;
 import com.example.a.myapplication.bean.ProductTitleMessageModel;
 import com.example.a.myapplication.util.CommonUtils;
-import com.example.a.myapplication.util.UIUtils;
 import com.example.a.myapplication.view.LoadingPager;
+import com.example.a.myapplication.view.RoundImageView;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -36,6 +38,13 @@ public class ProductTitleMessageTwoFragment extends BaseFragment {
     TextView activityProductTitleMessageTv2;
 
     ProductTitleMessageTwoAdapter adapter;
+    @InjectView(R.id.fragment_product_title_message_two_riv)
+    RoundImageView fragmentProductTitleMessageTwoRiv;
+    @InjectView(R.id.fragment_product_title_message_two_name)
+    TextView fragmentProductTitleMessageTwoName;
+    @InjectView(R.id.fragment_product_title_message_two_con)
+    TextView fragmentProductTitleMessageTwoCon;
+
     public static ProductTitleMessageTwoFragment newInstance(ProductTitleMessageModel.OBean oBean) {
         Bundle args = new Bundle();
         ProductTitleMessageTwoFragment fragment = new ProductTitleMessageTwoFragment();
@@ -61,13 +70,17 @@ public class ProductTitleMessageTwoFragment extends BaseFragment {
         fragmentProductTitleMessageTwoPullLayout.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Bundle bundle=   new Bundle();
-                bundle.putString("sid",oBean.getDetails().get(i-1).getId());
-                CommonUtils.startIntent(BaseApplication.mCurrentActivity, SingleProductDetailsActivity.class,bundle);
+                Bundle bundle = new Bundle();
+                bundle.putString("sid", oBean.getDetails().get(i - 1).getId());
+                CommonUtils.startIntent(BaseApplication.mCurrentActivity, SingleProductDetailsActivity.class, bundle);
             }
         });
+
+        ImageLoader.getInstance().displayImage(oBean.getHead(),fragmentProductTitleMessageTwoRiv);
+        fragmentProductTitleMessageTwoName.setText(oBean.getName());
         return view;
     }
+
     @Override
     protected LoadingPager.LoadedResult onLoadingData() {
 
@@ -80,16 +93,19 @@ public class ProductTitleMessageTwoFragment extends BaseFragment {
             return LoadingPager.LoadedResult.ERROR;
         }
     }
-    public void initIcon(){
+
+    public void initIcon() {
         activityProductTitleMessageTv1.setText(getResources().getString(R.string.icon_syy));
         activityProductTitleMessageTv2.setText(getResources().getString(R.string.icon_xyy));
 
         initIconFont(activityProductTitleMessageTv1);
         initIconFont(activityProductTitleMessageTv2);
     }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         ButterKnife.reset(this);
     }
+
 }

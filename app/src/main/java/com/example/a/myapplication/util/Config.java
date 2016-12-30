@@ -15,7 +15,7 @@ public class Config {
      */
     public final static String hostImgString = "http://115.28.94.239/wardrobe/code/wardrode/";//图片地址前缀
 
-    public final static String NATIVE = hostString + "Public/Uploads/images/icon_up_img.png";//固定图片地址
+    public final static String NATIVE = hostString + "wardrobe/code/wardrode/Public/Uploads/images/icon_up_img.png";//固定图片地址
 
     /**
      * 支付宝二维码图片地址
@@ -136,6 +136,11 @@ public class Config {
 
 
     /**
+     * 求单品详情-查看解答	http://115.28.94.239/wardrobe/code/wardrode/index.php?s=/App/Item/answerList
+     */
+    public final static String ANSWERLIST = hostString + "App/Item/answerList";
+
+    /**
      * 获取一品类列表
      */
     public final static String getFirstCategory = hostString + "App/Category/getFirstCategory";
@@ -169,7 +174,6 @@ public class Config {
      * 消息列表
      */
     public final static String messageList = hostString + "App/Message/messageList";
-
     //---------------------------------------------------------------------
 
 
@@ -229,10 +233,6 @@ public class Config {
      */
     public final static String StylistDe = hostString + "App/Item/itemDetails";
     /**
-     * 求单品详情-查看解答	http://115.28.94.239/wardrobe/code/wardrode/index.php?s=/App/Item/answerList
-     */
-    public final static String ANSWERLIST = hostString + "App/Item/answerList";
-    /**
      * 评论列表	http://115.28.94.239/wardrobe/code/wardrode/index.php?s=/App/Item/commentList
      */
     public final static String COMMENTLIST = hostString + "App/Item/commentList";
@@ -275,6 +275,10 @@ public class Config {
      * 商品详情-加入购物车
      */
     public static final String addCart = Config.hostString + "App/Order/addCart";
+    /**
+     * 专属分类点击下级页面
+     */
+    public static final String getExclusiveItems = Config.hostString + "App/Exclusive/getExclusiveItems";
 
 
 }

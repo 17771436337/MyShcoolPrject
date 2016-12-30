@@ -37,5 +37,7 @@
 
     <string name="icon_syy">&#xe630;</string>
     <string name="icon_xyy">&#xe603;</string>
+    <string name="icon_sc2">&#xe6e2;</string>
+    <string name="icon_fx2">&#xe609;</string>
 
 </resources>

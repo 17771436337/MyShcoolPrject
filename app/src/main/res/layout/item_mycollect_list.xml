@@ -10,9 +10,9 @@
     <ImageView
         android:id="@+id/img"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:scaleType="fitXY"
-        android:src="@drawable/detail_show_1"
+        android:src="@drawable/default_img"
         />
 
     <RelativeLayout
