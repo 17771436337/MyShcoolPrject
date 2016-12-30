@@ -33,13 +33,16 @@
         >
         <activity android:name=".MainActivity"></activity>
 
-        <!-- 登录 -->
-        <activity android:name=".activity.app.LoginActivity">
+        <activity android:name=".activity.app.WelcomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <!-- 登录 -->
+        <activity android:name=".activity.app.LoginActivity">
+
         </activity>
 
         <!-- 完善资料 -->
