@@ -25,6 +25,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:background="@drawable/order_edit_bg_shape"
+            android:digits="1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
             android:inputType="text"
             android:maxLength="20"
             android:maxLines="1"

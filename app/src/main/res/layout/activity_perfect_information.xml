@@ -3,6 +3,7 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
+
     <RelativeLayout
         android:id="@+id/title_layout"
         android:layout_width="match_parent"
@@ -28,6 +29,7 @@
 
 
     <ImageView
+        android:id="@+id/head"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -36,6 +38,7 @@
 
 
     <EditText
+        android:id="@+id/name_edit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
@@ -43,12 +46,14 @@
         android:layout_marginTop="65dp"
         android:background="@null"
         android:contentDescription="@null"
-        android:drawableLeft="@drawable/android"
+        android:drawableLeft="@drawable/icon_ren"
+        android:drawablePadding="5dp"
         android:hint="请输入昵称"
         android:maxLength="20"
         android:maxLines="1"
         android:textColor="@color/black_text"
         android:textColorHint="@color/black_transparency_text"
+        android:textCursorDrawable="@null"
 
         />
 

@@ -114,7 +114,8 @@ public class SingleProductDetailsActivity extends BaseActivity {
         if (obj instanceof ShopDetailsModel) {
             mShopDetailsModel = (ShopDetailsModel) obj;
             if (1 == mShopDetailsModel.getC()) {
-                activitySingleProductDetailsName.setText(mShopDetailsModel.getO().getName()+"   "+
+                title.setText(mShopDetailsModel.getO().getName());
+                activitySingleProductDetailsName.setText(
                         mShopDetailsModel.getO().getBrand()+"   "+
                         mShopDetailsModel.getO().getCategory()+"   "+
                         mShopDetailsModel.getO().getColor()+"   "+
@@ -180,26 +181,25 @@ public class SingleProductDetailsActivity extends BaseActivity {
                         dialogShopTitle.setText(mCartShopInfoModel.getO().getName());
                         dialogShopPirac.setText(mCartShopInfoModel.getO().getPrice());
                         dialog_shop_color.setText(mCartShopInfoModel.getO().getColor());
-                        dialog_shop_color.setVisibility("".equals(mCartShopInfoModel.getO().getColor())?View.INVISIBLE:View.VISIBLE);
+                        dialog_shop_color.setVisibility(null==mCartShopInfoModel.getO().getColor()?View.GONE:View.VISIBLE);
                         dialog_shop_s.setText(mCartShopInfoModel.getO().getS());
-                        dialog_shop_s.setVisibility("".equals(mCartShopInfoModel.getO().getS())?View.INVISIBLE:View.VISIBLE);
+                        dialog_shop_s.setVisibility(null==mCartShopInfoModel.getO().getS()?View.GONE:View.VISIBLE);
                         dialog_shop_l.setText(mCartShopInfoModel.getO().getL());
-                        dialog_shop_l.setVisibility("".equals(mCartShopInfoModel.getO().getL())?View.INVISIBLE:View.VISIBLE);
+                        dialog_shop_l.setVisibility(null==mCartShopInfoModel.getO().getL()?View.GONE:View.VISIBLE);
                         dialog_shop_m.setText(mCartShopInfoModel.getO().getXL());
-                        dialog_shop_m.setVisibility("".equals(mCartShopInfoModel.getO().getXL())?View.INVISIBLE:View.VISIBLE);
-
+                        dialog_shop_m.setVisibility(null==mCartShopInfoModel.getO().getXL()?View.GONE:View.VISIBLE);
                         popReduce.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 intNum= intNum-1;
-                                dialogShopNum.setText(intNum>=0?String.valueOf(intNum):"0");
+                                dialogShopNum.setText(intNum>=1?String.valueOf(intNum):"1");
                             }
                         });
                         popAdd.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
                                 intNum= intNum+1;
-                                dialogShopNum.setText((intNum)>=0?String.valueOf(intNum):"0");
+                                dialogShopNum.setText((intNum)>=1?String.valueOf(intNum):"1");
                             }
                         });
                         dialogShopDelete.setOnClickListener(new View.OnClickListener() {
@@ -238,12 +238,27 @@ public class SingleProductDetailsActivity extends BaseActivity {
                         dialogShopBut.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
+
+                                if("".equals(dialogShopNum.getText().toString().trim())){
+                                    Toast.makeText(SingleProductDetailsActivity.this,"数量不正确",Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                                if("".equals(dialog_shop_color.getText().toString().trim())){
+                                    Toast.makeText(SingleProductDetailsActivity.this,"请选择颜色",Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+                                if("".equals(sizemls)){
+                                    Toast.makeText(SingleProductDetailsActivity.this,"请选择尺寸",Toast.LENGTH_SHORT).show();
+                                    return;
+                                }
+
                                 Map<String,String> parm=CommonUtils.getMapParm();
                                 parm.put("uid", Preference.get(Config.ID,""));
                                 parm.put("sid",getIntent().getExtras().getString("sid"));
                                 parm.put("sum",dialogShopNum.getText().toString().trim());
                                 parm.put("color",dialog_shop_color.getText().toString().trim());
                                 parm.put("size",sizemls);
+
                                 addCart(parm);
                             }
                         });
@@ -312,6 +327,12 @@ public class SingleProductDetailsActivity extends BaseActivity {
         initIconFont(activity_single_product_details_tv2);
         activity_single_product_details_tv3.setText(getString(R.string.icon_fx2));
         initIconFont(activity_single_product_details_tv3);
+        titleRight.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                SingleProductDetailsActivity.this.finish();
+            }
+        });
     }
 
     @Override

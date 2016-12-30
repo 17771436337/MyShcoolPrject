@@ -9,6 +9,7 @@ import com.example.a.myapplication.adapter.IntegralAdapter;
 import com.example.a.myapplication.bean.IntegralModel;
 import com.example.a.myapplication.http.OkHttpUtil;
 import com.example.a.myapplication.util.Config;
+import com.example.a.myapplication.util.Preference;
 import com.example.a.myapplication.view.IntegralHeadView;
 import com.example.a.myapplication.view.TitleView2;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -93,7 +94,7 @@ public class IntegralActivity extends BaseActivity {
     private void getData() {
 
         Map<String, String> par = new HashMap<String, String>();
-        par.put("uid", "2");
+        par.put("uid", Preference.get(Config.ID, ""));
         par.put("pagination", page + "");
         par.put("pagelen", Config.listCount);
 

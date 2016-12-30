@@ -14,8 +14,8 @@
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:divider="@color/bg_fans"
-        android:dividerHeight="5dp"/>
+        android:divider="@color/bg_transparency"
+        android:dividerHeight="1dp"/>
 
 
 </LinearLayout>

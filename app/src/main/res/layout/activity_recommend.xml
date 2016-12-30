@@ -5,7 +5,7 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <include layout="@layout/view_main_title"></include>
+    <include layout="@layout/view_title2"></include>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"

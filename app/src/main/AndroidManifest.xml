@@ -39,6 +39,7 @@
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+
         </activity>
         <!-- 登录 -->
         <activity android:name=".activity.app.LoginActivity">
@@ -46,7 +47,9 @@
         </activity>
 
         <!-- 完善资料 -->
-        <activity android:name=".activity.PerfectInformationActivity"></activity>
+        <activity android:name=".activity.PerfectInformationActivity">
+
+        </activity>
 
         <!-- 注册 -->
         <activity android:name=".activity.app.RegisterActivity"/>
@@ -91,7 +94,7 @@
         <activity android:name=".activity.MessageActvity"/>
 
         <!-- 推荐列表 -->
-        <activity android:name=".activity.RecommendListActivity"/>
+        <activity android:name=".activity.RecommendListActivity" android:launchMode="singleTask"/>
 
         <!-- 筛选 -->
         <activity android:name=".activity.screen.ScreenActivity"/>

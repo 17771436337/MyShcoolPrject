@@ -253,7 +253,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
             android:layout_toRightOf="@id/icon_qr"
-            android:text="二维码支付"
+            android:text="扫二维码支付"
             android:textColor="@color/black_text"
             android:textSize="14sp"/>
 
@@ -278,12 +278,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:background="@color/white"
-
         android:paddingBottom="10dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:paddingTop="10dp"
-        android:text="收货方式"
+        android:text="收货时间"
         android:textColor="@color/black_transparency_text"
         android:textSize="16sp"/>
 

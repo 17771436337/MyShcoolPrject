@@ -106,6 +106,7 @@ public class ProductTitleMessageActivity extends BaseActivity {
     }
 
     public void initIcon() {
+        title.setText("单品详情");
         ImageLoader.getInstance().displayImage(Config.hostImgString + getIntent().getExtras().getString("imgurl"), imgF);
         layoutCommentTv.setText(getResources().getString(R.string.icon_pl));
         initIconFont(layoutCommentTv);
@@ -121,7 +122,10 @@ public class ProductTitleMessageActivity extends BaseActivity {
     public void onClick() {
         Bundle bundle = new Bundle();
         //// TODO: 2016/12/24 根据Viewpage滑动的postion 来决定
-        bundle.putString("rid", mProductTitleMessageModel.getO().get(0).getRid());
+        if(null==mProductTitleMessageModel){
+
+        }
+      //  bundle.putString("rid", mProductTitleMessageModel.getO().get(0).getRid());
         Toast.makeText(ProductTitleMessageActivity.this,"功能还在开发中。。。",Toast.LENGTH_SHORT).show();
         // CommonUtils.startIntent(this, CommentListActivity.class,bundle);
     }

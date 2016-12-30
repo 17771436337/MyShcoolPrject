@@ -157,6 +157,7 @@ public class ProductDetailsActivity extends BaseActivity {
                             Drawable drawable= getResources().getDrawable(R.drawable.sch);
                             drawable.setBounds(0, 0, drawable.getMinimumWidth(),drawable.getMinimumHeight());
                             messageNum.setCompoundDrawables(drawable,null,null,null);
+                            messageNum.setText(Integer.parseInt(messageNum.getText().toString())+1+"");
                         }
                     }
                 });

@@ -50,8 +50,8 @@
                     android:layout_toRightOf="@id/head"
                     android:text=""
                     android:textStyle="bold"
-                    android:textColor="@color/black_text"
-                    android:textSize="18sp"/>
+                    android:textColor="#494949"
+                    android:textSize="16sp"/>
 
                 <TextView
                     android:id="@+id/shop_num"
@@ -66,8 +66,8 @@
                     android:gravity="center_vertical"
                     android:text=""
                     android:layout_marginRight="18dp"
-                    android:textColor="@color/black"
-                    android:textSize="20sp"/>
+                    android:textColor="#898989"
+                    android:textSize="17sp"/>
 
                 <TextView
                     android:id="@+id/message_num"
@@ -76,13 +76,13 @@
                     android:layout_alignTop="@+id/shop_num"
                     android:layout_toLeftOf="@+id/shop_num"
                     android:layout_toStartOf="@+id/shop_num"
-                    android:drawableLeft="@drawable/icon_collect_ch"
+                    android:drawableLeft="@drawable/scq"
                     android:drawablePadding="5dp"
                     android:gravity="center_vertical"
                     android:text=""
                     android:layout_marginRight="18dp"
-                    android:textColor="@color/black_text"
-                    android:textSize="20sp"/>
+                    android:textColor="#898989"
+                    android:textSize="17sp"/>
 
             </RelativeLayout>
 
@@ -90,6 +90,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:divider="@color/bg_transparency"
                 android:dividerPadding="1dp"
                 android:orientation="horizontal"
@@ -98,7 +100,7 @@
                 <FrameLayout
                     android:id="@+id/check_layout"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1">
 
                     <TextView
@@ -114,13 +116,13 @@
                         android:paddingBottom="10dp"
                         android:paddingTop="10dp"
                         android:text="查看解答"
-                        android:textColor="@color/black_text"
+                        android:textColor="#898989"
                         android:textSize="15sp"/>
                 </FrameLayout>
 
                 <FrameLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1">
 
                     <TextView
@@ -136,7 +138,7 @@
                         android:paddingBottom="10dp"
                         android:paddingTop="10dp"
                         android:text="我来解答"
-                        android:textColor="@color/black_text"
+                        android:textColor="#898989"
                         android:textSize="15sp"/>
                 </FrameLayout>
             </LinearLayout>
