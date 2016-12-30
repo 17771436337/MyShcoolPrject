@@ -95,9 +95,10 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter impleme
 
 
         if (orederDetailsActivity.isShow) {
-            holder.arrow.setImageResource(R.drawable.icon_up_arrow);
-        } else {
             holder.arrow.setImageResource(R.drawable.icon_down_arrow);
+        } else {
+            holder.arrow.setImageResource(R.drawable.icon_up_arrow);
+
         }
 
         return convertView;

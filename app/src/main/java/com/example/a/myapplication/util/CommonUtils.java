@@ -61,6 +61,15 @@ public class CommonUtils {
         Intent intent = context.getPackageManager().getLaunchIntentForPackage(packageName);
         context.startActivity(intent);
     }
+    /**
+     * 判断不是为null 和""
+     */
+    public static boolean  isNullAnd(String str){
+        if("".equals(str)||null==str){
+            return false;
+        }
+        return true;
+    }
 
     /**
      * 验证手机格式

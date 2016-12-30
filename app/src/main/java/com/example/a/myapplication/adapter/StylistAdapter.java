@@ -67,6 +67,7 @@ public class StylistAdapter extends RecyclerView.Adapter<StylistAdapter.PeoView>
             public void onClick(View view) {
                 Bundle bundle=new Bundle();
                 bundle.putString("id",null!=products.get(position).getId()?products.get(position).getId():products.get(position).getItemid());
+                bundle.putString("is_collection",products.get(position).getCollection());
                 CommonUtils.startIntent(BaseApplication.mCurrentActivity, ProductDetailsActivity.class,bundle);
             }
         });

@@ -1,6 +1,8 @@
 package com.example.a.myapplication.activity.stylist;
 
 import android.annotation.TargetApi;
+import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
+import com.example.a.myapplication.activity.RecommendListActivity;
 import com.example.a.myapplication.activity.ShopActivity;
 import com.example.a.myapplication.bean.BaseModel;
 import com.example.a.myapplication.bean.CartShopInfoModel;
@@ -25,6 +28,7 @@ import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
 import com.example.a.myapplication.util.PopupUtil;
 import com.example.a.myapplication.util.Preference;
+import com.example.a.myapplication.util.UIUtils;
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
@@ -73,7 +77,7 @@ public class SingleProductDetailsActivity extends BaseActivity {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
-
+ public static  Map<String,String> parm;
 
     @Override
     protected int getLayoutID() {
@@ -251,6 +255,7 @@ public class SingleProductDetailsActivity extends BaseActivity {
                 Toast.makeText(this, mCartShopInfoModel.getM(), Toast.LENGTH_SHORT).show();
 
             }
+            activitySingleProductDetailsGwc.setEnabled(true);
         }
         if(obj instanceof String){
             Toast.makeText(this, obj.toString(), Toast.LENGTH_SHORT).show();
@@ -303,7 +308,7 @@ public class SingleProductDetailsActivity extends BaseActivity {
     public void init() {
         activity_single_product_details_tv1.setText(getString(R.string.icon_gwc));
         initIconFont(activity_single_product_details_tv1);
-        activity_single_product_details_tv2.setText(getString(R.string.icon_sc2));
+        activity_single_product_details_tv2.setText(getString(R.string.icon_sc3));
         initIconFont(activity_single_product_details_tv2);
         activity_single_product_details_tv3.setText(getString(R.string.icon_fx2));
         initIconFont(activity_single_product_details_tv3);
@@ -314,18 +319,81 @@ public class SingleProductDetailsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         // TODO: add setContentView(...) invocation
         ButterKnife.inject(this);
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     public CartShopInfoModel mCartShopInfoModel;
 
-    @OnClick(R.id.activity_single_product_details_gwc)
-    public void onClick() {
-        getdate();
-    }
+    @OnClick({R.id.activity_single_product_details_gwc,R.id.activity_single_product_details_tv3,R.id.activity_single_product_details_tv2,R.id.activity_single_product_details_cd})
+    public void onClick(View view) {
 
+        switch (view.getId()){
+            case  R.id.activity_single_product_details_gwc:
+                activitySingleProductDetailsGwc.setEnabled(false);
+                getdate();
+                break;
+            case  R.id.activity_single_product_details_tv3:
+                    Toast.makeText(SingleProductDetailsActivity.this,"功能正在开发中。。。",Toast.LENGTH_SHORT).show();
+                break;
+            case  R.id.activity_single_product_details_tv2:
+                activity_single_product_details_tv2.setEnabled(false);
+                toSc();
+                break;
+
+            case  R.id.activity_single_product_details_cd:
+                 parm=CommonUtils.getMapParm();
+                if(null==mShopDetailsModel&&null!=mShopDetailsModel.getO()){
+                    return;
+                }
+                ShopDetailsModel.OBean ob= mShopDetailsModel.getO();
+                if(CommonUtils.isNullAnd(ob.getBrands())){
+                    parm.put("brands",ob.getBrands());
+                }
+                if(CommonUtils.isNullAnd(ob.getCategorys())){
+                    parm.put("categorys",ob.getCategorys());
+                }
+                if(CommonUtils.isNullAnd(ob.getColors())){
+                    parm.put("colors",ob.getColors());
+                }
+                if(CommonUtils.isNullAnd(ob.getPopulars())){
+                    parm.put("populars",ob.getPopulars());
+                }
+                if(CommonUtils.isNullAnd(ob.getIdols())){
+                    parm.put("idols",ob.getIdols());
+                }
+
+                Intent mIntent=   new Intent();
+                mIntent.setClass(SingleProductDetailsActivity.this, RecommendListActivity.class);
+                startActivity(mIntent);
+
+                break;
+        } }
+
+    public void toSc(){
+        Map<String,String> parm=CommonUtils.getMapParm();
+        parm.put("uid",Preference.get(Config.ID,""));
+        parm.put("shopid",getIntent().getExtras().getString("sid"));
+        OkHttpUtil.getInstance().addRequestPost(Config.styleCollect, parm, new OkHttpUtil.HttpCallBack<BaseModel>() {
+            @Override
+            public void onSuccss(final BaseModel baseModel) {
+                    UIUtils.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            if(baseModel.getC()==1){
+                                activity_single_product_details_tv2.setEnabled(true);
+                                activity_single_product_details_tv2.setTextColor(Color.RED);
+                            }
+
+                                Toast.makeText(SingleProductDetailsActivity.this,baseModel.getM(),Toast.LENGTH_SHORT).show();
+                        }
+                    });
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
 
     public void getdate() {
         Map<String, String> parm = CommonUtils.getMapParm();
@@ -342,39 +410,4 @@ public class SingleProductDetailsActivity extends BaseActivity {
         });
     }
 
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    public Action getIndexApiAction() {
-        Thing object = new Thing.Builder()
-                .setName("SingleProductDetails Page") // TODO: Define a title for the content shown.
-                // TODO: Make sure this auto-generated URL is correct.
-                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
-                .build();
-        return new Action.Builder(Action.TYPE_VIEW)
-                .setObject(object)
-                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
-                .build();
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        AppIndex.AppIndexApi.start(client, getIndexApiAction());
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        AppIndex.AppIndexApi.end(client, getIndexApiAction());
-        client.disconnect();
-    }
 }

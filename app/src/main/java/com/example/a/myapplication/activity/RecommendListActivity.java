@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
 import com.example.a.myapplication.activity.screen.ScreenActivity;
+import com.example.a.myapplication.activity.stylist.SingleProductDetailsActivity;
 import com.example.a.myapplication.adapter.MyFragmentPagerAdapter;
 import com.example.a.myapplication.adapter.MyRecyclerCommonAdapter;
 import com.example.a.myapplication.bean.RecommendModel;
@@ -31,15 +32,13 @@ import butterknife.InjectView;
  */
 public class RecommendListActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener {
 
-
-    @InjectView(R.id.message_icon)
+    @InjectView(R.id.back)
     ImageView messageIcon;
-    @InjectView(R.id.message_test)
-    TextView messageTest;
-    @InjectView(R.id.title_text)
+    @InjectView(R.id.title)
     TextView titleText;
-    @InjectView(R.id.right)
+    @InjectView(R.id.title_right)
     ImageView right;
+
     @InjectView(R.id.activity_recommend_tal)
     TabLayout activityRecommendTal;
     @InjectView(R.id.activity_recommend_vp)
@@ -105,6 +104,13 @@ public class RecommendListActivity extends BaseActivity implements SwipeRefreshL
             }
             StylistFragment.mCurrentFragment.onDataChagne(parm);
         }
+    }
+
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        StylistFragment.mCurrentFragment.onDataChagne(SingleProductDetailsActivity.parm);
     }
 
     @Override

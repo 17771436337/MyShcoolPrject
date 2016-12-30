@@ -47,11 +47,56 @@ public class ShopDetailsModel extends BaseModel{
         private String name;
         private String price;
         private String brand;
+        private String brands;
         private String category;
+        private String categorys;
         private String color;
+        private String colors;
         private String popular;
+        private String populars;
         private String idol;
+        private String idols;
         private List<ImgsBean> imgs;
+
+        public String getBrands() {
+            return brands;
+        }
+
+        public void setBrands(String brands) {
+            this.brands = brands;
+        }
+
+        public String getCategorys() {
+            return categorys;
+        }
+
+        public void setCategorys(String categorys) {
+            this.categorys = categorys;
+        }
+
+        public String getColors() {
+            return colors;
+        }
+
+        public void setColors(String colors) {
+            this.colors = colors;
+        }
+
+        public String getPopulars() {
+            return populars;
+        }
+
+        public void setPopulars(String populars) {
+            this.populars = populars;
+        }
+
+        public String getIdols() {
+            return idols;
+        }
+
+        public void setIdols(String idols) {
+            this.idols = idols;
+        }
 
         public String getName() {
             return name;

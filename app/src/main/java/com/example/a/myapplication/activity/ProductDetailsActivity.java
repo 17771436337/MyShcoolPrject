@@ -1,19 +1,24 @@
 package com.example.a.myapplication.activity;
 
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
 import com.example.a.myapplication.activity.stylist.ProductTitleMessageActivity;
+import com.example.a.myapplication.bean.BaseModel;
 import com.example.a.myapplication.bean.ProductDetailsModel;
 import com.example.a.myapplication.http.OkHttpUtil;
 import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
+import com.example.a.myapplication.util.Preference;
+import com.example.a.myapplication.util.UIUtils;
 import com.example.a.myapplication.view.RoundImageView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
@@ -54,7 +59,7 @@ public class ProductDetailsActivity extends BaseActivity {
     @InjectView(R.id.check_layout)
     protected FrameLayout check_layout;
     public ProductDetailsModel mProductDetailsModel;
-
+    String is_collection;
     @Override
     protected int getLayoutID() {
         return R.layout.activity_productdetail;
@@ -63,9 +68,9 @@ public class ProductDetailsActivity extends BaseActivity {
     @Override
     protected void initView() {
         Log.e("id", getIntent().getExtras().getString("id"));
+        is_collection= getIntent().getExtras().getString("is_collection");
         titleText.setText("单品详情");
     }
-
     @Override
     protected void initData() {
         Map<String, String> parm = CommonUtils.getMapParm();
@@ -103,7 +108,6 @@ public class ProductDetailsActivity extends BaseActivity {
 
     @Override
     public void onEventAsyncThread(Object obj) {
-
         super.onEventAsyncThread(obj);
     }
 
@@ -112,7 +116,7 @@ public class ProductDetailsActivity extends BaseActivity {
         super.onEventBackgroundThread(obj);
     }
 
-    @OnClick({R.id.back, R.id.check_layout})
+    @OnClick({R.id.back, R.id.check_layout,R.id.message_num})
     protected void onClick(View v) {
         switch (v.getId()) {
             case R.id.back: //返回
@@ -125,13 +129,55 @@ public class ProductDetailsActivity extends BaseActivity {
                 }
                 CommonUtils.startIntent(this, ProductTitleMessageActivity.class, bundle);
                 break;
+            case R.id.message_num:
+                messageNum.setEnabled(false);
+                if("1".equals(is_collection)){
+                    is_collection="2";
+                }else{
+                    is_collection="1";
+                }
+                toSc();
+                break;
         }
+    }
+
+    public void toSc(){
+        Map<String,String> parm=CommonUtils.getMapParm();
+        parm.put("uid", Preference.get(Config.ID,""));
+        parm.put("itemid",getIntent().getExtras().getString("id"));
+        parm.put("type",is_collection);
+        OkHttpUtil.getInstance().addRequestPost(Config.styleCollect, parm, new OkHttpUtil.HttpCallBack<BaseModel>() {
+            @Override
+            public void onSuccss(final BaseModel baseModel) {
+                UIUtils.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(1==baseModel.getC()){
+                            messageNum.setEnabled(true);
+                            Drawable drawable= getResources().getDrawable(R.drawable.sch);
+                            drawable.setBounds(0, 0, drawable.getMinimumWidth(),drawable.getMinimumHeight());
+                            messageNum.setCompoundDrawables(drawable,null,null,null);
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.inject(this);
+    }
+
+    @OnClick(R.id.answer)
+    public void onanswer(){
+        Toast.makeText(this,"功能正在开发中。。。",Toast.LENGTH_SHORT).show();
     }
 
 }

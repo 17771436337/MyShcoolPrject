@@ -55,7 +55,7 @@ public class MyOrderModer extends BaseModel {
         private String name;
         private String price;
         private String sum;
-        private long time;
+        private String time;
         private String totalprice;
         private String audit;
 
@@ -123,11 +123,11 @@ public class MyOrderModer extends BaseModel {
             this.sum = sum;
         }
 
-        public long getTime() {
+        public String getTime() {
             return time;
         }
 
-        public void setTime(long time) {
+        public void setTime(String time) {
             this.time = time;
         }
 

@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
@@ -108,13 +109,20 @@ public class ProductTitleMessageActivity extends BaseActivity {
         ImageLoader.getInstance().displayImage(Config.hostImgString + getIntent().getExtras().getString("imgurl"), imgF);
         layoutCommentTv.setText(getResources().getString(R.string.icon_pl));
         initIconFont(layoutCommentTv);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ProductTitleMessageActivity.this.finish();
+            }
+        });
     }
 
-    @OnClick(R.id.layout_comment_to_pl)
+    @OnClick({R.id.layout_comment_to_pl,R.id.layout_comment_but})
     public void onClick() {
         Bundle bundle = new Bundle();
         //// TODO: 2016/12/24 根据Viewpage滑动的postion 来决定
         bundle.putString("rid", mProductTitleMessageModel.getO().get(0).getRid());
+        Toast.makeText(ProductTitleMessageActivity.this,"功能还在开发中。。。",Toast.LENGTH_SHORT).show();
         // CommonUtils.startIntent(this, CommentListActivity.class,bundle);
     }
 }

@@ -43,13 +43,14 @@ public class IntegralHplder extends BaseHolder<IntegralModel.OBean> {
 
         switch (data.getItype()) {
             case "0":
-                integral.setText("+" + data.getIntegral());
-                integral.setTextColor(UIUtils.getColor(R.color.red_text));
+                integral.setText("-" + data.getIntegral());
+                integral.setTextColor(UIUtils.getColor(R.color.black_transparency_text));
+
 
                 break;
             case "1":
-                integral.setText("-" + data.getIntegral());
-                integral.setTextColor(UIUtils.getColor(R.color.black_transparency_text));
+                integral.setText("+" + data.getIntegral());
+                integral.setTextColor(UIUtils.getColor(R.color.red_text));
 
                 break;
         }

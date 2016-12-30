@@ -27,6 +27,7 @@ import com.example.a.myapplication.http.OkHttpUtil;
 import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
 import com.example.a.myapplication.util.Preference;
+import com.example.a.myapplication.util.UIUtils;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.HashMap;
@@ -179,7 +180,7 @@ public class MineFragment extends Fragment {
                 MianProfineModel mianProfineModel = (MianProfineModel) msg.obj;
                 if (mianProfineModel.getC() == 1) {
 
-                    ImageLoader.getInstance().displayImage(Config.hostImgString + mianProfineModel.getO().getHead(), head);
+                    ImageLoader.getInstance().displayImage(Config.hostImgString + mianProfineModel.getO().getHead(), head, UIUtils.getRoundedDisplayOptions(R.drawable.default_head));
 
                     name.setText(mianProfineModel.getO().getName());
                     fansTextView.setText(mianProfineModel.getO().getFans());

@@ -279,6 +279,14 @@ public class Config {
      * 专属分类点击下级页面
      */
     public static final String getExclusiveItems = Config.hostString + "App/Exclusive/getExclusiveItems";
+    /**
+     *单品详情下http://115.28.94.239/wardrobe/code/wardrode/index.php?s=/App/Item/styleCollect
+     */
+    public static final String styleCollect = Config.hostString + "App/Item/styleCollect";
+    /**
+     *商品详情下http://115.28.94.239/wardrobe/code/wardrode/index.php?s=/App/Shop/shopCollect
+     */
+    public static final String shopCollect = Config.hostString + "App/Shop/shopCollect";
 
 
 }

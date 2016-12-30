@@ -47,6 +47,7 @@ public class StyListModel extends BaseModel {
         private String collection;
         private String head;
         private String name;
+        private String is_collection;
 
         public String getId() {
             return id;
@@ -94,6 +95,14 @@ public class StyListModel extends BaseModel {
 
         public void setItemid(String itemid) {
             this.itemid = itemid;
+        }
+
+        public String getIs_collection() {
+            return is_collection;
+        }
+
+        public void setIs_collection(String is_collection) {
+            this.is_collection = is_collection;
         }
     }
 }

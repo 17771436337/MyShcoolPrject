@@ -11,10 +11,14 @@ import android.widget.Toast;
 
 import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
+import com.example.a.myapplication.activity.PerfectInformationActivity;
 import com.example.a.myapplication.bean.BaseModel;
+import com.example.a.myapplication.bean.RegisterModel;
 import com.example.a.myapplication.http.OkHttpUtil;
+import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
 import com.example.a.myapplication.util.MD5Util;
+import com.example.a.myapplication.util.Preference;
 import com.example.a.myapplication.view.TitleView1;
 
 import org.greenrobot.eventbus.EventBus;
@@ -127,10 +131,10 @@ public class RegisterActivity extends BaseActivity {
                 param.put("verify", code);
                 param.put("teltype", 1 + "");
 
-                OkHttpUtil.getInstance().addRequestPost(Config.register, param, new OkHttpUtil.HttpCallBack<BaseModel>() {
+                OkHttpUtil.getInstance().addRequestPost(Config.register, param, new OkHttpUtil.HttpCallBack<RegisterModel>() {
 
                     @Override
-                    public void onSuccss(BaseModel baseModel) {
+                    public void onSuccss(RegisterModel baseModel) {
                         EventBus.getDefault().post(baseModel);
 
 
@@ -176,14 +180,17 @@ public class RegisterActivity extends BaseActivity {
     public void onEventMainThread(Object obj) {
         super.onEventMainThread(obj);
 
-        if (obj instanceof BaseModel) {//注册成功
-            BaseModel data = (BaseModel) obj;
+        if (obj instanceof RegisterModel) {//注册成功
+            RegisterModel data = (RegisterModel) obj;
 
             if (data.getC() == 1) {
-                Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+                Preference.put(Config.ID, data.getO() + "");
+//                Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+                CommonUtils.startIntent(this, PerfectInformationActivity.class);
                 finish();
             } else {
                 Toast.makeText(this, data.getM() + "", Toast.LENGTH_SHORT).show();
+
             }
         }
 

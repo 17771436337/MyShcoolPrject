@@ -3,6 +3,7 @@ package com.example.a.myapplication.holder;
 import android.graphics.Bitmap;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,7 +14,7 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.a.myapplication.R;
 import com.example.a.myapplication.bean.MyOrderModer;
 import com.example.a.myapplication.util.Config;
-import com.example.a.myapplication.util.TimeUtils;
+import com.example.a.myapplication.util.DateUtils;
 import com.example.a.myapplication.util.UIUtils;
 
 import butterknife.ButterKnife;
@@ -90,21 +91,25 @@ public class MyOrderHolder extends BaseHolder<MyOrderModer.Order> {
 
         sum.setText("x" + data.getSum());
 
+
         totalprice.setText("￥" + data.getTotalprice());
 
-        time.setText(TimeUtils.getTime(data.getTime()));
+        long l = Long.parseLong(data.getTime());
+        Log.e("time", l + "");
+        time.setText(DateUtils.getShortTime(data.getTime()));
 
-        switch (data.getAudit()) {
-            case "0"://0待支付
+        Log.e("Audit", data.getAudit());
+        switch (Integer.parseInt(data.getAudit())) {
+            case 0://0待支付
                 audit.setText("待支付");
                 break;
-            case "1"://1已支付-待发货/
+            case 1://1已支付-待发货/
                 audit.setText("待发货");
                 break;
-            case "2"://2待收货，/
+            case 2://2待收货，/
                 audit.setText("待收货");
                 break;
-            case "3"://3已完成/
+            case 3://3已完成/
                 audit.setText("已完成");
                 break;
         }

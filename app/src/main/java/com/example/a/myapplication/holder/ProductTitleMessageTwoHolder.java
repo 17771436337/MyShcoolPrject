@@ -20,7 +20,6 @@ public class ProductTitleMessageTwoHolder extends BaseHolder<ProductTitleMessage
     TextView itemMessageListPp;
     @InjectView(R.id.item_message_list_pl)
     TextView itemMessageListPl;
-    public  int position1;
     private int position;
     View view;
     public ProductTitleMessageTwoHolder(int position) {
@@ -36,8 +35,7 @@ public class ProductTitleMessageTwoHolder extends BaseHolder<ProductTitleMessage
 
     @Override
     protected void refreshUI(ProductTitleMessageModel.OBean.DetailsBean data) {
-        itemMessageListStatus.setText(String.valueOf(position1));
-        position1++;
+        itemMessageListStatus.setText(String.valueOf(position+1));
         itemMessageListPp.setText(data.getBrand());
         itemMessageListPl.setText(data.getCategory());
     }

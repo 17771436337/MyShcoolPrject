@@ -19,6 +19,7 @@ import com.example.a.myapplication.http.OkHttpUtil;
 import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
 import com.example.a.myapplication.util.OnDataChangeListener;
+import com.example.a.myapplication.util.UIUtils;
 import com.example.a.myapplication.view.LoadingPager;
 import com.google.gson.Gson;
 
@@ -46,6 +47,7 @@ public class StylistFragment  extends BaseFragment  implements OnDataChangeListe
     public static StylistFragment mCurrentFragment;
     public boolean isChangeData;
     public String id;
+    Map<String,String> parm;
     String mUrl;
     public static StylistFragment newInstance(int page,String url,String id) {
         Bundle args = new Bundle();
@@ -62,6 +64,11 @@ public class StylistFragment  extends BaseFragment  implements OnDataChangeListe
         mPage = getArguments().getInt(ARGS_PAGE);
         mUrl = getArguments().getString("URL");
         id = getArguments().getString("id");
+        parm= CommonUtils.getMapParm();
+        if(!"".equals(id)){
+            parm.put("id",id);
+        }
+
     }
 
     @Override
@@ -87,35 +94,37 @@ public class StylistFragment  extends BaseFragment  implements OnDataChangeListe
     public void init() {
         fragment_stylist_rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         //设置adapter
-        adapter = new StylistAdapter(Config.QITTMELIST);
+        adapter = new StylistAdapter(mUrl);
         fragment_stylist_rv.setAdapter(adapter);
+        adapter.getDateList().addAll(styListModel.getO());
+        adapter.notifyDataSetChanged();
         //设置item之间的间隔
         SpacesItemDecoration decoration = new SpacesItemDecoration(500);
         //initItemAnimator(fragment_stylist_rv);
         fragment_stylist_rv.addItemDecoration(decoration);
-        notifyData();
         fragment_stylist_sl.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh() {
-                EventBus.getDefault().post("onRefresh");
+                UIUtils.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        fragment_stylist_sl.setRefreshing(false);
+                        EventBus.getDefault().post("onRefresh");
+                    }
+                });
             }
         });
         fragment_stylist_sl.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                EventBus.getDefault().post("onLoadMore");
+                fragment_stylist_sl.setLoadingMore(false);
             }
         });
-
     }
     public LoadingPager.LoadedResult initData() {
         try{
-            Map<String, String> parm = CommonUtils.getMapParm();
-            if(null!=id&&!"".equals(id)){
-                parm.put("id",id);
-            }
-            parm.put("pagination", String.valueOf(page));
-            initDate(parm);
+            page=1;
+            initDate();
             if(null==styListModel.getO()||styListModel.getO().size()==0){
                 return LoadingPager.LoadedResult.EMPTY;
             }
@@ -124,9 +133,8 @@ public class StylistFragment  extends BaseFragment  implements OnDataChangeListe
             return LoadingPager.LoadedResult.ERROR;
         }
     }
-    public Map<String, String> parm;
-    public StyListModel initDate(Map<String,String> parm) throws Exception{
-
+    public StyListModel initDate() {
+        parm.put("pagination", String.valueOf(page));
         String result=OkHttpUtil.getInstance().addRequestNoCallPost(mUrl, parm);
         styListModel= new Gson().fromJson(result, StyListModel.class);
         if(page==1&&mUrl.equals(Config.QITTMELIST)){
@@ -134,6 +142,7 @@ public class StylistFragment  extends BaseFragment  implements OnDataChangeListe
             oBean.setImg(Config.NATIVE);
             styListModel.getO().add(0,oBean);
         }
+
         if(isChangeData){
             EventBus.getDefault().post("isGetData");
         }
@@ -146,23 +155,35 @@ public class StylistFragment  extends BaseFragment  implements OnDataChangeListe
         this.isChangeData=true;
         EventBus.getDefault().post("onDataChagne");
     }
-    public void notifyData(){
 
+
+    public void notifyDataRefres(){
+        page=1;
+        initData();
+        if(null!=adapter){
+            adapter.getDateList().clear();
+            adapter.getDateList().addAll(styListModel.getO());
+            adapter.notifyDataSetChanged();
+        }
+
+        fragment_stylist_sl.setRefreshing(false);
+    }
+    public void notifyDataLoad(){
+        if(page==1){
+            adapter.getDateList().clear();
+        }
         adapter.getDateList().addAll(styListModel.getO());
         adapter.notifyDataSetChanged();
-        fragment_stylist_sl.setRefreshing(false);
+        fragment_stylist_sl.setLoadingMore(false);
     }
     @Override
     public void onEventMainThread(Object obj) {
         super.onEventMainThread(obj);
         if("onRefresh".equals(obj.toString())){
-            // initDate();
-            notifyData();
+            page=1;
+            initDate();
         }
         if("onLoadMore".equals(obj.toString())){
-            //  initDate();
-            page++;
-            //notifyData();
             fragment_stylist_sl.setLoadingMore(false);
         }
         if("isGetData".equals(obj.toString())){
@@ -180,7 +201,7 @@ public class StylistFragment  extends BaseFragment  implements OnDataChangeListe
     public void onEventBackgroundThread(Object obj) throws Exception {
         super.onEventBackgroundThread(obj);
         if("onDataChagne".equals(obj.toString())){
-            initDate(parm);
+            initDate();
         }
     }
 

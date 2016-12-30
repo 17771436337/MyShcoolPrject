@@ -1,9 +1,18 @@
 package com.example.a.myapplication.activity;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.text.TextUtils;
+import android.util.Base64;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -26,9 +35,12 @@ import com.example.a.myapplication.util.PopupUtil;
 import com.example.a.myapplication.util.Preference;
 import com.example.a.myapplication.util.UIUtils;
 import com.example.a.myapplication.view.TitleView1;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -40,6 +52,13 @@ import butterknife.OnClick;
  * 更换资料
  */
 public class MyProFileActivity extends BaseActivity {
+
+    final static String IMAGE_FILE_NAME = "faceImage.jpg";
+
+    /* 请求码 */
+    private static final int IMAGE_REQUEST_CODE = 0;
+    private static final int CAMERA_REQUEST_CODE = 1;
+    private static final int RESULT_REQUEST_CODE = 2;
 
     @InjectView(R.id.title_layout)
     protected RelativeLayout titleView;
@@ -101,20 +120,29 @@ public class MyProFileActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 
+
+                String ava = "";
+                if (mBitmap != null) {
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    mBitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                    ava = new String(Base64.encode(baos.toByteArray(), Base64.DEFAULT));
+                }
                 Map<String, String> par = CommonUtils.getMapParm();
                 par.put("userid", Preference.get(Config.ID, ""));
-                par.put("img", "");
+                if (!TextUtils.isEmpty(ava)) {
+                    par.put("imgid", ava);
+                }
                 par.put("nickname", name.getText().toString());
 
 
                 String str = sex.getText().toString();
 
                 if (str.equals("男")) {
-                    str = 1+"";
+                    str = 1 + "";
                 } else if (str.equals("女")) {
-                    str = 2+"";
+                    str = 2 + "";
                 } else {
-                    str = 0+"";
+                    str = 0 + "";
                 }
 
                 par.put("sex", str);
@@ -150,11 +178,11 @@ public class MyProFileActivity extends BaseActivity {
                 String str = sex.getText().toString();
 
                 if (str.equals("男")) {
-                    str = 1+"";
+                    str = 1 + "";
                 } else if (str.equals("女")) {
-                    str = 2+"";
+                    str = 2 + "";
                 } else {
-                    str = 0+"";
+                    str = 0 + "";
                 }
 
                 Preference.put(Config.SEX, str);
@@ -176,7 +204,7 @@ public class MyProFileActivity extends BaseActivity {
     protected void onClick(View v) {
         switch (v.getId()) {
             case R.id.head_layout://头像
-
+                showDialog(this);
                 break;
             case R.id.name_layout://姓名
                 dialogName();
@@ -277,5 +305,136 @@ public class MyProFileActivity extends BaseActivity {
                 });
             }
         });
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        // 结果码不等于取消时候
+        if (resultCode != RESULT_CANCELED) {
+
+            switch (requestCode) {
+                case IMAGE_REQUEST_CODE:
+                    resizeImage(data.getData());
+
+                    try {
+                        mBitmap = MediaStore.Images.Media.getBitmap(
+                                this.getContentResolver(), data.getData());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+//                    resizeImage(getImageUri());
+//                    ImageLoader.getInstance().displayImage(
+//                            data.getData().toString(), head, mOptions);
+
+                    break;
+                case CAMERA_REQUEST_CODE:
+                    if (hasSdcard()) {
+                        resizeImage(getImageUri());
+                    } else {
+                        Toast.makeText(this, "未找到存储卡，无法存储照片！",
+                                Toast.LENGTH_LONG).show();
+                    }
+
+                    break;
+                case RESULT_REQUEST_CODE:
+                    if (data != null) {
+                        // getImageToView(data);
+                        showResizeImage(data);
+                    }
+                    break;
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+
+    }
+
+
+    //------------------------------
+
+    Bitmap mBitmap;
+
+    private static void showDialog(final Activity activity) {
+        final String[] items = new String[]{"选择本地图片", "拍照"};
+
+        new AlertDialog.Builder(activity)
+                .setTitle("设置头像")
+                .setItems(items, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which) {
+                            case 0:
+                                Intent galleryIntent = new Intent(
+                                        Intent.ACTION_GET_CONTENT);
+                                galleryIntent.addCategory(Intent.CATEGORY_OPENABLE);
+
+                                galleryIntent.setType("image/*");
+                                activity.startActivityForResult(galleryIntent,
+                                        IMAGE_REQUEST_CODE);
+                                break;
+                            case 1:
+                                Intent cameraIntent = new Intent(
+                                        "android.media.action.IMAGE_CAPTURE");
+                                cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, Uri
+                                        .fromFile(new File(Environment
+                                                .getExternalStorageDirectory(),
+                                                IMAGE_FILE_NAME)));
+                                cameraIntent.putExtra(
+                                        MediaStore.EXTRA_VIDEO_QUALITY, 0);
+                                activity.startActivityForResult(cameraIntent,
+                                        CAMERA_REQUEST_CODE);
+                                break;
+                        }
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).show();
+
+    }
+
+    public boolean hasSdcard() {
+        String state = Environment.getExternalStorageState();
+        if (state.equals(Environment.MEDIA_MOUNTED)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public void resizeImage(Uri uri) {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.setDataAndType(uri, "image/*");
+        intent.putExtra("crop", "true");
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        intent.putExtra("outputX", 150);
+        intent.putExtra("outputY", 150);
+        intent.putExtra("return-data", true);
+        startActivityForResult(intent, RESULT_REQUEST_CODE);
+    }
+
+    private Uri getImageUri() {
+        return Uri.fromFile(new File(Environment.getExternalStorageDirectory(),
+                IMAGE_FILE_NAME));
+    }
+
+    private void showResizeImage(Intent data) {
+        Bundle extras = data.getExtras();
+        if (extras != null) {
+            Bitmap photo = extras.getParcelable("data");
+            mBitmap = photo;
+            Uri rUri = Uri.parse(MediaStore.Images.Media.insertImage(
+                    getContentResolver(), mBitmap, null, null));
+            ImageLoader.getInstance().displayImage(rUri.toString(),
+                    head);
+        }
     }
 }
