@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
+import com.example.a.myapplication.activity.ShopActivity;
 import com.example.a.myapplication.bean.BaseModel;
 import com.example.a.myapplication.bean.CartShopInfoModel;
 import com.example.a.myapplication.bean.ShopDetailsModel;
@@ -248,10 +249,12 @@ public class SingleProductDetailsActivity extends BaseActivity {
                 });
             } else {
                 Toast.makeText(this, mCartShopInfoModel.getM(), Toast.LENGTH_SHORT).show();
+
             }
         }
         if(obj instanceof String){
             Toast.makeText(this, obj.toString(), Toast.LENGTH_SHORT).show();
+            CommonUtils.startIntent(this, ShopActivity.class);
         }
     }
 
@@ -259,7 +262,12 @@ public class SingleProductDetailsActivity extends BaseActivity {
         OkHttpUtil.getInstance().addRequestPost(Config.addCart, parm, new OkHttpUtil.HttpCallBack<BaseModel>() {
             @Override
             public void onSuccss(BaseModel baseModel) {
-                EventBus.getDefault().post(baseModel.getM());
+                if(1==baseModel.getC()){
+                    EventBus.getDefault().post(baseModel.getM());
+                }else{
+                    Toast.makeText(SingleProductDetailsActivity.this,baseModel.getM(),Toast.LENGTH_SHORT).show();
+                }
+
             }
 
             @Override
@@ -327,7 +335,6 @@ public class SingleProductDetailsActivity extends BaseActivity {
             public void onSuccss(CartShopInfoModel cartShopInfoModel) {
                 EventBus.getDefault().post(cartShopInfoModel);
             }
-
             @Override
             public void onFailure(String error) {
 

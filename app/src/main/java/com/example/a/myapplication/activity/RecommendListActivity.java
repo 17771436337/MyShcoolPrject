@@ -62,6 +62,7 @@ public class RecommendListActivity extends BaseActivity implements SwipeRefreshL
     private void initTitleView() {
         titleText.setText(getIntent().getExtras().getString("name"));
         right.setImageResource(R.drawable.icon_screen);
+        messageIcon.setImageResource(R.drawable.icon_back);
         id=getIntent().getStringExtra("id");
         MyFragmentPagerAdapter adapter = new MyFragmentPagerAdapter(getSupportFragmentManager(), this,titles, url,id);
         activityRecommendVp.setAdapter(adapter);
@@ -72,7 +73,12 @@ public class RecommendListActivity extends BaseActivity implements SwipeRefreshL
                 CommonUtils.startIntent(RecommendListActivity.this, ScreenActivity.class,1000);
             }
         });
-
+        messageIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RecommendListActivity.this.finish();
+            }
+        });
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

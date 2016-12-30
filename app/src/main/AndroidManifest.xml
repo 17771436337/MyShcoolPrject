@@ -29,7 +29,8 @@
         android:logo="@mipmap/ic_launcher"
         android:screenOrientation="portrait"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        >
         <activity android:name=".MainActivity"></activity>
 
         <!-- 登录 -->

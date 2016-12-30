@@ -13,94 +13,89 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
-public class BaseApplication extends Application
-{
+public class BaseApplication extends Application {
 
-	//public static LocationService locationService;
-	public Vibrator mVibrator;
-	private static Context	mContext;
-	private static Thread	mMainThread;
-	private static long		mMainThreadId;
-	private static Looper	mMainLooper;
-	private static Handler	mMainHandler;
-	private static BaseApplication baseApplication;
-	public static Activity mCurrentActivity;
-	public static BaseApplication getInstance() {
-		if(null==baseApplication){
-			baseApplication=new BaseApplication();
-		}
-		return baseApplication;
-	}
-	public static Context getContext()
-	{
-		return mContext;
-	}
+    //public static LocationService locationService;
+    public Vibrator mVibrator;
+    private static Context mContext;
+    private static Thread mMainThread;
+    private static long mMainThreadId;
+    private static Looper mMainLooper;
+    private static Handler mMainHandler;
+    private static BaseApplication baseApplication;
+    public static Activity mCurrentActivity;
 
-	public static Thread getMainThread()
-	{
-		return mMainThread;
-	}
+    public static BaseApplication getInstance() {
+        if (null == baseApplication) {
+            baseApplication = new BaseApplication();
+        }
+        return baseApplication;
+    }
 
-	public static long getMainThreadId()
-	{
-		return mMainThreadId;
-	}
+    public static Context getContext() {
+        return mContext;
+    }
 
-	public static Looper getMainThreadLooper()
-	{
-		return mMainLooper;
-	}
+    public static Thread getMainThread() {
+        return mMainThread;
+    }
 
-	public static Handler getMainHandler()
-	{
-		return mMainHandler;
-	}
+    public static long getMainThreadId() {
+        return mMainThreadId;
+    }
 
-	// 应用程序的入口
-	@Override
-	public void onCreate()
-	{
+    public static Looper getMainThreadLooper() {
+        return mMainLooper;
+    }
 
-		/**
-		 * 初始化个推
-		 */
-		//PushManager.getInstance().initialize(this);
+    public static Handler getMainHandler() {
+        return mMainHandler;
+    }
 
-		/***
-		 * 初始化定位sdk，建议在Application中创建
-		 */
-		//locationService = new LocationService(getApplicationContext());
-		mVibrator =(Vibrator)getApplicationContext().getSystemService(Service.VIBRATOR_SERVICE);
-		//SDKInitializer.initialize(getApplicationContext());
+    // 应用程序的入口
+    @Override
+    public void onCreate() {
+
+        /**
+         * 初始化个推
+         */
+        //PushManager.getInstance().initialize(this);
+
+        /***
+         * 初始化定位sdk，建议在Application中创建
+         */
+        //locationService = new LocationService(getApplicationContext());
+        mVibrator = (Vibrator) getApplicationContext().getSystemService(Service.VIBRATOR_SERVICE);
+        //SDKInitializer.initialize(getApplicationContext());
 
 
-		DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
-				.cacheInMemory(true)
-				.cacheOnDisk(true)
-				.imageScaleType(ImageScaleType.EXACTLY)
-				.build();
+        DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .imageScaleType(ImageScaleType.EXACTLY)
+                .build();
 
-		ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
-				.writeDebugLogs()
-				.defaultDisplayImageOptions(defaultOptions)
-				.diskCacheExtraOptions(480, 320, null)
-				.build();
-		ImageLoader.getInstance().init(config);
-		super.onCreate();
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext())
+                .writeDebugLogs()
+                .defaultDisplayImageOptions(defaultOptions)
+                .diskCacheExtraOptions(480, 320, null)
+                .build();
+        ImageLoader.getInstance().init(config);
+        super.onCreate();
 
-		// 上下文
-		mContext = getApplicationContext();
+        // 上下文
+        mContext = getApplicationContext();
 
-		// 主线程
-		mMainThread = Thread.currentThread();
+        // 主线程
+        mMainThread = Thread.currentThread();
 
-		// mMainThreadId = mMainThread.getId();
-		mMainThreadId = android.os.Process.myTid();
+        // mMainThreadId = mMainThread.getId();
+        mMainThreadId = android.os.Process.myTid();
 
-		mMainLooper = getMainLooper();
+        mMainLooper = getMainLooper();
 
-		// 创建主线程的handler
-		mMainHandler = new Handler();
+        // 创建主线程的handler
+        mMainHandler = new Handler();
 
-	}
+    }
 }

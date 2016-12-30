@@ -74,7 +74,9 @@ public class OrderDetailHolder extends BaseHolder<OrderDetailModel.Shop> {
         text.setText(data.getBname());
 
         for (int i = 0; i < data.getShops().size(); i++) {
-            price += Double.parseDouble(data.getShops().get(i).getPrice());
+            double num = Double.parseDouble(data.getShops().get(i).getPrice());
+            int sum = Integer.parseInt(data.getShops().get(i).getSum());
+            price += (num * sum);
         }
 
         String text = "总价：" + price;

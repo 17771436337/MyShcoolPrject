@@ -2,6 +2,7 @@ package com.example.a.myapplication;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -30,6 +31,8 @@ import java.util.Map;
 
 import butterknife.ButterKnife;
 
+import static android.content.pm.ActivityInfo.*;
+
 
 public abstract class BaseActivity extends FragmentActivity {
     Intent mIntent;
@@ -54,7 +57,7 @@ public abstract class BaseActivity extends FragmentActivity {
         }
         mView = (ViewGroup) LayoutInflater.from(this).inflate(getLayoutID(), null);
         addTitle();
-        ButterKnife.inject(this,mView);
+        ButterKnife.inject(this, mView);
         // 初始化view
         initView();
 
@@ -76,6 +79,11 @@ public abstract class BaseActivity extends FragmentActivity {
     protected void onResume() {
         super.onResume();
         BaseApplication.mCurrentActivity = this;
+        // 横屏设置
+        if (getRequestedOrientation() != SCREEN_ORIENTATION_LANDSCAPE) {
+            setRequestedOrientation(SCREEN_ORIENTATION_PORTRAIT);
+        }
+
 //        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT&& !(this instanceof MainActivity)) {
 //            setTranslucentStatus(true);
 //            SystemBarTintManager tintManager = new SystemBarTintManager(this);

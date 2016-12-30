@@ -29,7 +29,7 @@
             android:layout_alignParentBottom="true"
 
             android:layout_marginLeft="10dp"
-            android:src="@drawable/android"
+            android:src="@drawable/default_head"
             android:visibility="invisible"/>
 
 

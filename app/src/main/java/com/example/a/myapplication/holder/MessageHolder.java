@@ -1,5 +1,8 @@
 package com.example.a.myapplication.holder;
 
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -49,7 +52,20 @@ public class MessageHolder extends BaseHolder<MessageModel.Message> {
     @Override
     protected void refreshUI(MessageModel.Message data) {
         time.setText(data.getTime());
-        text.setText(data.getContent());
+
+        String str[] = data.getContent().split("#");
+
+        if (str.length == 1) {
+            text.setText(data.getContent());
+        } else {
+            String text1 = str[0] + "  " + str[1];
+            SpannableStringBuilder style = new SpannableStringBuilder(text1);
+            style.setSpan(new ForegroundColorSpan(UIUtils.getContext().getResources().getColor(R.color.black_text)), 0, str[0].length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE); //设置指定位置文字的颜色
+            style.setSpan(new ForegroundColorSpan(UIUtils.getContext().getResources().getColor(R.color.black_transparency_text)), str[0].length(), text1.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE); //设置指定位置文字的颜色
+            text.setText(style);
+        }
+
+
         l1.setVisibility(View.VISIBLE);
         switch (data.getType()) {
             case "1": // 1 发货1，收藏2，评论3，关注4，单品解答5，风格解答6

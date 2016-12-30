@@ -85,6 +85,8 @@ public class IntegralActivity extends BaseActivity {
         TitleView2 view = new TitleView2(this);
         titleView.addView(view.getView());
         view.setTitleText("我的积分", R.drawable.icon_replacement);
+
+
     }
 
 

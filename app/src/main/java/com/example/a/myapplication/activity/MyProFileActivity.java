@@ -65,7 +65,17 @@ public class MyProFileActivity extends BaseActivity {
     protected void initView() {
         initTitle();
         name.setText(Preference.get(Config.NAME, ""));
-        sex.setText(Preference.get(Config.SEX, ""));
+
+        String str = Preference.get(Config.SEX, "");
+
+        if (str.equals("1")) {
+            str = "男";
+        } else if (str.equals("2")) {
+            str = "女";
+        } else {
+            str = "保密";
+        }
+        sex.setText(str);
         date.setText(Preference.get(Config.AGE, ""));
 
         Glide.with(UIUtils.getContext()).load(Config.hostImgString + Preference.get(Config.HEAD, "")).asBitmap().centerCrop().into(new BitmapImageViewTarget(head) {
@@ -95,7 +105,19 @@ public class MyProFileActivity extends BaseActivity {
                 par.put("userid", Preference.get(Config.ID, ""));
                 par.put("img", "");
                 par.put("nickname", name.getText().toString());
-                par.put("sex", sex.getText().toString());
+
+
+                String str = sex.getText().toString();
+
+                if (str.equals("男")) {
+                    str = 1+"";
+                } else if (str.equals("女")) {
+                    str = 2+"";
+                } else {
+                    str = 0+"";
+                }
+
+                par.put("sex", str);
                 par.put("age", date.getText().toString());
 
                 OkHttpUtil.getInstance().addRequestPost(Config.saveProfile, par, new OkHttpUtil.HttpCallBack<BaseModel>() {
@@ -124,7 +146,18 @@ public class MyProFileActivity extends BaseActivity {
             Toast.makeText(this, baseModel.getM() + "", Toast.LENGTH_SHORT).show();
             if (baseModel.getC() == 1) {
                 Preference.put(Config.NAME, name.getText().toString());
-                Preference.put(Config.SEX, sex.getText().toString());
+
+                String str = sex.getText().toString();
+
+                if (str.equals("男")) {
+                    str = 1+"";
+                } else if (str.equals("女")) {
+                    str = 2+"";
+                } else {
+                    str = 0+"";
+                }
+
+                Preference.put(Config.SEX, str);
                 Preference.put(Config.AGE, date.getText().toString());
                 finish();
             }
@@ -162,7 +195,7 @@ public class MyProFileActivity extends BaseActivity {
      */
     private void dialogAge() {
         final DatePicker datePicker = new DatePicker(this);
-        datePicker.setRange(1900, 2100);
+        datePicker.setRange(1900, 2018);
         datePicker.setSelectedItem(2017, 1, 1);
 
         datePicker.setOnDatePickListener(

@@ -13,6 +13,8 @@ import com.example.a.myapplication.bean.MyOrderModer;
 import com.example.a.myapplication.http.OkHttpUtil;
 import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
+import com.example.a.myapplication.util.Preference;
+import com.example.a.myapplication.util.UIUtils;
 import com.example.a.myapplication.view.LoadingPager;
 import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
@@ -38,7 +40,7 @@ public class OrderFragment extends BaseFragment {
     protected RelativeLayout fragment_stylist_sl;
 
     @InjectView(R.id.pull_layout)
-    protected PullToRefreshListView pullListView;
+    public  PullToRefreshListView pullListView;
 
     public static final String ARGS_PAGE = "args_page";
     public static final String ARGS_TYPE = "arge_type";
@@ -78,27 +80,25 @@ public class OrderFragment extends BaseFragment {
         pullListView.setMode(BOTH);
         adapter = new MyOrderAdapter(pullListView, orderModer.getO());
         pullListView.getRefreshableView().setAdapter(adapter);
-        pullListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
-            @Override
-            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-                EventBus.getDefault().post("onPullDownToRefresh");
-//                pullListView.onRefreshComplete();
-//                adapter.notifyDataSetChanged();
-
-            }
-
-            @Override
-            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-                EventBus.getDefault().post("onPullUpToRefresh");
-//                pullListView.onRefreshComplete();
-//                adapter.notifyDataSetChanged();
-            }
-        });
+        pullListView.onRefreshComplete();
+//        pullListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+//            @Override
+//            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+//             //  EventBus.getDefault().post("onPullDownToRefresh");
+//                refreshView.onRefreshComplete();
+//            }
+//
+//            @Override
+//            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+//                EventBus.getDefault().post("onPullUpToRefresh");
+//            }
+//        });
 
     }
 
 
     public LoadingPager.LoadedResult initData() {
+
         try {
             initDate();
             if (null == orderModer.getO() || orderModer.getO().size() == 0) {
@@ -114,7 +114,7 @@ public class OrderFragment extends BaseFragment {
     public MyOrderModer initDate() {
 
         Map<String, String> par = CommonUtils.getMapParm();
-        par.put("uid", "2");
+        par.put("uid", Preference.get(Config.ID, ""));
         par.put("type", position + "");
         par.put("pagination", String.valueOf(page));
         par.put("pagelen", Config.listCount);
@@ -153,7 +153,7 @@ public class OrderFragment extends BaseFragment {
 
     public void getData() {
         Map<String, String> par = CommonUtils.getMapParm();
-        par.put("uid", "2");
+        par.put("uid", Preference.get(Config.ID, ""));
         par.put("type", position + "");
         par.put("pagination", String.valueOf(page));
         par.put("pagelen", Config.listCount);
@@ -164,8 +164,10 @@ public class OrderFragment extends BaseFragment {
                 if (null != myOrderModer.getO() && myOrderModer.getO().size() > 0) {
 
                     adapter.addData(myOrderModer.getO());
+
                     notifyData();
                 }
+
 
             }
 
@@ -188,8 +190,11 @@ public class OrderFragment extends BaseFragment {
                 adapter.getDatas().addAll(orderModer.getO());
             }
             adapter.notifyDataSetChanged();
+
         }
 
     }
+
+
 
 }

@@ -192,8 +192,8 @@ public class StylistFragment  extends BaseFragment  implements OnDataChangeListe
         }
         @Override
         public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-            outRect.left = 20;
-            outRect.right = 20;
+            outRect.left = 5;
+            outRect.right = 5;
             outRect.top = 0;
             if (parent.getChildAdapterPosition(view) == 0) {
                 outRect.bottom = 20;

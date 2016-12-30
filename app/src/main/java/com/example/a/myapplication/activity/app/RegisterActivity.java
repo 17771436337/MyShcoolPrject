@@ -161,12 +161,13 @@ public class RegisterActivity extends BaseActivity {
         public void onTick(long millisUntilFinished) {
             Log.i("test", "??");
             codeText.setText(millisUntilFinished / 1000 + "秒后重发");
+            codeText.setEnabled(false);
         }
 
         @Override
         public void onFinish() {
             codeText.setText("发送验证码");
-
+            codeText.setEnabled(true);
         }
 
     }

@@ -110,7 +110,7 @@ public class ConfirmAnOrderActivity extends BaseActivity {
         orderPrice = getIntent().getExtras().getString("orderPrice");
         int oid = getIntent().getExtras().getInt("oid");
         this.oid = oid + "";
-        orderPriceTextView.setText(orderPrice);
+        orderPriceTextView.setText("￥" + orderPrice);
     }
 
     /**

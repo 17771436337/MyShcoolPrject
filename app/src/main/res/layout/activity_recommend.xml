@@ -33,6 +33,6 @@
         android:layout_height="match_parent"
         android:isScrollContainer="true"
         android:layout_marginTop="10dp"
-        android:background="@color/white" />
+        android:background="#F6F7F9" />
 
 </LinearLayout>

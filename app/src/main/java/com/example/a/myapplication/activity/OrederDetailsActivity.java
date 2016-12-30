@@ -183,7 +183,7 @@ public class OrederDetailsActivity extends BaseActivity {
     public void setTextPrice(double price) {
         priceSum = priceSum - price;
         this.price.setText("￥" + priceSum);
-        favorable.setText("￥" + price);
+        favorable.setText("-￥" + price);
     }
 
 }

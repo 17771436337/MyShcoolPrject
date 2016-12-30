@@ -109,7 +109,7 @@ public class LoopView extends View {
 
         lineSpacingMultiplier = 2.0F;
         isLoop = true;
-        itemsVisible = 9;
+        itemsVisible = 5;
         textSize = 0;
         colorGray = 0xffafafaf;
         colorBlack = 0xff313131;
