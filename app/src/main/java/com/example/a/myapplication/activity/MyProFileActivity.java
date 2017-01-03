@@ -223,7 +223,7 @@ public class MyProFileActivity extends BaseActivity {
      */
     private void dialogAge() {
         final DatePicker datePicker = new DatePicker(this);
-        datePicker.setRange(1900, 2018);
+        datePicker.setRange(1900, 2017);
         datePicker.setSelectedItem(2017, 1, 1);
 
         datePicker.setOnDatePickListener(

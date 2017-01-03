@@ -184,7 +184,8 @@ public class ExpandableListViewAdapter extends BaseExpandableListAdapter impleme
                 case 0x0001:
                     UserCouponModel userCouponModel = (UserCouponModel) msg.obj;
                     if (userCouponModel.getC() == 1) {
-                        orederDetailsActivity.setTextPrice(0);
+                        double v = Double.parseDouble(userCouponModel.getO().getPrice());
+                        orederDetailsActivity.setTextPrice(v);
                         notifyDataSetChanged();
 
                     } else {

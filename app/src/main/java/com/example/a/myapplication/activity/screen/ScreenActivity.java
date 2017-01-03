@@ -1,6 +1,7 @@
 package com.example.a.myapplication.activity.screen;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -155,8 +156,15 @@ public class ScreenActivity extends BaseActivity {
                         categorys = categorys + towMode.getO().get(i).getId() + ",";
 //                        string=  categorys.substring(0,string.length()-1);
                     }
-                    categorys = categorys.substring(0, categorys.length() - 1);
-                    string = string.substring(0, string.length() - 1);
+                    if (!TextUtils.isEmpty(brands) && brands.length() > 0) {
+                        categorys = categorys.substring(0, categorys.length() - 1);
+                    } else {
+                        categoryText.setVisibility(View.GONE);
+                        categoryIcon.setVisibility(View.VISIBLE);
+                    }
+                    if (!TextUtils.isEmpty(brands) && brands.length() > 0) {
+                        string = string.substring(0, string.length() - 1);
+                    }
                     categoryText.setText(string);
                 } else {
                     categoryText.setVisibility(View.GONE);
@@ -176,8 +184,15 @@ public class ScreenActivity extends BaseActivity {
                         populars = populars + towMode.getO().get(i).getId() + ",";
 //                        populars=  populars.substring(0,populars.length()-1);
                     }
-                    populars = populars.substring(0, populars.length() - 1);
-                    string = string.substring(0, string.length() - 1);
+                    if (!TextUtils.isEmpty(brands) && brands.length() > 0) {
+                        populars = populars.substring(0, populars.length() - 1);
+                    } else {
+                        fashionIcon.setVisibility(View.VISIBLE);
+                        fashionText.setVisibility(View.GONE);
+                    }
+                    if (!TextUtils.isEmpty(brands) && brands.length() > 0) {
+                        string = string.substring(0, string.length() - 1);
+                    }
                     fashionText.setText(string);
                 } else {
                     fashionIcon.setVisibility(View.VISIBLE);
@@ -198,8 +213,15 @@ public class ScreenActivity extends BaseActivity {
                         colors = colors + towMode.getO().get(i).getId() + ",";
 //                        string=  brands.substring(0,string.length()-1);
                     }
-                    colors = colors.substring(0, colors.length() - 1);
-                    string = string.substring(0, string.length() - 1);
+                    if (!TextUtils.isEmpty(colors) && colors.length() > 0) {
+                        colors = colors.substring(0, colors.length() - 1);
+                    } else {
+                        colorIcon.setVisibility(View.VISIBLE);
+                        colorText.setVisibility(View.GONE);
+                    }
+                    if (!TextUtils.isEmpty(string) && string.length() > 0) {
+                        string = string.substring(0, string.length() - 1);
+                    }
                     colorText.setText(string);
                 } else {
                     colorIcon.setVisibility(View.VISIBLE);
@@ -219,8 +241,16 @@ public class ScreenActivity extends BaseActivity {
                         brands = brands + towMode.getO().get(i).getId() + ",";
 
                     }
-                    brands = brands.substring(0, brands.length() - 1);
-                    string = string.substring(0, string.length() - 1);
+
+                    if (!TextUtils.isEmpty(brands) && brands.length() > 0) {
+                        brands = brands.substring(0, brands.length() - 1);
+                    } else {
+                        brandIcon.setVisibility(View.VISIBLE);
+                        brandText.setVisibility(View.GONE);
+                    }
+                    if (!TextUtils.isEmpty(string) && string.length() > 0) {
+                        string = string.substring(0, string.length() - 1);
+                    }
                     brandText.setText(string);
                 } else {
                     brandIcon.setVisibility(View.VISIBLE);
@@ -238,8 +268,19 @@ public class ScreenActivity extends BaseActivity {
                     for (int i = 0; i < towMode.getO().size(); i++) {
                         string = string + towMode.getO().get(i).getName() + ",";
                         idols = idols + towMode.getO().get(i).getId() + ",";
+
+                    }
+                    if (!TextUtils.isEmpty(string) && string.length() > 0) {
+                        string = idols.substring(0, string.length() - 1);
+                    } else {
+                        styleIcon.setVisibility(View.VISIBLE);
+                        styleText.setVisibility(View.GONE);
+                    }
+                    if (!TextUtils.isEmpty(idols) && idols.length() > 0) {
                         idols = idols.substring(0, idols.length() - 1);
                     }
+
+
                     styleText.setText(string);
                 } else {
                     styleIcon.setVisibility(View.VISIBLE);

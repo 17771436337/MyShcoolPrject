@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -69,8 +70,14 @@ public class ShopActivity extends BaseActivity implements ContentHolder.IsChecke
         initTitle();
         getData();
         adapter = new ShopAdapter(pullListView, model.getO());
-        pullListView.setMode(PullToRefreshBase.Mode.BOTH);
+        pullListView.setMode(PullToRefreshBase.Mode.PULL_FROM_START);
         pullListView.getRefreshableView().setAdapter(adapter);
+        pullListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener<ListView>() {
+            @Override
+            public void onRefresh(PullToRefreshBase<ListView> refreshView) {
+                EventBus.getDefault().post("onRefresh");
+            }
+        });
 
     }
 
@@ -150,15 +157,23 @@ public class ShopActivity extends BaseActivity implements ContentHolder.IsChecke
         super.onEventMainThread(obj);
         if (obj instanceof ShopModel) {
             ShopModel shopMode = (ShopModel) obj;
+            pullListView.onRefreshComplete();
             if (shopMode.getC() == 1) {
                 model = shopMode;
                 adapter.addData(shopMode.getO());
                 adapter.notifyDataSetChanged();
 
             } else {
-
+                Toast.makeText(this, shopMode.getM() + "", Toast.LENGTH_SHORT).show();
             }
 
+
+        }
+
+
+        if (obj instanceof String) {
+            adapter.getmDatas().clear();
+            getData();
         }
     }
 
