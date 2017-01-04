@@ -6,12 +6,14 @@ import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
 import com.example.a.myapplication.adapter.ExpandableListViewAdapter;
 import com.example.a.myapplication.adapter.OrederAdapter;
 import com.example.a.myapplication.bean.OrderDetailModel;
+import com.example.a.myapplication.bean.UserCouponModel;
 import com.example.a.myapplication.http.OkHttpUtil;
 import com.example.a.myapplication.lib.CustomExpandableListView;
 import com.example.a.myapplication.util.CommonUtils;
@@ -97,8 +99,39 @@ public class OrederDetailsActivity extends BaseActivity {
     @Override
     protected void initData() {
         id = getIntent().getExtras().getString("id");
-        getData();
 
+        adapterExpandableListView.addTextChange(new ExpandableListViewAdapter.AddTextChange() {
+            @Override
+            public void addTextChangedListener(CharSequence s) {
+
+                Map<String, String> par = CommonUtils.getMapParm();
+                par.put("uid", Preference.get(Config.ID, ""));
+                if (!TextUtils.isEmpty(s)) {
+                    par.put("coupon_no", s.toString());
+                }
+                par.put("oid", orderId + "");
+                OkHttpUtil.getInstance().addRequestPost(Config.useCoupon, par, new OkHttpUtil.HttpCallBack<UserCouponModel>() {
+
+                    @Override
+                    public void onSuccss(UserCouponModel userCouponModel) {
+                        EventBus.getDefault().post(userCouponModel);
+
+                    }
+
+                    @Override
+                    public void onFailure(String error) {
+
+                    }
+                });
+            }
+        });
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getData();
     }
 
     /**
@@ -107,7 +140,7 @@ public class OrederDetailsActivity extends BaseActivity {
     private void initTitle() {
         TitleView1 view = new TitleView1(this);
         titleView.addView(view.getView());
-        view.setTitleText("订单详情", "编辑");
+        view.setTitleText("订单详情", "");
     }
 
     private void getData() {
@@ -160,7 +193,24 @@ public class OrederDetailsActivity extends BaseActivity {
             }
 
         }
+
+
+        if (obj instanceof UserCouponModel) {
+            userCouponModel = (UserCouponModel) obj;
+            if (userCouponModel.getC() == 1) {
+                if (userCouponModel.getO() != null) {
+                    double v = Double.parseDouble(userCouponModel.getO().getPrice());
+                    setTextPrice(v);
+                    adapterExpandableListView.notifyDataSetChanged();
+                }
+
+            } else {
+                Toast.makeText(OrederDetailsActivity.this, userCouponModel.getM() + "", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
+
+    UserCouponModel userCouponModel;
 
     @OnClick({R.id.yes})
     protected void onClick(View v) {
@@ -168,15 +218,24 @@ public class OrederDetailsActivity extends BaseActivity {
             case R.id.yes:
 
                 if (orderId != 0) {
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("oid", orderId);
-                    bundle.putString("orderPrice", priceSum + "");
-                    CommonUtils.startIntent(this, ConfirmAnOrderActivity.class, bundle);
+                    if (userCouponModel != null && userCouponModel.getC() == 1) {
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("oid", orderId);
+                        bundle.putString("orderPrice", priceSum + "");
+                        CommonUtils.startIntent(this, ConfirmAnOrderActivity.class, bundle);
+                    } else if (userCouponModel == null) {
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("oid", orderId);
+                        bundle.putString("orderPrice", priceSum + "");
+                        CommonUtils.startIntent(this, ConfirmAnOrderActivity.class, bundle);
+
+                    } else {
+                        Toast.makeText(OrederDetailsActivity.this, userCouponModel.getM() + "", Toast.LENGTH_SHORT).show();
+                    }
                 }
-
-
                 break;
         }
+
     }
 
 

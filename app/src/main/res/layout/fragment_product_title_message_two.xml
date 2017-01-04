@@ -8,8 +8,9 @@
 
     <!-- TODO: Update blank fragment layout -->
     <RelativeLayout
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:background="#99EEEEEE"
+        android:background="#EEEEEE"
         android:layout_height="50dp">
         <TextView
             android:id="@+id/activity_product_title_message_tv1"
@@ -17,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:textSize="20dp"
+            android:textSize="30dp"
             android:layout_marginLeft="30dp"
             android:text="11"/>
 
@@ -59,7 +60,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            android:textSize="20dp"
+            android:textSize="30dp"
             android:layout_marginRight="30dp"
             android:text="11"/>
     </RelativeLayout>
@@ -74,7 +75,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@color/listview_divider"
-        android:background="#EEEEEE"
+        android:background="#FFFFFF"
         android:scrollbars="none"
         ptr:ptrHeaderTextColor="@color/color_refresh"
         />

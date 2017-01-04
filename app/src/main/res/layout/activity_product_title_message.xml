@@ -16,29 +16,81 @@
             android:scaleType="fitXY"
             />
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_gravity="bottom"
             android:layout_width="match_parent"
-            android:layout_height="240dp"
+            android:layout_height="260dp"
 
             android:orientation="vertical">
 
 
-            <android.support.v4.view.ViewPager
+            <com.example.a.myapplication.view.CustomViewPager
                 android:id="@+id/activity_product_title_message_vp"
-                android:layout_weight="2"
                 android:layout_width="match_parent"
-                android:layout_height="200dp">
-            </android.support.v4.view.ViewPager>
+                android:layout_above="@+id/activity_product_title_message_rl"
+                android:layout_height="220dp">
+            </com.example.a.myapplication.view.CustomViewPager>
 
-            <include
+            <RelativeLayout
+                android:id="@+id/activity_product_title_message_rl"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                layout="@layout/layout_comment"/>
+                android:gravity="center_vertical"
+                android:background="#EEEEEE"
+                android:layout_alignParentBottom="true"
+                android:layout_height="wrap_content">
+                <FrameLayout
+                    android:layout_marginLeft="15dp"
+                    android:id="@+id/layout_comment_to_pl"
+                    android:layout_width="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_marginTop="6dp"
+                        android:id="@+id/layout_comment_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="25dp"  />
+
+                    <TextView
+                        android:layout_toRightOf="@+id/layout_comment_msg"
+                        android:id="@+id/layout_comment_count"
+                        android:layout_width="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/num_mes"
+                        android:layout_marginTop="3dp"
+                        android:gravity="center"
+                        android:text="2"
+                        android:textColor="@color/white"
+                        android:textSize="10sp" />
+                </FrameLayout>
+
+                <EditText
+                    android:layout_marginLeft="50dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginRight="70dp"
+                    android:layout_centerVertical="true"
+                    android:hint="  添加评论..."
+                    android:textSize="14dp"
+                    android:background="@drawable/btn_input_gray_one"
+                    android:layout_centerHorizontal="true"/>
+                <Button
+                    android:id="@+id/layout_comment_but"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="@null"
+                    android:layout_marginRight="10dp"
+                    android:textSize="14dp"
+                    android:textColor="#E88507"
+                    android:text="发送"/>
+            </RelativeLayout>
 
 
-        </LinearLayout>
+        </RelativeLayout>
 
 
     </FrameLayout>

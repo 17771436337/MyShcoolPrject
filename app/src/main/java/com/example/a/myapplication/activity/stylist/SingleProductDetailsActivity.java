@@ -8,8 +8,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -20,6 +22,7 @@ import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
 import com.example.a.myapplication.activity.RecommendListActivity;
 import com.example.a.myapplication.activity.ShopActivity;
+import com.example.a.myapplication.adapter.DialogShopAdapter;
 import com.example.a.myapplication.bean.BaseModel;
 import com.example.a.myapplication.bean.CartShopInfoModel;
 import com.example.a.myapplication.bean.ShopDetailsModel;
@@ -33,6 +36,9 @@ import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.appindexing.Thing;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.handmark.pulltorefresh.library.PullToRefreshGridView;
+import com.handmark.pulltorefresh.library.PullToRefreshHorizontalScrollView;
+import com.handmark.pulltorefresh.library.PullToRefreshScrollView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
@@ -77,7 +83,7 @@ public class SingleProductDetailsActivity extends BaseActivity {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
- public static  Map<String,String> parm;
+    public static  Map<String,String> parm;
 
     @Override
     protected int getLayoutID() {
@@ -117,9 +123,9 @@ public class SingleProductDetailsActivity extends BaseActivity {
                 title.setText(mShopDetailsModel.getO().getName());
                 activitySingleProductDetailsName.setText(
                         mShopDetailsModel.getO().getBrand()+"   "+
-                        mShopDetailsModel.getO().getCategory()+"   "+
-                        mShopDetailsModel.getO().getColor()+"   "+
-                        mShopDetailsModel.getO().getPopular()  );
+                                mShopDetailsModel.getO().getCategory()+"   "+
+                                mShopDetailsModel.getO().getColor()+"   "+
+                                mShopDetailsModel.getO().getPopular()  );
                 activitySingleProductDetailsIdol.setText(mShopDetailsModel.getO().getIdol());
                 activitySingleProductDetailsPrice.setText("￥" + mShopDetailsModel.getO().getPrice());
                 imgs = mShopDetailsModel.getO().getImgs();
@@ -172,22 +178,31 @@ public class SingleProductDetailsActivity extends BaseActivity {
 
 
                         dialog_shop_color = (TextView) view.findViewById(R.id.dialog_shop_color);
-                        dialog_shop_s = (TextView) view.findViewById(R.id.dialog_shop_s);
-                        dialog_shop_m = (TextView) view.findViewById(R.id.dialog_shop_m);
-                        dialog_shop_l = (TextView) view.findViewById(R.id.dialog_shop_l);
+                        dialog_shop_sizes = (PullToRefreshGridView) view.findViewById(R.id.dialog_shop_sizes);
 
-
+                        mDialogShopAdapter=   new DialogShopAdapter(dialog_shop_sizes,mCartShopInfoModel.getO().getSize());
+                        dialog_shop_sizes.getRefreshableView().setAdapter(mDialogShopAdapter);
+                        sizemls=mCartShopInfoModel.getO().getSize().get(0);
+                        dialog_shop_sizes.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, final int i, long l) {
+                                for(int ii=0;ii<adapterView.getTouchables().size();ii++){
+                                    TextView textView= (TextView) adapterView.getTouchables().get(ii).findViewById(R.id.dialog_shop_s);
+                                    if(i==ii){
+                                        textView.setBackgroundColor(UIUtils.getColor(R.color.font_color));
+                                        textView.setTextColor(UIUtils.getColor(R.color.white));
+                                        sizemls=mCartShopInfoModel.getO().getSize().get(ii);
+                                    }else{
+                                        textView.setBackgroundColor(UIUtils.getColor(R.color.white));
+                                        textView.setTextColor(UIUtils.getColor(R.color.font_color));
+                                    }
+                                }
+                            }
+                        });
                         ImageLoader.getInstance().displayImage(Config.hostImgString+mCartShopInfoModel.getO().getImg(), dialogShopPic);
                         dialogShopTitle.setText(mCartShopInfoModel.getO().getName());
                         dialogShopPirac.setText(mCartShopInfoModel.getO().getPrice());
                         dialog_shop_color.setText(mCartShopInfoModel.getO().getColor());
-                        dialog_shop_color.setVisibility(null==mCartShopInfoModel.getO().getColor()?View.GONE:View.VISIBLE);
-                        dialog_shop_s.setText(mCartShopInfoModel.getO().getS());
-                        dialog_shop_s.setVisibility(null==mCartShopInfoModel.getO().getS()?View.GONE:View.VISIBLE);
-                        dialog_shop_l.setText(mCartShopInfoModel.getO().getL());
-                        dialog_shop_l.setVisibility(null==mCartShopInfoModel.getO().getL()?View.GONE:View.VISIBLE);
-                        dialog_shop_m.setText(mCartShopInfoModel.getO().getXL());
-                        dialog_shop_m.setVisibility(null==mCartShopInfoModel.getO().getXL()?View.GONE:View.VISIBLE);
                         popReduce.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -208,33 +223,7 @@ public class SingleProductDetailsActivity extends BaseActivity {
                                 popupWindow.dismiss();
                             }
                         });
-                        dialog_shop_s.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                hiddenAll();
-                                dialog_shop_s.setBackgroundColor(getResources().getColor(R.color.font_color));
-                                dialog_shop_s.setTextColor(getResources().getColor(R.color.white));
-                                sizemls="S";
-                            }
-                        });
-                        dialog_shop_l.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                hiddenAll();
-                                dialog_shop_l.setBackgroundColor(getResources().getColor(R.color.font_color));
-                                dialog_shop_l.setTextColor(getResources().getColor(R.color.white));
-                                sizemls="L";
-                            }
-                        });
-                        dialog_shop_m.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                hiddenAll();
-                                dialog_shop_m.setBackgroundColor(getResources().getColor(R.color.font_color));
-                                dialog_shop_m.setTextColor(getResources().getColor(R.color.white));
-                                sizemls="M";
-                            }
-                        });
+
                         dialogShopBut.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View view) {
@@ -247,7 +236,7 @@ public class SingleProductDetailsActivity extends BaseActivity {
                                     Toast.makeText(SingleProductDetailsActivity.this,"请选择颜色",Toast.LENGTH_SHORT).show();
                                     return;
                                 }
-                                if("".equals(sizemls)){
+                                if(null==sizemls||"".equals(sizemls)){
                                     Toast.makeText(SingleProductDetailsActivity.this,"请选择尺寸",Toast.LENGTH_SHORT).show();
                                     return;
                                 }
@@ -277,7 +266,6 @@ public class SingleProductDetailsActivity extends BaseActivity {
             CommonUtils.startIntent(this, ShopActivity.class);
         }
     }
-
     public void addCart(Map<String,String> parm){
         OkHttpUtil.getInstance().addRequestPost(Config.addCart, parm, new OkHttpUtil.HttpCallBack<BaseModel>() {
             @Override
@@ -287,7 +275,6 @@ public class SingleProductDetailsActivity extends BaseActivity {
                 }else{
                     Toast.makeText(SingleProductDetailsActivity.this,baseModel.getM(),Toast.LENGTH_SHORT).show();
                 }
-
             }
 
             @Override
@@ -307,6 +294,7 @@ public class SingleProductDetailsActivity extends BaseActivity {
         dialog_shop_m.setTextColor(getResources().getColor(R.color.font_color));
 
     }
+    public DialogShopAdapter mDialogShopAdapter;
     public static String sizemls;
     public int intNum;
     public ImageView dialogShopPic;
@@ -319,6 +307,7 @@ public class SingleProductDetailsActivity extends BaseActivity {
     public TextView dialogShopBut;
     public TextView dialog_shop_color,dialog_shop_s,dialog_shop_m,dialog_shop_l;
     public LinearLayout popLayout;
+    public PullToRefreshGridView dialog_shop_sizes;
 
     public void init() {
         activity_single_product_details_tv1.setText(getString(R.string.icon_gwc));
@@ -327,7 +316,7 @@ public class SingleProductDetailsActivity extends BaseActivity {
         initIconFont(activity_single_product_details_tv2);
         activity_single_product_details_tv3.setText(getString(R.string.icon_fx2));
         initIconFont(activity_single_product_details_tv3);
-        titleRight.setOnClickListener(new View.OnClickListener() {
+        back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SingleProductDetailsActivity.this.finish();
@@ -341,9 +330,7 @@ public class SingleProductDetailsActivity extends BaseActivity {
         // TODO: add setContentView(...) invocation
         ButterKnife.inject(this);
     }
-
     public CartShopInfoModel mCartShopInfoModel;
-
     @OnClick({R.id.activity_single_product_details_gwc,R.id.activity_single_product_details_tv3,R.id.activity_single_product_details_tv2,R.id.activity_single_product_details_cd})
     public void onClick(View view) {
 
@@ -353,7 +340,7 @@ public class SingleProductDetailsActivity extends BaseActivity {
                 getdate();
                 break;
             case  R.id.activity_single_product_details_tv3:
-                    Toast.makeText(SingleProductDetailsActivity.this,"功能正在开发中。。。",Toast.LENGTH_SHORT).show();
+                Toast.makeText(SingleProductDetailsActivity.this,"功能正在开发中。。。",Toast.LENGTH_SHORT).show();
                 break;
             case  R.id.activity_single_product_details_tv2:
                 activity_single_product_details_tv2.setEnabled(false);
@@ -361,7 +348,7 @@ public class SingleProductDetailsActivity extends BaseActivity {
                 break;
 
             case  R.id.activity_single_product_details_cd:
-                 parm=CommonUtils.getMapParm();
+                parm=CommonUtils.getMapParm();
                 if(null==mShopDetailsModel&&null!=mShopDetailsModel.getO()){
                     return;
                 }
@@ -385,7 +372,6 @@ public class SingleProductDetailsActivity extends BaseActivity {
                 Intent mIntent=   new Intent();
                 mIntent.setClass(SingleProductDetailsActivity.this, RecommendListActivity.class);
                 startActivity(mIntent);
-
                 break;
         } }
 
@@ -396,17 +382,16 @@ public class SingleProductDetailsActivity extends BaseActivity {
         OkHttpUtil.getInstance().addRequestPost(Config.styleCollect, parm, new OkHttpUtil.HttpCallBack<BaseModel>() {
             @Override
             public void onSuccss(final BaseModel baseModel) {
-                    UIUtils.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            if(baseModel.getC()==1){
-                                activity_single_product_details_tv2.setEnabled(true);
-                                activity_single_product_details_tv2.setTextColor(Color.RED);
-                            }
-
-                                Toast.makeText(SingleProductDetailsActivity.this,baseModel.getM(),Toast.LENGTH_SHORT).show();
+                UIUtils.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(baseModel.getC()==1){
+                            activity_single_product_details_tv2.setEnabled(true);
+                            activity_single_product_details_tv2.setTextColor(Color.RED);
                         }
-                    });
+                        Toast.makeText(SingleProductDetailsActivity.this,baseModel.getM(),Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
 
             @Override

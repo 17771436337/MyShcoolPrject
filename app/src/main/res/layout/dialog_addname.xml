@@ -67,7 +67,7 @@
                 android:paddingBottom="10dp"
                 android:paddingTop="10dp"
                 android:text="取消"
-                android:textColor="@color/black_text"
+                android:textColor="@color/black_transparency_text"
                 android:textSize="14sp"
                 />
 

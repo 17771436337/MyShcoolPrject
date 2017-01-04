@@ -106,7 +106,7 @@ public class ScreenCategoryTowActivity extends BaseActivity implements AdapterVi
                     setResult(0x0001, intent);
                     finish();
                 } else {
-
+                    finish();
                 }
             }
         });

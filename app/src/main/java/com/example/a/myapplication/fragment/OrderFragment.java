@@ -3,24 +3,25 @@ package com.example.a.myapplication.fragment;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.example.a.myapplication.BaseFragment;
 import com.example.a.myapplication.R;
+import com.example.a.myapplication.activity.MyOrderDetailsActivity;
 import com.example.a.myapplication.adapter.MyOrderAdapter;
 import com.example.a.myapplication.bean.MyOrderModer;
 import com.example.a.myapplication.http.OkHttpUtil;
 import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
 import com.example.a.myapplication.util.Preference;
-import com.example.a.myapplication.util.UIUtils;
+import com.example.a.myapplication.util.ThreadManager;
 import com.example.a.myapplication.view.LoadingPager;
 import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
 
@@ -32,7 +33,7 @@ import static com.handmark.pulltorefresh.library.PullToRefreshBase.Mode.BOTH;
 /**
  * Created by Administrator on 2016/12/22.
  */
-public class OrderFragment extends BaseFragment {
+public class OrderFragment extends BaseFragment implements AdapterView.OnItemClickListener {
     View view;
 
 
@@ -40,20 +41,17 @@ public class OrderFragment extends BaseFragment {
     protected RelativeLayout fragment_stylist_sl;
 
     @InjectView(R.id.pull_layout)
-    public  PullToRefreshListView pullListView;
+    public PullToRefreshListView pullListView;
 
     public static final String ARGS_PAGE = "args_page";
     public static final String ARGS_TYPE = "arge_type";
-    private int mPage;
-    public static int page = 1;
+    public int page = 1;
     private MyOrderAdapter adapter;
     MyOrderModer orderModer;
     int position;
 
     public static OrderFragment newInstance(int position) {
         Bundle args = new Bundle();
-
-
         args.putInt(ARGS_TYPE, position);
         OrderFragment fragment = new OrderFragment();
         fragment.setArguments(args);
@@ -63,7 +61,6 @@ public class OrderFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPage = getArguments().getInt(ARGS_PAGE);
         position = getArguments().getInt(ARGS_TYPE);
     }
 
@@ -76,35 +73,69 @@ public class OrderFragment extends BaseFragment {
     }
 
     private void init() {
-
         pullListView.setMode(BOTH);
         adapter = new MyOrderAdapter(pullListView, orderModer.getO());
         pullListView.getRefreshableView().setAdapter(adapter);
+        if (null != adapter) {
+            adapter.setDatas(orderModer.getO());
+        }
         pullListView.onRefreshComplete();
-//        pullListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
-//            @Override
-//            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
-//             //  EventBus.getDefault().post("onPullDownToRefresh");
-//                refreshView.onRefreshComplete();
-//            }
-//
-//            @Override
-//            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
-//                EventBus.getDefault().post("onPullUpToRefresh");
-//            }
-//        });
+        pullListView.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
+            @Override
+            public void onPullDownToRefresh(final PullToRefreshBase<ListView> refreshView) {
+                ThreadManager.getLongPool().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        page = 1;
+                        initDate();
+                        refreshView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                adapter.getDatas().clear();
+                                if (null != orderModer.getO()) {
+                                    adapter.getDatas().addAll(orderModer.getO());
+                                    adapter.notifyDataSetChanged();
+                                }
+                                refreshView.onRefreshComplete();
+                            }
+                        });
+                    }
+                });
+            }
 
+            @Override
+            public void onPullUpToRefresh(final PullToRefreshBase<ListView> refreshView) {
+                ThreadManager.getLongPool().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        page = page + 1;
+                        initDate();
+                        refreshView.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (null != orderModer.getO()) {
+                                    adapter.getDatas().addAll(orderModer.getO());
+                                    adapter.notifyDataSetChanged();
+                                } else {
+                                    Toast.makeText(getActivity(), "没有更多数据了！", Toast.LENGTH_SHORT).show();
+                                }
+                                refreshView.onRefreshComplete();
+                            }
+                        });
+                    }
+                });
+            }
+        });
+
+        pullListView.getRefreshableView().setOnItemClickListener(this);
     }
 
-
     public LoadingPager.LoadedResult initData() {
-
         try {
             initDate();
             if (null == orderModer.getO() || orderModer.getO().size() == 0) {
                 return LoadingPager.LoadedResult.EMPTY;
             }
-
             return LoadingPager.LoadedResult.SUCCESS;
         } catch (Exception e) {
             return LoadingPager.LoadedResult.ERROR;
@@ -112,19 +143,15 @@ public class OrderFragment extends BaseFragment {
     }
 
     public MyOrderModer initDate() {
-
         Map<String, String> par = CommonUtils.getMapParm();
         par.put("uid", Preference.get(Config.ID, ""));
         par.put("type", position + "");
         par.put("pagination", String.valueOf(page));
-        par.put("pagelen", Config.listCount);
+        par.put("pagelen", "10");
         String result = OkHttpUtil.getInstance().addRequestNoCallPost(Config.orderList, par);
         Log.e("json", result + "");
         orderModer = new Gson().fromJson(result, MyOrderModer.class);
-
-
         return orderModer;
-
     }
 
     @Override
@@ -132,69 +159,11 @@ public class OrderFragment extends BaseFragment {
         return initData();
     }
 
-
     @Override
-    public void onEventMainThread(Object obj) {
-        super.onEventMainThread(obj);
-        if ("onPullUpToRefresh".equals(obj.toString())) {
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            page = 1;
-            initData();
-            notifyData();
-        }
-        if ("onPullDownToRefresh".equals(obj.toString())) {
-
-            page++;
-            initData();
-            notifyData();
-        }
+        Bundle bundle = new Bundle();
+        bundle.putString("id", orderModer.getO().get(position - 1).getId());
+        CommonUtils.startIntent(getActivity(), MyOrderDetailsActivity.class, bundle);
     }
-
-
-    public void getData() {
-        Map<String, String> par = CommonUtils.getMapParm();
-        par.put("uid", Preference.get(Config.ID, ""));
-        par.put("type", position + "");
-        par.put("pagination", String.valueOf(page));
-        par.put("pagelen", Config.listCount);
-        OkHttpUtil.getInstance().addRequestPost(Config.orderList, par, new OkHttpUtil.HttpCallBack<MyOrderModer>() {
-
-            @Override
-            public void onSuccss(MyOrderModer myOrderModer) {
-                if (null != myOrderModer.getO() && myOrderModer.getO().size() > 0) {
-
-                    adapter.addData(myOrderModer.getO());
-
-                    notifyData();
-                }
-
-
-            }
-
-            @Override
-            public void onFailure(String error) {
-
-            }
-        });
-    }
-
-    /**
-     * 刷新数据
-     */
-    public void notifyData() {
-
-        pullListView.onRefreshComplete();
-
-        if (orderModer != null) {
-            if (orderModer.getO() != null) {
-                adapter.getDatas().addAll(orderModer.getO());
-            }
-            adapter.notifyDataSetChanged();
-
-        }
-
-    }
-
-
-
 }

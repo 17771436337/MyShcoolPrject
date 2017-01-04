@@ -7,6 +7,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.View;
+import android.widget.Toast;
 
 import com.aspsine.swipetoloadlayout.OnLoadMoreListener;
 import com.aspsine.swipetoloadlayout.OnRefreshListener;
@@ -19,6 +20,7 @@ import com.example.a.myapplication.http.OkHttpUtil;
 import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
 import com.example.a.myapplication.util.OnDataChangeListener;
+import com.example.a.myapplication.util.ThreadManager;
 import com.example.a.myapplication.util.UIUtils;
 import com.example.a.myapplication.view.LoadingPager;
 import com.google.gson.Gson;
@@ -33,7 +35,7 @@ import butterknife.InjectView;
 /**
  * 造型师下Viewpage下
  */
-public class StylistFragment  extends BaseFragment  implements OnDataChangeListener {
+public class StylistFragment  extends BaseFragment  implements OnDataChangeListener,OnRefreshListener,OnLoadMoreListener {
     @InjectView(R.id.swipe_target)
     protected RecyclerView fragment_stylist_rv;
     @InjectView(R.id.swipeToLoadLayout)
@@ -68,9 +70,8 @@ public class StylistFragment  extends BaseFragment  implements OnDataChangeListe
         if(!"".equals(id)){
             parm.put("id",id);
         }
-
+        parm.put("pagelen",10+"");
     }
-
     @Override
     protected View onLoadSuccessView() {
         view = View.inflate(getActivity(), R.layout.fragment_stylist, null);
@@ -78,19 +79,15 @@ public class StylistFragment  extends BaseFragment  implements OnDataChangeListe
         init();
         return view;
     }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         mCurrentFragment=this;
     }
-
-
     @Override
     protected LoadingPager.LoadedResult onLoadingData() {
         return initData();
     }
-
     public void init() {
         fragment_stylist_rv.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
         //设置adapter
@@ -102,24 +99,8 @@ public class StylistFragment  extends BaseFragment  implements OnDataChangeListe
         SpacesItemDecoration decoration = new SpacesItemDecoration(500);
         //initItemAnimator(fragment_stylist_rv);
         fragment_stylist_rv.addItemDecoration(decoration);
-        fragment_stylist_sl.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                UIUtils.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        fragment_stylist_sl.setRefreshing(false);
-                        EventBus.getDefault().post("onRefresh");
-                    }
-                });
-            }
-        });
-        fragment_stylist_sl.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore() {
-                fragment_stylist_sl.setLoadingMore(false);
-            }
-        });
+        fragment_stylist_sl.setOnRefreshListener(this);
+        fragment_stylist_sl.setOnLoadMoreListener(this);
     }
     public LoadingPager.LoadedResult initData() {
         try{
@@ -134,75 +115,66 @@ public class StylistFragment  extends BaseFragment  implements OnDataChangeListe
         }
     }
     public StyListModel initDate() {
-        parm.put("pagination", String.valueOf(page));
-        String result=OkHttpUtil.getInstance().addRequestNoCallPost(mUrl, parm);
-        styListModel= new Gson().fromJson(result, StyListModel.class);
-        if(page==1&&mUrl.equals(Config.QITTMELIST)){
-            StyListModel.OBean oBean=   new StyListModel.OBean();
-            oBean.setImg(Config.NATIVE);
-            styListModel.getO().add(0,oBean);
-        }
-
-        if(isChangeData){
-            EventBus.getDefault().post("isGetData");
+        try{
+            parm.put("pagination", String.valueOf(page));
+            String result=OkHttpUtil.getInstance().addRequestNoCallPost(mUrl, parm);
+            styListModel= new Gson().fromJson(result, StyListModel.class);
+        }catch (Exception e){
+            Toast.makeText(getActivity(),"网络请求失败，请重试！",Toast.LENGTH_SHORT).show();
         }
         return  styListModel;
-
     }
     @Override
     public void onDataChagne(Map<String, String> parm) {
-        this.parm=parm;
+        this.parm.putAll(parm);
         this.isChangeData=true;
-        EventBus.getDefault().post("onDataChagne");
+        //// TODO: 2017/1/3  回调Parma 刷新
+        this.onRefresh();
     }
 
-
-    public void notifyDataRefres(){
-        page=1;
-        initData();
-        if(null!=adapter){
-            adapter.getDateList().clear();
-            adapter.getDateList().addAll(styListModel.getO());
-            adapter.notifyDataSetChanged();
-        }
-
-        fragment_stylist_sl.setRefreshing(false);
-    }
-    public void notifyDataLoad(){
-        if(page==1){
-            adapter.getDateList().clear();
-        }
-        adapter.getDateList().addAll(styListModel.getO());
-        adapter.notifyDataSetChanged();
-        fragment_stylist_sl.setLoadingMore(false);
-    }
     @Override
-    public void onEventMainThread(Object obj) {
-        super.onEventMainThread(obj);
-        if("onRefresh".equals(obj.toString())){
-            page=1;
-            initDate();
-        }
-        if("onLoadMore".equals(obj.toString())){
-            fragment_stylist_sl.setLoadingMore(false);
-        }
-        if("isGetData".equals(obj.toString())){
-            adapter.getDateList().clear();
-            if(null!=styListModel.getO()){
-                adapter.getDateList().addAll(styListModel.getO());
+    public void onLoadMore() {
+        ThreadManager.getLongPool().execute(new Runnable() {
+            @Override
+            public void run() {
+                page=page+1;
+                initDate();
+                UIUtils.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(null!=styListModel.getO()){
+                            adapter.getDateList().addAll(styListModel.getO());
+                            adapter.notifyDataSetChanged();
+                        }else{
+                            Toast.makeText(getActivity(),"没有更多数据了！",Toast.LENGTH_SHORT).show();
+                        }
+                        fragment_stylist_sl.setLoadingMore(false);
+                    }
+                });
             }
-            adapter.notifyDataSetChanged();
-            isChangeData=false;
-        }
-
+        });
     }
 
     @Override
-    public void onEventBackgroundThread(Object obj) throws Exception {
-        super.onEventBackgroundThread(obj);
-        if("onDataChagne".equals(obj.toString())){
-            initDate();
-        }
+    public void onRefresh() {
+        ThreadManager.getLongPool().execute(new Runnable() {
+            @Override
+            public void run() {
+                page=1;
+                initDate();
+                UIUtils.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter.getDateList().clear();
+                        if(null!=styListModel.getO()){
+                            adapter.getDateList().addAll(styListModel.getO());
+                            adapter.notifyDataSetChanged();
+                        }
+                        fragment_stylist_sl.setRefreshing(false);
+                    }
+                });
+            }
+        });
     }
 
     public static class SpacesItemDecoration extends RecyclerView.ItemDecoration {

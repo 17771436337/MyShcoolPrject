@@ -16,6 +16,7 @@ import com.example.a.myapplication.fragment.ProductTitleMessageTwoFragment;
 import com.example.a.myapplication.http.OkHttpUtil;
 import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
+import com.example.a.myapplication.view.CustomViewPager;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import org.greenrobot.eventbus.EventBus;
@@ -27,7 +28,7 @@ import java.util.Map;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-public class ProductTitleMessageActivity extends BaseActivity {
+public class ProductTitleMessageActivity extends BaseActivity implements ProductTitleMessageTwoFragment.onIocnClickListener {
     @InjectView(R.id.back)
     ImageView back;
     @InjectView(R.id.title)
@@ -42,7 +43,7 @@ public class ProductTitleMessageActivity extends BaseActivity {
     TextView layoutCommentCount;
     ProductTitleMessageModel mProductTitleMessageModel;
     @InjectView(R.id.activity_product_title_message_vp)
-    ViewPager activityProductTitleMessageVp;
+    CustomViewPager activityProductTitleMessageVp;
     @InjectView(R.id.layout_comment_but)
     Button layoutCommentBut;
     FragAdapter adapter;
@@ -84,7 +85,7 @@ public class ProductTitleMessageActivity extends BaseActivity {
             mProductTitleMessageModel = (ProductTitleMessageModel) obj;
             if (mProductTitleMessageModel.getO().size() > 0) {
                 for (int i = 0; i < mProductTitleMessageModel.getO().size(); i++) {
-                    ProductTitleMessageTwoFragment mProductTitleMessageTwoFragment = ProductTitleMessageTwoFragment.newInstance(mProductTitleMessageModel.getO().get(i));
+                    ProductTitleMessageTwoFragment mProductTitleMessageTwoFragment = ProductTitleMessageTwoFragment.newInstance(mProductTitleMessageModel.getO().get(i),i,mProductTitleMessageModel.getO().size());
                     if (null == list) {
                         list = new ArrayList<ProductTitleMessageTwoFragment>();
                     }
@@ -128,5 +129,17 @@ public class ProductTitleMessageActivity extends BaseActivity {
       //  bundle.putString("rid", mProductTitleMessageModel.getO().get(0).getRid());
         Toast.makeText(ProductTitleMessageActivity.this,"功能还在开发中。。。",Toast.LENGTH_SHORT).show();
         // CommonUtils.startIntent(this, CommentListActivity.class,bundle);
+    }
+
+    @Override
+    public void onIconClick(int postion) {
+        if(postion<=0){
+
+            activityProductTitleMessageVp.setCurrentItem(0,true);
+        }if(postion>=mProductTitleMessageModel.getO().size()){
+            activityProductTitleMessageVp.setCurrentItem(mProductTitleMessageModel.getO().size()-1);
+        }else{
+            activityProductTitleMessageVp.setCurrentItem(postion,true);
+        }
     }
 }

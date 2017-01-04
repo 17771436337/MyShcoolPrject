@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -32,6 +34,9 @@ public class WardrobeFragment extends Fragment {
     protected ImageView tightImg;
     private final int SCREEN_REQUESTCODE = 0x0001;  //筛选携带参数返回值
 
+    @InjectView(R.id.img)
+    protected ImageView img;
+
     @Override
     public View onCreateView(LayoutInflater inflater,
                              @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,8 +48,11 @@ public class WardrobeFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        ButterKnife.inject(this,view);
+        ButterKnife.inject(this, view);
         initTitleView();
+        Animation animation = new AlphaAnimation(0.1f, 1.0f);
+        animation.setDuration(2000);
+        img.startAnimation(animation);
 
     }
 
@@ -62,7 +70,7 @@ public class WardrobeFragment extends Fragment {
         switch (v.getId()) {
 
             case R.id.right://筛选
-                         CommonUtils.startIntent(((MainActivity)getActivity()),ScreenActivity.class,SCREEN_REQUESTCODE);
+                CommonUtils.startIntent(((MainActivity) getActivity()), ScreenActivity.class, SCREEN_REQUESTCODE);
                 break;
             case R.id.message_icon://消息
                 CommonUtils.startIntent(getActivity(), MessageActvity.class);

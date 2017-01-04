@@ -19,17 +19,23 @@ public class OrderFragmentPagerAdapter extends FragmentPagerAdapter {
         super(fm);
         this.context = context;
     }
-
     @Override
     public Fragment getItem(int position) {
+        if(position==0){
+            position=5;
+        }if(position==1){
+            position=0;
+        }if(position==2){
+            position=1;
+        }if(position==3){
+            position=2;
+        }
         return OrderFragment.newInstance(position);
     }
-
     @Override
     public CharSequence getPageTitle(int position) {
         return titles[position];
     }
-
     @Override
     public int getCount() {
         return titles.length;

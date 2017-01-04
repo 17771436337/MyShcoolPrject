@@ -92,7 +92,7 @@ public class ShopActivity extends BaseActivity implements ContentHolder.IsChecke
     private void initTitle() {
         TitleView1 view = new TitleView1(this);
         titleView.addView(view.getView());
-        view.setTitleText("购物车", "编辑");
+        view.setTitleText("购物车", "");
     }
 
 

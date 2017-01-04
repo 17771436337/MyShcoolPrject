@@ -11,19 +11,15 @@ import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
 import com.example.a.myapplication.adapter.MessageAdapter;
 import com.example.a.myapplication.bean.MessageModel;
-import com.example.a.myapplication.bean.ScreenFashionModel;
 import com.example.a.myapplication.http.OkHttpUtil;
 import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
-import com.example.a.myapplication.util.Preference;
 import com.example.a.myapplication.view.TitleView1;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import butterknife.InjectView;
@@ -117,6 +113,7 @@ public class MessageActvity extends BaseActivity implements OnItemClickListener 
         super.onEventMainThread(obj);
         if (obj instanceof MessageModel) {
             MessageModel messageModel = (MessageModel) obj;
+            pullListView.onRefreshComplete();
             if (messageModel.getC() == 1) {
 
                 if (model.getO() != null) {

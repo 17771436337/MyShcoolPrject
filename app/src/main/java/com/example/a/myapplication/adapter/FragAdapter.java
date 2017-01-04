@@ -41,10 +41,11 @@ public class FragAdapter extends FragmentPagerAdapter {
         while (position>=fragments.size()) {
             fragments.add(null);
         }
-        page = ProductTitleMessageTwoFragment.newInstance(oBeenList.get(position));
+        page = ProductTitleMessageTwoFragment.newInstance(oBeenList.get(position),position,oBeenList.size());
         fragments.set(position, page);
         return page;
     }
+
 
     @Override
     public int getCount() {

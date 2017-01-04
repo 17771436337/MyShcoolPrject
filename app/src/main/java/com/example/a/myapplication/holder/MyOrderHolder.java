@@ -14,7 +14,7 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import com.example.a.myapplication.R;
 import com.example.a.myapplication.bean.MyOrderModer;
 import com.example.a.myapplication.util.Config;
-import com.example.a.myapplication.util.DateUtils;
+import com.example.a.myapplication.util.TimeUtils;
 import com.example.a.myapplication.util.UIUtils;
 
 import butterknife.ButterKnife;
@@ -96,7 +96,8 @@ public class MyOrderHolder extends BaseHolder<MyOrderModer.Order> {
 
         long l = Long.parseLong(data.getTime());
         Log.e("time", l + "");
-        time.setText(DateUtils.getShortTime(data.getTime()));
+//        time.setText(DateUtils.getShortTime(data.getTime()));
+        time.setText(TimeUtils.getTime(l));
 
         Log.e("Audit", data.getAudit());
         switch (Integer.parseInt(data.getAudit())) {

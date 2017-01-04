@@ -112,17 +112,14 @@ public class ScreenActivity extends BaseActivity {
                 finish();
             }
         });
-
     }
 
     @OnClick({R.id.brand_layout, R.id.category_layout, R.id.fashion_layout, R.id.color_layout, R.id.style_layout})
     public void onClick(View v) {
-
         switch (v.getId()) {
             case R.id.brand_layout: //品牌
                 CommonUtils.startIntent(this, ScreenBrandActivity.class, BRAND);
                 break;
-
             case R.id.category_layout: //品类
                 CommonUtils.startIntent(this, ScreenCategoryActivity.class, CATEGORY);
                 break;
@@ -130,17 +127,13 @@ public class ScreenActivity extends BaseActivity {
                 CommonUtils.startIntent(this, ScreenFashionActivity.class, FASHION);
                 break;
             case R.id.color_layout: //颜色
-
                 CommonUtils.startIntent(this, ScreenColorActivity.class, COLOR);
                 break;
             case R.id.style_layout: //风格偶像
-
                 CommonUtils.startIntent(this, ScreenStyleActivity.class, STYLE);
                 break;
-
         }
     }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         Log.e("onActivityResult", requestCode + "onActivityResult" + resultCode);
@@ -154,7 +147,7 @@ public class ScreenActivity extends BaseActivity {
                     for (int i = 0; i < towMode.getO().size(); i++) {
                         string = string + towMode.getO().get(i).getName() + ",";
                         categorys = categorys + towMode.getO().get(i).getId() + ",";
-//                        string=  categorys.substring(0,string.length()-1);
+//                       string=  categorys.substring(0,string.length()-1);
                     }
                     if (!TextUtils.isEmpty(brands) && brands.length() > 0) {
                         categorys = categorys.substring(0, categorys.length() - 1);
@@ -170,9 +163,7 @@ public class ScreenActivity extends BaseActivity {
                     categoryText.setVisibility(View.GONE);
                     categoryIcon.setVisibility(View.VISIBLE);
                 }
-
             }
-
             if (requestCode == FASHION) {//流行
                 ScreenFashionModel towMode = (ScreenFashionModel) data.getSerializableExtra("fashion");
                 String string = "";
@@ -271,7 +262,7 @@ public class ScreenActivity extends BaseActivity {
 
                     }
                     if (!TextUtils.isEmpty(string) && string.length() > 0) {
-                        string = idols.substring(0, string.length() - 1);
+                        string = string.substring(0, string.length() - 1);
                     } else {
                         styleIcon.setVisibility(View.VISIBLE);
                         styleText.setVisibility(View.GONE);

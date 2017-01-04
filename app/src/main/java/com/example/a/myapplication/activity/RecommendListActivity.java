@@ -87,19 +87,19 @@ public class RecommendListActivity extends BaseActivity implements SwipeRefreshL
             if(null==data){
                 return;
             }
-            if(null!=data.getStringExtra("brand")){
+            if(null!=data.getStringExtra("brand")&&"".equals(data.getStringExtra("brand"))){
                 parm.put("brands",data.getStringExtra("brand"));
             }
-            if(null!=data.getStringExtra("categorys")){
+            if(null!=data.getStringExtra("categorys")&&"".equals(data.getStringExtra("categorys"))){
                 parm.put("categorys",data.getStringExtra("categorys"));
             }
-            if(null!=data.getStringExtra("colors")){
+            if(null!=data.getStringExtra("colors")&&"".equals(data.getStringExtra("colors"))){
                 parm.put("colors",data.getStringExtra("colors"));
             }
-            if(null!=data.getStringExtra("populars")){
+            if(null!=data.getStringExtra("populars")&&"".equals(data.getStringExtra("populars"))){
                 parm.put("populars",data.getStringExtra("populars"));
             }
-            if(null!=data.getStringExtra("idols")){
+            if(null!=data.getStringExtra("idols")&&"".equals(data.getStringExtra("idols"))){
                 parm.put("idols",data.getStringExtra("idols"));
             }
             StylistFragment.mCurrentFragment.onDataChagne(parm);

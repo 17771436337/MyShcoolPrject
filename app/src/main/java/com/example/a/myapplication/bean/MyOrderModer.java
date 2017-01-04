@@ -47,6 +47,9 @@ public class MyOrderModer extends BaseModel {
          * audit : 0
          */
 
+        private String id;
+
+
         private String brand;
         private String logo;
         private String orderid;
@@ -58,6 +61,15 @@ public class MyOrderModer extends BaseModel {
         private String time;
         private String totalprice;
         private String audit;
+
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
 
         public String getBrand() {
             return brand;

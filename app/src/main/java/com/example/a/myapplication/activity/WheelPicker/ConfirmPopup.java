@@ -30,7 +30,7 @@ public abstract class ConfirmPopup<V extends View> extends BottomPopup<View> {
     protected CharSequence cancelText = "";
     protected CharSequence submitText = "";
     protected CharSequence titleText = "";
-    protected int cancelTextColor = Color.BLACK;
+    protected int cancelTextColor = 0xFF686868;
     protected int submitTextColor = Color.BLACK;
     protected int titleTextColor = Color.BLACK;
     protected int textSize = 18;
@@ -126,7 +126,8 @@ public abstract class ConfirmPopup<V extends View> extends BottomPopup<View> {
     public void setTitleText(CharSequence titleText) {
         this.titleText = titleText;
     }
-  /**
+
+    /**
      * Sets title text.
      *
      * @param textSize the title text

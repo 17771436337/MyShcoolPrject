@@ -33,13 +33,14 @@
         >
         <activity android:name=".MainActivity"></activity>
 
-        <activity android:name=".activity.app.WelcomeActivity">
+        <activity
+            android:name=".activity.app.WelcomeActivity"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-
         </activity>
         <!-- 登录 -->
         <activity android:name=".activity.app.LoginActivity">
@@ -47,7 +48,10 @@
         </activity>
 
         <!-- 完善资料 -->
-        <activity android:name=".activity.PerfectInformationActivity">
+        <activity
+            android:name=".activity.PerfectInformationActivity"
+            >
+
 
         </activity>
 
@@ -94,7 +98,9 @@
         <activity android:name=".activity.MessageActvity"/>
 
         <!-- 推荐列表 -->
-        <activity android:name=".activity.RecommendListActivity" android:launchMode="singleTask"/>
+        <activity
+            android:name=".activity.RecommendListActivity"
+            android:launchMode="singleTask"/>
 
         <!-- 筛选 -->
         <activity android:name=".activity.screen.ScreenActivity"/>
@@ -149,6 +155,9 @@
 
         <!--我的关注-->
         <activity android:name=".activity.MyWatchlistActivity"></activity>
+
+        <!---->
+        <activity android:name=".activity.MyOrderDetailsActivity"></activity>
 
         <activity android:name=".activity.stylist.ProductTitleMessageActivity"/>
         <activity android:name=".activity.CommentListActivity"/>

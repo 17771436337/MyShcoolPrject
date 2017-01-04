@@ -8,15 +8,19 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.a.myapplication.fragment.FindFragment;
 import com.example.a.myapplication.fragment.MainFragment;
 import com.example.a.myapplication.fragment.MineFragment;
+import com.example.a.myapplication.fragment.TestFragment;
 import com.example.a.myapplication.fragment.WardrobeFragment;
 import com.example.a.myapplication.util.ScreenUtils;
 import com.example.a.myapplication.view.BottomView;
+
+import butterknife.InjectView;
 
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
@@ -29,18 +33,23 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     private WardrobeFragment findFragment;
     private FindFragment tradeFragment;
     private MineFragment mineFragment;
+    private TestFragment testFragment;
 
     private MainFragment mainCatchFragment;
     private WardrobeFragment findCatchFragment;
     private FindFragment tradeCatchFragment;
     private MineFragment mineCatchFragment;
-
+    private TestFragment testCatchFragment;
 
     private RelativeLayout mBottomLayout;
     private BottomView mBottomView;
 
 
+    @InjectView(R.id.realtabcontent)
+    protected FrameLayout realtabcontent;
+
     public static MainActivity mainActivity;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,16 +94,17 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 FindFragment.class.getName(), null);
         this.mineFragment = (MineFragment) Fragment.instantiate(this,
                 MineFragment.class.getName(), null);
+
+        this.testFragment = (TestFragment) Fragment.instantiate(this, TestFragment.class.getName(), null);
     }
 
     private void showContent() {
-
-
         if (this.mFragmentManager == null) {
             this.mFragmentManager = this.getSupportFragmentManager();
         }
         this.mFragmentTransaction = this.mFragmentManager.beginTransaction();
         this.getCacheFragement();
+
         if (currentPostion == 0) {
             this.setCurrentFragment(mainCatchFragment, mainFragment, "tab1");
 
@@ -102,7 +112,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             this.setCurrentFragment(findCatchFragment, findFragment, "tab2");
 
         } else if (currentPostion == 2) {
-            this.setCurrentFragment(findCatchFragment, findFragment, "tab2");
+            this.setCurrentFragment(testCatchFragment, testFragment, "tab3");
 //            this.setCurrentFragment(tradeCatchFragment, tradeFragment, "tab4");
 
         } else if (currentPostion == 3) {
@@ -119,12 +129,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         this.findCatchFragment = (WardrobeFragment) getCacheFragment("tab2");
         this.tradeCatchFragment = (FindFragment) getCacheFragment("tab4");
         this.mineCatchFragment = (MineFragment) getCacheFragment("tab5");
+        this.testCatchFragment = (TestFragment) getCacheFragment("tab3");
 
 
         this.hideFragment(mainCatchFragment);
         this.hideFragment(findCatchFragment);
         this.hideFragment(tradeCatchFragment);
         this.hideFragment(mineCatchFragment);
+        this.hideFragment(testCatchFragment);
     }
 
     private Fragment getCacheFragment(String tag) {

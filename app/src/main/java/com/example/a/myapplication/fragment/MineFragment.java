@@ -98,7 +98,8 @@ public class MineFragment extends Fragment {
      */
     @OnClick({R.id.order_text, R.id.shopping_text, R.id.integral_text,
             R.id.replacement_text, R.id.collect_text, R.id.fans_layout,
-            R.id.attention_layout, R.id.right, R.id.file_text, R.id.message_icon})
+            R.id.attention_layout, R.id.right, R.id.file_text, R.id.message_icon,
+            R.id.head})
     public void OnClic(View v) {
         switch (v.getId()) {
             case R.id.order_text://我的订单
@@ -131,6 +132,9 @@ public class MineFragment extends Fragment {
                 break;
             case R.id.message_icon://消息
                 CommonUtils.startIntent(getActivity(), MessageActvity.class);
+                break;
+            case R.id.head://点击头像
+                CommonUtils.startIntent(getActivity(), MyProFileActivity.class);
                 break;
 
 

@@ -1,5 +1,7 @@
 package com.example.a.myapplication.bean;
 
+import java.util.List;
+
 /**
  * Created by a on 2016/12/27.
  */
@@ -7,12 +9,12 @@ package com.example.a.myapplication.bean;
 public class CartShopInfoModel  extends BaseModel{
 
     /**
-     * o : {"img":"/wardrobe/code/wardrode/Public/Uploads/20161217/5854ddf3220c2.png","name":"精品女装","price":"500.00","color":"绿色","S":"S","L":"L","XL":"XL"}
-     * e :
+     * o : {"img":"/Public/Uploads/20161230/thumb_5866393ca7b5b.jpg","name":"墨蓝裙","price":"700.00","color":"水蓝","size":["M","L","XL"]}
+     * e : null
      */
 
     private OBean o;
-    private String e;
+    private Object e;
 
     public OBean getO() {
         return o;
@@ -22,32 +24,28 @@ public class CartShopInfoModel  extends BaseModel{
         this.o = o;
     }
 
-    public String getE() {
+    public Object getE() {
         return e;
     }
 
-    public void setE(String e) {
+    public void setE(Object e) {
         this.e = e;
     }
 
     public static class OBean {
         /**
-         * img : /wardrobe/code/wardrode/Public/Uploads/20161217/5854ddf3220c2.png
-         * name : 精品女装
-         * price : 500.00
-         * color : 绿色
-         * S : S
-         * L : L
-         * XL : XL
+         * img : /Public/Uploads/20161230/thumb_5866393ca7b5b.jpg
+         * name : 墨蓝裙
+         * price : 700.00
+         * color : 水蓝
+         * size : ["M","L","XL"]
          */
 
         private String img;
         private String name;
         private String price;
         private String color;
-        private String S;
-        private String L;
-        private String XL;
+        private List<String> size;
 
         public String getImg() {
             return img;
@@ -81,28 +79,12 @@ public class CartShopInfoModel  extends BaseModel{
             this.color = color;
         }
 
-        public String getS() {
-            return S;
+        public List<String> getSize() {
+            return size;
         }
 
-        public void setS(String S) {
-            this.S = S;
-        }
-
-        public String getL() {
-            return L;
-        }
-
-        public void setL(String L) {
-            this.L = L;
-        }
-
-        public String getXL() {
-            return XL;
-        }
-
-        public void setXL(String XL) {
-            this.XL = XL;
+        public void setSize(List<String> size) {
+            this.size = size;
         }
     }
 }

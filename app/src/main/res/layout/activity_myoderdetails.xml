@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/title_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:id="@+id/location_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_layout"
+        android:background="@color/location_color"
+        android:gravity="center_vertical">
+
+
+        <ImageView
+            android:id="@+id/location_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:src="@drawable/icon_location"/>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="10dp"
+
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/location_icon"
+            android:background="@color/white"/>
+
+
+        <LinearLayout
+            android:id="@+id/location_linear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="40dp"
+
+            android:layout_toRightOf="@id/location_icon"
+            android:orientation="vertical"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="姓名：擦是打算"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"/>
+
+                <TextView
+                    android:id="@+id/phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="电话：17771436337"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"/>
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="湖北省 武汉市  江夏区 *******区*********市********楼"
+                android:textColor="@color/white"
+                android:textSize="14sp"/>
+        </LinearLayout>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/buttom_layout"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/bg_transparency"/>
+
+        <TextView
+            android:id="@+id/state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            android:text="待付款"
+            android:textColor="@color/black_text"
+            android:textSize="14sp"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/bg_transparency"
+                android:gravity="center"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="取消订单"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:visibility="visible"/>
+
+
+            <TextView
+                android:id="@+id/goPay"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/black"
+                android:gravity="center"
+                android:paddingLeft="25dp"
+                android:paddingRight="25dp"
+                android:text="去支付"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:visibility="gone"/>
+
+
+            <TextView
+                android:id="@+id/yesPay"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/black"
+                android:gravity="center"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:text="确认收货"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:visibility="visible"/>
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+
+    <com.example.a.myapplication.view.CustomListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/buttom_layout"
+        android:layout_below="@id/location_layout"
+        android:scrollbars="none"
+        />
+</RelativeLayout>

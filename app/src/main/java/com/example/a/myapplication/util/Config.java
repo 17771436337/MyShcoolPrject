@@ -174,6 +174,23 @@ public class Config {
      * 消息列表
      */
     public final static String messageList = hostString + "App/Message/messageList";
+
+
+    /**
+     * 我的订单详情
+     */
+    public final static String details = hostString + "App/Order/details";
+
+
+    /**
+     * 确认收货
+     */
+    public final static String sureGet = hostString + "App/Order/sureGet";
+
+    /**
+     * 取消订单
+     */
+    public final static String cancel = hostString + "App/Order/cancel";
     //---------------------------------------------------------------------
 
 
@@ -280,11 +297,11 @@ public class Config {
      */
     public static final String getExclusiveItems = Config.hostString + "App/Exclusive/getExclusiveItems";
     /**
-     *单品详情下http://115.28.94.239/wardrobe/code/wardrode/index.php?s=/App/Item/styleCollect
+     * 单品详情下http://115.28.94.239/wardrobe/code/wardrode/index.php?s=/App/Item/styleCollect
      */
     public static final String styleCollect = Config.hostString + "App/Item/styleCollect";
     /**
-     *商品详情下http://115.28.94.239/wardrobe/code/wardrode/index.php?s=/App/Shop/shopCollect
+     * 商品详情下http://115.28.94.239/wardrobe/code/wardrode/index.php?s=/App/Shop/shopCollect
      */
     public static final String shopCollect = Config.hostString + "App/Shop/shopCollect";
 
