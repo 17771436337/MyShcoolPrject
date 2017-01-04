@@ -10,7 +10,6 @@ import android.os.Environment;
 import android.os.Handler;
 import android.util.DisplayMetrics;
 
-
 import com.example.a.myapplication.BaseApplication;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
@@ -119,6 +118,8 @@ public class UIUtils {
     }
 
 
+
+
     // 以下是获得版本信息的工具方法
     //版本名
     public static String getVersionName(Context context) {
@@ -145,6 +146,7 @@ public class UIUtils {
 
         return pi;
     }
+
     public static File getFileFromServer(String path, ProgressDialog pd) throws Exception {
         //如果相等的话表示当前的sdcard挂载在手机上并且是可用的
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
@@ -176,7 +178,9 @@ public class UIUtils {
     }
 
 
-             /**设置默认圆形图片*/
+    /**
+     * 设置默认圆形图片
+     */
     public static DisplayImageOptions getRoundedDisplayOptions(int resId) {
         return new DisplayImageOptions.Builder().delayBeforeLoading(0)
                 .cacheInMemory(true).showImageOnLoading(resId)

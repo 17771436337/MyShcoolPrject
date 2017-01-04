@@ -7,7 +7,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
 import android.os.Bundle;
-import android.telephony.TelephonyManager;
+import android.provider.Settings;
 import android.text.TextUtils;
 
 import java.io.File;
@@ -61,11 +61,12 @@ public class CommonUtils {
         Intent intent = context.getPackageManager().getLaunchIntentForPackage(packageName);
         context.startActivity(intent);
     }
+
     /**
      * 判断不是为null 和""
      */
-    public static boolean  isNullAnd(String str){
-        if("".equals(str)||null==str){
+    public static boolean isNullAnd(String str) {
+        if ("".equals(str) || null == str) {
             return false;
         }
         return true;
@@ -81,7 +82,7 @@ public class CommonUtils {
         电信：133、153、180、189、（1349卫通）
         总结起来就是第一位必定为1，第二位必定为3或5或8，其他位置的可以为0-9
         */
-        String telRegex = "[1][358]\\d{9}";//"[1]"代表第1位为数字1，"[358]"代表第二位可以为3、5、8中的一个，"\\d{9}"代表后面是可以是0～9的数字，有9位。
+        String telRegex = "[1][3578]\\d{9}";//"[1]"代表第1位为数字1，"[358]"代表第二位可以为3、5、8中的一个，"\\d{9}"代表后面是可以是0～9的数字，有9位。
         if (TextUtils.isEmpty(mobiles)) return false;
         else return mobiles.matches(telRegex);
     }
@@ -93,11 +94,14 @@ public class CommonUtils {
      */
     public static String getSzimei(Context mContext) {
         String szimei;
-        try {
-            szimei = ((TelephonyManager) mContext.getSystemService(mContext.TELEPHONY_SERVICE)).getDeviceId();
-        } catch (Exception e) {
-            return "";
-        }
+//        try {
+//            szimei = ((TelephonyManager) mContext.getSystemService(mContext.TELEPHONY_SERVICE)).getDeviceId();
+//        } catch (Exception e) {
+//            return "";
+//        }
+
+        szimei = Settings.Secure.getString(mContext.getContentResolver(),
+                Settings.Secure.ANDROID_ID);
 
         return szimei;
     }

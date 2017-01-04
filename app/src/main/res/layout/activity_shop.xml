@@ -63,6 +63,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="right"
                 android:text="不含运费"
                 android:textColor="@color/black_transparency_text"
                 android:textSize="12sp"/>

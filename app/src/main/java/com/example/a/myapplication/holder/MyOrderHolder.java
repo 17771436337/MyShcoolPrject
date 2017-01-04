@@ -99,10 +99,11 @@ public class MyOrderHolder extends BaseHolder<MyOrderModer.Order> {
 //        time.setText(DateUtils.getShortTime(data.getTime()));
         time.setText(TimeUtils.getTime(l));
 
+
         Log.e("Audit", data.getAudit());
         switch (Integer.parseInt(data.getAudit())) {
             case 0://0待支付
-                audit.setText("待支付");
+                audit.setText("待付款");
                 break;
             case 1://1已支付-待发货/
                 audit.setText("待发货");
@@ -112,6 +113,9 @@ public class MyOrderHolder extends BaseHolder<MyOrderModer.Order> {
                 break;
             case 3://3已完成/
                 audit.setText("已完成");
+                break;
+            case 4:
+                audit.setText("待审核");
                 break;
         }
 

@@ -144,6 +144,7 @@ public class MyOrderDetailsActivity extends BaseActivity {
                     @Override
                     public void onSuccss(BaseModel baseModel) {
                         EventBus.getDefault().post(baseModel.getM());
+                        finish();
                     }
 
                     @Override
@@ -185,7 +186,7 @@ public class MyOrderDetailsActivity extends BaseActivity {
 
                 switch (myOrderDetailModel.getE().getAudit()) {
                     case "0":  // 0待支付，1已支付-待发货，2待收货，3已完成
-                        state.setText("待支付");
+                        state.setText("待付款");
                         state.setTextColor(this.getResources().getColor(R.color.red_text));
 
                         cancel.setVisibility(View.VISIBLE);
@@ -196,8 +197,8 @@ public class MyOrderDetailsActivity extends BaseActivity {
                         state.setText("待发货");
                         state.setTextColor(this.getResources().getColor(R.color.black_text));
 
-                        cancel.setVisibility(View.VISIBLE);
-                        goPay.setVisibility(View.VISIBLE);
+                        cancel.setVisibility(View.GONE);
+                        goPay.setVisibility(View.GONE);
                         yesPay.setVisibility(View.GONE);
                         break;
                     case "2":  // 0待支付，1已支付-待发货，2待收货，3已完成
@@ -216,6 +217,15 @@ public class MyOrderDetailsActivity extends BaseActivity {
                         goPay.setVisibility(View.GONE);
                         yesPay.setVisibility(View.GONE);
                         break;
+                    case "4":
+                        state.setText("待审核");
+                        state.setTextColor(this.getResources().getColor(R.color.black_text));
+
+                        cancel.setVisibility(View.GONE);
+                        goPay.setVisibility(View.GONE);
+                        yesPay.setVisibility(View.GONE);
+                        break;
+
                 }
 
 
@@ -226,6 +236,9 @@ public class MyOrderDetailsActivity extends BaseActivity {
 
         if (obj instanceof String) {
             String baseModel = (String) obj;
+            if (baseModel.contains("成功")) {
+                getData();
+            }
             Toast.makeText(this, baseModel + "", Toast.LENGTH_SHORT).show();
 
 

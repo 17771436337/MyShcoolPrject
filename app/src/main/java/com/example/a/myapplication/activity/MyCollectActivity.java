@@ -10,6 +10,7 @@ import com.example.a.myapplication.bean.MyCollecModer;
 import com.example.a.myapplication.http.OkHttpUtil;
 import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
+import com.example.a.myapplication.util.Preference;
 import com.example.a.myapplication.util.ScreenUtils;
 import com.example.a.myapplication.view.TitleView1;
 import com.handmark.pulltorefresh.library.PullToRefreshGridView;
@@ -105,7 +106,7 @@ public class MyCollectActivity extends BaseActivity {
     private void getData() {
 
         Map<String, String> par = CommonUtils.getMapParm();
-        par.put("uid", "2");
+        par.put("uid", Preference.get(Config.ID, ""));
         par.put("type", type + "");
         par.put("brands", "");
         par.put("categorys", "");

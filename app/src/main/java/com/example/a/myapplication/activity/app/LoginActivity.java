@@ -69,6 +69,10 @@ public class LoginActivity extends BaseActivity {
                     Toast.makeText(this, "请输入手机号", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if (!CommonUtils.isMobileNO(phone)) {
+                    Toast.makeText(this, "请输入正确手机号", Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 String password = passEditText.getText().toString();
                 if (TextUtils.isEmpty(password)) {

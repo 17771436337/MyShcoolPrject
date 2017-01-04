@@ -64,6 +64,7 @@ public class OrderFragment extends BaseFragment implements AdapterView.OnItemCli
         position = getArguments().getInt(ARGS_TYPE);
     }
 
+
     @Override
     protected View onLoadSuccessView() {
         view = View.inflate(getActivity(), R.layout.fragment_orderlist, null);

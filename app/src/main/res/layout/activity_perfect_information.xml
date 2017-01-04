@@ -65,6 +65,17 @@
         android:layout_marginTop="5dp"
         android:background="@color/bg_transparency"/>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="昵称请控制在2~20个字符，支持中英文，数字，下划线"
+        android:textColor="@color/black_transparency_text"
+        android:textSize="12sp"/>
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

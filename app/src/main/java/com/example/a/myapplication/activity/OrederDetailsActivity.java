@@ -12,6 +12,7 @@ import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
 import com.example.a.myapplication.adapter.ExpandableListViewAdapter;
 import com.example.a.myapplication.adapter.OrederAdapter;
+import com.example.a.myapplication.bean.BaseModel;
 import com.example.a.myapplication.bean.OrderDetailModel;
 import com.example.a.myapplication.bean.UserCouponModel;
 import com.example.a.myapplication.http.OkHttpUtil;
@@ -63,7 +64,7 @@ public class OrederDetailsActivity extends BaseActivity {
     String id;
     public static int orderId;
 
-    private double priceSum;
+    public static double priceSum = 0.00;
 
     @Override
     protected int getLayoutID() {
@@ -96,6 +97,8 @@ public class OrederDetailsActivity extends BaseActivity {
 //
     }
 
+    String string;
+
     @Override
     protected void initData() {
         id = getIntent().getExtras().getString("id");
@@ -103,26 +106,8 @@ public class OrederDetailsActivity extends BaseActivity {
         adapterExpandableListView.addTextChange(new ExpandableListViewAdapter.AddTextChange() {
             @Override
             public void addTextChangedListener(CharSequence s) {
+                string = s.toString();
 
-                Map<String, String> par = CommonUtils.getMapParm();
-                par.put("uid", Preference.get(Config.ID, ""));
-                if (!TextUtils.isEmpty(s)) {
-                    par.put("coupon_no", s.toString());
-                }
-                par.put("oid", orderId + "");
-                OkHttpUtil.getInstance().addRequestPost(Config.useCoupon, par, new OkHttpUtil.HttpCallBack<UserCouponModel>() {
-
-                    @Override
-                    public void onSuccss(UserCouponModel userCouponModel) {
-                        EventBus.getDefault().post(userCouponModel);
-
-                    }
-
-                    @Override
-                    public void onFailure(String error) {
-
-                    }
-                });
             }
         });
     }
@@ -204,25 +189,9 @@ public class OrederDetailsActivity extends BaseActivity {
                     adapterExpandableListView.notifyDataSetChanged();
                 }
 
-            } else {
-                Toast.makeText(OrederDetailsActivity.this, userCouponModel.getM() + "", Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
-
-    UserCouponModel userCouponModel;
-
-    @OnClick({R.id.yes})
-    protected void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.yes:
-
                 if (orderId != 0) {
                     if (userCouponModel != null && userCouponModel.getC() == 1) {
-                        Bundle bundle = new Bundle();
-                        bundle.putInt("oid", orderId);
-                        bundle.putString("orderPrice", priceSum + "");
-                        CommonUtils.startIntent(this, ConfirmAnOrderActivity.class, bundle);
+                        sureOrder();
                     } else if (userCouponModel == null) {
                         Bundle bundle = new Bundle();
                         bundle.putInt("oid", orderId);
@@ -233,6 +202,48 @@ public class OrederDetailsActivity extends BaseActivity {
                         Toast.makeText(OrederDetailsActivity.this, userCouponModel.getM() + "", Toast.LENGTH_SHORT).show();
                     }
                 }
+
+            } else {
+                Toast.makeText(OrederDetailsActivity.this, userCouponModel.getM() + "", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        if (obj instanceof String) {
+            Bundle bundle = new Bundle();
+            bundle.putInt("oid", orderId);
+            bundle.putString("orderPrice", priceSum + "");
+            CommonUtils.startIntent(this, ConfirmAnOrderActivity.class, bundle);
+        }
+    }
+
+    UserCouponModel userCouponModel;
+
+    @OnClick({R.id.yes})
+    protected void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.yes:
+
+                Map<String, String> par = CommonUtils.getMapParm();
+                par.put("uid", Preference.get(Config.ID, ""));
+                if (!TextUtils.isEmpty(string)) {
+                    par.put("coupon_no", string);
+                }
+                par.put("oid", orderId + "");
+                OkHttpUtil.getInstance().addRequestPost(Config.useCoupon, par, new OkHttpUtil.HttpCallBack<UserCouponModel>() {
+
+                    @Override
+                    public void onSuccss(UserCouponModel userCouponModel) {
+                        EventBus.getDefault().post(userCouponModel);
+
+                    }
+
+                    @Override
+                    public void onFailure(String error) {
+
+                    }
+                });
+
+
                 break;
         }
 
@@ -243,6 +254,30 @@ public class OrederDetailsActivity extends BaseActivity {
         priceSum = priceSum - price;
         this.price.setText("￥" + priceSum);
         favorable.setText("-￥" + price);
+        adapterExpandableListView.price = price + "";
+        adapterExpandableListView.notifyDataSetChanged();
+
     }
 
+
+    private void sureOrder() {
+        Map<String, String> par = CommonUtils.getMapParm();
+        par.put("uid", Config.ID);
+        par.put("oid", orderId + "");
+        par.put("fid", userCouponModel.getO().getId());
+        par.put("favprice", userCouponModel.getO().getPrice());
+        OkHttpUtil.getInstance().addRequestPost(Config.sureOrder, par, new OkHttpUtil.HttpCallBack<BaseModel>() {
+
+            @Override
+            public void onSuccss(BaseModel baseModel) {
+
+                EventBus.getDefault().post("onSuccss");
+            }
+
+            @Override
+            public void onFailure(String error) {
+
+            }
+        });
+    }
 }

@@ -77,6 +77,11 @@ public class ChangPassWordActivty extends BaseActivity {
                     return;
                 }
 
+                if (!CommonUtils.isMobileNO(phone)) {
+                    Toast.makeText(this, "请输入正确手机号", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 String opassword = opasswordEditText.getText().toString();
                 if (TextUtils.isEmpty(opassword)) {
                     Toast.makeText(this, "请输入原密码", Toast.LENGTH_SHORT).show();

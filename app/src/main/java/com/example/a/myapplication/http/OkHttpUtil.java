@@ -1,6 +1,9 @@
 package com.example.a.myapplication.http;
 
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
@@ -43,6 +46,10 @@ public class OkHttpUtil {
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
     public static OkHttpUtil getInstance() {
+        if (!isNetworkConnected(BaseApplication.getContext())) {
+            Toast.makeText(BaseApplication.mCurrentActivity, "当前网络故障，请检查网络设置", Toast.LENGTH_SHORT).show();
+        }
+
         return SingletonHolder.mInstance;
     }
 
@@ -67,6 +74,8 @@ public class OkHttpUtil {
                 .url(url)
                 .put(buildParams(params))
                 .build();
+
+
         final Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {
             @Override
@@ -105,6 +114,9 @@ public class OkHttpUtil {
                 .url(url)
                 .post(requestBody)
                 .build();
+
+
+
         final Call call = okHttpClient.newCall(request);
         call.enqueue(new Callback() {
             @Override
@@ -308,7 +320,7 @@ public class OkHttpUtil {
 
                     int status = new JSONObject(body).getInt("c");
                     String msg = new JSONObject(body).getString("m");
-                    if(0==status) {
+                    if (0 == status) {
                         Toast.makeText(BaseApplication.mCurrentActivity, msg, Toast.LENGTH_SHORT);
                         return;
                     }
@@ -399,23 +411,37 @@ public class OkHttpUtil {
         return requestBody;
     }
 
+    /**
+     * 是否联网
+     */
+    private static boolean isNetworkConnected(Context context) {
+        ConnectivityManager mConnectivityManager = (ConnectivityManager) context
+                .getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo mNetworkInfo = mConnectivityManager.getActiveNetworkInfo();
+        if (mNetworkInfo != null) {
+            return mNetworkInfo.isAvailable();
+        }
+        return false;
+    }
+
     public interface HttpCallBack<T> {
         void onSuccss(T t);
 
         void onFailure(String error);
     }
 
-    public void isDebug(String json)  {
+    public void isDebug(String json) {
         Log.e("网络请求返回的json", json + "");
     }
+
     public boolean isOk(String json) throws JSONException {
 
         int status = new JSONObject(json).getInt("c");
         String msg = new JSONObject(json).getString("m");
-        if(0==status){
-            Toast.makeText(BaseApplication.mCurrentActivity,msg,Toast.LENGTH_SHORT);
+        if (0 == status) {
+            Toast.makeText(BaseApplication.mCurrentActivity, msg, Toast.LENGTH_SHORT);
             return false;
-        }else{
+        } else {
             return true;
         }
     }

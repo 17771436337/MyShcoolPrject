@@ -1,7 +1,10 @@
 package com.example.a.myapplication.activity;
 
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
@@ -20,6 +23,7 @@ import com.example.a.myapplication.http.OkHttpUtil;
 import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
 import com.example.a.myapplication.util.Preference;
+import com.example.a.myapplication.util.UIUtils;
 import com.example.a.myapplication.view.TitleView1;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
@@ -127,7 +131,12 @@ public class ShopActivity extends BaseActivity implements ContentHolder.IsChecke
                     }
                 }
                 adapter.notifyDataSetChanged();
-                priceTextView.setText(pricer + "");
+                String text = "总价：￥" + pricer;
+                SpannableStringBuilder style = new SpannableStringBuilder(text);
+                style.setSpan(new ForegroundColorSpan(UIUtils.getContext().getResources().getColor(R.color.red_text)), 3, text.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE); //设置指定位置文字的颜色
+                style.setSpan(new ForegroundColorSpan(UIUtils.getContext().getResources().getColor(R.color.black_transparency_text)), 0, 3, Spannable.SPAN_EXCLUSIVE_INCLUSIVE); //设置指定位置文字的颜色
+                priceTextView.setText(style);
+
                 break;
         }
     }
@@ -194,7 +203,11 @@ public class ShopActivity extends BaseActivity implements ContentHolder.IsChecke
                 }
             }
         }
-        priceTextView.setText(pricer + "");
+        String text = "总价：￥" + pricer;
+        SpannableStringBuilder style = new SpannableStringBuilder(text);
+        style.setSpan(new ForegroundColorSpan(UIUtils.getContext().getResources().getColor(R.color.red_text)), 3, text.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE); //设置指定位置文字的颜色
+        style.setSpan(new ForegroundColorSpan(UIUtils.getContext().getResources().getColor(R.color.black_transparency_text)), 0, 3, Spannable.SPAN_EXCLUSIVE_INCLUSIVE); //设置指定位置文字的颜色
+        priceTextView.setText(style);
     }
 
 
@@ -216,7 +229,11 @@ public class ShopActivity extends BaseActivity implements ContentHolder.IsChecke
             }
         }
 
-        priceTextView.setText(pricer + "");
+        String text = "总价：￥" + pricer;
+        SpannableStringBuilder style = new SpannableStringBuilder(text);
+        style.setSpan(new ForegroundColorSpan(UIUtils.getContext().getResources().getColor(R.color.red_text)), 3, text.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE); //设置指定位置文字的颜色
+        style.setSpan(new ForegroundColorSpan(UIUtils.getContext().getResources().getColor(R.color.black_transparency_text)), 0, 3, Spannable.SPAN_EXCLUSIVE_INCLUSIVE); //设置指定位置文字的颜色
+        priceTextView.setText(style);
     }
 
 

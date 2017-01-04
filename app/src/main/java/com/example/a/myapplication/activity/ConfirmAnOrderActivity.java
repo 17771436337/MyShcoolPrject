@@ -289,20 +289,28 @@ public class ConfirmAnOrderActivity extends BaseActivity {
 
 
         if (requestCode == REQUESTCODE && resultCode == resultCcode) {
-            LocationMoldel.Location location = (LocationMoldel.Location) data.getSerializableExtra("data");
 
-            if (location != null) {
-                textView.setVisibility(View.GONE);
-                location_layout.setVisibility(View.VISIBLE);
-                aid = location.getId();
-                name.setText("姓名：" + location.getName());
-                phone.setText("电话：" + location.getPhone());
-                address.setText(location.getProvince() + "    " + location.getCity() + "     "
-                        + location.getArea() +
-                        "\r\n" + location.getAddress());
-            } else {
-                textView.setVisibility(View.VISIBLE);
-                location_layout.setVisibility(View.GONE);
+            try {
+
+
+                LocationMoldel.Location location = (LocationMoldel.Location) data.getSerializableExtra("data");
+
+                if (location != null) {
+                    textView.setVisibility(View.GONE);
+                    location_layout.setVisibility(View.VISIBLE);
+                    aid = location.getId();
+                    name.setText("姓名：" + location.getName());
+                    phone.setText("电话：" + location.getPhone());
+                    address.setText(location.getProvince() + "    " + location.getCity() + "     "
+                            + location.getArea() +
+                            "\r\n" + location.getAddress());
+                } else {
+                    textView.setVisibility(View.VISIBLE);
+                    location_layout.setVisibility(View.GONE);
+                }
+
+            } catch (Exception e) {
+
             }
         }
 

@@ -191,6 +191,11 @@ public class Config {
      * 取消订单
      */
     public final static String cancel = hostString + "App/Order/cancel";
+
+    /**
+     * 结算完，点确定接口
+     */
+    public final static String sureOrder = hostString + "App/Order/sureOrder";
     //---------------------------------------------------------------------
 
 

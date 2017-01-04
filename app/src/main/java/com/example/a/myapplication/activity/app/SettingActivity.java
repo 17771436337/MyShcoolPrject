@@ -14,6 +14,7 @@ import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
 import com.example.a.myapplication.util.DataCleanManager;
 import com.example.a.myapplication.util.Preference;
+import com.example.a.myapplication.util.UIUtils;
 import com.example.a.myapplication.view.TitleView1;
 
 import org.greenrobot.eventbus.EventBus;
@@ -24,6 +25,8 @@ import java.util.Map;
 import butterknife.InjectView;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
+
+import static android.widget.Toast.makeText;
 
 /**
  * Created by Administrator on 2016/12/8.
@@ -39,6 +42,9 @@ public class SettingActivity extends BaseActivity {
 
     @InjectView(R.id.remind)
     protected ToggleButton remind;
+
+    @InjectView(R.id.versio)
+    protected TextView versio;
 
     @Override
     protected int getLayoutID() {
@@ -67,7 +73,7 @@ public class SettingActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-
+        versio.setText(UIUtils.getVersionName(this));
     }
 
     @OnCheckedChanged(R.id.remind)
@@ -99,7 +105,7 @@ public class SettingActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.cache_layout, R.id.binding_phone_text, R.id.chang_password_text, R.id.feed_back_text, R.id.out})
+    @OnClick({R.id.cache_layout, R.id.binding_phone_text, R.id.chang_password_text, R.id.feed_back_text, R.id.out, R.id.versio_layout})
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.cache_layout://清理缓存
@@ -114,7 +120,9 @@ public class SettingActivity extends BaseActivity {
                 }
                 break;
             case R.id.binding_phone_text://绑定手机号
-                CommonUtils.startIntent(this, BingDingPhoneActivty.class);
+//                CommonUtils.startIntent(this, BingDingPhoneActivty.class);
+
+                makeText(this, "研发中，敬请期待", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.chang_password_text://修改密码
                 CommonUtils.startIntent(this, ChangPassWordActivty.class);
@@ -135,6 +143,12 @@ public class SettingActivity extends BaseActivity {
 
                     }
                 });
+                break;
+
+            case R.id.versio_layout:
+                if (UIUtils.getVersionName(this).equals(versio.getText().toString().toString())) {
+                    makeText(this, "当前版本已是最新版本", Toast.LENGTH_SHORT).show();
+                }
                 break;
         }
 

@@ -32,7 +32,6 @@ public abstract class BaseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
         this.inflater = inflater;
-
         if (mLoadingPager == null) {
             mLoadingPager = new LoadingPager(getActivity()) {
                 @Override
@@ -52,8 +51,16 @@ public abstract class BaseFragment extends Fragment {
             }
         }
 
+
         return mLoadingPager;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        this.loadData();
+    }
+
 
     @Override
     public void onStart() {
@@ -94,10 +101,11 @@ public abstract class BaseFragment extends Fragment {
     public void onPause() {
         super.onPause();
         if (EventBus.getDefault().isRegistered(this)) {
-                              EventBus.getDefault().unregister(this);
+            EventBus.getDefault().unregister(this);
         }
 
     }
+
 
     @Override
     public void onDestroy() {
@@ -113,6 +121,7 @@ public abstract class BaseFragment extends Fragment {
         Typeface iconfont = Typeface.createFromAsset(UIUtils.getContext().getAssets(), "iconfont.ttf");
         mTextView.setTypeface(iconfont);
     }
+
     /**
      * 初始化icon字体
      */
@@ -120,6 +129,7 @@ public abstract class BaseFragment extends Fragment {
         Typeface iconfont = Typeface.createFromAsset(getActivity().getAssets(), "iconfont.ttf");
         mTextView.setTypeface(iconfont);
     }
+
     /*以下为：事件分发*/
     @Subscribe(threadMode = ThreadMode.POSTING)
     public void onEvent(Object obj) {

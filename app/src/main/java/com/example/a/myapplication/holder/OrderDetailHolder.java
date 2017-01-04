@@ -79,7 +79,7 @@ public class OrderDetailHolder extends BaseHolder<OrderDetailModel.Shop> {
             price += (num * sum);
         }
 
-        String text = "总价：" + price;
+        String text = "总价：￥" + price;
         SpannableStringBuilder style = new SpannableStringBuilder(text);
         style.setSpan(new ForegroundColorSpan(UIUtils.getContext().getResources().getColor(R.color.green_text)), 3, text.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE); //设置指定位置文字的颜色
         style.setSpan(new ForegroundColorSpan(UIUtils.getContext().getResources().getColor(R.color.black_transparency_text)), 0, 3, Spannable.SPAN_EXCLUSIVE_INCLUSIVE); //设置指定位置文字的颜色

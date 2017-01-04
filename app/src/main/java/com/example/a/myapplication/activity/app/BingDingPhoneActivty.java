@@ -13,6 +13,7 @@ import com.example.a.myapplication.BaseActivity;
 import com.example.a.myapplication.R;
 import com.example.a.myapplication.bean.BaseModel;
 import com.example.a.myapplication.http.OkHttpUtil;
+import com.example.a.myapplication.util.CommonUtils;
 import com.example.a.myapplication.util.Config;
 import com.example.a.myapplication.view.TitleView1;
 
@@ -72,6 +73,11 @@ public class BingDingPhoneActivty extends BaseActivity {
                 String phone = phoneEditText.getText().toString();
                 if (TextUtils.isEmpty(phone) || phone.length() < 11) {
                     Toast.makeText(this, "请输入手机号", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (!CommonUtils.isMobileNO(phone)) {
+                    Toast.makeText(this, "请输入正确手机号", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
